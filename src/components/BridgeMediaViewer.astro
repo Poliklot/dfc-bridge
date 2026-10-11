@@ -1,0 +1,198 @@
+---
+import '../styles/bridge-media.css';
+
+interface Props {
+  locale: 'ru' | 'en' | 'zh';
+}
+
+const { locale } = Astro.props;
+const copy = locale === 'ru'
+  ? {
+      open: 'Открыть на весь экран',
+      close: 'Закрыть',
+      fit: 'Вместить',
+      actual: 'Исходный размер',
+      zoomIn: 'Приблизить',
+      zoomOut: 'Отдалить',
+      help: 'Приближайте и листайте. Закрыть — Esc.',
+      error: 'Не удалось открыть. Обновите страницу и попробуйте ещё раз.',
+    }
+  : locale === 'zh'
+    ? {
+        open: '全屏查看',
+        close: '关闭',
+        fit: '适应屏幕',
+        actual: '原始大小',
+        zoomIn: '放大',
+        zoomOut: '缩小',
+        help: '放大后滚动查看细节。按 Esc 关闭。',
+        error: '无法打开。请刷新页面后重试。',
+      }
+    : {
+        open: 'View fullscreen',
+        close: 'Close',
+        fit: 'Fit',
+        actual: 'Original size',
+        zoomIn: 'Zoom in',
+        zoomOut: 'Zoom out',
+        help: 'Zoom and scroll to read details. Esc closes.',
+        error: 'Could not open. Refresh the page and try again.',
+      };
+---
+
+<bridge-media-viewer data-open-label={copy.open} data-pagefind-ignore>
+  <dialog class="bridge-media-dialog" aria-labelledby="bridge-media-title" aria-describedby="bridge-media-help">
+    <header class="bridge-media-toolbar">
+      <p id="bridge-media-title"></p>
+      <div class="bridge-media-controls">
+        <div class="bridge-media-zoom" data-image-controls>
+          <button type="button" data-zoom-out aria-label={copy.zoomOut} title={copy.zoomOut}>−</button>
+          <button type="button" data-actual-size aria-label={copy.actual} title={copy.actual}>100%</button>
+          <button type="button" data-zoom-in aria-label={copy.zoomIn} title={copy.zoomIn}>+</button>
+          <button type="button" data-fit title={copy.fit}>{copy.fit}</button>
+        </div>
+        <button type="button" class="bridge-media-close" data-close aria-label={copy.close} title={copy.close} autofocus>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+    </header>
+    <div class="bridge-media-stage" tabindex="0" role="region" aria-label={copy.open}>
+      <div class="bridge-media-canvas"></div>
+      <p class="bridge-media-error" role="status" hidden>{copy.error}</p>
+    </div>
+    <p id="bridge-media-help" class="bridge-media-help">{copy.help}</p>
+  </dialog>
+</bridge-media-viewer>
+
+<script>
+  class BridgeMediaViewer extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === 'true') return;
+      const dialog = this.querySelector<HTMLDialogElement>('dialog');
+      const title = this.querySelector<HTMLElement>('#bridge-media-title');
+      const stage = this.querySelector<HTMLElement>('.bridge-media-stage');
+      const canvas = this.querySelector<HTMLElement>('.bridge-media-canvas');
+      const imageControls = this.querySelector<HTMLElement>('[data-image-controls]');
+      const actual = this.querySelector<HTMLButtonElement>('[data-actual-size]');
+      const fitButton = this.querySelector<HTMLButtonElement>('[data-fit]');
+      const zoomIn = this.querySelector<HTMLButtonElement>('[data-zoom-in]');
+      const zoomOut = this.querySelector<HTMLButtonElement>('[data-zoom-out]');
+      const closeButton = this.querySelector<HTMLButtonElement>('[data-close]');
+      const error = this.querySelector<HTMLElement>('.bridge-media-error');
+      if (!dialog || !title || !stage || !canvas || !imageControls || !actual || !fitButton || !zoomIn || !zoomOut || !closeButton || !error) return;
+      this.dataset.ready = 'true';
+
+      let activeImage: HTMLImageElement | null = null;
+      let activeVideo: HTMLVideoElement | null = null;
+      let returnFocus: HTMLButtonElement | null = null;
+      let fit = true;
+      let scale = 1;
+
+      const resize = (nextScale?: number) => {
+        if (!activeImage?.naturalWidth || !activeImage.naturalHeight) return;
+        const centerX = (stage.scrollLeft + stage.clientWidth / 2) / canvas.scrollWidth;
+        const centerY = (stage.scrollTop + stage.clientHeight / 2) / canvas.scrollHeight;
+        const fitScale = Math.min(1, (stage.clientWidth - 48) / activeImage.naturalWidth, (stage.clientHeight - 48) / activeImage.naturalHeight);
+        scale = fit ? Math.max(.01, fitScale) : Math.max(.1, Math.min(3, nextScale ?? scale));
+        activeImage.style.width = `${activeImage.naturalWidth * scale}px`;
+        activeImage.style.height = `${activeImage.naturalHeight * scale}px`;
+        actual.textContent = `${Math.round(scale * 100)}%`;
+        fitButton.setAttribute('aria-pressed', String(fit));
+        zoomOut.disabled = scale <= .1;
+        zoomIn.disabled = scale >= 3;
+        stage.scrollTo({
+          left: fit ? 0 : centerX * canvas.scrollWidth - stage.clientWidth / 2,
+          top: fit ? 0 : centerY * canvas.scrollHeight - stage.clientHeight / 2,
+          behavior: 'instant',
+        });
+      };
+
+      const changeScale = (nextScale: number) => {
+        fit = false;
+        resize(nextScale);
+      };
+      zoomIn.addEventListener('click', () => changeScale(scale * 1.5));
+      zoomOut.addEventListener('click', () => changeScale(scale / 1.5));
+      actual.addEventListener('click', () => changeScale(1));
+      fitButton.addEventListener('click', () => {
+        fit = true;
+        resize();
+      });
+      closeButton.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('close', () => {
+        activeVideo?.pause();
+        activeImage = null;
+        activeVideo = null;
+        canvas.replaceChildren();
+        returnFocus?.focus({ preventScroll: true });
+      });
+      new ResizeObserver(() => {
+        if (dialog.open && fit) resize();
+      }).observe(stage);
+
+      for (const media of document.querySelectorAll<HTMLImageElement | HTMLVideoElement>('.bridge-lesson-figure > img:not([aria-hidden="true"]), .bridge-lesson-figure > video')) {
+        const figure = media.parentElement;
+        const caption = figure?.querySelector('figcaption');
+        if (!caption || !figure || figure.querySelector('[data-bridge-media-open]')) continue;
+        const captionText = caption.textContent?.trim() || (media instanceof HTMLImageElement ? media.alt : '');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'bridge-media-open';
+        button.dataset.bridgeMediaOpen = '';
+        button.dataset.pagefindIgnore = '';
+        button.setAttribute('aria-label', `${this.dataset.openLabel || 'View fullscreen'}: ${captionText}`);
+        button.setAttribute('aria-haspopup', 'dialog');
+        button.title = this.dataset.openLabel || 'View fullscreen';
+        button.innerHTML = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5" /></svg>';
+        caption.prepend(button);
+
+        const open = () => {
+          if (dialog.open) return;
+          returnFocus = button;
+          title.textContent = captionText;
+          error.hidden = true;
+          fit = true;
+          scale = 1;
+          stage.scrollTo(0, 0);
+          imageControls.hidden = media instanceof HTMLVideoElement;
+          if (media instanceof HTMLImageElement) {
+            const image = new Image();
+            image.alt = media.alt;
+            image.className = 'bridge-media-image';
+            image.addEventListener('load', () => {
+              if (activeImage === image) resize();
+            });
+            image.addEventListener('error', () => {
+              if (activeImage === image) error.hidden = false;
+            });
+            activeImage = image;
+            canvas.replaceChildren(image);
+            image.src = media.currentSrc || media.src;
+          } else {
+            media.pause();
+            const video = media.cloneNode(true) as HTMLVideoElement;
+            video.removeAttribute('autoplay');
+            video.removeAttribute('id');
+            video.controls = true;
+            video.preload = 'metadata';
+            video.className = 'bridge-media-video';
+            video.addEventListener('error', () => {
+              if (activeVideo === video) error.hidden = false;
+            });
+            activeVideo = video;
+            canvas.replaceChildren(video);
+          }
+          dialog.showModal();
+          closeButton.focus();
+          resize();
+        };
+        button.addEventListener('click', open);
+        if (media instanceof HTMLImageElement) {
+          media.classList.add('bridge-media-preview');
+          media.addEventListener('click', open);
+        }
+      }
+    }
+  }
+  if (!customElements.get('bridge-media-viewer')) customElements.define('bridge-media-viewer', BridgeMediaViewer);
+</script>

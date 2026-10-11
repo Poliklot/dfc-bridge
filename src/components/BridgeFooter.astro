@@ -1,5 +1,6 @@
 ---
 import Pagination from '@astrojs/starlight/components/Pagination.astro';
+import BridgeMediaViewer from './BridgeMediaViewer.astro';
 import packageInfo from '../../package.json';
 
 const locale = Astro.locals.starlightRoute.locale === 'zh'
@@ -103,6 +104,8 @@ const copy = locale === 'ru'
     <span>v{packageInfo.version}</span>
   </div>
 </footer>
+
+<BridgeMediaViewer locale={locale} />
 
 <style>
   .bridge-footer-pagination--wide {

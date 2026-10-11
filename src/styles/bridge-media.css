@@ -1,0 +1,258 @@
+/* Native inspection tools: the original pixels remain untouched. */
+:root:has(.bridge-media-dialog[open]) {
+  overflow: hidden;
+}
+
+.bridge-media-preview {
+  cursor: zoom-in;
+}
+
+.sl-markdown-content .bridge-media-open,
+.bridge-media-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--bridge-line);
+  border-radius: .4rem;
+  background: var(--bridge-paper);
+  padding: .4rem .65rem;
+  color: var(--sl-color-text);
+  font: inherit;
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.sl-markdown-content .bridge-media-open {
+  float: right;
+  margin: 0 0 .25rem .75rem;
+}
+
+.sl-markdown-content .bridge-media-open:hover,
+.bridge-media-controls button:hover:not(:disabled) {
+  border-color: var(--sl-color-text-accent);
+  color: var(--sl-color-text-accent);
+}
+
+.sl-markdown-content .bridge-media-open:focus-visible,
+.bridge-media-controls button:focus-visible,
+.bridge-media-stage:focus-visible {
+  outline: 3px solid var(--sl-color-text-accent);
+  outline-offset: 3px;
+}
+
+.bridge-media-dialog {
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: var(--bridge-paper);
+  color: var(--sl-color-text);
+  overflow: hidden;
+}
+
+.bridge-media-dialog[open] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.bridge-media-dialog::backdrop {
+  background: rgb(0 0 0 / 75%);
+}
+
+.bridge-media-toolbar {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--bridge-line);
+  padding: .75rem max(1rem, env(safe-area-inset-right)) .75rem max(1rem, env(safe-area-inset-left));
+}
+
+.bridge-media-toolbar > p {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .9rem;
+}
+
+.bridge-media-controls,
+.bridge-media-zoom {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: .4rem;
+}
+
+.bridge-media-zoom[hidden] {
+  display: none;
+}
+
+.bridge-media-controls button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.bridge-media-controls [data-fit][aria-pressed='true'] {
+  border-color: var(--sl-color-text-accent);
+  background: var(--bridge-sky);
+  color: var(--sl-color-text-accent);
+}
+
+.bridge-media-stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background: var(--bridge-surface);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.bridge-media-canvas {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 24px;
+}
+
+.bridge-media-image {
+  display: block;
+  flex: none;
+  max-width: none;
+}
+
+.bridge-media-video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(80rem, calc(100vw - 48px));
+  max-height: calc(100dvh - 11rem);
+  object-fit: contain;
+}
+
+.bridge-media-help {
+  margin: 0;
+  border-top: 1px solid var(--bridge-line);
+  padding: .5rem 1rem max(.5rem, env(safe-area-inset-bottom));
+  color: var(--bridge-muted);
+  font-size: .75rem;
+}
+
+.bridge-media-error:not([hidden]) {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--bridge-surface);
+}
+
+/* The download is the only primary action; the following steps stay quiet. */
+.sl-markdown-content a.bridge-lesson-download {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  max-width: 100%;
+  min-height: 3rem;
+  margin-block: 1.25rem .5rem;
+  border-radius: .5rem;
+  padding: .6rem 1rem;
+  background: var(--bridge-blue-deep);
+  color: var(--sl-color-black);
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sl-markdown-content .bridge-lesson-download > [aria-hidden] {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.sl-markdown-content .bridge-lesson-download-format {
+  font-family: var(--sl-font-mono);
+  font-size: .8rem;
+  font-weight: 400;
+}
+
+.sl-markdown-content a.bridge-lesson-download:hover {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.sl-markdown-content a.bridge-lesson-download:focus-visible {
+  outline: 3px solid var(--sl-color-text-accent);
+  outline-offset: 4px;
+}
+
+.sl-markdown-content .bridge-lesson-download + ol {
+  margin: .5rem 0 2rem;
+  padding-left: 1.5rem;
+  color: var(--bridge-muted);
+  font-size: .875rem;
+}
+
+.sl-markdown-content .bridge-lesson-download + ol li + li {
+  margin-top: .3rem;
+}
+
+.sl-markdown-content .bridge-lesson-tree-pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.sl-markdown-content .bridge-lesson-tree-pair figcaption {
+  margin-top: .6rem;
+}
+
+.sl-markdown-content .bridge-lesson-figure > video {
+  box-sizing: border-box;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: var(--bridge-figure-inset);
+  background: var(--bridge-surface);
+}
+
+@media (max-width: 40rem) {
+  .bridge-media-toolbar {
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding-inline: max(.75rem, env(safe-area-inset-left)) max(.75rem, env(safe-area-inset-right));
+  }
+
+  .bridge-media-toolbar > p {
+    flex-basis: 100%;
+  }
+
+  .bridge-media-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .bridge-media-controls,
+  .bridge-media-zoom {
+    gap: .25rem;
+  }
+
+  .sl-markdown-content .bridge-lesson-tree-pair {
+    grid-template-columns: 1fr;
+  }
+}
