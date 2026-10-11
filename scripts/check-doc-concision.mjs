@@ -15,7 +15,8 @@ function body(markdown) {
 }
 
 function countWords(markdown, locale) {
-  const value = body(markdown);
+  // Budget reader-facing prose, not image attributes, asset URLs or HTML scaffolding.
+  const value = body(markdown).replace(/<[^>]*>/gu, '').replace(/(!?\[[^\]]*\])\([^)]+\)/gu, '$1');
   if (locale === 'zh') return [...value].filter((char) => /\p{L}|\p{N}/u.test(char)).length;
   return [...value.matchAll(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu)].length;
 }
@@ -26,6 +27,9 @@ function headingCount(markdown) {
 
 const limits = {
   'start/designer-quick-start': { en: 800, ru: 800, zh: 1200 },
+  // The visual story is for scanning. Count captions and optional details too,
+  // so moving an essay into a disclosure cannot evade its reader-facing budget.
+  'start/visual-walkthrough': { en: 800, ru: 700, zh: 1500 },
   examples: { en: 900, ru: 900, zh: 1500 },
   'check/designer-checklist': { en: 700, ru: 700, zh: 1200 },
 };

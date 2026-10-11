@@ -158,7 +158,7 @@ function rewriteLinks(markdown, sourceFile, locale) {
   // Raw HTML in canonical Markdown bypasses Markdown link rewriting. Rewrite only
   // authored relative assets; remote and already-rooted URLs remain untouched.
   return rewrittenMarkdownLinks.replace(
-    /\b(src|srcset)=(['"])((?:\.\.\/)+assets\/([^'"]+))\2/gu,
+    /\b(src|srcset|href|poster)=(['"])((?:\.\.\/)+assets\/([^'"]+))\2/gu,
     (_match, attribute, quote, _destination, assetPath) =>
       `${attribute}=${quote}${basePrefix}/assets/${assetPath}${quote}`,
   );
@@ -363,7 +363,7 @@ function relativeFileMap(directory) {
 // Public authored assets are copied by subdirectory so plugin media already in
 // public/assets is never removed. Each directory swap is recoverable and check
 // mode verifies an exact byte-for-byte tree, including stale public files.
-for (const directory of ['brand', 'diagrams']) {
+for (const directory of ['brand', 'diagrams', 'tutorial']) {
   const source = join(root, 'assets', directory);
   if (!existsSync(source)) continue;
   const target = join(root, 'public', 'assets', directory);

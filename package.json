@@ -17,7 +17,7 @@
     "dev": "astro dev",
     "prebuild": "npm run content:sync",
     "build": "astro build",
-    "check": "npm run content:sync && npm run lint:contracts && npm run lint:ru && npm run lint:rules && npm run lint:locale && npm run lint:docs && npm run lint:coverage && npm run lint:links && npm run content:check && astro check",
+    "check": "npm run content:sync && npm run lint:contracts && npm run lint:ru && npm run lint:rules && npm run lint:locale && npm run lint:docs && npm run lint:coverage && npm run lint:links && npm run lint:tutorial && npm run content:check && astro check",
     "preview": "astro preview",
     "test": "npm run check && npm run build && npm run content:check && npm run lint:built && npm run build:legacy",
     "test:e2e": "playwright test",
@@ -26,7 +26,8 @@
     "lint:contracts": "node scripts/check-validator-contracts.mjs",
     "lint:links": "node scripts/check-links.mjs",
     "lint:built": "node scripts/check-built-site.mjs",
-    "build:legacy": "node scripts/build-legacy-site.mjs"
+    "build:legacy": "node scripts/build-legacy-site.mjs",
+    "lint:tutorial": "node scripts/check-tutorial-assets.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

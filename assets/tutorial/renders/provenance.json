@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "Rectangular crop of an actual native parent-page export; source margins retained, no compositing",
+  "renders": [
+    {
+      "file": "hero-1440.png",
+      "sourceFile": "workshop-1440.png",
+      "sourceNodeId": "1:7",
+      "subjectBounds": {
+        "left": 64,
+        "top": 182,
+        "width": 1312,
+        "height": 628
+      },
+      "crop": {
+        "left": 32,
+        "top": 150,
+        "width": 1376,
+        "height": 692
+      },
+      "insets": {
+        "top": 32,
+        "right": 32,
+        "bottom": 32,
+        "left": 32
+      }
+    },
+    {
+      "file": "hero-375.png",
+      "sourceFile": "workshop-375.png",
+      "sourceNodeId": "1:42",
+      "subjectBounds": {
+        "left": 24,
+        "top": 118,
+        "width": 327,
+        "height": 576
+      },
+      "crop": {
+        "left": 0,
+        "top": 94,
+        "width": 375,
+        "height": 624
+      },
+      "insets": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      }
+    }
+  ]
+}

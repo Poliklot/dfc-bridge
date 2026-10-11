@@ -2,6 +2,8 @@
 
 DFC Bridge 帮助其他人无需作者解释就能看懂 Figma 文件。不需要先读完整规范：先准备一份真实页面，说明重要关系，再交付文件。
 
+团队为什么需要这些信息？[图解入门](25-visual-walkthrough.md)用真实 Figma 截图说明疑问与交付决策。
+
 ## 文件需要回答什么
 
 设计中应该清楚：
@@ -36,15 +38,22 @@ home [page=home] [bp=1440] [view=default]
   hero [section=home-hero]
     hero-title
     contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 
 home [page=home] [bp=375] [view=default]
   hero [section=home-hero]
     hero-title
-
-contact-modal [modal=contact-modal]
+    contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 ```
 
-现在页面、宽度、相同标题和模态窗口目标都能从同一棵树中读懂。
+这是简化的层级片段：两个宽度都保留按钮和真实目标。仍须准备原生布局及窗口行为。
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面和视图的两个宽度，不是两个无关设计。说明示意图。" loading="lazy" width="481" height="557" />
+<figcaption>同一页面和视图的两个宽度，不是两个无关设计。说明示意图。 <a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
 
 ## 五个步骤准备文件
 

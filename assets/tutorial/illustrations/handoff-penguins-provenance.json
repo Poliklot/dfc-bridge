@@ -1,0 +1,20 @@
+{
+  "generator": "Built-in image_gen",
+  "useCase": "illustration-story",
+  "generatedMaster": "handoff-penguins-generated-master.png",
+  "reference": "Installed Codex desktop application icon; logo glyph used only as AI face reference.",
+  "prompt": "Use case: illustration-story.\nCreate one coherent horizontal cast sheet of THREE funny penguin co-workers for a design-handoff visual story, derived from the logo reference. The supplied app icon is ONLY a reference for the AI character's face emblem: use the actual Codex blue-violet scalloped flower/cloud glyph with the white terminal chevron and underscore \">_\"; DO NOT reproduce the rounded app-icon tile.\nThree isolated full-body characters, ordered left to right with wide transparent gaps and at least 12% clear outer margins: frontend penguin holding a small browser screen with bold simple </> code brackets; backend penguin hugging two tiny stacked server boxes plus a database cylinder; AI penguin with the recognisable Codex glyph covering its face like a silly mask, and one flipper raised in a cheerful greeting. AI is unmistakably still a penguin: black flippers, white belly and orange feet.\nStyle: polished witty editorial sticker illustration, warm simple organic linework, flat ink-black and cream bodies, orange beaks/feet, restrained blue props. Slight expressive asymmetry and a mildly puzzled, likeable nerd mood. Bold silhouettes and few details, readable as 96px illustrations. Frontend looks curious; backend looks matter-of-fact; AI looks amusing and eager. All three share exact style, proportions and baseline. A clean cream sticker edge around each isolated character helps them read on both dark and light UI.\nTrue transparent RGBA background, no ground plane, no backdrop, no shadow blocks, no frame, no captions, no labels, no watermark. Nothing touches image edges. Avoid shiny 3D, corporate stock cartoon, tiny text, decorative sparkles and visual clutter.",
+  "derivatives": [
+    "handoff-penguin-frontend.png",
+    "handoff-penguin-backend.png",
+    "handoff-penguin-ai.png"
+  ],
+  "derivativeMethod": "Lossless equal-width crop from generated RGBA master; 32 px transparent padding; PNG lossless compression. No mascot redraw, recolor or manual logo compositing.",
+  "browserDerivatives": [
+    "handoff-penguin-frontend-display.png",
+    "handoff-penguin-backend-display.png",
+    "handoff-penguin-ai-display.png"
+  ],
+  "browserDerivativeMethod": "216 px wide consumer PNGs are standard downsampled web renditions of the lossless alpha sprites, encoded with lossless PNG compression. Native generated/master/crop pixels remain preserved separately.",
+  "generatedMasterSha256": "fab5778f306d4a93576124b816f4ceb1ecebda35eb96087ca25369b424c9bd24"
+}

@@ -2,6 +2,14 @@
 
 Use the component library to keep shared visual behavior consistent. Use page structure to show what the current instance means and does.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/axes-en.svg" alt="Page, view, width, state and component variant are separate axes" loading="lazy" width="481" height="853" />
+<figcaption>Page, view, width, state and component variant are separate axes. Explanatory diagram. <a href="../assets/tutorial/diagrams/axes-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Two library levels
 
 - `UI Kit` contains reusable interface parts: buttons, fields, cards, and controls.

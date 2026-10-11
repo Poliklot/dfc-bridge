@@ -2,6 +2,14 @@
 
 组件库负责保持共享的视觉和行为一致。页面结构说明当前实例的含义以及它在此处执行的动作。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="页面、视图、宽度、状态目标与组件变体是独立的维度" loading="lazy" width="481" height="853" />
+<figcaption>页面、视图、宽度、状态目标与组件变体是独立的维度. 说明示意图。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 两个库级别
 
 - `UI Kit` 包含可复用的界面元素：按钮、字段、卡片和控件；

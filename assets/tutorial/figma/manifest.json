@@ -1,0 +1,13 @@
+{
+  "name": "DFC Bridge · учебная мастерская",
+  "id": "dfc-bridge-tutorial-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] },
+  "menu": [
+    { "name": "Создать учебный макет в пустом файле", "command": "build" },
+    { "name": "Экспортировать свидетельства и изображения", "command": "export" }
+  ]
+}

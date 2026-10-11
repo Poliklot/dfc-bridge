@@ -2,6 +2,14 @@
 
 У каждого интерактивного слоя должны быть понятны две вещи: что запускает действие и куда приводит результат.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/interactions-ru.svg" alt="Переход и изменение интерфейса ссылаются на разные цели" loading="lazy" width="481" height="839" />
+<figcaption>Переход и изменение интерфейса ссылаются на разные цели. Объясняющая схема. <a href="../../assets/tutorial/diagrams/interactions-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
+[Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.
+
 ## Ссылки используют `href`
 
 Используйте `[href]` для перехода, якоря, почты, телефона или другого адреса:

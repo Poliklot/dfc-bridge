@@ -2,6 +2,14 @@
 
 A stable name lets the team recognize one logical element across widths and states. It is not a description of the current pixels.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Names and meaningful parents survive reflow" loading="lazy" width="481" height="613" />
+<figcaption>Names and meaningful parents survive reflow. Explanatory diagram. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## The naming rule
 
 Use short English names in `kebab-case`:

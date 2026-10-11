@@ -2,6 +2,14 @@
 
 DFC Bridge treats pages, production routes, anchors, and page/data states as first-class parts of the transfer contract. A design is not only a set of sections; it is a navigable product surface.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="Same page and view, two native widths" loading="lazy" width="481" height="557" />
+<figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Page identity and optional route
 
 A page root always needs a stable `[page=...]`. A route is added only when the real production URL or route pattern is known.

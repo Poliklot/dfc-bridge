@@ -1,5 +1,13 @@
 # 设计师常见错误
 
+
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../../assets/tutorial/screenshots/assistant-errors-local.png" alt="本地报告：两个真实错误、定位图层与重新检查" loading="lazy" width="1430" height="1656" />
+<figcaption>本地报告：两个真实错误、定位图层与重新检查. 本地开发版的真实截图，并非已发布界面。 <a href="../../assets/tutorial/screenshots/assistant-errors-local.png">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 1. 额外的包装纸
 
 问题：包装之所以存在只是因为设计是手动绘制的。

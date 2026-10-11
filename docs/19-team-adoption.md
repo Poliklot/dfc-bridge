@@ -2,6 +2,14 @@
 
 Do not begin by renaming the archive or rebuilding the component library. Run a small pilot on one working page or one new section and measure whether the handoff became clearer.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/scope-en.svg" alt="Selected section checked; its host and external destinations are outside scope" loading="lazy" width="481" height="895" />
+<figcaption>Selected section checked; its host and external destinations are outside scope. Explanatory diagram. <a href="../assets/tutorial/diagrams/scope-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## What the pilot should answer
 
 - Can another person find the page and its widths?

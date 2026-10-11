@@ -2,6 +2,14 @@
 
 DFC Bridge 区分设计变更的原因。一个轴不得隐藏另一轴的影响。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="页面、视图、宽度、状态目标与组件变体是独立的维度" loading="lazy" width="481" height="853" />
+<figcaption>页面、视图、宽度、状态目标与组件变体是独立的维度. 说明示意图。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 核心规则
 
 > 默认情况下，断点是另一个布局中的同一逻辑树。不同的组合需要声明响应式转换；宽度本身并不能解释这一点。

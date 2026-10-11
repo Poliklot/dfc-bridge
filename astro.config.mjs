@@ -49,6 +49,7 @@ export default defineConfig({
       credits: false,
       disable404Route: true,
       pagefind: true,
+      expressiveCode: { defaultProps: { wrap: true } },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
       head: [
         { tag: 'meta', attrs: { name: 'theme-color', content: '#1E1E1E' } },
@@ -67,6 +68,7 @@ export default defineConfig({
           translations: { en: 'Start', zh: '开始' },
           items: [
             { slug: 'start/designer-quick-start' },
+            { slug: 'start/visual-walkthrough' },
             { slug: 'examples' },
             { slug: 'check' },
           ],

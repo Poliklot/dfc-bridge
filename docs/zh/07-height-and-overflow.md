@@ -2,6 +2,14 @@
 
 动态内容应使用它所需的空间。固定高度是产品决定，不是为了匹配一张截图的捷径。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/content-zh.svg" alt="长文本换行，卡片增长而不是裁剪" loading="lazy" width="481" height="703" />
+<figcaption>长文本换行，卡片增长而不是裁剪. 说明示意图。 <a href="../../assets/tutorial/diagrams/content-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 优先使用内容驱动的高度
 
 允许文本、数据和列表增长。检查长单词、价格、名称、本地化、错误和空状态。

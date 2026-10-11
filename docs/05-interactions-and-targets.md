@@ -2,6 +2,14 @@
 
 Every interactive layer should answer two questions: what starts the interaction, and where does the result go?
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/interactions-en.svg" alt="Navigation and interface change point to different targets" loading="lazy" width="481" height="839" />
+<figcaption>Navigation and interface change point to different targets. Explanatory diagram. <a href="../assets/tutorial/diagrams/interactions-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Links use `href`
 
 Use `[href]` for navigation, an anchor, email, phone, or another address:

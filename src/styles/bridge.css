@@ -125,6 +125,10 @@ header.header {
   font-weight: 650;
 }
 
+:root[data-theme='dark'] .sidebar-content a[aria-current='page'] {
+  color: #111416;
+}
+
 .sl-markdown-content {
   font-size: 1.03rem;
   line-height: 1.72;
@@ -4084,5 +4088,122 @@ main:has(.tag-registry) {
   .tag-card dl > div {
     grid-template-columns: 1fr;
     gap: 0.25rem;
+  }
+}
+
+/* Give source captures breathing room without turning the lesson into cards. */
+.sl-markdown-content .bridge-lesson-figure {
+  --bridge-figure-inset: clamp(.75rem, 2vw, 1.5rem);
+  min-width: 0;
+  margin: 2rem 0;
+}
+
+.sl-markdown-content .bridge-lesson-figure > img {
+  box-sizing: border-box;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: var(--bridge-figure-inset);
+}
+
+/* The matte belongs to the capture only; captions remain part of the prose. */
+.sl-markdown-content .bridge-lesson-screenshot > img {
+  background: var(--bridge-surface);
+}
+
+/* Editorial speech sits above the capture; only the feet touch its empty matte. */
+.sl-markdown-content .bridge-lesson-comment {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .5rem;
+  width: min(22rem, 100%);
+  margin: 0 0 -.75rem auto;
+  padding-inline: var(--bridge-figure-inset);
+  position: relative;
+  z-index: 1;
+}
+
+.sl-markdown-content .bridge-lesson-comment > p {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: .5rem .75rem;
+  border: 1px solid var(--bridge-line);
+  border-radius: .75rem;
+  background: var(--bridge-paper);
+  color: var(--sl-color-text);
+  font-size: .875rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.sl-markdown-content .bridge-lesson-comment > p::after {
+  content: '';
+  position: absolute;
+  right: 1.5rem;
+  bottom: -.3125rem;
+  width: .5rem;
+  height: .5rem;
+  border-right: 1px solid var(--bridge-line);
+  border-bottom: 1px solid var(--bridge-line);
+  background: var(--bridge-paper);
+  transform: rotate(45deg);
+}
+
+.sl-markdown-content .bridge-lesson-comment > .bridge-lesson-penguin {
+  display: block;
+  flex: none;
+  width: 3.5rem;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.sl-markdown-content .bridge-lesson-figure figcaption {
+  max-width: 70ch;
+  margin-top: .75rem;
+  color: var(--sl-color-gray-2);
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+.sl-markdown-content .bridge-lesson-figure a:focus-visible {
+  outline: 3px solid var(--sl-color-text-accent);
+  outline-offset: 4px;
+}
+
+.sl-markdown-content .bridge-lesson-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.sl-markdown-content .bridge-lesson-pair .bridge-lesson-figure {
+  margin: 0;
+}
+
+/* A full-width export needs room; do not shrink its type to a thumbnail. */
+.sl-markdown-content .bridge-lesson-heroes {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.sl-markdown-content .bridge-lesson-heroes .bridge-lesson-figure:last-child {
+  max-width: 375px;
+}
+
+@media (max-width: 40rem) {
+  .sl-markdown-content .bridge-lesson-pair {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 }

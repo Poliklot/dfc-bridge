@@ -28,6 +28,7 @@
     "en/reference/validation-and-autochecks.md",
     "en/reference/variation-axes.md",
     "en/start/designer-quick-start.md",
+    "en/start/visual-walkthrough.md",
     "ru/check/designer-checklist.md",
     "ru/check/full-review.md",
     "ru/examples.md",
@@ -55,6 +56,7 @@
     "ru/reference/validation-and-autochecks.md",
     "ru/reference/variation-axes.md",
     "ru/start/designer-quick-start.md",
+    "ru/start/visual-walkthrough.md",
     "zh/check/designer-checklist.md",
     "zh/check/full-review.md",
     "zh/examples.md",
@@ -81,6 +83,7 @@
     "zh/reference/transfer-contract.md",
     "zh/reference/validation-and-autochecks.md",
     "zh/reference/variation-axes.md",
-    "zh/start/designer-quick-start.md"
+    "zh/start/designer-quick-start.md",
+    "zh/start/visual-walkthrough.md"
   ]
 }

@@ -2,6 +2,14 @@
 
 不要从重命名整个存档或重建组件库开始。先在一份工作页面或一个新区块上进行小规模试点，并测量交付是否变得更清晰。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/scope-zh.svg" alt="检查所选区块；宿主及外部目标不在范围内" loading="lazy" width="481" height="895" />
+<figcaption>检查所选区块；宿主及外部目标不在范围内. 说明示意图。 <a href="../../assets/tutorial/diagrams/scope-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 试点需要回答什么
 
 - 其他人能否找到页面和宽度？

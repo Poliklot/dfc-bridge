@@ -2,6 +2,8 @@
 
 DFC Bridge помогает другому человеку понять файл Figma без устных пояснений автора. Не нужно сначала читать всю спецификацию: подготовьте одну реальную страницу, проверьте её важные связи и передайте файл.
 
+Зачем команде эти сведения? [Визуальный экскурс](25-vizualnyj-urok.md) связывает вопросы передачи с решениями и настоящими снимками Figma.
+
 ## На какие вопросы должен отвечать файл
 
 В макете должно быть понятно:
@@ -36,15 +38,22 @@ home [page=home] [bp=1440] [view=default]
   hero [section=home-hero]
     hero-title
     contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 
 home [page=home] [bp=375] [view=default]
   hero [section=home-hero]
     hero-title
-
-contact-modal [modal=contact-modal]
+    contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 ```
 
-Теперь по одному дереву видны страница, её ширины, одинаковый заголовок и цель модального окна.
+Сокращённое дерево: на обеих ширинах сохранены кнопка и настоящая цель. Нативную раскладку и поведение окна нужно подготовить отдельно.
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/contexts-ru.svg" alt="Две ширины одной страницы и одного вида, а не два несвязанных макета. Объясняющая схема." loading="lazy" width="481" height="557" />
+<figcaption>Две ширины одной страницы и одного вида, а не два несвязанных макета. Объясняющая схема. <a href="../../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
 
 ## Подготовьте файл за пять шагов
 

@@ -2,6 +2,14 @@
 
 DFC Bridge adds only the meaning that Figma does not already store. The file itself remains the source of truth for layout, size, style, hierarchy, and component data.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/structure-en.svg" alt="Same page and view, two native widths" loading="lazy" width="481" height="691" />
+<figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## 1. Do not repeat Figma
 
 Do not put sizes, gaps, colors, layout direction, or component variants into layer names or tags. Add a tag only when it answers a product question: what page is this, what does it do, or what should be exported?

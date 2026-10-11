@@ -1,0 +1,294 @@
+{
+  "source": "Actual native Figma export, checked by local Assistant core 0.9.6; not full QA",
+  "reports": [
+    {
+      "page": "02 · Подготовленная страница",
+      "mode": "page",
+      "scope": "page",
+      "status": "ready",
+      "title": "workshop",
+      "pageId": "workshop",
+      "route": "/workshop",
+      "rootCount": 2,
+      "breakpoints": [
+        "375",
+        "1440"
+      ],
+      "views": [
+        "default"
+      ],
+      "roots": [
+        {
+          "nodeId": "1:42",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=375] [view=default]",
+          "figmaPageId": "1:3",
+          "figmaPageName": "02 · Подготовленная страница",
+          "bp": "375",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 375"
+        },
+        {
+          "nodeId": "1:7",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]",
+          "figmaPageId": "1:3",
+          "figmaPageName": "02 · Подготовленная страница",
+          "bp": "1440",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 1440"
+        }
+      ],
+      "issues": [],
+      "summary": {
+        "errors": 0,
+        "todos": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "page": "03 · Два расхождения",
+      "mode": "page",
+      "scope": "page",
+      "status": "not-ready",
+      "title": "workshop",
+      "pageId": "workshop",
+      "route": "/workshop",
+      "rootCount": 2,
+      "breakpoints": [
+        "375",
+        "1440"
+      ],
+      "views": [
+        "default"
+      ],
+      "roots": [
+        {
+          "nodeId": "1:187",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=375] [view=default]",
+          "figmaPageId": "1:4",
+          "figmaPageName": "03 · Два расхождения",
+          "bp": "375",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 375"
+        },
+        {
+          "nodeId": "1:152",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]",
+          "figmaPageId": "1:4",
+          "figmaPageName": "03 · Два расхождения",
+          "bp": "1440",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 1440"
+        }
+      ],
+      "issues": [
+        {
+          "severity": "error",
+          "ruleId": "content.text-changed-between-breakpoints",
+          "nodeId": "1:193",
+          "nodeName": "hero-title",
+          "figmaPageId": "1:4",
+          "figmaPageName": "03 · Два расхождения",
+          "message": "Text differs for element “Section “workshop-hero” / hero-title” across breakpoints.",
+          "details": [
+            {
+              "label": "default / 375",
+              "nodeId": "1:193",
+              "figmaPageId": "1:4",
+              "nodeName": "hero-title",
+              "meta": "scope: Section “workshop-hero” · parent: hero-copy · type: TEXT · no [decor] · no [asset]",
+              "text": "Мастерская макетов"
+            },
+            {
+              "label": "default / 1440",
+              "nodeId": "1:158",
+              "figmaPageId": "1:4",
+              "nodeName": "hero-title",
+              "meta": "scope: Section “workshop-hero” · parent: hero-copy · type: TEXT · no [decor] · no [asset]",
+              "text": "Мастерская понятных макетов"
+            }
+          ]
+        },
+        {
+          "severity": "error",
+          "ruleId": "responsive.parent-changed-across-breakpoints",
+          "nodeId": "1:195",
+          "nodeName": "hero-actions",
+          "figmaPageId": "1:4",
+          "figmaPageName": "03 · Два расхождения",
+          "message": "Element “Section “workshop-hero” / hero-actions” moves to a different parent.",
+          "details": [
+            {
+              "label": "default / 375",
+              "nodeId": "1:195",
+              "figmaPageId": "1:4",
+              "nodeName": "hero-actions",
+              "meta": "scope: Section “workshop-hero” · parent: workshop-hero · type: FRAME · no [decor] · no [asset]",
+              "text": ""
+            },
+            {
+              "label": "default / 1440",
+              "nodeId": "1:160",
+              "figmaPageId": "1:4",
+              "nodeName": "hero-actions",
+              "meta": "scope: Section “workshop-hero” · parent: hero-copy · type: FRAME · no [decor] · no [asset]",
+              "text": ""
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "errors": 2,
+        "todos": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "page": "04 · Секция в старом макете",
+      "mode": "section",
+      "scope": "selection",
+      "status": "partial",
+      "title": "hero",
+      "sectionId": "workshop-hero",
+      "rootCount": 1,
+      "roots": [
+        {
+          "nodeId": "1:223",
+          "nodeName": "hero [section=workshop-hero]",
+          "figmaPageId": "1:5",
+          "figmaPageName": "04 · Секция в старом макете",
+          "width": 840,
+          "bp": "",
+          "view": "",
+          "contextSource": "inferred-width",
+          "explicitEvidence": [],
+          "label": "container 840px"
+        }
+      ],
+      "issues": [],
+      "summary": {
+        "errors": 0,
+        "todos": 0,
+        "warnings": 0,
+        "deferred": 1
+      },
+      "coverage": [
+        {
+          "id": "boundary",
+          "label": "Selected boundary",
+          "status": "checked",
+          "detail": "12 layer(s) checked only inside 1 selected root(s)."
+        },
+        {
+          "id": "intrinsic",
+          "label": "Intrinsic tags and identities",
+          "status": "checked",
+          "detail": "Tag grammar and stable identities checked locally."
+        },
+        {
+          "id": "layout",
+          "label": "Native layout contract",
+          "status": "checked",
+          "detail": "Auto Layout, groups, and absolute intent checked."
+        },
+        {
+          "id": "interactions",
+          "label": "Local interactions",
+          "status": "deferred",
+          "detail": "1 file/host-dependent reference(s) leave the selected scope and are Deferred, not reported missing."
+        },
+        {
+          "id": "variants",
+          "label": "Selected variants",
+          "status": "not-applicable",
+          "detail": "One declared selected context; unrequested variants are N/A."
+        },
+        {
+          "id": "instance",
+          "label": "Instance internals",
+          "status": "not-applicable",
+          "detail": "No selected INSTANCE boundary limits the section root audit."
+        }
+      ],
+      "deferred": [
+        {
+          "nodeId": "1:230",
+          "nodeName": "workshop-link [href=/workshop]",
+          "figmaPageId": "1:5",
+          "label": "container 840px",
+          "destination": "/workshop"
+        }
+      ],
+      "scopeNotice": "Ready/Partial/Blocked applies only to the explicitly selected section subtree and declared selected contexts. Page, route, file, and unselected variants were not checked."
+    },
+    {
+      "page": "05 · Состояния и компоненты",
+      "mode": "page",
+      "scope": "page",
+      "status": "ready",
+      "title": "workshop",
+      "pageId": "workshop",
+      "route": "/workshop",
+      "rootCount": 4,
+      "breakpoints": [
+        "375",
+        "1440"
+      ],
+      "views": [
+        "default",
+        "empty"
+      ],
+      "roots": [
+        {
+          "nodeId": "1:274",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=375] [view=default]",
+          "figmaPageId": "1:6",
+          "figmaPageName": "05 · Состояния и компоненты",
+          "bp": "375",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 375"
+        },
+        {
+          "nodeId": "1:239",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]",
+          "figmaPageId": "1:6",
+          "figmaPageName": "05 · Состояния и компоненты",
+          "bp": "1440",
+          "view": "default",
+          "route": "/workshop",
+          "label": "default / 1440"
+        },
+        {
+          "nodeId": "1:324",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=375] [view=empty]",
+          "figmaPageId": "1:6",
+          "figmaPageName": "05 · Состояния и компоненты",
+          "bp": "375",
+          "view": "empty",
+          "route": "/workshop",
+          "label": "empty / 375"
+        },
+        {
+          "nodeId": "1:309",
+          "nodeName": "workshop [page=workshop] [route=/workshop] [bp=1440] [view=empty]",
+          "figmaPageId": "1:6",
+          "figmaPageName": "05 · Состояния и компоненты",
+          "bp": "1440",
+          "view": "empty",
+          "route": "/workshop",
+          "label": "empty / 1440"
+        }
+      ],
+      "issues": [],
+      "summary": {
+        "errors": 0,
+        "todos": 0,
+        "warnings": 0
+      }
+    }
+  ]
+}

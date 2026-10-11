@@ -2,6 +2,14 @@
 
 DFC Bridge separates the reasons a design changes. One axis must not hide the effect of another.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/axes-en.svg" alt="Page, view, width, state and component variant are separate axes" loading="lazy" width="481" height="853" />
+<figcaption>Page, view, width, state and component variant are separate axes. Explanatory diagram. <a href="../assets/tutorial/diagrams/axes-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Core rule
 
 > A breakpoint is the same logical tree in another layout by default. A different composition requires a declared responsive transformation; width alone never explains it.

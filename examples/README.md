@@ -2,6 +2,8 @@
 
 Use these short recipes when a design question is concrete. Each example has one problem, one correction, and one reason. Start with the first eight examples; the advanced guides cover data, reactions, motion, and accessibility.
 
+[A visual introduction to handoff decisions](../docs/25-visual-walkthrough.md): team questions, reasons and real Figma captures.
+
 ## 1. Page and widths
 
 **Problem:** the file has unrelated `desktop` and `mobile-final-2` roots.
@@ -15,6 +17,11 @@ home [page=home] [route=/] [bp=375] [view=default]
 
 The same `[page]` and `[view]` connect the prepared widths. `[bp]` records the width shown by each root.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="Same page and view, two native widths" loading="lazy" width="481" height="557" />
+<figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## 2. One name across widths
 
 **Problem:** `hero-title-mobile` looks like a new element.
@@ -27,6 +34,11 @@ hero-title
 
 The size or position can change. The stable name keeps the same logical element recognizable.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Names and meaningful parents survive reflow" loading="lazy" width="481" height="613" />
+<figcaption>Names and meaningful parents survive reflow. Explanatory diagram. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## 3. A page section
 
 Use `[section]` for a section built directly in the page:
@@ -38,6 +50,11 @@ product-results [section=product-results]
 
 An instance from the `Page Sections` library already has a source component. Do not repeat the section key unless the local frame really is the section boundary.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/structure-en.svg" alt="A section contains meaningful copy and action wrappers" loading="lazy" width="481" height="691" />
+<figcaption>A section contains meaningful copy and action wrappers. Explanatory diagram. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## 4. Link or interface action
 
 Use `[href]` when the user navigates and `[action]` when the current interface changes:
@@ -48,6 +65,11 @@ filter-button [action=state:filters-open]
 ```
 
 Do not use a fake `href` for a button or a fake action for a normal link.
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/interactions-en.svg" alt="Navigation and interface change point to different targets" loading="lazy" width="481" height="839" />
+<figcaption>Navigation and interface change point to different targets. Explanatory diagram. <a href="../assets/tutorial/diagrams/interactions-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 ## 5. Button and modal
 
@@ -62,6 +84,11 @@ contact-modal [modal=contact-modal]
 ```
 
 The same UI Kit button can have different actions in different contexts. The action belongs to the instance in the page, not to the shared component name.
+
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../assets/tutorial/screenshots/assistant-layer-local.png" alt="Local Assistant: button, actual modal and jump to destination" loading="lazy" width="906" height="1173" />
+<figcaption>Local Assistant: button, actual modal and jump to destination. Real capture of a local development build, not the published UI. 1 name; 2 target; 3 jump. <a href="../assets/tutorial/screenshots/assistant-layer-local.png">Open full size</a>.</figcaption>
+</figure>
 
 ## 6. Meaningful structure
 
@@ -80,6 +107,11 @@ hero
 
 Each wrapper has a real job: content, layout, clipping, background, or interaction area. Detailed layout policy is in [design rules](../docs/01-design-rules.md) and [wrapper policy](../docs/06-wrapper-policy.md).
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/structure-en.svg" alt="Semantic wrappers versus an arbitrary group" loading="lazy" width="481" height="691" />
+<figcaption>Semantic wrappers versus an arbitrary group. Explanatory diagram. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## 7. Real content
 
 Show the data that can change the layout:
@@ -93,6 +125,11 @@ product-card
 
 Check short, long, empty, loading, and error states. Do not replace changing content with a picture of the final composition.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/content-en.svg" alt="Long text wraps and the card grows instead of clipping" loading="lazy" width="481" height="703" />
+<figcaption>Long text wraps and the card grows instead of clipping. Explanatory diagram. <a href="../assets/tutorial/diagrams/content-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## 8. Content, decoration, and export
 
 Use the smallest clear policy on the exact visual layer:
@@ -104,6 +141,11 @@ campaign-illustration [asset]
 ```
 
 `[decor]` describes visual purpose. `[asset]` says that the visual is transferred as one resource. A layer can use both when both statements are true.
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/roles-en.svg" alt="Editable content, decoration and indivisible export are distinct" loading="lazy" width="481" height="761" />
+<figcaption>Editable content, decoration and indivisible export are distinct. Explanatory diagram. <a href="../assets/tutorial/diagrams/roles-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 ## How to use this catalog
 

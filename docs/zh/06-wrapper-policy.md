@@ -2,6 +2,14 @@
 
 包装器是具有明确作用的真实 Figma 框架或组件。它不是额外标签，也不是写在图层名称中的说明。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="有意义的容器而不是随意分组" loading="lazy" width="481" height="691" />
+<figcaption>有意义的容器而不是随意分组. 说明示意图。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 保留包装器，如果它
 
 - 将一起响应式变化的元素组合在一起；

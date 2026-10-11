@@ -2,6 +2,14 @@
 
 DFC Bridge 只补充 Figma 没有保存的含义。文件本身仍然是布局、尺寸、样式、层级和组件数据的唯一来源。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="691" />
+<figcaption>同一页面与视图的两个原生宽度. 说明示意图。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 1. 不要重复 Figma
 
 不要把尺寸、间距、颜色、布局方向或组件变体写进图层名称和标签。只有在回答产品问题时才添加标签：这是哪个页面、元素会做什么，或需要导出什么。

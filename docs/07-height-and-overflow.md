@@ -2,6 +2,14 @@
 
 Dynamic content should be allowed to use the space it needs. A fixed height is a product decision, not a shortcut for matching one screenshot.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/content-en.svg" alt="Long text wraps and the card grows instead of clipping" loading="lazy" width="481" height="703" />
+<figcaption>Long text wraps and the card grows instead of clipping. Explanatory diagram. <a href="../assets/tutorial/diagrams/content-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Prefer content-driven height
 
 Let text, data, and lists grow. Test long words, prices, names, localization, errors, and empty states.

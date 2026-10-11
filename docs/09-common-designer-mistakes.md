@@ -1,5 +1,13 @@
 # Common designer mistakes
 
+
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../assets/tutorial/screenshots/assistant-errors-local.png" alt="Local report: two real findings, jump to layer and recheck" loading="lazy" width="1430" height="1656" />
+<figcaption>Local report: two real findings, jump to layer and recheck. Real capture of a local development build, not the published UI. <a href="../assets/tutorial/screenshots/assistant-errors-local.png">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## 1. Extra wrappers
 
 Problem: wrappers exist only because the design was drawn manually.

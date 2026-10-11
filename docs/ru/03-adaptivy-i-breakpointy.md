@@ -2,6 +2,14 @@
 
 Адаптив — это одна страница с понятным смыслом на разных ширинах, а не набор несвязанных картинок desktop и mobile.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Имена и смысловые родители сохраняются при перестроении" loading="lazy" width="481" height="613" />
+<figcaption>Имена и смысловые родители сохраняются при перестроении. Объясняющая схема. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
+[Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.
+
 ## Начните с подготовленных корней
 
 Для каждого корня сохраняйте страницу и состояние, меняя только контекстную ширину:

@@ -96,7 +96,7 @@ function verifyDirectory(source, target, label) {
   }
 }
 
-for (const directory of ['brand', 'diagrams']) {
+for (const directory of ['brand', 'diagrams', 'tutorial']) {
   verifyDirectory(join(root, 'assets', directory), join(dist, 'assets', directory), `public ${directory} asset`);
 }
 

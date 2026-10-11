@@ -16,6 +16,7 @@ src/content/docs/*/check/*.md
 src/content/docs/*/examples.md
 public/assets/brand/
 public/assets/diagrams/
+public/assets/tutorial/
 public/data/
 public/schema/
 build/

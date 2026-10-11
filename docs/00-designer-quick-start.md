@@ -2,6 +2,8 @@
 
 DFC Bridge helps another person understand a Figma file without a private explanation. You do not need to read the full specification first: prepare one real page, check its important relationships, and then hand it over.
 
+Why does the team need these details? The [visual introduction](25-visual-walkthrough.md) connects questions to handoff decisions, with real Figma captures.
+
 ## What the result should answer
 
 The file should make five things clear:
@@ -36,15 +38,22 @@ home [page=home] [bp=1440] [view=default]
   hero [section=home-hero]
     hero-title
     contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 
 home [page=home] [bp=375] [view=default]
   hero [section=home-hero]
     hero-title
-
-contact-modal [modal=contact-modal]
+    contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 ```
 
-Now the page, its widths, the matching title, and the modal target are visible in one tree.
+A simplified tree excerpt: both widths keep the button and a real modal target. Native Auto Layout and modal behaviour still need preparation.
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="Two widths of the same page and view, not two unrelated designs. Explanatory diagram." loading="lazy" width="481" height="557" />
+<figcaption>Two widths of the same page and view, not two unrelated designs. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 
 ## Prepare the file in five steps
 

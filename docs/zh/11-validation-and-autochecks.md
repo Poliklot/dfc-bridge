@@ -2,6 +2,14 @@
 
 DFC Bridge 应该变得舒适，因为设计人员可以在移交之前进行飞行前检查并查看具体的、可修复的问题。因此，该方法不仅必须定义建议，还必须定义机器可检查的规则。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../../assets/tutorial/screenshots/assistant-errors-local.png" alt="本地报告：两个真实错误、定位图层与重新检查" loading="lazy" width="1430" height="1656" />
+<figcaption>本地报告：两个真实错误、定位图层与重新检查. 本地开发版的真实截图，并非已发布界面。 <a href="../../assets/tutorial/screenshots/assistant-errors-local.png">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 验证层
 
 1. **语法验证** — 标签、布尔视觉意图/草稿标志、可选标签值、键、href/action 语法、断点标签。

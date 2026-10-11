@@ -2,6 +2,14 @@
 
 每个交互图层都应回答两个问题：什么会启动动作，结果会到哪里。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/interactions-zh.svg" alt="导航与界面变化指向不同目标" loading="lazy" width="481" height="839" />
+<figcaption>导航与界面变化指向不同目标. 说明示意图。 <a href="../../assets/tutorial/diagrams/interactions-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 链接使用 `href`
 
 使用 `[href]` 表示页面跳转、锚点、邮件、电话或其他地址：

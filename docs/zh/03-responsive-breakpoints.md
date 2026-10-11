@@ -2,6 +2,14 @@
 
 响应式设计是在不同宽度下保持同一页面的清晰含义，而不是互不关联的桌面和移动图片。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="重排后保留名称与有意义的父层" loading="lazy" width="481" height="613" />
+<figcaption>重排后保留名称与有意义的父层. 说明示意图。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 从准备好的根图层开始
 
 每个根图层保持相同的页面和状态，只改变上下文宽度：

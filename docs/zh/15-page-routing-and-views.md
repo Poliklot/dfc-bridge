@@ -2,6 +2,14 @@
 
 DFC Bridge 将页面、生产路线、锚点和页面/数据状态视为传输契约的一流部分。设计不仅仅是一组部分；它是一个可导航的产品表面。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="557" />
+<figcaption>同一页面与视图的两个原生宽度. 说明示意图。 <a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 页面标识和可选路由
 
 页面根始终需要稳定的 `[page=...]`。仅当真实生产 URL 或路由模式已知时才会添加路由。

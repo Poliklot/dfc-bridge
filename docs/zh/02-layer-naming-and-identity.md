@@ -2,6 +2,14 @@
 
 稳定名称可以帮助团队在不同宽度和状态中识别同一个逻辑元素。它不是当前像素的描述。
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="重排后保留名称与有意义的父层" loading="lazy" width="481" height="613" />
+<figcaption>重排后保留名称与有意义的父层. 说明示意图。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>.</figcaption>
+</figure>
+
+[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+
 ## 命名规则
 
 使用简短的英文 `kebab-case` 名称：

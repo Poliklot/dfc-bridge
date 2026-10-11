@@ -1,0 +1,475 @@
+{
+  "capturedAt": "2026-10-09",
+  "source": "Own disposable Figma Design teaching file; no client materials",
+  "locale": "ru",
+  "transform": "One lossless rectangular crop from a real Figma Desktop capture. Native canvas/panel fields retained; no synthetic padding, compositing, redrawing or numbered overlays. Full reports and detail crops are separate files.",
+  "layoutPolishedAt": "2026-10-09",
+  "rendersExportedAt": "2026-10-09",
+  "nativeDataSource": "Read-only Figma Plugin API export of the redesigned teaching file",
+  "captures": [
+    {
+      "file": "screenshots/figma-workshop-overview.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "final-overview-button-states",
+      "sourceSha256": "09196b8cfbec1b8301afcedef7d7c9779eb2ff22a6719fe75c5780d628889692",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 884,
+        "top": 310,
+        "width": 1560,
+        "height": 1072
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "final-overview-native.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "button-state-library-2026-10-09",
+      "teachingFileSha256": "2c7bfc560c8684777026470285aa17b1e98aa5dbda97e3f09beb2dd04a721333",
+      "captureNotes": "Actual native prepared page and state showcase/Modals, with all board edges surrounded by genuine canvas."
+    },
+    {
+      "file": "screenshots/figma-before-overview.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "before-overview",
+      "sourceSha256": "0f69b67a09ac002eb70e8acb159807524e213b848203fabead7a2af67fca1b8e",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 864,
+        "top": 96,
+        "width": 1600,
+        "height": 1488
+      },
+      "interface": "Figma Design",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourceCaptureFile": "before-overview.png",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/figma-before-tree.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "before-tree",
+      "sourceSha256": "3d3b0f391b9e6f4b8ba26fdbce6b43b09f225b6bff7698cce2894ebeb5ce0cd4",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 112,
+        "top": 624,
+        "width": 752,
+        "height": 990
+      },
+      "interface": "Figma Design",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourceCaptureFile": "before-tree.png",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/figma-broken-comparison.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "before-overview",
+      "sourceCaptureFile": "before-overview.png",
+      "sourceSha256": "0f69b67a09ac002eb70e8acb159807524e213b848203fabead7a2af67fca1b8e",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 864,
+        "top": 96,
+        "width": 1600,
+        "height": 1488
+      },
+      "interface": "Figma Design",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/figma-prepared-tree.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "prepared-tree",
+      "sourceSha256": "c2f8025acc00cec14c9cabd5c55ecfde1cdbb8652c9cccaf3540d7f4edbef7de",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 112,
+        "top": 624,
+        "width": 752,
+        "height": 1000
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "prepared-tree.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/figma-kit-modals.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "kit-modals-button-states",
+      "sourceCaptureFile": "kit-modals-native.png",
+      "sourceSha256": "c6cd1f0b1428d2dfa9ad30294ed9ddca6bc4a9d2ca55db38f80418e38fb3e99f",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1090,
+        "top": 90,
+        "width": 1160,
+        "height": 1514
+      },
+      "interface": "Figma Design",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "button-state-library-2026-10-09",
+      "teachingFileSha256": "2c7bfc560c8684777026470285aa17b1e98aa5dbda97e3f09beb2dd04a721333",
+      "captureNotes": "Actual native10instance state showcase and Modals. At least48px real canvas around whole boards; no borders/composites."
+    },
+    {
+      "file": "screenshots/figma-final-overview.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "final-overview-button-states",
+      "sourceCaptureFile": "final-overview-native.png",
+      "sourceSha256": "09196b8cfbec1b8301afcedef7d7c9779eb2ff22a6719fe75c5780d628889692",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 884,
+        "top": 310,
+        "width": 1560,
+        "height": 1072
+      },
+      "interface": "Figma Design",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "button-state-library-2026-10-09",
+      "teachingFileSha256": "2c7bfc560c8684777026470285aa17b1e98aa5dbda97e3f09beb2dd04a721333",
+      "captureNotes": "Actual native prepared page and state showcase/Modals, with all board edges surrounded by genuine canvas."
+    },
+    {
+      "file": "screenshots/assistant-errors-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "errors",
+      "sourceSha256": "4c378ca2825a34d64d31dc9e6854b30294605feb51dcbb0dc76e8b0597c3d4a6",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 1430,
+        "height": 1656
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "errors.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "03 · Два расхождения",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/assistant-findings-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "errors",
+      "sourceSha256": "4c378ca2825a34d64d31dc9e6854b30294605feb51dcbb0dc76e8b0597c3d4a6",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 1430,
+        "height": 1656
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "errors.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "03 · Два расхождения",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49"
+    },
+    {
+      "file": "screenshots/assistant-layer-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "layer",
+      "sourceSha256": "17a7991b4f6c263fa01af72368133329f5990f217b75fbccb8ec47c5e4699a44",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 906,
+        "height": 1173
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "layer.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native button editor; the demonstrated action and target vocabulary is unchanged. It does not show new UI Kit source links."
+    },
+    {
+      "file": "screenshots/assistant-layer-type-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "layer",
+      "sourceSha256": "17a7991b4f6c263fa01af72368133329f5990f217b75fbccb8ec47c5e4699a44",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 906,
+        "height": 1173
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "layer.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native button editor; the demonstrated action and target vocabulary is unchanged. It does not show new UI Kit source links."
+    },
+    {
+      "file": "screenshots/assistant-layer-target-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "layer",
+      "sourceSha256": "17a7991b4f6c263fa01af72368133329f5990f217b75fbccb8ec47c5e4699a44",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 906,
+        "height": 1173
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "layer.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native button editor; the demonstrated action and target vocabulary is unchanged. It does not show new UI Kit source links."
+    },
+    {
+      "file": "screenshots/assistant-ready-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "ready",
+      "sourceSha256": "a19cdc97f7461902ddab91cf94a94b1009e537814933f3bba70c2add05faad5e",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 1430,
+        "height": 1656
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "ready.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier page 02 native Ready result; unchanged result UI, not a new check of the revised component-based teaching file."
+    },
+    {
+      "file": "screenshots/assistant-ready-result-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "ready",
+      "sourceSha256": "a19cdc97f7461902ddab91cf94a94b1009e537814933f3bba70c2add05faad5e",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 1430,
+        "height": 1656
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "ready.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier page 02 native Ready result; unchanged result UI, not a new check of the revised component-based teaching file."
+    },
+    {
+      "file": "screenshots/assistant-section-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "section",
+      "sourceSha256": "8bc06840344e550ace81056e8a1e095538cc47e74af8cce6702d616d94d5a146",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 1594,
+        "top": 28,
+        "width": 1430,
+        "height": 1656
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "section.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "04 · Секция в старом макете",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native section-scope UI evidence; no claim of a fresh check of the revised file."
+    },
+    {
+      "file": "screenshots/assistant-deferred-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "section",
+      "sourceSha256": "8bc06840344e550ace81056e8a1e095538cc47e74af8cce6702d616d94d5a146",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 2616,
+        "top": 480,
+        "width": 360,
+        "height": 390
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "section.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "04 · Секция в старом макете",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native section-scope UI evidence; no claim of a fresh check of the revised file."
+    },
+    {
+      "file": "screenshots/figma-prepared-layout.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "prepared-layout",
+      "sourceSha256": "a0d4a05d6c91d35b52fc31bfef6411e437d9607327a0f47d27b495e5b1da669a",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 2436,
+        "top": 708,
+        "width": 588,
+        "height": 660
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "prepared-layout.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native Auto Layout example; historical source revision, not the current page 03 deliberate error pair."
+    },
+    {
+      "file": "screenshots/figma-broken-layout.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "broken-layout",
+      "sourceSha256": "7cce196d7c65420a22192643dfd3cdd3a2c559ffd883b4bff3a7a025ab264450",
+      "sourceDimensions": {
+        "width": 3024,
+        "height": 1748
+      },
+      "crop": {
+        "left": 2436,
+        "top": 708,
+        "width": 588,
+        "height": 486
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "broken-layout.png",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "03 · Найти и исправить (previous revision)",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier native Auto Layout example; historical source revision, not the current page 03 deliberate error pair."
+    },
+    {
+      "file": "screenshots/tree-desktop.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-11",
+      "sourceFrame": "tree-desktop",
+      "sourceSha256": "53579d86dcfc9e1ebec65a7c01376bbb337a8b518a2380c6fec3af3ce7373de3",
+      "sourceDimensions": {
+        "width": 1920,
+        "height": 963
+      },
+      "crop": {
+        "left": 40,
+        "top": 108,
+        "width": 472,
+        "height": 464
+      },
+      "interface": "Figma Design in Chrome",
+      "fileKey": "yCIbd7pIabjIepkkncPPYl",
+      "sourceCaptureFile": "motion/source/tree-desktop.png",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "QA-copy-before-motion-2026-10-11",
+      "captureNotes": "Independent native capture. Hero, copy and both controls expanded; artwork internals omitted. HTML pair is not a composited editor screenshot."
+    },
+    {
+      "file": "screenshots/tree-mobile.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-11",
+      "sourceFrame": "tree-mobile",
+      "sourceSha256": "d8dd1674faef97d65847be179c5277afed200a247049665ffc663973594fcab9",
+      "sourceDimensions": {
+        "width": 1920,
+        "height": 963
+      },
+      "crop": {
+        "left": 40,
+        "top": 108,
+        "width": 472,
+        "height": 432
+      },
+      "interface": "Figma Design in Chrome",
+      "fileKey": "yCIbd7pIabjIepkkncPPYl",
+      "sourceCaptureFile": "motion/source/tree-mobile.png",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "QA-copy-before-motion-2026-10-11",
+      "captureNotes": "Independent native capture. Hero, copy and both controls expanded; artwork internals omitted. HTML pair is not a composited editor screenshot."
+    }
+  ],
+  "latestCaptureRevision": "The button-state-library-2026-10-09 records identify the fresh state atlas and final overview. Other native captures retain their own actual earlier source hashes/revisions; they are not restamped as new captures or new archive checks."
+}

@@ -30,6 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Ensure FFprobe for native video evidence checks
+        run: |
+          if ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --no-install-recommends --yes ffmpeg
+          fi
+          ffprobe -version
+
       - name: Check and build
         run: npm test
 

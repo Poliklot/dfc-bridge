@@ -2,6 +2,14 @@
 
 Стабильное имя помогает узнать один логический элемент на разных ширинах и в разных состояниях. Это не описание текущих пикселей.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Имена и смысловые родители сохраняются при перестроении" loading="lazy" width="481" height="613" />
+<figcaption>Имена и смысловые родители сохраняются при перестроении. Объясняющая схема. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
+[Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.
+
 ## Правило именования
 
 Используйте короткие английские имена в `kebab-case`:

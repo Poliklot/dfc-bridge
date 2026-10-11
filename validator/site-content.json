@@ -400,6 +400,25 @@
         "ru": "Передача",
         "zh": "交付"
       }
+    },
+    {
+      "route": "start/visual-walkthrough",
+      "order": 28,
+      "source": {
+        "en": "docs/25-visual-walkthrough.md",
+        "ru": "docs/ru/25-vizualnyj-urok.md",
+        "zh": "docs/zh/25-visual-walkthrough.md"
+      },
+      "sidebarLabel": {
+        "en": "Visual introduction",
+        "ru": "Визуальный экскурс",
+        "zh": "图解入门"
+      },
+      "description": {
+        "en": "Why DFC Bridge matters to designers, frontend, backend and AI: one handoff story connects each uncertainty to a decision and its benefit.",
+        "ru": "Зачем DFC Bridge дизайнеру, frontend, backend и ИИ: одна история связывает каждый вопрос передачи с решением и его пользой.",
+        "zh": "为什么设计师、前端、后端与 AI 需要 DFC Bridge：一个交付故事说明疑问、决策与各方收益之间的关系。"
+      }
     }
   ]
 }

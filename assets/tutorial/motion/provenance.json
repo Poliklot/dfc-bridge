@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-ui-step-sequence",
+  "capturedAt": "2026-10-11",
+  "fileKey": "yCIbd7pIabjIepkkncPPYl",
+  "pageName": "01 · До разметки",
+  "captureMethod": "CUA screenshots of actual Chrome Figma editor states, assembled with explicit holds. Not a continuous screen recording.",
+  "transform": "One fixed lossless rectangular crop per clip; held states, no interpolation, synthetic padding, compositing or editor overlays.",
+  "sourceScope": "Separate imported QA copy only. Shipped archive and original teaching file unchanged. These actions do not claim Ready.",
+  "clips": [
+    {
+      "id": "rename-title",
+      "action": "Title mobile → hero-title. Layer identity only; product text remains unchanged.",
+      "crop": {
+        "left": 40,
+        "top": 108,
+        "width": 472,
+        "height": 528
+      },
+      "frames": [
+        {
+          "sourceFile": "source/rename-01.png",
+          "sha256": "671cfd9e30b0762aa13ed326d5fbce45639bdb04a52fb1aeb1643dec60b1c41e",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 1400
+        },
+        {
+          "sourceFile": "source/rename-02.png",
+          "sha256": "555ba573ab55341b28bb7ccb99897b644e31f54d04300f583e5237d712d4cfef",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 1000
+        },
+        {
+          "sourceFile": "source/rename-03.png",
+          "sha256": "971d6fbf405837be29fad5de703089b0e1aa1f504eaf461beb03e309a9c5ccab",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 600
+        },
+        {
+          "sourceFile": "source/rename-04.png",
+          "sha256": "a7a35a0751681d84d8e222967dc611e5dd1d57158a9e7ac864e2acb712a9f255",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 1000
+        },
+        {
+          "sourceFile": "source/rename-05.png",
+          "sha256": "8b64e58349973645856b679b6ab4e9b22322e58aaf95c36e8052563c8a7eb793",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 2000
+        }
+      ],
+      "output": {
+        "file": "rename-title.mp4",
+        "poster": "rename-title.png",
+        "gif": "rename-title.gif",
+        "sha256": "a59ba33739c19b2043759e492331a506e7c4ac1f176664ae9f2b8fd1b7d5935c",
+        "posterSha256": "26526dde723984fa6ff46421604e573f3f64bd2347b9f6b2ede79972882f37ef",
+        "gifSha256": "76cf805d08e90faaac81a87912845681a3d9fd05e0e542ccc3d28d5f782d3eb8",
+        "width": 472,
+        "height": 528,
+        "durationSeconds": 6
+      }
+    },
+    {
+      "id": "move-actions",
+      "action": "Cut the whole hero-actions, select existing hero-copy, paste as its last child. Both controls and Auto Layout retained.",
+      "crop": {
+        "left": 40,
+        "top": 108,
+        "width": 472,
+        "height": 528
+      },
+      "frames": [
+        {
+          "sourceFile": "source/move-01.png",
+          "sha256": "fa9bf9154af4ec3d2930b921760ceb16c7d81eff7354d0c4767c3d12ceac525d",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 1600
+        },
+        {
+          "sourceFile": "source/move-02.png",
+          "sha256": "870370efaef2555525e16b04295a4eda60c368a0c9331a885e974312101b3669",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 900
+        },
+        {
+          "sourceFile": "source/move-03.png",
+          "sha256": "21cb18eee018eabff43858bcbceeefa1de5be56aae965bf4f9c802d4d275995f",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 1100
+        },
+        {
+          "sourceFile": "source/move-04.png",
+          "sha256": "a00e6226de161fad31a6eb7c2fc71b34ed2dc667913ef290814efaac8bbb94b0",
+          "width": 1920,
+          "height": 963,
+          "holdMs": 2400
+        }
+      ],
+      "output": {
+        "file": "move-actions.mp4",
+        "poster": "move-actions.png",
+        "gif": "move-actions.gif",
+        "sha256": "4826c37a6b69038344bee0c2d35f5388fff692a3834bc4ac671d8c87b3e7e35e",
+        "posterSha256": "4a40cc3adf4c2b04b402f81bfe995890f9ddb50bd4c4f6adf26e555499809276",
+        "gifSha256": "2f1168eefe13022e0586c30e7481cff70a9a43b28dd39b5fda6e8dfad70c86b7",
+        "width": 472,
+        "height": 528,
+        "durationSeconds": 6
+      }
+    }
+  ]
+}

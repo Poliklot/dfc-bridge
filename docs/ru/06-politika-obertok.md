@@ -2,6 +2,14 @@
 
 Обёртка — это реальный фрейм или компонент Figma с понятной задачей. Это не дополнительный тег и не пояснение в имени слоя.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/structure-ru.svg" alt="Осмысленные обёртки вместо случайной группы" loading="lazy" width="481" height="691" />
+<figcaption>Осмысленные обёртки вместо случайной группы. Объясняющая схема. <a href="../../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
+[Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.
+
 ## Оставляйте обёртку, если она
 
 - объединяет элементы, которые адаптируются вместе;

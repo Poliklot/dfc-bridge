@@ -2,6 +2,14 @@
 
 Responsive design is one page with a clear meaning at more than one width. It is not a set of unrelated desktop and mobile pictures.
 
+
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Names and meaningful parents survive reflow" loading="lazy" width="481" height="613" />
+<figcaption>Names and meaningful parents survive reflow. Explanatory diagram. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
+</figure>
+
+The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+
 ## Start with prepared roots
 
 Give each prepared root the same page and state, changing only the context width:
