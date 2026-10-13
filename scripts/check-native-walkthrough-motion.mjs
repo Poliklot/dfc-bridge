@@ -57,7 +57,10 @@ function sourceMetadata(info) {
 }
 
 function decodeRgb(file, filter, width, height) {
-  const pixels = execFileSync(ffmpeg, ['-hide_banner', '-loglevel', 'error', '-i', file, '-vf', filter,
+  // Match the renderer's scalar conversion: SIMD YUV→RGB rounding differs
+  // across CPUs. Keep exact RGB hashes/poster pixels rather than tolerating
+  // a platform-dependent reconstruction of the same decoded YUV frame.
+  const pixels = execFileSync(ffmpeg, ['-hide_banner', '-loglevel', 'error', '-cpuflags', '0', '-i', file, '-vf', filter,
     '-frames:v', '1', '-pix_fmt', 'rgb24', '-f', 'rawvideo', 'pipe:1'], { maxBuffer: width * height * 3 + 1024 });
   assert.equal(pixels.length, width * height * 3, 'one complete decoded RGB frame');
   return pixels;

@@ -18,6 +18,9 @@ const storyboardBytes=readFileSync(storyboardPath), storyboard=JSON.parse(storyb
 const outputRoot=resolve(option('--output-dir')??resolve(tmpdir(),'dfc-native-motion-stage'));
 assert(outputRoot!==motion&&!outputRoot.startsWith(motion+sep),'Stage outside published motion assets');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+// Match the verifier's scalar decoding/conversion. SIMD YUV→RGB rounding
+// differs across CPUs even when the decoded native YUV frame is identical.
+const ffmpegArgs=['-hide_banner','-loglevel','error','-cpuflags','0'];
 // Both implementation files determine the rendered bytes and invalidate stale stages.
 const rendererSha256=hash(Buffer.concat([readFileSync(new URL(import.meta.url)),readFileSync(new URL('./native-motion-checks.mjs',import.meta.url))]));
 const escaped=text=>String(text).replace(/[&<>"']/gu,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -95,10 +98,10 @@ try{
    assert(Number.isFinite(audit.timeSeconds)&&audit.timeSeconds>=clip.trim.startSeconds&&audit.timeSeconds<clip.trim.endSeconds,'Audit sample is excerpt-relative and inside trim');
    assert(['before','action','after'].includes(audit.phase)&&typeof audit.kind==='string'&&audit.kind.trim(),'Audit phase and observed event kind');
    const frame=source.frames.find(frame=>frame.ptsSeconds>=source.metadata.firstPtsSeconds+audit.timeSeconds);assert(frame,'Observed audit frame exists');
-   const raw=execFileSync('ffmpeg',['-hide_banner','-loglevel','error','-i',file,'-vf',`select=eq(n\\,${frame.index})`,'-frames:v','1','-pix_fmt','rgb24','-f','rawvideo','pipe:1'],{maxBuffer:frame.width*frame.height*3+1024});
+   const raw=execFileSync('ffmpeg',[...ffmpegArgs,'-i',file,'-vf',`select=eq(n\\,${frame.index})`,'-frames:v','1','-pix_fmt','rgb24','-f','rawvideo','pipe:1'],{maxBuffer:frame.width*frame.height*3+1024});
    assert.equal(raw.length,frame.width*frame.height*3);
    const image=sharp(raw,{raw:{width:frame.width,height:frame.height,channels:3}}), cropped=await image.clone().extract(clip.crop).raw().toBuffer();
-   const resized=execFileSync('ffmpeg',['-hide_banner','-loglevel','error','-i',file,'-vf',`select=eq(n\\,${frame.index}),scale=iw:ih:in_color_matrix=bt709:out_color_matrix=bt709:in_range=tv:out_range=full,format=rgba,crop=${clip.crop.width}:${clip.crop.height}:${clip.crop.left}:${clip.crop.top}:exact=1,scale=${t.width}:${t.height}:flags=lanczos,format=rgb24`,'-frames:v','1','-pix_fmt','rgb24','-f','rawvideo','pipe:1'],{maxBuffer:t.width*t.height*3+1024});
+   const resized=execFileSync('ffmpeg',[...ffmpegArgs,'-i',file,'-vf',`select=eq(n\\,${frame.index}),scale=iw:ih:in_color_matrix=bt709:out_color_matrix=bt709:in_range=tv:out_range=full,format=rgba,crop=${clip.crop.width}:${clip.crop.height}:${clip.crop.left}:${clip.crop.top}:exact=1,scale=${t.width}:${t.height}:flags=lanczos,format=rgb24`,'-frames:v','1','-pix_fmt','rgb24','-f','rawvideo','pipe:1'],{maxBuffer:t.width*t.height*3+1024});
    const proof=`audit/${clip.id}-${String(index+1).padStart(2,'0')}.png`,proofPath=resolve(temporary,proof);mkdirSync(dirname(proofPath),{recursive:true});await image.png().toFile(proofPath);pending.push({name:proof,path:proofPath});
    auditFrames.push({...audit,sourceFrameIndex:frame.index,sourcePtsSeconds:frame.ptsSeconds,sourceFrameSha256:hash(raw),cropSha256:hash(cropped),nativeBitmapSha256:hash(resized),sourceFrameProof:proof});
   }
@@ -111,13 +114,13 @@ try{
    const filters=[`[0:v]${nativeBaseFilter(clip,presentation,source.metadata)}[native]`];let last='native';
    clip.cues.forEach((cue,index)=>{const next=`cue${index}`, finalEndpoint=index===clip.cues.length-1&&Math.abs(cue.endSeconds-duration)<=1e-9;filters.push(`[${last}][${index+1}:v]overlay=0:0:format=rgb:shortest=1:enable='gte(t,${cue.startSeconds})*${finalEndpoint?'lte':'lt'}(t,${cue.endSeconds})'[${next}]`);last=next});
    filters.push(`[${last}]scale=iw:ih:in_color_matrix=bt709:out_color_matrix=bt709:in_range=full:out_range=tv,format=yuv420p,setparams=range=tv:color_primaries=bt709:color_trc=bt709:colorspace=bt709[video]`);
-   const common=['-hide_banner','-loglevel','error','-y','-i',file,...cueInputs.flatMap(path=>['-loop','1','-framerate',String(render.fps),'-i',path]),'-filter_complex',filters.join(';'),'-map','[video]','-an'];
+   const common=[...ffmpegArgs,'-y','-i',file,...cueInputs.flatMap(path=>['-loop','1','-framerate',String(render.fps),'-i',path]),'-filter_complex',filters.join(';'),'-map','[video]','-an'];
    const names={file:`native/${clip.id}-${lang}.mp4`,gif:`native/${clip.id}-${lang}.gif`,poster:`native/${clip.id}-${lang}.png`};for(const name of Object.values(names))mkdirSync(dirname(resolve(temporary,name)),{recursive:true});
    execFileSync('ffmpeg',[...common,'-c:v','libx264','-preset','slow','-crf',String(render.crf),'-level:v',render.level,'-pix_fmt','yuv420p','-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709','-movflags','+faststart',resolve(temporary,names.file)],{maxBuffer:16*1024*1024});
    const encoded=JSON.parse(execFileSync('ffprobe',['-v','error','-count_frames','-show_streams','-show_format','-of','json',resolve(temporary,names.file)]));const stream=encoded.streams[0],encodedDuration=Number(encoded.format.duration);
    assert(encoded.streams.length===1&&stream.codec_name==='h264'&&stream.width===presentation.width&&stream.height===presentation.height&&stream.r_frame_rate==='30/1'&&stream.level===41,'Encoded native output uses subject-fit H264 level4.1 CFR30 without audio');
    assert(Math.abs(encodedDuration-duration)<=.1,'Real source duration retained without added holds or retiming');
-   execFileSync('ffmpeg',['-hide_banner','-loglevel','error','-y','-i',resolve(temporary,names.file),'-filter_complex',`fps=${render.gifFps},split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=sierra2_4a`,'-an','-loop','0',resolve(temporary,names.gif)],{maxBuffer:16*1024*1024});
+   execFileSync('ffmpeg',[...ffmpegArgs,'-y','-i',resolve(temporary,names.file),'-filter_complex',`fps=${render.gifFps},split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=sierra2_4a`,'-an','-loop','0',resolve(temporary,names.gif)],{maxBuffer:16*1024*1024});
    const posterFilters=filters.slice(0,-1);posterFilters.push(`[${last}]select='gte(t,${clip.posterAtSeconds})',format=rgba[video]`);
    const posterArgs=[...common];posterArgs[posterArgs.indexOf('-filter_complex')+1]=posterFilters.join(';');
    execFileSync('ffmpeg',[...posterArgs,'-frames:v','1',resolve(temporary,names.poster)],{maxBuffer:16*1024*1024});

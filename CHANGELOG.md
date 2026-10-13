@@ -23,6 +23,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 
 ### Fixed
 
+- Made native-video RGB decoding deterministic across macOS and Linux by using the same scalar FFmpeg conversion for production and verification. Regenerated derived evidence and localized outputs from the unchanged recordings; exact pixel/hash checks remain mandatory.
 - Corrected the Chinese sidebar translation keys to `zh-CN`, matching Starlight's declared language rather than the `/zh/` route prefix. All six group headings now use the requested language, including after language switching and in the mobile menu.
 - Removed Russian copy-button text from English code examples, translated Chinese heading-link and GitHub-star accessibility labels, and added locale-aware 404 recovery with usable language links without JavaScript.
 - Removed an obsolete mobile-menu accessibility shim; the current native popover owns keyboard and expanded-state behavior. Added rendered UI regression checks for all three languages.

@@ -19,7 +19,7 @@
   "transform": "One contiguous native movie interval at natural 1× timing, one documented fixed privacy crop, one declared fixed presentation crop, subject-fit matte, optional downsample only and ordinary CFR30 resampling. Localized captions and stroke-only action highlights are editorial. No native state reconstruction, synthetic pointer paths, added holds, speed-up or interpolated native frames.",
   "storyboardSha256": "8dd8e7c1d48988349a9bb28828b1e109682ead16eb89fd8515ad884e8b2aa736",
   "storyboardFile": "native-storyboard.json",
-  "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
+  "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
   "render": {
     "width": 1920,
     "height": 1080,
@@ -293,8 +293,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "ba539b721df54791645861eeec912f484aa187e4c79a7f269a63753fecbeab8f",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "6b80c17c7c1f6ceb122b7546e43290686108e8ce8a6d73e419a2c0e1389926fd",
       "outputs": [
         {
           "locale": "ru",
@@ -586,8 +586,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "02b016417d3b003beacfb205e2a5c13928491d83a02459ebf16aea2346e4b6a9",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "7b8c7c549251ec736b6ae6c9f86b13e3a28640ada9c25d8ece4887ad3058b4b2",
       "outputs": [
         {
           "locale": "ru",
@@ -884,8 +884,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "79a589f6d97f50e133d7cca61d049c0b0bb42145c0e3949aacbb5eab5d386b9b",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "59c79bb21a1d4d4dc96cfb3ad12b12cf9fe3bcb5660937f410d096dcfb7ffbff",
       "outputs": [
         {
           "locale": "ru",
@@ -1151,8 +1151,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "e45059b17e093d9c780a5f327a5427d1cb0ff0285a163e344a5368c012903e32",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "7a4524b9241391afbf97f7c91fddb17e566fefdb7d5578faf67c23cd2ab0a110",
       "outputs": [
         {
           "locale": "ru",
@@ -1427,8 +1427,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "9af36185d18f1e708d35de0a9de65cfcf80bbe7c9573a09b073c8a9f81ba3be4",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "4a73e17828bb1c258fe19c66f63620db06c442cce10786a966247b8fae6f57ab",
       "outputs": [
         {
           "locale": "ru",
@@ -1436,7 +1436,7 @@
           "gif": "native/button-states-ru.gif",
           "poster": "native/button-states-ru.png",
           "sha256": "17855cc1df1ca4af873011c6f977ee835892618215ec857fb83648bb4eea6bd1",
-          "gifSha256": "cb0a8d43dab74d8ce1c32db7470e4f469c6e132f8c8ee6a022e3eeea547ba12b",
+          "gifSha256": "4534be9eb3f220a97ee8b79b2e65ba7889cbca0cfbbe5f592435b7199a82254c",
           "posterSha256": "816d8df37405c4d56ef9858bcf34a4cbc75224599172eb5bf4085ed326a71bcd",
           "width": 1840,
           "height": 634,
@@ -1453,7 +1453,7 @@
           "gif": "native/button-states-en.gif",
           "poster": "native/button-states-en.png",
           "sha256": "601a596607f4e313e28e34b3263058de7dbcf0e84ef28a52ca0ed9c2bf050163",
-          "gifSha256": "5ffcce228eff3384a351798ddaff34cc9f828b132863d307f964aae93fcdfdb2",
+          "gifSha256": "2cd2e4be9bd2470641b9ed99b07dde6f55f29fee66354203374a59903f5e98ec",
           "posterSha256": "f137f9f54622bb1fb301166a66e984c306a21e0db5cccb8437ac903d4e301634",
           "width": 1840,
           "height": 634,
@@ -1470,7 +1470,7 @@
           "gif": "native/button-states-zh.gif",
           "poster": "native/button-states-zh.png",
           "sha256": "3d059bfd097704630da22b246fc43e7833fc7d15064acf4ebab2b577db96babc",
-          "gifSha256": "0bfafba220e37e3a6b0a8d43437e1318806eed595db889f26c0ea2aa401d4335",
+          "gifSha256": "df467351f404ddf81046f70dd78c2e05943bf1ed87eccdb87a744eaaed0c933f",
           "posterSha256": "abb2d266a11cfa68e23de4d488dade453612a66e215d1cebe94329ee52dc406a",
           "width": 1840,
           "height": 634,
@@ -1712,8 +1712,8 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "cacf981c89a3aaecf990e2f65c5eb4bb992be73d6aa6367795c0fc2b49c9771c",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "71f0f355a0fcb0c09caec3833fb22a71ad55bdc5d0915ba12949ca33dc7e6b0d",
       "outputs": [
         {
           "locale": "ru",
@@ -1915,9 +1915,9 @@
           ],
           "sourceFrameIndex": 15,
           "sourcePtsSeconds": 0.52,
-          "sourceFrameSha256": "4aad2dc6ffc1bb9e5e188a38a838ec5719f53626c491bef1eaf0ad4b9b46fad7",
-          "cropSha256": "4aad2dc6ffc1bb9e5e188a38a838ec5719f53626c491bef1eaf0ad4b9b46fad7",
-          "nativeBitmapSha256": "4aad2dc6ffc1bb9e5e188a38a838ec5719f53626c491bef1eaf0ad4b9b46fad7",
+          "sourceFrameSha256": "d9eab174e81cfb902fffe5282352ea0b98ede186b472b50ec7d3ad0e7036d00c",
+          "cropSha256": "d9eab174e81cfb902fffe5282352ea0b98ede186b472b50ec7d3ad0e7036d00c",
+          "nativeBitmapSha256": "d9eab174e81cfb902fffe5282352ea0b98ede186b472b50ec7d3ad0e7036d00c",
           "sourceFrameProof": "audit/repeat-check-01.png"
         },
         {
@@ -1926,9 +1926,9 @@
           "kind": "native-repeat-in-progress",
           "sourceFrameIndex": 89,
           "sourcePtsSeconds": 3.105,
-          "sourceFrameSha256": "cc4c2e7fa6992ec960dc5c43fbba1d28e1c34cc22506794686deffafb2830ceb",
-          "cropSha256": "cc4c2e7fa6992ec960dc5c43fbba1d28e1c34cc22506794686deffafb2830ceb",
-          "nativeBitmapSha256": "cc4c2e7fa6992ec960dc5c43fbba1d28e1c34cc22506794686deffafb2830ceb",
+          "sourceFrameSha256": "51a72c5874dab268d9b8c605b6cbcca4f48c90568257cdd1083c036333d6fc60",
+          "cropSha256": "51a72c5874dab268d9b8c605b6cbcca4f48c90568257cdd1083c036333d6fc60",
+          "nativeBitmapSha256": "51a72c5874dab268d9b8c605b6cbcca4f48c90568257cdd1083c036333d6fc60",
           "sourceFrameProof": "audit/repeat-check-02.png"
         },
         {
@@ -1940,9 +1940,9 @@
           "notices": 0,
           "sourceFrameIndex": 160,
           "sourcePtsSeconds": 5.628,
-          "sourceFrameSha256": "16394698d0827a8406b467c1a1a87ecea36e70224aa652b044867f7f4285ba07",
-          "cropSha256": "16394698d0827a8406b467c1a1a87ecea36e70224aa652b044867f7f4285ba07",
-          "nativeBitmapSha256": "16394698d0827a8406b467c1a1a87ecea36e70224aa652b044867f7f4285ba07",
+          "sourceFrameSha256": "760719e3cd26cb1b05c811975ab666c399c7484594519759e8c2b1835f49c6f0",
+          "cropSha256": "760719e3cd26cb1b05c811975ab666c399c7484594519759e8c2b1835f49c6f0",
+          "nativeBitmapSha256": "760719e3cd26cb1b05c811975ab666c399c7484594519759e8c2b1835f49c6f0",
           "sourceFrameProof": "audit/repeat-check-03.png"
         },
         {
@@ -1959,9 +1959,9 @@
           ],
           "sourceFrameIndex": 270,
           "sourcePtsSeconds": 9.518,
-          "sourceFrameSha256": "ba365a279265ceba35a68d6a584aeec0aaf94160805c2574249be56a305b18af",
-          "cropSha256": "ba365a279265ceba35a68d6a584aeec0aaf94160805c2574249be56a305b18af",
-          "nativeBitmapSha256": "ba365a279265ceba35a68d6a584aeec0aaf94160805c2574249be56a305b18af",
+          "sourceFrameSha256": "be75c506cb0f0ab53de4f1c9aae7fbc9385f01c88e24374fca4a21176cfbb339",
+          "cropSha256": "be75c506cb0f0ab53de4f1c9aae7fbc9385f01c88e24374fca4a21176cfbb339",
+          "nativeBitmapSha256": "be75c506cb0f0ab53de4f1c9aae7fbc9385f01c88e24374fca4a21176cfbb339",
           "sourceFrameProof": "audit/repeat-check-04.png"
         }
       ],
@@ -1974,17 +1974,17 @@
         "addedHolds": false,
         "syntheticPointer": false
       },
-      "rendererSha256": "ac821a2dc322aad2686a65fc23271b726c461f3b469f220db332b5ccd6945034",
-      "configurationSha256": "fc97f3739b5aefacdfcbf8dc1203a424463f0ac38856da82b0667f3a6cde6b31",
+      "rendererSha256": "749e652e9aea25937516848534f63484a05184ebf4d798152257a627eaca7443",
+      "configurationSha256": "ab0cdcb26919de3512a8218acc84036d71ed348b7bbe65520acda05ef08e6ca5",
       "outputs": [
         {
           "locale": "ru",
           "file": "native/repeat-check-ru.mp4",
           "gif": "native/repeat-check-ru.gif",
           "poster": "native/repeat-check-ru.png",
-          "sha256": "5fd2c86916140df05b4583b17a465141ee8932ae3a05e50b324aa278581e1fc5",
-          "gifSha256": "896a190966ff55f2c7cacde948712bc9a57cc50e145f5e4ecd51ab242a40199d",
-          "posterSha256": "ed872f55192a288ff017a67eef36fca827bdf62a99310b1aee68e1e762c6b33b",
+          "sha256": "0dc65cb7c19db623f48e68a60d2ba6a8d8994b7e5102090a0a0ea081c9a5d12b",
+          "gifSha256": "c69a3dc86ff310631b8ee58702ed56ecd789a746c7c1db9220b590b5731d2f13",
+          "posterSha256": "a4f5df86893a20f8771f2ce165166986900db2e465694c43066b509f1b10d119",
           "width": 1408,
           "height": 710,
           "durationSeconds": 10,
@@ -1999,9 +1999,9 @@
           "file": "native/repeat-check-en.mp4",
           "gif": "native/repeat-check-en.gif",
           "poster": "native/repeat-check-en.png",
-          "sha256": "1d46ba11b6f67a023ccd0f3ac2df2c3bdfbb6b11ae813f1001ddf15467a24376",
-          "gifSha256": "46a565c0d6aae8cdd07d68f5cc67ad7e82c939fd22129852598652ac41fb8264",
-          "posterSha256": "70137bfd3d11106b98b39f1e874e2c5572d1332397d2982dc5e08e06be3f47fe",
+          "sha256": "53ecd2823b2916cc9abf1db868c71defebaabf85af267103c115e8bd6843c08c",
+          "gifSha256": "4724b8b2b8aa4d5eda443b978e23e1655df1c659520d34fc07585fe9e1f704de",
+          "posterSha256": "7c3359ccf6d9a05ae1656208df646791b8444233fe71d2ba7b03a4b113176265",
           "width": 1408,
           "height": 710,
           "durationSeconds": 10,
@@ -2016,9 +2016,9 @@
           "file": "native/repeat-check-zh.mp4",
           "gif": "native/repeat-check-zh.gif",
           "poster": "native/repeat-check-zh.png",
-          "sha256": "bb3985fbc307027f0eeff0b4fb0a2d76db1c72324b170795f6ad9f14985838e7",
-          "gifSha256": "e5ff6262c66ce521dbe4643a7a62be58c3f6623bb9eb18abc5158a65b62ef10a",
-          "posterSha256": "f4c590523a1f40e71c895b4efce76143779673caefea4423b7e05776b46ad913",
+          "sha256": "11a3b27228fc87926056edbc525ade6117975996d519b20f1d76c6dbb0e49e96",
+          "gifSha256": "c012d435d79fe38a6e0014c2695a9a2766d3563be3ee1ade6119a1f01c58f5e1",
+          "posterSha256": "3d6b1bacd602581c941c1a9080c228b0ef6b94ba993f9783f091b8a4c6d60487",
           "width": 1408,
           "height": 710,
           "durationSeconds": 10,
