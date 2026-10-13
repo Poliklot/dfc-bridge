@@ -12,7 +12,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     starlight({
-      title: { ru: 'DFC Bridge', en: 'DFC Bridge', zh: 'DFC Bridge' },
+      title: { ru: 'DFC Bridge', en: 'DFC Bridge', 'zh-CN': 'DFC Bridge' },
       description:
         'DFC Bridge is a methodology for interface designs that can be implemented without guesswork.',
       logo: {
@@ -38,7 +38,6 @@ export default defineConfig({
       customCss: ['/src/styles/bridge.css'],
       components: {
         Header: './src/components/BridgeHeader.astro',
-        MobileMenuToggle: './src/components/AccessibleMobileMenuToggle.astro',
         SocialIcons: './src/components/ExternalSocialIcons.astro',
         ThemeSelect: './src/components/BridgeThemeSelect.astro',
         LanguageSelect: './src/components/BridgeLanguageSelect.astro',
@@ -62,10 +61,12 @@ export default defineConfig({
           },
         },
       ],
+      // Starlight translation keys match locales.*.lang, not route prefixes:
+      // Chinese pages use /zh/ URLs, but their translation key is 'zh-CN'.
       sidebar: [
         {
           label: 'Начать',
-          translations: { en: 'Start', zh: '开始' },
+          translations: { en: 'Start', 'zh-CN': '开始' },
           items: [
             { slug: 'start/designer-quick-start' },
             { slug: 'start/visual-walkthrough' },
@@ -75,7 +76,7 @@ export default defineConfig({
         },
         {
           label: 'Подготовить макет',
-          translations: { en: 'Prepare a design', zh: '准备设计' },
+          translations: { en: 'Prepare a design', 'zh-CN': '准备设计' },
           items: [
             { slug: 'guides/design-rules' },
             { slug: 'guides/layer-naming-and-identity' },
@@ -87,7 +88,7 @@ export default defineConfig({
         },
         {
           label: 'Расширенные сценарии',
-          translations: { en: 'Advanced topics', zh: '进阶主题' },
+          translations: { en: 'Advanced topics', 'zh-CN': '进阶主题' },
           collapsed: true,
           items: [
             { slug: 'guides/data-and-visualization' },
@@ -98,7 +99,7 @@ export default defineConfig({
         },
         {
           label: 'Проверка качества',
-          translations: { en: 'Quality checks', zh: '质量检查' },
+          translations: { en: 'Quality checks', 'zh-CN': '质量检查' },
           collapsed: true,
           items: [
             { slug: 'check/designer-checklist' },
@@ -109,13 +110,13 @@ export default defineConfig({
         },
         {
           label: 'Справочник',
-          translations: { en: 'Reference', zh: '参考资料' },
+          translations: { en: 'Reference', 'zh-CN': '参考资料' },
           collapsed: true,
           items: [{ slug: 'tags' }, { slug: 'rules' }, { autogenerate: { directory: 'reference' } }],
         },
         {
           label: 'Команда и проект',
-          translations: { en: 'Team and project', zh: '团队与项目' },
+          translations: { en: 'Team and project', 'zh-CN': '团队与项目' },
           collapsed: true,
           items: [{ autogenerate: { directory: 'project' } }],
         },

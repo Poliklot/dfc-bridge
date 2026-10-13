@@ -1,7 +1,30 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
-const home = `${base}/ru/`;
 const canonical = `https://poliklot.github.io${base}/404.html`;
+const translations = {
+  ru: {
+    lang: 'ru', title: 'Страница не найдена · DFC Bridge', eyebrow: '404 · путь не найден',
+    heading: 'Здесь нет страницы.',
+    description: 'Адрес мог измениться. Вернитесь к карте DFC Bridge и продолжите с нужной задачи.',
+    action: 'Открыть DFC Bridge', footer: 'Страница не найдена · Вернуться к документации DFC Bridge.',
+    languages: 'Выбрать язык',
+  },
+  en: {
+    lang: 'en', title: 'Page not found · DFC Bridge', eyebrow: '404 · path not found',
+    heading: 'There is no page here.',
+    description: 'The address may have changed. Return to the DFC Bridge overview and choose your next task.',
+    action: 'Open DFC Bridge', footer: 'Page not found · Return to the DFC Bridge documentation.',
+    languages: 'Choose a language',
+  },
+  zh: {
+    lang: 'zh-CN', title: '页面未找到 · DFC Bridge', eyebrow: '404 · 路径未找到',
+    heading: '这里没有页面。',
+    description: '地址可能已更改。请返回 DFC Bridge 概览，选择要继续的任务。',
+    action: '打开 DFC Bridge', footer: '页面未找到 · 返回 DFC Bridge 文档。',
+    languages: '选择语言',
+  },
+};
+const fallback = translations.ru;
 ---
 
 <!doctype html>
@@ -13,7 +36,7 @@ const canonical = `https://poliklot.github.io${base}/404.html`;
     <meta name="theme-color" content="#1e1e1e" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href={`${base}/assets/brand/dfc-bridge-mark.svg`} />
-    <title>Страница не найдена · DFC Bridge</title>
+    <title>{fallback.title}</title>
     <style>
       :root { color-scheme: dark; font-family: system-ui, sans-serif; }
       * { box-sizing: border-box; }
@@ -22,24 +45,52 @@ const canonical = `https://poliklot.github.io${base}/404.html`;
       header { display: flex; align-items: center; gap: .75rem; font-weight: 750; letter-spacing: .08em; }
       header img { width: 2.2rem; height: 2.2rem; }
       section { display: grid; align-content: center; max-width: 54rem; padding-block: 4rem; }
-      p:first-child { margin: 0 0 1rem; color: #70c3ff; font: 700 .75rem ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
+      section > p:first-child { margin: 0 0 1rem; color: #70c3ff; font: 700 .75rem ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
       h1 { max-width: 12ch; margin: 0; font-size: clamp(3rem, 10vw, 7.5rem); line-height: .92; letter-spacing: -.06em; }
       section > p:not(:first-child) { max-width: 54ch; margin: 1.5rem 0 0; color: #b8b8b8; font-size: clamp(1rem, 2vw, 1.18rem); line-height: 1.65; }
       a { display: inline-flex; width: fit-content; min-height: 2.75rem; align-items: center; margin-top: 2rem; border-radius: .35rem; background: #0d99ff; padding: .75rem 1rem; color: #06131c; font-weight: 750; text-decoration: none; }
       a:focus-visible { outline: 3px solid #f5f5f5; outline-offset: 4px; }
       footer { border-top: 1px solid #3f3f3f; padding-top: 1rem; color: #8f8f8f; font: .72rem ui-monospace, monospace; }
+      footer p { margin: 0; line-height: 1.65; }
+      footer nav { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+      footer a { margin: 0; background: transparent; color: #70c3ff; text-decoration: underline; }
     </style>
   </head>
   <body>
     <main>
       <header><img src={`${base}/assets/brand/dfc-bridge-mark.svg`} alt="" />DFC Bridge</header>
       <section>
-        <p>404 · путь не найден</p>
-        <h1>Здесь нет страницы.</h1>
-        <p>Адрес мог измениться. Вернитесь к карте DFC Bridge и продолжите с нужной задачи.</p>
-        <a href={home}>Открыть DFC Bridge <span aria-hidden="true">&nbsp;→</span></a>
+        <p data-error-copy="eyebrow">{fallback.eyebrow}</p>
+        <h1 data-error-copy="heading">{fallback.heading}</h1>
+        <p data-error-copy="description">{fallback.description}</p>
+        <a data-error-home href={`${base}/ru/`}><span data-error-copy="action">{fallback.action}</span><span aria-hidden="true">&nbsp;→</span></a>
       </section>
-      <footer lang="en">Page not found · Return to the DFC Bridge documentation.</footer>
+      <footer>
+        <p data-error-copy="footer">{fallback.footer}</p>
+        <nav data-error-languages aria-label={fallback.languages}>
+          <a href={`${base}/ru/`} lang="ru" hreflang="ru">Русский</a>
+          <a href={`${base}/en/`} lang="en" hreflang="en">English</a>
+          <a href={`${base}/zh/`} lang="zh-CN" hreflang="zh-CN">中文</a>
+        </nav>
+      </footer>
     </main>
+    <script define:vars={{ base, translations }}>
+      // GitHub Pages serves this single file at any missing URL. Match only
+      // the first path segment inside SITE_BASE, never query/hash substrings.
+      // Without JS, the Russian fallback and all three home links stay usable.
+      const prefix = `${base}/`;
+      const segment = window.location.pathname.startsWith(prefix)
+        ? window.location.pathname.slice(prefix.length).split('/')[0]
+        : '';
+      const locale = Object.hasOwn(translations, segment) ? segment : 'ru';
+      const copy = translations[locale];
+      document.documentElement.lang = copy.lang;
+      document.title = copy.title;
+      document.querySelectorAll('[data-error-copy]').forEach((element) => {
+        element.textContent = copy[element.dataset.errorCopy];
+      });
+      document.querySelector('[data-error-home]').href = `${base}/${locale}/`;
+      document.querySelector('[data-error-languages]').setAttribute('aria-label', copy.languages);
+    </script>
   </body>
 </html>

@@ -3157,7 +3157,7 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   }
 
   site-search button[data-open-modal],
-  starlight-menu-button button {
+  button[popovertarget="starlight__sidebar"] {
     width: 2.75rem !important;
     min-width: 2.75rem;
     height: 2.75rem !important;

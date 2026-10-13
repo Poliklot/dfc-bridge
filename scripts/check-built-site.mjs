@@ -207,7 +207,7 @@ if (!existsSync(sitemap)) {
   for (const block of xml.match(/<url>[\s\S]*?<\/url>/gu) || []) {
     for (const hreflang of ['en', 'ru', 'zh-CN']) {
       const matches = block.match(new RegExp(`hreflang="${hreflang}"`, 'gu')) || [];
-      if (matches.length !== 1) problems.push(`sitemap alternate group has ${matches.length} ${locale} links`);
+      if (matches.length !== 1) problems.push(`sitemap alternate group has ${matches.length} ${hreflang} links`);
     }
   }
 }

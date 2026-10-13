@@ -3,6 +3,9 @@ import config from 'virtual:starlight/user-config';
 import { Icon } from '@astrojs/starlight/components';
 
 const links = config.social || [];
+const locale = Astro.locals.starlightRoute.locale;
+const starsLabel = locale === 'zh' ? 'GitHub 星标' : locale === 'en' ? 'GitHub stars' : 'Звёзды на GitHub';
+const badgeLabel = locale === 'zh' ? '星标' : locale === 'en' ? 'Stars' : 'Звёзды';
 ---
 
 {links.map(({ label, href, icon }) =>
@@ -17,12 +20,12 @@ const links = config.social || [];
         target="_blank"
         rel="noopener noreferrer"
         class="bridge-github-stars-link"
-        aria-label="GitHub stars"
+        aria-label={starsLabel}
       >
         <img
           class="bridge-github-stars"
-          src="https://img.shields.io/github/stars/Poliklot/dfc-bridge?style=social"
-          alt="GitHub stars"
+          src={`https://img.shields.io/github/stars/Poliklot/dfc-bridge?style=social&label=${encodeURIComponent(badgeLabel)}`}
+          alt={starsLabel}
           loading="lazy"
         />
       </a>
@@ -59,7 +62,7 @@ const links = config.social || [];
     display: inline-flex;
     align-items: center;
     border-radius: 0.3rem;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.1s ease;
   }
 
   .bridge-github-stars-link:hover {
