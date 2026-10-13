@@ -44,5 +44,10 @@
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "typescript": "6.0.3"
+  },
+  "overrides": {
+    "postcss-nested@6.2.0": {
+      "postcss-selector-parser": "7.1.6"
+    }
   }
 }

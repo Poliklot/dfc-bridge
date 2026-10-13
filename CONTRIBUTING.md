@@ -29,6 +29,12 @@ npm audit
 
 `npm test` validates schemas and fixtures, EN/RU rule parity, Russian terminology, Page Check coverage, canonical and built links, generated-content parity, Astro types, and the production build.
 
+### Temporary dependency override
+
+Expressive Code currently requires `postcss-nested` 6, whose parser 6 dependency has no fix for GHSA-rj75-hqrm-r3gf. `package.json` therefore overrides only `postcss-nested@6.2.0`'s parser to `7.1.6`. All 69 upstream nesting tests pass with that parser. This intentionally crosses the parser's major version without changing the nesting plugin or downgrading Starlight.
+
+Remove the override when the normal upstream dependency chain selects a patched parser. After changing it, run a clean `npm ci`, `npm test`, browser tests, and `npm audit`; do not force a framework downgrade or lower the audit gate to hide a finding.
+
 ## Contract changes
 
 For a new tag, structured field, or rule:
