@@ -1,13 +1,13 @@
 # 为何用 DFC Bridge
 
-先看设计：
+设计：
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../assets/tutorial/screenshots/figma-before-overview.png" width="1600" height="1488" alt="真实 Figma 页面 01：两种宽度的完整视觉设计，根节点名为 desktop 和 mobile-final-2" loading="eager" />
 <figcaption>交付对象不明。</figcaption>
 </figure>
 
-设计漂亮。前端、后端、AI 在猜：做什么，数据哪来，按钮去哪？
+前后端、AI 在猜：做什么，数据哪来，按钮去哪？
 
 DFC Bridge 不规定设计。交付**决定，不是猜测**。
 
@@ -21,7 +21,7 @@ DFC Bridge 不规定设计。交付**决定，不是猜测**。
 
 `desktop`、`mobile-final-2`：同一页面？名称没说。
 
-看这两棵树：哪个标题、哪个按钮是同一元素？
+两棵树：哪些元素相同？
 
 <div class="bridge-lesson-pair bridge-lesson-tree-pair">
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
@@ -34,63 +34,77 @@ DFC Bridge 不规定设计。交付**决定，不是猜测**。
 </figure>
 </div>
 
-两项“移动版更好看”的决定：
+两项移动版决定：
 
 - 标题删掉 «понятных»（清晰）。改了内容，不是换行。
 - 整个 `hero-actions` 从 `hero-copy` 移到 `hero`，放在图后。换了父级，不只是顺序。
 
+<div class="bridge-lesson-pair bridge-lesson-heroes">
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../../assets/tutorial/screenshots/figma-before-hero-desktop.png" width="1184" height="720" alt="真实 Figma desktop 首屏局部：完整标题，两个按钮在插图之前，保留原始根节点名称" loading="lazy" />
+<figcaption>桌面：完整标题，两按钮在图前。</figcaption>
+</figure>
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
 <p><strong>前端:</strong> 短文案、图下按钮，都可以。</p>
 <img class="bridge-lesson-penguin" src="../../assets/tutorial/illustrations/handoff-penguin-frontend-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../../assets/tutorial/screenshots/figma-broken-comparison.png" width="1600" height="1488" alt="原始 desktop 和 mobile-final-2：完整与缩短的标题，按钮分别位于插图之前和之后" loading="lazy" />
-<figcaption>移动版标题少字，按钮移到图下。</figcaption>
+<img src="../../assets/tutorial/screenshots/figma-before-hero-mobile.png" width="344" height="632" alt="真实 Figma mobile-final-2 首屏局部：缩短的标题，两个按钮在插图之后，保留原始根节点名称" loading="lazy" />
+<figcaption>移动：少了 «понятных»，两按钮在图下。 <a href="../../assets/tutorial/screenshots/figma-before-overview.png">完整截图</a>.</figcaption>
 </figure>
+</div>
 
-但要约定文案变体，说明结构变换。没说，前端与 AI 只能猜。
+但需约定文案变体、结构变换，否则只能猜。
 
 ## 2. 连起两个画面
 
-约定：`workshop` 页面、`/workshop` 路由、`default` 视图，宽度 1440 和 375。记在根节点：
+根节点约定：`workshop` 页面、`/workshop` 路由、`default` 视图，宽度 1440 和 375：
 
 ```text
 workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]
 workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 ```
 
+Figma 各操作的连续录屏。自动逐字输入与剪切粘贴；光标不随操作移动。字幕和高亮是后加提示。
+
+下方“全屏查看”→“原始大小”。
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/page-metadata-zh.mp4" poster="../../assets/tutorial/motion/native/page-metadata-zh.png" width="802" height="1040" controls playsinline preload="none" aria-label="声明 workshop 页面、/workshop 路由、default 视图和 375 宽度"><a href="../../assets/tutorial/motion/native/page-metadata-zh.mp4" download="page-metadata-zh.mp4">下载 MP4</a></video>
+<figcaption>独立操作：关联同一页面的根。 <a href="../../assets/tutorial/motion/native/page-metadata-zh.gif" download="page-metadata-zh.gif">GIF</a>.</figcaption>
+</figure>
+
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
 <img src="../../assets/tutorial/diagrams/contexts-zh.svg" width="481" height="557" alt="两个 workshop 根节点共享页面与 default 视图，宽度分别为1440和375" loading="lazy" />
 <figcaption>同一页面、视图，两种宽度。</figcaption>
 </figure>
 
-前端知道做什么，AI 不找“最 final”。标签记录约定，不生成布局或代码。
+标签记录约定，不生成布局或代码。
 
 ## 3. 找到同一元素
 
-按用途命名，不按设备。前端和 AI 能对应：
+按用途命名，不按设备：
 
 | 原名称 1440 / 375 | 两种宽度的新名称 |
 | --- | --- |
 | `Heading` / `Title mobile` | `hero-title` |
 | `Button` / `Button copy` | `contact-button` |
 
-标题统一，`hero-actions` 回到 `hero-copy`，在 `workshop-art` 前。不是唯一办法。
+此例统一文案和父级，也可另定方案。
 
-<div class="bridge-lesson-pair bridge-lesson-motion-pair">
 <figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../../assets/tutorial/motion/rename-title.mp4" poster="../../assets/tutorial/motion/rename-title.png" width="472" height="528" controls playsinline preload="none" aria-label="Figma 分步截图：Title mobile 图层改名为 hero-title，不改文字"><a href="../../assets/tutorial/motion/rename-title.mp4" download="rename-title.mp4">下载 MP4</a></video>
-<figcaption>Figma 分步截图：<code>Title mobile</code> → <code>hero-title</code>，不改文字。 <a href="../../assets/tutorial/motion/rename-title.gif" download="rename-title.gif">下载 GIF</a>.</figcaption>
+<video src="../../assets/tutorial/motion/native/rename-title-zh.mp4" poster="../../assets/tutorial/motion/native/rename-title-zh.png" width="818" height="570" controls playsinline preload="none" aria-label="Title mobile 改名为 hero-title，不改产品文案"><a href="../../assets/tutorial/motion/native/rename-title-zh.mp4" download="rename-title-zh.mp4">下载 MP4</a></video>
+<figcaption><code>Title mobile</code> → <code>hero-title</code>，只改名称。 <a href="../../assets/tutorial/motion/native/rename-title-zh.gif" download="rename-title-zh.gif">GIF</a>.</figcaption>
 </figure>
-<figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../../assets/tutorial/motion/move-actions.mp4" poster="../../assets/tutorial/motion/move-actions.png" width="472" height="528" controls playsinline preload="none" aria-label="Figma 分步截图：整个 hero-actions 移入 hero-copy，保留两个按钮"><a href="../../assets/tutorial/motion/move-actions.mp4" download="move-actions.mp4">下载 MP4</a></video>
-<figcaption>Figma 分步截图：整个 <code>hero-actions</code> → <code>hero-copy</code> 内。 <a href="../../assets/tutorial/motion/move-actions.gif" download="move-actions.gif">下载 GIF</a>.</figcaption>
-</figure>
-</div>
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/figma-prepared-tree.png" width="752" height="1000" alt="准备好的真实 Figma 树：hero-actions 包含 contact-button 和 faq-link，并位于 hero-copy 内" loading="lazy" />
-<figcaption>文字与动作回到同一容器。</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/repair-copy-zh.mp4" poster="../../assets/tutorial/motion/native/repair-copy-zh.png" width="798" height="640" controls playsinline preload="none" aria-label="恢复完整产品标题 Мастерская понятных макетов"><a href="../../assets/tutorial/motion/native/repair-copy-zh.mp4" download="repair-copy-zh.mp4">下载 MP4</a></video>
+<figcaption>恢复完整标题。 <a href="../../assets/tutorial/motion/native/repair-copy-zh.gif" download="repair-copy-zh.gif">GIF</a>.</figcaption>
+</figure>
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/move-actions-zh.mp4" poster="../../assets/tutorial/motion/native/move-actions-zh.png" width="788" height="780" controls playsinline preload="none" aria-label="整个 hero-actions 移入已有 hero-copy，保留两个控件和 Auto Layout"><a href="../../assets/tutorial/motion/native/move-actions-zh.mp4" download="move-actions-zh.mp4">下载 MP4</a></video>
+<figcaption>整个 <code>hero-actions</code> → <code>hero-copy</code>，不是一个按钮。 <a href="../../assets/tutorial/motion/native/move-actions-zh.gif" download="move-actions-zh.gif">GIF</a>.</figcaption>
 </figure>
 
 **不同文案需[约定的产品变体](16-variation-axes.md)，换父级需[声明的响应式变换](03-responsive-breakpoints.md)。** 同一父级可调顺序。
@@ -100,7 +114,7 @@ workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 <figcaption>同按钮，不同布局。</figcaption>
 </figure>
 
-桌面并排，移动版竖排。**不同布局没问题：**改 Auto Layout，这里的文字与父级不变。
+桌面并排，移动版竖排。**不同布局没问题：** 改 Auto Layout，这里的文字与父级不变。
 
 <div class="bridge-lesson-pair bridge-lesson-heroes">
 <figure class="bridge-lesson-figure bridge-lesson-render">
@@ -117,13 +131,18 @@ workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 
 ## 4. 做好组件库
 
-`button-primary` 和 `button-secondary` 成为共用组件。改源头，实例更新。不用逐个改。
+`button-primary`、`button-secondary` 均为可复用组件：改源头，实例更新。
 
-**UI-kit** 展示两种样式的状态，**Modals** 管窗口外观。前端和 AI 不用猜。
+**UI-kit** 展示两种样式的状态，**Modals** 管窗口外观。
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../assets/tutorial/screenshots/figma-kit-modals.png" width="1160" height="1514" alt="真实 UI-kit：两种按钮样式的默认、悬停、焦点、按下与禁用示例；旁边是包含 contact-modal 的 Modals" loading="lazy" />
 <figcaption>两种样式、五个状态。窗口在旁。</figcaption>
+</figure>
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/button-states-zh.mp4" poster="../../assets/tutorial/motion/native/button-states-zh.png" width="1840" height="634" controls playsinline preload="none" aria-label="State：default → hover，再单独启用 Focus visible"><a href="../../assets/tutorial/motion/native/button-states-zh.mp4" download="button-states-zh.mp4">下载 MP4</a></video>
+<figcaption>默认 → 悬停，再单独启用焦点。 <a href="../../assets/tutorial/motion/native/button-states-zh.gif" download="button-states-zh.gif">GIF</a>.</figcaption>
 </figure>
 
 **组件库管外观，页面实例管动作。** 同款按钮，别处用途可不同。
@@ -136,33 +155,25 @@ workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 <figcaption>按钮 → 窗口。链接 → FAQ。</figcaption>
 </figure>
 
-Assistant：动作和目标设在按钮，不在文字上：
-
-<div class="bridge-lesson-pair">
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-layer-type-local.png" width="906" height="1173" alt="Assistant：按钮类型、模态窗口动作与前往目标控件" loading="lazy" />
-<figcaption>动作设在按钮本身。</figcaption>
-</figure>
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<figure class="bridge-lesson-figure bridge-lesson-motion">
 <aside class="bridge-lesson-comment">
 <p><strong>AI:</strong> 此宽度的目标是 contact-modal。</p>
 <img class="bridge-lesson-penguin" src="../../assets/tutorial/illustrations/handoff-penguin-ai-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../../assets/tutorial/screenshots/assistant-layer-target-local.png" width="906" height="1173" alt="Assistant：contact-button 名称与 375 px 上的 contact-modal 目标" loading="lazy" />
-<figcaption>目标设在对应宽度内。</figcaption>
+<video src="../../assets/tutorial/motion/native/local-action-zh.mp4" poster="../../assets/tutorial/motion/native/local-action-zh.png" width="888" height="930" controls playsinline preload="none" aria-label="给 contact-button 实例设置动作，并找到 375 的隐藏本地 contact-modal；前往目标只找图层，不开窗"><a href="../../assets/tutorial/motion/native/local-action-zh.mp4" download="local-action-zh.mp4">下载 MP4</a></video>
+<figcaption>实例上设置动作，目标在 375。 <a href="../../assets/tutorial/motion/native/local-action-zh.gif" download="local-action-zh.gif">GIF</a>.</figcaption>
 </figure>
-</div>
 
-**前往目标**只找图层，不开窗。行为要实现。
+**前往目标**只找隐藏图层，不开窗。行为要实现。
 
 <details>
 <summary>组件细节</summary>
 
-状态是示例，不是可运行原型。
+不是可运行原型。
 
 `State=default/hover/pressed/disabled` 是 Figma 变体，不是 DFC 标签或页面视图。焦点独立：`Focus visible=true` 可与 `hover`、`pressed` 同时出现。
 
-禁用条件与决策负责人写进实现契约。没有加载态：开窗、跳锚点，无异步请求。
+禁用条件与负责人写进实现契约。无异步请求，不加加载态。
 
 各根有隐藏 `[modal=contact-modal]`。Modals 主组件只管外观，不是目标。邮箱窗口，不提交表单。
 
@@ -172,14 +183,14 @@ Assistant：动作和目标设在按钮，不在文字上：
 
 ## 5. 检查结果
 
-未说明差异的副本：**检查 → 检查页面**。Assistant 找到 `hero-title` 文字、`hero-actions` 父级不同。Auto Layout 开启。
+独立副本：`hero-title` 文案、`hero-actions` 父级不同。Auto Layout 开启。修正未入镜；视频只有旧报告与复查。
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-findings-local.png" width="1430" height="1656" alt="真实 Assistant 报告：两项错误，标题文字不同与 hero-actions 的语义父级改变" loading="lazy" />
-<figcaption>源设计有错，不是禁止设计选择。</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/repeat-check-zh.mp4" poster="../../assets/tutorial/motion/native/repeat-check-zh.png" width="1408" height="710" controls playsinline preload="none" aria-label="独立 workshop 副本在未录入的修正后复查：旧报告两项错误到零，仅检查 375 和 1440 上下文"><a href="../../assets/tutorial/motion/native/repeat-check-zh.mp4" download="repeat-check-zh.mp4">下载 MP4</a></video>
+<figcaption>修正未入镜。复查：2 项错误 → 0，仅 375/1440。 <a href="../../assets/tutorial/motion/native/repeat-check-zh.gif" download="repeat-check-zh.gif">GIF</a>.</figcaption>
 </figure>
 
-**显示图层 → 修正 → 重查。** 页面 02 是此处选择：同一标题、父级和关联组件。
+页面 02 是此方案，旁边有 UI-kit 和 Modals。
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
@@ -191,8 +202,8 @@ Assistant：动作和目标设在按钮，不在文字上：
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-ready-result-local.png" width="1430" height="1656" alt="真实完整 Assistant 报告：workshop 就绪，宽度 375 和 1440 px，零计数与检查边界" loading="lazy" />
-<figcaption>页面 02：检查范围内无问题。</figcaption>
+<img src="../../assets/tutorial/screenshots/assistant-ready-summary-local.png" width="1398" height="396" alt="较早的页面 02 本地 Assistant 报告顶部：375 和 1440 px、零计数与源文件检查范围" loading="lazy" />
+<figcaption>页面 02 的较早报告，不是上段录像的结果，也不是对更新文件的新检查。 <a href="../../assets/tutorial/screenshots/assistant-ready-result-local.png">完整历史报告</a>.</figcaption>
 </figure>
 
 **“就绪”只指检查范围，不是应用完成。**

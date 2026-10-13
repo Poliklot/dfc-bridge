@@ -1,28 +1,28 @@
 {
   "identity.missing-stable-identity": {
-    "title": "没有稳定的ID",
-    "description": "重要的可转移元素，包括装饰和资产根，必须具有稳定的身份：稳定的层名称或带有身份的后备标签值。",
-    "fix": "当 Figma 元数据提供类型时，使用英文 kebab-case 图层名称。布尔值“[decor]”和“[asset]”是视觉意图/策略标志，它们本身不足以识别命名不当的图层。"
+    "title": "缺少稳定标识",
+    "description": "重要的交付元素，包括装饰和资源根节点，都必须具有稳定标识：稳定的图层名称，或带有标识的后备标签值。",
+    "fix": "当 Figma 元数据已提供类型时，使用英文 kebab-case 图层名称。布尔标签 `[decor]` 和 `[asset]` 只表达视觉意图或交付策略，不能单独标识一个名称不明确的图层。"
   },
   "identity.duplicate-identity": {
-    "title": "ID在一个区域重复",
-    "description": "同一声明的审核上下文中的两个元素（例如一个页面断点/视图或一个选定部分变体）不得共享一个稳定的设计标识。",
-    "fix": "优先选择能够重新排序的语义固定键，例如“product-card-sku-blue”；仅使用诸如“product-card-1”之类的位置索引作为设计夹具后备。切勿将位置后缀视为运行时数据键。"
+    "title": "同一检查范围内标识重复",
+    "description": "同一声明的检查上下文中，两个元素不能共用一个稳定设计标识。例如，一个页面的断点/视图组合，或一个选中区块变体，就是一个检查上下文。",
+    "fix": "优先使用重新排序后仍有效的语义样例键，例如 `product-card-sku-blue`；`product-card-1` 这样的顺序索引只能作为设计样例的后备命名。切勿将位置后缀用作运行时数据键。"
   },
   "identity.same-identity-different-type": {
     "title": "一个标识符代表不同的类型",
-    "description": "相同的标识不得在可比较的声明的响应上下文中解析为不同的逻辑元素类型，包括一个部分的显式选择的变体。",
-    "fix": "保持 Figma 节点/组件类型在声明的上下文中稳定或建模一个单独的实体。不要在选定的部分上创建页面或断点标签。"
+    "description": "在可比较的已声明响应式上下文中，同一标识不能对应不同的逻辑元素类型。这也适用于明确选中的同一区块变体。",
+    "fix": "在声明的上下文中保持 Figma 节点/组件类型一致，或将其建模为独立实体。不要为选中的区块编造页面或断点标签。"
   },
   "identity.breakpoint-specific-id": {
-    "title": "ID 取决于控件宽度",
+    "title": "标识依赖于控制宽度",
     "description": "可选的 DFC Bridge 标识值必须描述逻辑元素，而不是响应断点。当后缀与当前断点匹配时，“[bp=375]”根中的“[control=button-reviews-box-375]”等值无效。",
     "fix": "从可选 id 中删除断点后缀。对于普通按钮/控件，请完全删除可选 id 并使用 `Отзывы мобилка [action=modal:marketplaces-modal]`。"
   },
   "identity.repeated-item-no-index": {
-    "title": "重复元素不区分",
-    "description": "创作的重复列表或网格事件需要独特的稳定的设计实例锚点。`[item=...]` 仅对它们共享的重复角色或类型进行分类；它不是实例身份。",
-    "fix": "为每个出现提供一个有意义的稳定层或设计实例键，例如“product-card-oak-chair”和“product-card-wool-lamp”，而两者都可以使用“[item=product-card]”。仅使用数字固定装置后缀作为后备，切勿用作运行时数据标识。"
+    "title": "重复条目缺少独立标识",
+    "description": "设计中重复列表或网格里的每个条目，都需要独立且稳定的设计实例标识。`[item=...]` 仅表示它们共同的角色或类型，不是实例标识。",
+    "fix": "为每个条目设置有意义的稳定图层名称或设计实例键，例如 `product-card-oak-chair` 和 `product-card-wool-lamp`；两者都可以使用 `[item=product-card]`。数字后缀只能作为设计样例的后备命名，不能作为运行时数据标识。"
   },
   "identity.multiple-identity-tags": {
     "title": "一个层声明多个竞争标识符",
@@ -31,21 +31,21 @@
   },
   "syntax.decor-asset-value-not-kebab-case": {
     "title": "装饰或资源值未写成 kebab-case",
-    "description": "布尔值 `[decor]` 和 `[asset]` 在没有值的情况下也是有效的。如果后备值存在于“[decor=...]”或“[asset=...]”中，则它必须是英语短横线大小写。",
-    "fix": "更喜欢稳定的层标识加上布尔标志，例如“sneg [decor] [asset]”。仅对不良/默认图层名称使用值形式，例如“Frame 182 [decor=snow-bg]”。"
+    "description": "布尔标签 `[decor]` 和 `[asset]` 不带值时也是有效形式。若后备形式 `[decor=...]` 或 `[asset=...]` 带有值，该值必须使用英文 kebab-case。",
+    "fix": "优先使用稳定图层标识与布尔标签，例如 `sneg [decor] [asset]`。只有图层名称不明确或仍是默认名称时，才使用带值形式，例如 `Frame 182 [decor=snow-bg]`。"
   },
   "syntax.identity-value-not-kebab-case": {
-    "title": "标识符值不以短横线大小写书写",
-    "description": "创作的类似身份的标签值、锚点和视图应使用稳定的英文短横线大小写，以便验证器和适配器可以确定性地比较它们。",
-    "fix": "将空格、本地化单词、大写字符和标点符号替换为稳定的英文短横线大小写值，例如“product-card-1”、“contact-modal”、“faq”或“not-found”。"
+    "title": "标识值不符合 kebab-case",
+    "description": "用于标识的标签值、锚点和视图应采用稳定的英文 kebab-case，即小写单词用连字符连接，以便验证器和适配器进行确定性比较。",
+    "fix": "将空格、本地化文字、大写字母和其他标点改为稳定的英文 kebab-case 值，例如 `product-card-1`、`contact-modal`、`faq` 或 `not-found`。"
   },
   "identity.decor-asset-flags-not-identities": {
-    "title": "属性decor和asset被错误地认为是标识符",
-    "description": "“[decor]”和“[asset]”是视觉意图/策略标志，当它们一起出现时，不得将其视为身份标签或多个身份。",
-    "fix": "从稳定层名称解析身份，例如“sneg”；将“[decor]”和“[asset]”保留为标志。仅使用“[decor=...]”或“[asset=...]”作为不良/默认图层名称的后备。"
+    "title": "decor 和 asset 被误算为标识",
+    "description": "`[decor]` 和 `[asset]` 只表达视觉意图或交付策略；它们不是身份标签，一起使用也不构成多个标识。",
+    "fix": "从 `sneg` 这样的稳定图层名称读取标识，保留 `[decor]` 和 `[asset]` 作为标记。只有名称不明确或仍为默认名称时，才使用 `[decor=...]` 或 `[asset=...]` 作为后备标识。"
   },
   "syntax.duplicate-tag": {
-    "title": "每层重复一个标签",
+    "title": "同一图层重复标签键",
     "description": "层不得重复相同的 DFC Bridge 标签键。",
     "fix": "为该键保留一个规范值。如果两个值描述不同的关注点，请使用适当的不同标签对它们进行建模或拆分逻辑实体。"
   },
@@ -55,29 +55,29 @@
     "fix": "删除元数据标签并通过原生 Figma 节点类型、组件源、布局模式、定位、填充或导出设置来表达属性。"
   },
   "section.role-prefix-in-name": {
-    "title": "部分名称重复其作用",
-    "description": "剖面图层名称不应使用“Section /”或“Секция /”等前缀重复角色。",
-    "fix": "保持人类标签简洁。尽可能解析“页面部分”源组件中的部分，或仅对框架部分、通用组件或显式覆盖使用“[section=...]”。"
+    "title": "区块名称重复说明角色",
+    "description": "区块图层名称不应通过 `Section /` 或 `Секция /` 等前缀重复其角色。",
+    "fix": "保持可读名称简洁。优先从 `Page Sections` 中的源组件确定区块；只有画框区块、通用组件或明确覆盖时，才使用 `[section=...]`。"
   },
   "section.identity-as-human-heading": {
-    "title": "从标题复制的部分密钥",
-    "description": "节键应该描述可重用的节组件，而不是复制特定于页面的标题。",
-    "fix": "使用上下文标题的图层名称。仅当需要显式后备/覆盖时，才从“页面部分”解析稳定部分键或使用“[section=...]”。"
+    "title": "区块键照搬页面标题",
+    "description": "区块键应描述可复用的区块组件，而不是照搬某个页面专属的标题。",
+    "fix": "用图层名称表达当前上下文中的标题。从 `Page Sections` 读取稳定区块键；只有需要明确的后备标识或覆盖时，才使用 `[section=...]`。"
   },
   "section.component-source-unclassified": {
-    "title": "截面组件来源未分类",
-    "description": "页面级部分组件实例应来自“页面部分”库页面，或者层应声明显式“[section=...]”后备。",
-    "fix": "仅当图层是框架部分、通用组件或显式覆盖时，将源组件移动到“页面部分”，将其注册为部分组件，或添加“[section=...]”。"
+    "title": "区块组件源未分类",
+    "description": "页面级区块的组件实例应来自 `Page Sections` 库页面；否则，图层应显式声明 `[section=...]` 作为后备。",
+    "fix": "将源组件移入 `Page Sections`，或注册为区块组件。只有图层属于画框区块、通用组件或明确覆盖时，才添加 `[section=...]`。"
   },
   "section.redundant-instance-section-tag": {
-    "title": "部分实例重复额外标签",
-    "description": "“页面部分”中的组件实例不应在页面层上重复“[section=...]”。",
-    "fix": "删除多余的页面层`[section=...]`；从源组件或组件集名称解析部分 ID。"
+    "title": "区块实例重复声明区块标签",
+    "description": "`Page Sections` 中的组件实例不应在页面图层上重复 `[section=...]`。",
+    "fix": "删除页面图层上多余的 `[section=...]`，从源组件或组件集名称读取区块标识。"
   },
   "component.ui-kit-used-as-section": {
-    "title": "UI Kit 组件被错误地用作一个部分",
-    "description": "“UI Kit”中的组件是普通的界面组件，不应被推断为页面部分。",
-    "fix": "将“页面部分”中的组件用于页面级部分，或仅为有意的框架部分或覆盖添加“[section=...]”。"
+    "title": "UI Kit 组件被误判为页面区块",
+    "description": "`UI Kit` 中的组件属于通用界面组件，不应自动推断为页面区块。",
+    "fix": "页面级区块使用 `Page Sections` 中的组件；只有明确采用画框区块或覆盖时，才添加 `[section=...]`。"
   },
   "naming.default-layer-name": {
     "title": "标准 Figma 图层名称仍然保留",
@@ -90,104 +90,104 @@
     "fix": "首先修复 Figma 结构/元数据；仅为产品或传输意图添加 DFC Bridge 标签，例如“[section=...]”、“[href=...]”、“[link]”、“[action=...]”、“[control]”、“[field=...]”、“[decor]”、“[asset]”、“[modal=...]”或“[state=...]”。"
   },
   "layout.page-root-missing-auto-layout": {
-    "title": "页面根目录没有自动布局",
-    "description": "每个 DFC Bridge 页面根都必须使用本机 Figma 自动布局，即使它有零个或一个子级。页面根是响应式内容容器，不是原始几何体或叶几何体，并且不能将自身标记为“[asset]”以绕过规则。",
-    "fix": "在页面根部启用垂直、水平或网格自动布局，并在 Figma 中定义其填充、间隙、对齐和换行。“[asset]”、“[decor]”、绝对定位和页面根目录上的异常标记不会抑制此阻塞查找。"
+    "title": "页面根未使用 Auto Layout",
+    "description": "每个 DFC Bridge 页面根都必须使用 Figma 原生 Auto Layout，即使没有子节点或只有一个子节点。页面根是响应式内容容器，不是基础图形或叶节点几何，不能通过标记 `[asset]` 绕过规则。",
+    "fix": "在页面根上启用垂直、水平或网格 Auto Layout，并在 Figma 中设置内边距、间距、对齐和换行。页面根上的 `[asset]`、`[decor]`、绝对定位和例外标签，都不会消除这项阻塞问题。"
   },
   "layout.page-root-cannot-be-asset": {
-    "title": "页面根目录被声明为资源",
-    "description": "DFC Bridge 页面根不得携带“[asset]”。页面是一个实时响应内容契约，从来没有一个不透明的导出视觉效果；根级“[asset]”不会创建不透明的边界，并且仍必须验证后代。",
-    "fix": "从页面根目录中删除“[asset]”，在根目录中保留本机自动布局，并将“[asset]”仅应用于作为不透明单元传输的真正后代视觉效果。当同一页面根目录也有布局模式 NONE 时，单独报告自动布局发现。"
+    "title": "页面根被标记为整体资源",
+    "description": "DFC Bridge 页面根不能带有 `[asset]`。页面承载实时响应式内容契约，不是一个整体导出的视觉资源。页面根上的 `[asset]` 不会形成不透明边界，仍须检查后代节点。",
+    "fix": "删除页面根上的 `[asset]`，保留其原生 Auto Layout。只对确实整体交付、内部不再重建的后代视觉资源使用 `[asset]`。若同一页面根的布局模式为 NONE，仍应单独报告 Auto Layout 问题。"
   },
   "layout.section-missing-auto-layout": {
-    "title": "根部分没有自动布局",
-    "description": "在声明的审计树（页面树或选定部分子树）中遇到的每个可编辑的非页面框架或携带“[section]”的组件都必须使用本机Figma自动布局，即使有零个或一个子节点，除非该确切节点是合法的不透明整体视觉“[asset]”，没有实时内容流。对于选定的部分条目，“[asset]”必须位于该确切的部分根上；不同的非页面根不透明资产祖先下面的部分是阻塞范围先决条件，而不是继承豁免。无效的页面根“[asset]”永远不会创建不透明度。放置的实例是原子的并且被排除在该规则之外；源工具检查不会解析或检查其源组件。",
-    "fix": "在遇到的“[section]”框架或组件上启用自动布局。单独审核已放置实例的可编辑源组件；不要将实例压平或分离作为解决方法。`[decor]` 和异常标签不会放弃部分布局合同；仅在真正不透明的全视觉部分根上使用“[asset]”，并将活动部分移到任何祖先资产边界之外。"
+    "title": "区块根未使用 Auto Layout",
+    "description": "在声明的检查树中，无论是页面树还是选中区块子树，带有 `[section]` 的可编辑非页面 FRAME 或 COMPONENT 都必须使用 Figma 原生 Auto Layout，即使没有子节点或只有一个子节点。唯一例外是该节点本身确实属于整体交付、没有实时内容流的 `[asset]`。检查选中区块时，`[asset]` 必须在该区块根本身；区块若位于另一个非页面根的资源祖先之下，属于范围前提不成立的阻塞问题，而不是继承豁免。页面根上的非法 `[asset]` 不会形成不透明边界。已放置的 INSTANCE 视为原子对象，不适用本规则；源工具检查不会继续解析其源组件。",
+    "fix": "在检查到的 `[section]` FRAME 或 COMPONENT 上启用 Auto Layout。单独检查已放置实例的可编辑源组件，不要通过拼合或分离实例来规避问题。`[decor]` 和例外标签不能免除区块布局要求。只有确实整体交付的视觉区块根才使用 `[asset]`；具有实时内容流的区块应移到祖先资源边界之外。"
   },
   "layout.container-missing-auto-layout": {
-    "title": "内容容器没有自动布局",
-    "description": "位于“[asset]”子树外部且至少有两个参与内容流的可见且有意义的直接子树的支持自动布局的内容容器必须使用本机 Figma 自动布局。原始几何体和叶子几何体除外。",
-    "fix": "在 Figma 中启用本机自动布局并表达方向、填充、间隙、对齐、环绕和大小调整。预期的绝对视觉子级可能在该父级内保持绝对，但“[decor]”和异常标记不会将父级变成手动布局容器或抑制此发现。"
+    "title": "内容容器未使用 Auto Layout",
+    "description": "在 `[asset]` 子树之外，支持 Auto Layout 的内容容器只要有至少两个可见、有意义且参与内容流的直接子节点，就必须使用 Figma 原生 Auto Layout。基础图形和叶节点几何不适用本规则。",
+    "fix": "启用原生 Auto Layout，并在 Figma 中设置方向、内边距、间距、对齐、换行和尺寸行为。有明确意图的视觉子节点可以在该父级内保持绝对定位，但 `[decor]` 和例外标签不能让父级免于 Auto Layout 要求，也不会消除这项问题。"
   },
   "layout.group-outside-asset": {
-    "title": "该组位于导出的资源之外",
-    "description": "“[asset]”子树外部的Figma GROUP是无效的，因为它在没有可转移布局契约的情况下对几何图形进行编码。单独的“[decor]”并不是豁免，并且“[bridge-exception=manual-layout] [reason=...]”记录了建议的偏差，但没有抑制这一阻塞发现。",
-    "fix": "使用本机自动布局将 GROUP 替换为框架或组件。如果整个子树被传输为一个不透明的视觉对象，则标记其根“[asset]”并仅在其具有装饰性时添加“[decor]”。当转换确实不可能时，记录手动布局和该组的具体原因，然后通过单独的偏差接受门处理仍然报告的发现。"
+    "title": "GROUP 位于资源边界之外",
+    "description": "位于 `[asset]` 子树之外的 Figma GROUP 无效：它只保存几何关系，没有可交付的布局契约。单独的 `[decor]` 不构成豁免；`[bridge-exception=manual-layout] [reason=...]` 只记录提出的偏差，不会消除该阻塞问题。",
+    "fix": "将 GROUP 替换为使用原生 Auto Layout 的画框或组件。只有整个子树确实作为一个不透明视觉资源交付时，才在根上标记 `[asset]`；只有装饰性资源才加 `[decor]`。如果确实无法转换，应在该 GROUP 上记录 manual-layout 例外及具体原因，并在独立的偏差审批阶段处理仍然存在的问题。"
   },
   "layout.positioned-without-intent": {
-    "title": "移除的层没有明确的用途",
-    "description": "“[asset]”子树外部的绝对定位、视觉分离或重叠元素必须对该确切节点有明确的意图。`[decor]` 仅对预期的绝对视觉层有效，并且不会使父树或自由形式子树免受自动布局和 GROUP 规则的约束。",
-    "fix": "将几何图形保持在 Figma 原生定位中。标记预期的绝对装饰“[decor]”、整个不透明视觉“[asset]”，或使用适当的模式/状态目标。对于无法以其他方式建模的有意覆盖，请使用“[bridge-exception=overlay] [reason=...]”；永远不要仅仅为了消除布局错误而将“[decor]”放在容器上。"
+    "title": "脱离内容流的图层缺少明确意图",
+    "description": "`[asset]` 子树外的绝对定位、视觉上独立或发生重叠的元素，必须在该节点本身表达明确意图。`[decor]` 只适用于具有明确意图的绝对定位视觉层，不能让父级或任意子树免于 Auto Layout 和 GROUP 规则。",
+    "fix": "定位方式仍由 Figma 原生属性表达。绝对定位的装饰层使用 `[decor]`，整体视觉资源使用 `[asset]`，模态窗口或状态目标使用对应目标标签。无法用其他方式表达的有意叠加，可用 `[bridge-exception=overlay] [reason=...]`。切勿只为消除布局错误而给容器加 `[decor]`。"
   },
   "layout.one-child-wrapper-without-role": {
-    "title": "Singleton 包装器没有理由",
-    "description": "没有结构原因的独生子包装可能是不必要的噪音。",
-    "fix": "删除包装器或通过结构、命名、剪辑、共享表面、目标范围或资产分组明确其 Figma 用途。"
+    "title": "单子节点容器缺少结构作用",
+    "description": "只有一个子节点且没有结构作用的容器，很可能是多余层级。",
+    "fix": "删除多余容器，或通过结构、命名、裁剪、共用背景区域、目标范围或资源分组，明确它在 Figma 中的作用。"
   },
   "layout.wrapper-chain-too-deep": {
-    "title": "缠绕链太深",
-    "description": "深层包装链通常会使响应式映射变得脆弱。",
-    "fix": "扁平化结构或确保每个包装都有真正的 Figma 用途。"
+    "title": "容器嵌套过深",
+    "description": "多层容器嵌套往往会让不同宽度之间的响应式映射变得脆弱。",
+    "fix": "减少无意义的嵌套，或确认每一层容器在 Figma 中都有实际作用。"
   },
   "layout.overlap-without-overlay-role": {
     "title": "层重叠未解释",
-    "description": "重叠边界需要重叠节点上的清晰覆盖、绝对装饰、整体资产、目标或显式异常意图。",
-    "fix": "仅在预期的绝对视觉层上声明“[decor]”，对不透明视觉子树使用“[asset]”，添加适当的目标标签，或记录“[bridge-exception=overlay] [reason=...]”。定位仍然来自 Figma 元数据。"
+    "description": "发生重叠的节点应有明确意图：叠加层、绝对定位装饰、整体资源、交互目标或显式例外。",
+    "fix": "只在具有明确意图的绝对定位视觉层上使用 `[decor]`；整体视觉子树使用 `[asset]`；交互目标添加对应标签；或记录 `[bridge-exception=overlay] [reason=...]`。定位信息仍来自 Figma 元数据。"
   },
   "layout.z-index-ambiguous": {
-    "title": "应用顺序不明确",
-    "description": "层顺序在视觉上很重要，但未声明为覆盖/堆叠意图。",
-    "fix": "声明覆盖范围或堆叠行为。"
+    "title": "图层叠放顺序不明确",
+    "description": "图层顺序影响视觉效果，但尚未说明叠加或堆叠意图。",
+    "fix": "声明叠加范围或图层堆叠行为。"
   },
   "responsive.missing-breakpoint-root": {
-    "title": "自适应无根控制宽度",
-    "description": "响应根框架必须声明“[bp=...]”。",
-    "fix": "将显式断点标记添加到根框架。"
+    "title": "响应式页面根缺少控制宽度",
+    "description": "响应式页面根画框必须声明 `[bp=...]`。",
+    "fix": "在根画框上添加明确的断点标签。"
   },
   "responsive.view-missing-required-breakpoint": {
-    "title": "页面状态未达到所需宽度",
-    "description": "每个声明的页面视图都必须具有该页面协定中每个所需断点的根。",
+    "title": "页面视图缺少必需宽度的根",
+    "description": "每个声明的页面视图，都必须具备该页面契约要求的各断点根。",
     "fix": "添加缺少的“[page=...] [view=...] [bp=...]”根，或者在实际不需要时从声明的页面契约中删除断点/视图。"
   },
   "responsive.identity-missing-in-required-breakpoint": {
-    "title": "所需的自适应中缺少该元素",
-    "description": "一个重要的标识存在于一个所需的可比较的响应上下文中，但在同一页面/视图或选定部分的另一个显式声明的上下文中缺失。",
-    "fix": "在同一父级中保留相同的身份并更改响应可见性而不是删除它，或者对单独的状态、变体、集合规则或结构异常进行建模。未请求的部分变体并不是缺少上下文。"
+    "title": "必需的响应式上下文中缺少元素",
+    "description": "某个重要标识存在于一个必需且可比较的响应式上下文中，却在同一页面/视图或选中区块的另一个明确声明的上下文中缺失。",
+    "fix": "保留同一父级中的相同标识，通过响应式可见性控制显示，不要直接删除；或将差异建模为独立状态、变体、集合规则或结构例外。未请求的区块变体不算缺失上下文。"
   },
   "responsive.tree-cardinality-changed": {
-    "title": "树的组成在适应过程中发生了变化",
-    "description": "相同页面/视图或显式选择的部分变体的可比响应根不保留相同的逻辑元素树/基数。",
-    "fix": "在声明的响应上下文中保持相同的可转移身份，或者将差异建模为集合规则、状态、变体或结构异常。"
+    "title": "响应式上下文中的树或元素数量变化",
+    "description": "同一页面/视图或明确选中的区块变体，在可比较的响应式根之间没有保持相同的逻辑树或元素数量。",
+    "fix": "在声明的响应式上下文中保留相同的交付标识，或将差异建模为集合规则、状态、变体或结构例外。"
   },
   "responsive.parent-changed-across-breakpoints": {
-    "title": "元素在自适应之间更改父元素",
-    "description": "可转移的身份可以在可比较的声明的响应上下文中更改父身份，包括一个部分的显式选择的变体。",
-    "fix": "在声明的上下文中保留父子拓扑，使用共享包装器，或声明显式结构异常。"
+    "title": "元素在响应式上下文中更换父级",
+    "description": "同一交付标识在可比较的已声明响应式上下文中，所属父级标识发生变化。这也适用于明确选中的同一区块变体。",
+    "fix": "在声明的上下文中保留父子关系，使用共用容器，或声明明确的结构例外。"
   },
   "responsive.order-changed-without-reason": {
-    "title": "元素的顺序被无缘无故地改变了",
-    "description": "兄弟订单在没有订单策略的情况下跨断点发生了变化。",
-    "fix": "保留语义顺序或声明顺序策略。"
+    "title": "元素顺序变化但未说明策略",
+    "description": "同级元素的顺序在不同断点间发生变化，却没有声明顺序策略。",
+    "fix": "保留语义顺序，或声明顺序策略。"
   },
   "responsive.visual-intent-drift": {
-    "title": "自适应媒体之间视觉层的目的不同",
-    "description": "相同的身份在可比较的声明的响应上下文中具有不同的视觉意图/策略标签，例如一个选定变体中的“sneg [decor] [asset]”和另一个选定变体中的普通“sneg”。",
-    "fix": "在声明的上下文中保持视觉意图标志稳定，或将差异建模为显式状态、变体、特定于目标的规则或 DFC Bridge 异常。"
+    "title": "响应式上下文中的视觉意图不一致",
+    "description": "同一标识在可比较的已声明响应式上下文中，具有不同的视觉意图或交付策略标签。例如，一个选中变体是 `sneg [decor] [asset]`，另一个却只有 `sneg`。",
+    "fix": "在声明的上下文中保持视觉意图标签稳定，或将差异建模为明确的状态、变体、目标平台专属规则或 DFC Bridge 例外。"
   },
   "content.text-changed-between-breakpoints": {
-    "title": "文本在改编之间发生了变化",
-    "description": "相同的产品文本标识在可比较的声明的响应上下文中具有不同的内容，包括一个部分的明确选择的变体。装饰或根资产视觉效果内的文本不包括在产品内容偏差检查中。",
-    "fix": "保持响应式产品文本相同。对响应变体之外的区域设置、实验或产品变体进行建模。对于装饰性或根资产视觉效果，请保留根标识和视觉意图标签，而不是将内部文本与产品内容进行比较。"
+    "title": "响应式上下文中的产品文本变化",
+    "description": "同一产品文本标识在可比较的已声明响应式上下文中，内容发生变化；这也适用于明确选中的同一区块变体。装饰层或整体资源内部的文本不参与产品内容偏移检查。",
+    "fix": "不同响应式版本应保持相同的产品文本。将语言、实验或产品变体与响应式变体分开建模。对于装饰或整体资源，应保留根标识和视觉意图标签，而不是将内部文本当作产品内容比较。"
   },
   "content.decorative-asset-text-excluded-from-product-drift": {
     "title": "从内容比较中排除的装饰资源文本",
-    "description": "“[decor]”层或根“[asset]”视觉效果内的文本不是产品内容，不应报告为产品内容漂移。",
-    "fix": "跳过装饰/根资产视觉效果的内部文本产品漂移比较，但仍然跨断点验证根身份覆盖范围和视觉意图稳定性。"
+    "description": "`[decor]` 图层或以 `[asset]` 为根的整体视觉内部，文本不作为产品内容，不应报告为产品内容偏移。",
+    "fix": "跳过装饰或整体资源内部文本的产品内容比较，但仍检查各断点中的根标识是否齐全、视觉意图是否稳定。"
   },
   "content.manual-line-break-in-dynamic-text": {
-    "title": "动态文本包含手动连字符",
-    "description": "动态文本不得依赖强制换行符或 <br> 来适应布局。",
-    "fix": "使用拥抱/最小高度、最大宽度和显式溢出/截断规则让文本按其容器换行。仅将“[bridge-exception=manual-line-break] [reason=...]”用于语义或批准的品牌锁定中断。"
+    "title": "动态文本依赖手动换行",
+    "description": "动态文本不能依赖强制换行或 <br> 才能适应布局。",
+    "fix": "用内容驱动高度或最小高度、最大宽度和明确的溢出/截断规则，让文本随容器自然换行。只有内容语义或已批准的品牌组合需要换行时，才使用 `[bridge-exception=manual-line-break] [reason=...]`。"
   },
   "content.manual-line-break-exception-without-reason": {
     "title": "换行异常没有原因",
@@ -195,14 +195,14 @@
     "fix": "将“[bridge-exception=manual-line-break]”与“[reason=...]”配对，例如“[reason=brand-lockup]”或“[reason=postal-address-format]”。"
   },
   "content.strict-content-drift": {
-    "title": "严格的产品内容分歧",
-    "description": "价格、合法副本或 CTA 等严格内容会跨断点发生变化。",
-    "fix": "同步严格的内容或记录已批准的变体。"
+    "title": "必须一致的产品内容发生变化",
+    "description": "价格、法律文案或 CTA 等必须保持一致的内容，在不同断点间发生了变化。",
+    "fix": "同步这些内容，或记录已批准的变体。"
   },
   "content.hidden-layer-source-of-truth": {
-    "title": "隐藏层用作真相来源",
-    "description": "隐藏键控层可能包含替代的真实来源内容。",
-    "fix": "将替代方案移至已声明的状态/变体或将其存档。"
+    "title": "隐藏图层包含另一套权威内容",
+    "description": "带有标识的隐藏图层可能保存另一套被当作权威来源的内容。",
+    "fix": "将这些替代内容移入明确声明的状态/变体，或将其归档。"
   },
   "interaction.clickable-without-action": {
     "title": "交互元素没有目的",
@@ -210,17 +210,17 @@
     "fix": "为已知导航添加“[href=...]”，为已知非导航行为添加“[action=...]”，为未知草稿目的地添加“[link]”，为未知草稿操作添加“[control]”。"
   },
   "interaction.control-without-action": {
-    "title": "控制没有效果",
-    "description": "布尔“[control]”或不带“[action=...]”的高级“[control=...]”是未知操作的有效草稿标记，而不是语法错误。最后的切换应该可以解决这个问题。",
+    "title": "控件尚未指定动作",
+    "description": "不带 `[action=...]` 的布尔 `[control]` 或进阶形式 `[control=...]`，是动作尚未知时的有效草稿标记，不是语法错误。最终交付前应确定动作。",
     "fix": "如果操作已知，请将草稿标记替换为“[action=modal:...]”、“[action=state:...]”、“[action=submit:...]”、“[action=reset:...]”或“[action=none]”。仅当需要稳定的机器 ID 时，才将“[control=...]”保留为可选的高级 ID。"
   },
   "interaction.link-without-href": {
     "title": "链接没有地址",
-    "description": "布尔“[link]”或不带“[href=...]”的高级“[link=...]”是未知目的地的有效草稿标记，而不是语法错误。最后的切换应该可以解决这个问题。",
+    "description": "不带 `[href=...]` 的布尔 `[link]` 或进阶形式 `[link=...]`，是地址尚未知时的有效草稿标记，不是语法错误。最终交付前应确定目的地。",
     "fix": "如果目的地已知，请使用“[href=...]”。仅当需要稳定的机器 ID 时，才将“[link=...]”保留为可选的高级 ID。不要使用“[href=#]”作为占位符。"
   },
   "interaction.link-has-second-destination": {
-    "title": "该链接有两个目的",
+    "title": "链接声明了两个目的地",
     "description": "链接不得在“[href=...]”旁边声明第二个目的地，例如“[to=...]”或“[action=link:...]”。",
     "fix": "仅保留“[href=...]”作为导航目的地。`[href=...]` 已经足以将该层分类为链接。"
   },
@@ -231,8 +231,8 @@
   },
   "interaction.optional-id-value-invalid": {
     "title": "可选标识符书写不正确",
-    "description": "`[link=...]` 和 `[control=...]` 中的高级可选 ID 必须是英文短横线大小写，并且在存在值时不得包含断点名称或宽度后缀。",
-    "fix": "普通链接/按钮最好不要使用可选 ID：使用 `[href=...]`、`[link]`、`[action=...]` 或 `[control]`。如果需要 id，请使用断点中性的 kebab-case 值。"
+    "description": "进阶可选标识 `[link=...]` 和 `[control=...]` 带值时，必须使用英文 kebab-case，且不能包含断点名称或宽度后缀。",
+    "fix": "普通链接或按钮优先不加可选标识，使用 `[href=...]`、`[link]`、`[action=...]` 或 `[control]` 即可。确实需要标识时，使用与断点无关的 kebab-case 值。"
   },
   "interaction.href-invalid": {
     "title": "链接地址无效",
@@ -240,14 +240,14 @@
     "fix": "更正目标语法。如果目的地未知，请删除“[href=...]”并使用布尔草稿标记“[link]”。"
   },
   "interaction.action-invalid": {
-    "title": "语法操作无效",
+    "title": "动作语法无效",
     "description": "`[action=...]` 值必须使用受支持的操作语法：`modal:target-id`、`state:target-id`、`submit:form-id`、`reset:target-id` 或 `none`。",
-    "fix": "更正操作值并使用断点中性的短横线大小写目标 ID。如果操作未知，请删除“[action=...]”并使用布尔草稿标记“[control]”。"
+    "fix": "修正动作值，并使用与断点无关的 kebab-case 目标标识。动作尚未知时，删除 `[action=...]`，使用布尔草稿标记 `[control]`。"
   },
   "interaction.control-action-duplicate": {
     "title": "控件重复动作描述",
     "description": "一个控件不得声明多个“[action=...]”值。",
-    "fix": "保持一项规范行动。将替代行为建模为显式状态、变体或单独的控制。"
+    "fix": "保留一个确定的动作。将其他行为建模为明确的状态、变体或独立控件。"
   },
   "interaction.modal-target-missing": {
     "title": "模态窗口目标丢失",
@@ -255,12 +255,12 @@
     "fix": "创建“[modal=target-id]”目标或更改操作。"
   },
   "interaction.state-target-missing": {
-    "title": "没有国家目标",
-    "description": "国家行动必须指向现有的国家目标。",
-    "fix": "创建“[state=target-id]”目标或更改操作。"
+    "title": "缺少状态目标",
+    "description": "状态动作必须指向已有的状态目标。",
+    "fix": "创建 `[state=target-id]` 目标，或修改动作。"
   },
   "interaction.form-target-missing": {
-    "title": "目标表格缺失",
+    "title": "缺少表单目标",
     "description": "提交操作必须指向同一页面合约中的现有表单目标。",
     "fix": "创建“[form=target-id]”或将“[action=submit:...]”更改为正确的表单 ID。"
   },
@@ -270,13 +270,13 @@
     "fix": "创建声明的目标或将“[action=reset:...]”更改为拥有可重置状态的标识。"
   },
   "interaction.modal-missing-close": {
-    "title": "没有描述模态窗口的关闭",
-    "description": "模态目标需要紧密的行为。",
-    "fix": "添加关闭按钮/操作并定义背景/转义行为。"
+    "title": "模态窗口缺少关闭行为",
+    "description": "模态窗口目标必须定义关闭行为。",
+    "fix": "添加关闭按钮或动作，并定义点击背景遮罩和按 Escape 键时的行为。"
   },
   "interaction.form-field-missing-label": {
-    "title": "表单字段没有签名",
-    "description": "表单字段需要标签或可访问的名称。",
+    "title": "表单字段缺少标签",
+    "description": "表单字段需要可见标签或无障碍名称。",
     "fix": "添加标签文本和字段标识。"
   },
   "interaction.form-missing-submit-action": {
@@ -291,23 +291,23 @@
   },
   "height.fixed-height-without-reason": {
     "title": "固定高度没有理由",
-    "description": "固定高度必须是故意的。",
-    "fix": "使用拥抱/最小高度或添加“[height=fixed] [reason=...]”。"
+    "description": "固定高度必须体现明确的设计意图。",
+    "fix": "使用内容驱动高度或最小高度，或添加 `[height=fixed] [reason=...]`。"
   },
   "overflow.hidden-without-policy": {
     "title": "隐藏溢出未解释",
-    "description": "剪切面需要明确的溢出策略。",
+    "description": "存在内容裁剪的区域需要明确的溢出策略。",
     "fix": "添加“[overflow=hidden]”、“[overflow=visible]”、“[overflow=scroll]”或“[overflow=truncate]”。"
   },
   "overflow.text-clipping-risk": {
     "title": "文字可能会被截断",
     "description": "由于固定高度或边界不足，文本可能会被剪裁。",
-    "fix": "使用拥抱高度、最小高度或截断策略。"
+    "fix": "使用内容驱动高度、最小高度，或声明截断策略。"
   },
   "asset.raster-text-without-reason": {
     "title": "文字无缘无故变成了图像",
     "description": "类似文本的内容不应无故导出为栅格资源。",
-    "fix": "使用本机文本或添加资产异常原因。"
+    "fix": "保留原生文本，或说明作为资源导出的例外原因。"
   },
   "asset.image-missing-focal-point": {
     "title": "图像没有指定重要区域",
@@ -315,29 +315,29 @@
     "fix": "声明焦点、拟合模式或裁剪策略。"
   },
   "asset.media-missing-fallback": {
-    "title": "媒体材料没有后备选项",
-    "description": "视频/Lottie/复杂媒体应该定义后备行为。",
-    "fix": "添加海报、后备资源、控件和自动播放策略。"
+    "title": "媒体缺少备用方案",
+    "description": "视频、Lottie 或其他复杂媒体应定义备用行为。",
+    "fix": "补充封面、备用资源、播放控件和自动播放策略。"
   },
   "design-system.token-missing": {
-    "title": "该值与设计系统令牌无关",
-    "description": "颜色、排版、半径或间距值与标记分离。",
-    "fix": "使用设计标记或声明例外。"
+    "title": "样式值未关联设计令牌",
+    "description": "颜色、字体排版、圆角或间距值似乎没有关联设计令牌。",
+    "fix": "使用设计令牌（design tokens），或声明例外。"
   },
   "accessibility.touch-target-too-small": {
     "title": "互动区域太小",
     "description": "交互目标小于建议的触摸尺寸。",
-    "fix": "增加命中区域或声明特定于目标的异常。"
+    "fix": "扩大可点击区域，或声明针对该目标的例外。"
   },
   "accessibility.contrast-risk": {
     "title": "对比度可能还不够",
     "description": "文本/背景对比度可能不够。",
-    "fix": "调整颜色或记录故意异常。"
+    "fix": "调整颜色，或记录有明确理由的例外。"
   },
   "accessibility.decorative-layer-exposed": {
-    "title": "装饰层包含在可访问性树中",
-    "description": "“[decor]”层不应作为可访问性树中的产品内容公开。",
-    "fix": "将传输的装饰层视为“aria-hidden”或以其他方式将其从可访问性/内容语义中排除。"
+    "title": "装饰层进入无障碍树",
+    "description": "`[decor]` 图层不应在无障碍树中作为产品内容暴露。",
+    "fix": "在实现中将装饰层设为 `aria-hidden`，或用其他方式将其排除在无障碍和内容语义之外。"
   },
   "component.page-instance-declares-component-tag": {
     "title": "实例手动重复组件标签",
@@ -350,69 +350,69 @@
     "fix": "将状态添加到 UI Kit 组件集中，而不是在页面上绘制它们。"
   },
   "routing.page-route-missing": {
-    "title": "该页面还没有工作路线",
-    "description": "当生产路线未知时，没有 `[route=...]` 或 `[route-pattern=...]` 的页面根目录是一个草稿 TODO，而不是一个硬错误。",
-    "fix": "不要发明假路线。仅当真实生产路线已知时才添加“[route=/path]”或“[route-pattern=/path/:param]”。"
+    "title": "页面尚未确定产品路径",
+    "description": "产品路径尚未知时，没有 `[route=...]` 或 `[route-pattern=...]` 的页面根属于 Draft TODO（草稿待办），不是阻塞错误。",
+    "fix": "不要编造路径。只有真实产品路径确定后，才添加 `[route=/path]` 或 `[route-pattern=/path/:param]`。"
   },
   "routing.page-root-required": {
-    "title": "找不到页面根框架",
-    "description": "页面预检需要至少一个具有稳定“[page=...]”标识的根框架。根可能是 Figma 页面的直接子级，或者只能通过本机 Figma SECTION 画布组织器访问。",
-    "fix": "将“[page=page-id]”添加到属于该页面的每个响应式根框架。将每个根直接保留在 Figma 页面上或本地 Figma SECTION 组织者下；不要将其包装在普通的 FRAME/GROUP 中，然后针对该页面标识运行预检。"
+    "title": "缺少可检查的页面根",
+    "description": "页面预检至少需要一个带有稳定 `[page=...]` 标识的根画框。它可以直接位于 Figma 页面下，也可以只经过原生 Figma SECTION 画布整理容器。",
+    "fix": "给属于该页面的每个响应式根画框添加 `[page=page-id]`。根应直接位于 Figma 页面下，或位于原生 SECTION 容器下，不能包在普通 FRAME/GROUP 中。随后对该页面标识运行预检。"
   },
   "routing.default-view-missing": {
-    "title": "页面没有默认状态",
-    "description": "每个页面标识都应该为其正常产品状态声明一个“view=default”根。",
-    "fix": "将“[view=default]”添加到普通页面根目录，或者在对空视图、加载视图、错误视图或特定于权限的视图进行建模之前创建默认视图。"
+    "title": "页面缺少默认视图",
+    "description": "每个页面标识都应有一个 `view=default` 根，表示正常产品状态。",
+    "fix": "给正常页面根添加 `[view=default]`；先准备默认视图，再描述空、加载、错误或权限专属视图。"
   },
   "routing.route-not-production-url": {
-    "title": "该路线看起来不像工作地址",
-    "description": "当存在“[route=...]”或“[route-pattern=...]”时，它必须是真实的生产 URL/路径或路由模板，而不是虚假的占位符。",
-    "fix": "删除未知的路由，或将其替换为真实的生产路由，例如“[route=/contacts]”或“[route-pattern=/catalog/:slug]”。"
+    "title": "路由不是实际产品路径",
+    "description": "一旦声明 `[route=...]` 或 `[route-pattern=...]`，其值就必须是真实产品 URL、路径或路由模板，不能是虚构占位符。",
+    "fix": "路径未知时暂时删除路由标签；已知后替换为真实路径，例如 `[route=/contacts]` 或 `[route-pattern=/catalog/:slug]`。"
   },
   "routing.duplicate-route": {
-    "title": "工作路线重复",
+    "title": "多个页面声明同一路由",
     "description": "两个具体页面不得声明相同的路由，除非有意建模为一个页面的视图。",
     "fix": "将一个“[page=...]”与多个“[view=...]”状态结合使用，或更改重复的路由。"
   },
   "routing.href-internal-route-missing": {
-    "title": "内部链接导致路由丢失",
-    "description": "内部 href 指向未在已知路由协定中声明的路由。",
-    "fix": "在已知时添加具有匹配的真实“[route=...]”的页面，更正 href，或者如果页面路由尚不清楚，则将路由解析保留为草稿 TODO。"
+    "title": "内部链接指向未声明的路由",
+    "description": "内部 href 指向的路由没有在已知路由契约中声明。",
+    "fix": "路径已知时，为页面添加匹配的真实 `[route=...]`，或修正 href。如果页面路由尚未知，将路由解析保留为草稿待办。"
   },
   "routing.href-anchor-missing": {
-    "title": "该链接导致锚点丢失",
-    "description": "内部 href 指向目标页面上未声明的锚点。",
-    "fix": "将 `[anchor=...]` 添加到目标部分或更正 href 片段。"
+    "title": "链接指向未声明的锚点",
+    "description": "内部 href 指向的锚点没有在目标页面上声明。",
+    "fix": "给目标区块添加 `[anchor=...]`，或修正 href 的锚点片段。"
   },
   "routing.page-view-route-drift": {
-    "title": "页面路由在不同状态之间有所不同",
-    "description": "一页标识的视图或断点不得使用不同的已知生产路线。",
-    "fix": "在页面的所有“[view=...]”和“[bp=...]”变体中保留一个已知的“[route=...]”。如果路线未知，请始终省略它，直到知道为止。"
+    "title": "同一页面的视图或断点路由不一致",
+    "description": "同一页面标识的不同视图或断点，不能使用不同的已知产品路径。",
+    "fix": "页面的所有 `[view=...]` 和 `[bp=...]` 变体应使用同一个已知 `[route=...]`。路径尚未知时，应在各变体中一致地省略，直到确定为止。"
   },
   "variation.breakpoint-content-drift": {
     "title": "内容仅因宽度而变化",
-    "description": "产品内容跨断点发生变化，没有非响应变化轴。装饰性和根资产文本不是产品内容漂移。",
-    "fix": "保持断点产品内容相同，或使用“[view=...]”、“[locale=...]”、“[experiment=...]”或其他显式轴对更改进行建模。跨断点保留装饰/资产根标识和标签。"
+    "description": "产品内容在不同断点间变化，却没有通过其他非响应式变化轴说明原因。装饰或整体资源内部的文本不作为产品内容偏移。",
+    "fix": "不同断点应保持相同的产品内容，或通过 `[view=...]`、`[locale=...]`、`[experiment=...]` 等明确变化轴表达差异。装饰和资源根的标识与标签仍须跨断点保留。"
   },
   "variation.theme-content-drift": {
     "title": "主题改变内容",
     "description": "主题变体不得更改文本内容。",
-    "fix": "保持不同主题的内容相同；主题应该只改变视觉标记。"
+    "fix": "不同主题应保持相同内容；主题只改变视觉设计令牌。"
   },
   "variation.axis-overload": {
-    "title": "一根轴隐藏了多种变异原因",
-    "description": "一个变化轴似乎隐藏了变化的不同原因。",
-    "fix": "使用正确的轴：布局的断点、数据状态的视图、翻译的区域设置、A/B 的实验、权限的角色视图。"
+    "title": "一个变化轴混入其他变化原因",
+    "description": "一个变化轴似乎还隐藏了其他性质的变化原因。",
+    "fix": "使用对应的变化轴：布局用断点，数据状态用 view，翻译用 locale，A/B 测试用 experiment，权限用 role-view。"
   },
   "adapter.unsupported-feature": {
     "title": "适配器不支持所使用的功能",
     "description": "选定的目标适配器不支持声明的功能。",
-    "fix": "更改设计、添加资源后备或选择其他适配器。"
+    "fix": "调整设计，增加资源形式的备用方案，或选择另一个适配器。"
   },
   "data.source-contract-missing": {
     "title": "数据源未描述",
     "description": "运行时数据显示必须声明其来源或所有者、刷新行为以及陈旧或不可用数据的策略。",
-    "fix": "将源数据集或服务所有者、刷新节奏、新鲜度阈值和回退行为添加到结构化数据合同。"
+    "fix": "在结构化数据契约中补充来源数据集或服务负责人、刷新频率、新鲜度阈值和备用行为。"
   },
   "data.schema-contract-incomplete": {
     "title": "数据模式未完全描述",
@@ -422,116 +422,116 @@
   "data.format-contract-missing": {
     "title": "未描述数据格式",
     "description": "具有区域设置、时间、货币、单位、精度、舍入或缺失值语义的数据值需要显式格式约定。",
-    "fix": "声明区域设置和时区行为、货币或单位、符号、精度、舍入以及明显的缺失或抑制值标记。"
+    "fix": "声明地区与时区规则、货币或单位、记法、精度和舍入方式，并明确区分缺失值与被隐藏值的标记。"
   },
   "data.required-state-contract-missing": {
-    "title": "未描述强制数据状态",
-    "description": "运行时数据显示必须定义所有适用的加载、空、错误、部分、陈旧、离线和未经授权的状态和恢复行为。",
-    "fix": "添加每个适用的数据状态、其消息和保留的内容、恢复操作、公告行为以及转换回可用数据。"
+    "title": "缺少必需的数据状态",
+    "description": "运行时数据显示必须定义所有适用的加载、空、错误、部分、过期、离线和未授权状态，以及相应的恢复行为。",
+    "fix": "补充每个适用状态的提示、保留内容、恢复动作、辅助技术播报行为，以及如何回到可用数据状态。"
   },
   "data.accessible-equivalent-missing": {
-    "title": "没有可用的等效数据",
-    "description": "图表、地图、画布或其他复杂的视觉数据显示必须提供可访问的等效项，以公开相同的值和结论。",
-    "fix": "引用语义表、列表、描述或可下载数据集并保留名称、关系、键盘操作和主要发现。"
+    "title": "数据展示缺少无障碍等价形式",
+    "description": "图表、地图、画布或其他复杂的视觉数据展示，必须提供无障碍等价形式，呈现相同的数据值和结论。",
+    "fix": "关联语义表格、列表、描述或可下载数据集，并保留名称、关系、键盘操作和主要结论。"
   },
   "responsive.transformation-mapping-incomplete": {
-    "title": "自适应变换未完全描述",
-    "description": "声明的响应式结构转换必须将每个源身份和含义映射到其目标组成，而不会丢失无声内容或动作。",
-    "fix": "记录源身份、目标组成、激活范围、字段和动作映射、语义和焦点顺序、状态保存和可访问奇偶校验。"
+    "title": "响应式结构转换映射不完整",
+    "description": "声明的响应式结构转换必须将每个源标识及其含义映射到目标结构，不能默默丢失内容或动作。",
+    "fix": "记录源标识、目标结构、生效范围、字段和动作映射、语义与焦点顺序、状态保留，以及无障碍等价性。"
   },
   "interaction.reaction-guard-ambiguous": {
-    "title": "反应条件不明确",
-    "description": "条件反应必须定义相互可以理解的防护、优先级和后备，以便同一事件不能含糊地解决。",
-    "fix": "从可观察状态或数据中声明每个防护，定义重叠条件的优先级，并添加显式默认或不可能情况规则。"
+    "title": "反应的触发条件不明确",
+    "description": "条件反应必须明确各守卫条件、优先级和默认处理，使同一事件不会产生含糊的结果。",
+    "fix": "根据可观察的状态或数据声明每个守卫条件，说明条件重叠时的优先级，并明确默认情况或不可能情况的处理规则。"
   },
   "interaction.reaction-effect-incomplete": {
-    "title": "反应的效果没有完全描述",
-    "description": "反应必须声明每个产品效果、目标、状态突变、导航、公告、持久性和回滚结果。",
-    "fix": "完成有序效果列表并命名稳定目标、结果状态、用户反馈、持久值以及回滚或补偿行为。"
+    "title": "反应结果描述不完整",
+    "description": "反应必须说明所有产品效果、目标、状态变更、导航、辅助技术播报、持久化和回滚结果。",
+    "fix": "补全有顺序的效果列表，并声明稳定目标、结果状态、用户反馈、持久化值，以及回滚或补偿行为。"
   },
   "accessibility.reaction-focus-effect-missing": {
-    "title": "反应没有描述焦点",
-    "description": "打开、关闭、删除、插入、导航或报告内容的反应必须声明其焦点和公告效果。",
-    "fix": "指定初始和恢复的焦点、突变后的焦点顺序、实时公告行为以及键盘用户如何到达结果内容。"
+    "title": "反应缺少焦点与播报行为",
+    "description": "涉及打开、关闭、移除、插入、导航或报告内容的反应，必须声明焦点变化和辅助技术播报效果。",
+    "fix": "说明初始焦点、恢复焦点、变更后的焦点顺序、动态播报方式，以及键盘用户如何到达结果内容。"
   },
   "interaction.async-outcome-missing": {
-    "title": "异步反应的结果没有描述",
-    "description": "异步反应必须定义挂起、成功、空、失败、重试、取消、超时、重复输入和过时响应行为（如果适用）。",
-    "fix": "对异步状态和转换、禁用或乐观控制、重试和取消规则、超时处理和过时响应抑制进行建模。"
+    "title": "异步反应结果未定义",
+    "description": "异步反应必须按适用情况定义等待、成功、空结果、失败、重试、取消、超时、重复输入和过期响应的行为。",
+    "fix": "描述异步状态与转换、控件禁用或乐观更新、重试与取消规则、超时处理，以及如何忽略过期响应。"
   },
   "motion.driver-missing": {
-    "title": "未指定运动源",
-    "description": "运动序列必须识别时间、事件、滚动、视图、媒体、数据或确定性控制它的系统驱动程序。",
-    "fix": "声明驱动程序类型和源、启动条件、进度映射或触发器、重复策略以及驱动程序结束时达到的状态。"
+    "title": "动效缺少驱动来源",
+    "description": "动效序列必须明确由什么确定性地驱动：时间、事件、滚动、元素可见性（view）、媒体、数据或系统信号。",
+    "fix": "声明驱动类型与来源、启动条件、进度映射或触发器、重复策略，以及驱动结束时达到的状态。"
   },
   "motion.range-or-timing-missing": {
-    "title": "未指定移动范围或时间",
-    "description": "运动轨迹必须定义其输入范围或时间、受影响的属性、值和单位、排序、缓动和中断行为。",
-    "fix": "记录开始值和结束值、单位、持续时间或驱动范围、延迟、缓动、迭代、依赖性、坐标空间、取消、反向和重新输入行为。"
+    "title": "动效缺少范围或时序",
+    "description": "动效轨道必须定义输入范围或时序、受影响属性、值与单位、执行顺序、缓动和中断行为。",
+    "fix": "记录起止值、单位、时长或驱动范围、延迟、缓动、循环次数、依赖关系、坐标空间，以及取消、反向和重新进入时的行为。"
   },
   "motion.reduced-motion-strategy-missing": {
-    "title": "未描述减少运动模式",
-    "description": "每个重要的运动序列都必须定义一个简化的运动策略，以保留内容、动作、状态、焦点和任务完成情况。",
-    "fix": "声明哪个运动被删除或替换，并指定稳定的简化运动构图、计时、控制、完成状态和焦点行为。"
+    "title": "缺少减少动效策略",
+    "description": "每个非简单动效序列都必须定义减少动效策略，并保留内容、动作、状态、焦点和完成任务的能力。",
+    "fix": "说明哪些运动被移除或替换，并定义减少动效后的稳定构图、时序、控件、完成状态和焦点行为。"
   },
   "motion.fallback-missing": {
-    "title": "未描述替代路线",
-    "description": "运动或长滚动体验中的基本内容和操作必须在没有首选脚本、API、粘性或动画机制的情况下保持可用。",
-    "fix": "提供正常流程或静态后备，保留文档和操作顺序，并定义不支持的 API、深层链接、调整大小和脚本故障的初始化。"
+    "title": "动效缺少备用呈现方案",
+    "description": "即使首选脚本、API、粘性定位或动画机制不可用，动效或长滚动体验中的必要内容和动作仍必须可用。",
+    "fix": "提供正常文档流或静态备用方案，保留文档和动作顺序，并定义 API 不支持、深链接进入、尺寸变化和脚本失败时的初始化行为。"
   },
   "motion.essential-content-animation-dependent": {
-    "title": "有意义的内容取决于动画",
-    "description": "基本内容、操作或所需的产品状态不得仅在动画期间存在或依赖于动画完成事件。",
-    "fix": "在文档中表示有意义的静态状态，保持所需的控件可访问，并独立于动画事件或播放来完成产品状态。"
+    "title": "必要内容依赖动画",
+    "description": "必要内容、动作或必需的产品状态，不能只在动画期间存在，也不能依赖动画完成事件。",
+    "fix": "在文档中保留有意义的静态状态，确保必需控件可到达，并让产品状态的完成不依赖动画事件或播放。"
   },
   "accessibility.page-profile-missing": {
-    "title": "未描述页面可访问性配置文件",
-    "description": "每个页面或主要视图都必须声明其可访问性配置文件，包括语言、地标、标题大纲、阅读顺序、焦点流程和公告区域。",
-    "fix": "添加页面可访问性配置文件并查看地标、有意义的标题层次结构、DOM 和阅读顺序、跳过路径、焦点输入和活动区域。"
+    "title": "页面缺少无障碍配置",
+    "description": "每个页面或主要视图都必须声明无障碍配置，包括语言、地标区域、标题层级、阅读顺序、焦点流程和播报区域。",
+    "fix": "补充页面无障碍配置，检查地标、有意义且统一的标题层级、DOM 与阅读顺序、跳过重复内容的路径、焦点入口和动态播报区域。"
   },
   "accessibility.component-profile-missing": {
-    "title": "未描述组件可用性配置文件",
-    "description": "可重用的交互组件必须声明语义角色、可访问的名称和描述源、键盘模型、焦点行为、状态和错误。",
-    "fix": "添加组件可访问性配置文件，涵盖本机语义、名称计算、键盘命令、焦点可见性和移动、禁用/加载状态和错误。"
+    "title": "组件缺少无障碍配置",
+    "description": "可复用交互组件必须声明语义角色、无障碍名称与描述的来源、键盘操作模型、焦点行为、状态和错误。",
+    "fix": "补充组件无障碍配置，覆盖原生语义、名称计算、键盘命令、焦点可见性与移动、禁用/加载状态和错误。"
   },
   "delivery.required-evidence-missing": {
-    "title": "没有足够的准备证明",
-    "description": "交付门必须包括每个所需合同、审查、自动检查、支持的目标和验收决策的可追溯证据。",
-    "fix": "将版本化工件、检查输出、审核所有者和日期、目标结果、未解决的风险以及最终验收记录附加到交付清单中。"
+    "title": "缺少交付验收证据",
+    "description": "交付验收阶段必须为每项必需契约、评审、自动检查、支持的目标平台和验收决定提供可追溯证据。",
+    "fix": "在交付清单中关联带版本的产物、检查输出、评审负责人和日期、各目标平台结果、未解决风险以及最终验收记录。"
   },
   "delivery.deviation-undeclared": {
-    "title": "未宣布合同偏差",
-    "description": "任何可接受的 DFC Bridge 合同偏差都必须声明范围、原因、风险、所有者、到期或审查日期、缓解措施和证据。",
-    "fix": "创建交付偏差记录，链接受影响的身份和目标，分配负责的所有者，设置审核或到期，并记录缓解和批准。"
+    "title": "契约偏差未声明",
+    "description": "已接受的 DFC Bridge 契约偏差，都必须声明范围、原因、风险、负责人、到期或复查日期、缓解措施和证据。",
+    "fix": "创建交付偏差记录，关联受影响的标识与目标，指定负责人，设置复查或到期时间，并记录缓解措施和审批结果。"
   },
   "capability.essential-experience-missing": {
-    "title": "未描述所需经验",
-    "description": "每个交付目标配置文件必须确定在受限条件下仍然重要的内容、行动、数据、媒体和任务结果。",
-    "fix": "列出目标的基本 DFC Bridge 身份和结果，包括低带宽、离线、数据保护和低功耗条件（如果适用）。"
+    "title": "缺少必须保留的核心体验",
+    "description": "每个交付目标配置都必须明确在受限条件下仍不可缺少的内容、动作、数据、媒体和任务结果。",
+    "fix": "列出目标平台必须保留的 DFC Bridge 标识和结果，并按适用情况覆盖低带宽、离线、省流量和低功耗条件。"
   },
   "capability.unsupported-feature-fallback-missing": {
-    "title": "无法替代不支持的功能",
-    "description": "目标不支持的所需功能必须有明确的后备和负责任的所有者，而不会消除必要的经验。",
-    "fix": "记录不受支持的功能，映射语义上等效的后备，分配所有者，并验证基本内容、操作、状态和可访问性是否仍然可用。"
+    "title": "不支持的必需能力缺少备用方案",
+    "description": "目标平台不支持的必需能力，必须有明确的备用方案和负责人，且不能因此移除核心体验。",
+    "fix": "记录不支持的能力，映射语义等价的备用方案，指定负责人，并验证必要内容、动作、状态和无障碍能力仍然可用。"
   },
   "capability.asset-delivery-policy-missing": {
-    "title": "未描述资源交付",
-    "description": "媒体和大型视觉资产必须声明目标感知尺寸、格式、艺术指导、加载优先级、海报或后备以及质量政策（如果适用）。",
-    "fix": "根据相关目标和条件添加资产交付配置文件；参考稳定元素并定义尺寸、格式、质量、裁剪或艺术方向、优先级和后备。"
+    "title": "缺少资源交付策略",
+    "description": "媒体和大型视觉资源必须按目标平台及适用情况，声明尺寸、格式、构图、加载优先级、封面或备用方案，以及质量策略。",
+    "fix": "为各相关目标平台和条件添加资源交付配置，引用稳定元素，并定义尺寸、格式、质量、裁剪或构图、优先级和备用方案。"
   },
   "capability.data-scale-strategy-missing": {
-    "title": "未描述如何使用数据量",
-    "description": "潜在的大数据表面必须声明预期和最大规模以及分页、窗口、虚拟化、聚合或降级策略。",
-    "fix": "记录预期和最大项目计数，选择​​确定性规模策略，保留可访问性和选择语义，并包括代表性规模证据。"
+    "title": "缺少数据量增长策略",
+    "description": "数据量可能较大的展示区域，必须声明预期和最大规模，以及分页、窗口化、虚拟化、聚合或降级策略。",
+    "fix": "记录预期和最大条目数，选择确定的数据规模处理策略，保留无障碍和选择语义，并提供代表性数据规模下的验证证据。"
   },
   "delivery.performance-budget-evidence-missing": {
-    "title": "没有绩效预算确认",
-    "description": "声明的绩效预算必须指定指标、数字限制、负责人、测量上下文以及目标实施的交付证据。",
-    "fix": "添加每个指标和限制以及单位、所有者、设备或运行时间和百分位数上下文，然后将可重复的测量证据链接到交付生命周期。"
+    "title": "缺少性能预算验证证据",
+    "description": "声明的性能预算必须包含指标、数值上限、负责人、测量上下文，以及目标实现的交付证据。",
+    "fix": "为每项指标及上限补充单位、负责人、设备或运行环境和百分位上下文，再将可重复的测量证据关联到交付生命周期。"
   },
   "contract.open-question-untracked": {
-    "title": "未跟踪的开放问题",
-    "description": "每个可能影响实施的未解决的未知问题都必须作为范围内的开放问题进行跟踪，包括所有者、阻止状态、审核时间和后备。",
-    "fix": "将 TODO、TBD、未知和不受支持的决策移至“bridge.openQuestions”；引用受影响的范围，分配所有者，设置到期或审核时间，并定义阻止时的回退。"
+    "title": "未决问题没有跟踪记录",
+    "description": "所有可能影响实现的未决问题，都必须明确记录范围、负责人、是否阻塞、复查时点和备用方案。",
+    "fix": "将 TODO、TBD、未知和不支持的决定记录到 `bridge.openQuestions`，关联受影响范围，指定负责人，设置截止或复查时间；对阻塞项定义备用方案。"
   }
 }

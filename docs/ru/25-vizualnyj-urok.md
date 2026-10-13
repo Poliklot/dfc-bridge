@@ -1,15 +1,15 @@
 # Зачем нужен DFC Bridge
 
-Посмотрим на макет — desktop и mobile:
+Макет: desktop и mobile.
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../assets/tutorial/screenshots/figma-before-overview.png" width="1600" height="1488" alt="Настоящая страница 01 Figma: готовый внешний вид в двух ширинах, но корни названы desktop и mobile-final-2" loading="eager" />
 <figcaption>Выглядит готовым. Что именно передали — пока непонятно.</figcaption>
 </figure>
 
-Макет красивый. Но frontend, backend и ИИ всё ещё гадают: что собирать, откуда данные и куда ведут кнопки?
+Frontend, backend и ИИ гадают: что собирать, откуда данные и куда ведут кнопки?
 
-DFC Bridge не диктует дизайн. Помогает передать **решения, а не догадки**. Смотрим на одном макете.
+DFC Bridge не диктует дизайн. Передаём **решения, а не догадки**.
 
 <a class="bridge-lesson-download" href="../../assets/tutorial/dfc-bridge-workshop.fig" download="dfc-bridge-workshop.fig"><span aria-hidden="true">↓</span> Скачать макет <span class="bridge-lesson-download-format">.fig</span></a>
 
@@ -21,7 +21,7 @@ DFC Bridge не диктует дизайн. Помогает передать *
 
 `desktop` и `mobile-final-2`. Это одна страница или разные? Названия не отвечают. Команда начинает додумывать.
 
-Сравним два дерева. Где один и тот же заголовок, где одна и та же кнопка?
+Сравним деревья. Где тот же заголовок и кнопка?
 
 <div class="bridge-lesson-pair bridge-lesson-tree-pair">
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
@@ -39,14 +39,20 @@ DFC Bridge не диктует дизайн. Помогает передать *
 - «Мастерская понятных макетов» → «Мастерская макетов». Поменяли текст, не перенос строки.
 - Весь `hero-actions` вынесли из `hero-copy` в `hero`, после картинки. Поменяли родителя, не просто порядок.
 
+<div class="bridge-lesson-pair bridge-lesson-heroes">
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../../assets/tutorial/screenshots/figma-before-hero-desktop.png" width="1184" height="720" alt="Фрагмент настоящего скрина Figma: desktop, полный заголовок и обе кнопки перед картинкой; имя корня сохранено" loading="lazy" />
+<figcaption>Desktop: полный заголовок, обе кнопки перед картинкой.</figcaption>
+</figure>
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
 <p><strong>Frontend:</strong> Короче текст, кнопки под картинкой — можно.</p>
 <img class="bridge-lesson-penguin" src="../../assets/tutorial/illustrations/handoff-penguin-frontend-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../../assets/tutorial/screenshots/figma-broken-comparison.png" width="1600" height="1488" alt="Исходные desktop и mobile-final-2: полный и сокращённый заголовки, кнопки до и после иллюстрации" loading="lazy" />
-<figcaption>На мобильном пропало слово «понятных», кнопки уехали под картинку.</figcaption>
+<img src="../../assets/tutorial/screenshots/figma-before-hero-mobile.png" width="344" height="632" alt="Фрагмент настоящего скрина Figma: mobile-final-2, сокращённый заголовок и обе кнопки после картинки; имя корня сохранено" loading="lazy" />
+<figcaption>Mobile: пропало «понятных», обе кнопки под картинкой. <a href="../../assets/tutorial/screenshots/figma-before-overview.png">Полный исходный скрин</a>.</figcaption>
 </figure>
+</div>
 
 Но нужно согласовать вариант текста и описать перенос. Здесь этого нет: frontend и ИИ гадают.
 
@@ -58,6 +64,15 @@ DFC Bridge не диктует дизайн. Помогает передать *
 workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]
 workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 ```
+
+Отдельные непрерывные записи Figma. Автоматика вводит посимвольно и переносит через Cut/Paste; курсор не сопровождает действия. Подписи и подсветка добавлены поверх.
+
+Детали: «Открыть на весь экран» под записью → «Исходный размер».
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/page-metadata-ru.mp4" poster="../../assets/tutorial/motion/native/page-metadata-ru.png" width="802" height="1040" controls playsinline preload="none" aria-label="Указали одну страницу workshop, маршрут /workshop, вид default и ширину 375"><a href="../../assets/tutorial/motion/native/page-metadata-ru.mp4" download="page-metadata-ru.mp4">Скачать MP4</a></video>
+<figcaption>Отдельно: связали корни одной страницы. <a href="../../assets/tutorial/motion/native/page-metadata-ru.gif" download="page-metadata-ru.gif">GIF</a>.</figcaption>
+</figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
 <img src="../../assets/tutorial/diagrams/contexts-ru.svg" width="481" height="557" alt="Два корня workshop имеют одну страницу и вид default, но ширины 1440 и 375" loading="lazy" />
@@ -75,22 +90,21 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 | `Heading` / `Title mobile` | `hero-title` |
 | `Button` / `Button copy` | `contact-button` |
 
-Здесь выбрали общий `hero-title` и вернули `hero-actions` в `hero-copy`, перед `workshop-art`. Это не единственный путь.
+Здесь выбрали общий заголовок и родителя. Это не единственный путь.
 
-<div class="bridge-lesson-pair bridge-lesson-motion-pair">
 <figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../../assets/tutorial/motion/rename-title.mp4" poster="../../assets/tutorial/motion/rename-title.png" width="472" height="528" controls playsinline preload="none" aria-label="Пошаговая запись Figma: переименовали слой Title mobile в hero-title, не меняя текст"><a href="../../assets/tutorial/motion/rename-title.mp4" download="rename-title.mp4">Скачать MP4</a></video>
-<figcaption>Пошаговая запись Figma: <code>Title mobile</code> → <code>hero-title</code>. Текст не меняли. <a href="../../assets/tutorial/motion/rename-title.gif" download="rename-title.gif">Скачать GIF</a>.</figcaption>
+<video src="../../assets/tutorial/motion/native/rename-title-ru.mp4" poster="../../assets/tutorial/motion/native/rename-title-ru.png" width="818" height="570" controls playsinline preload="none" aria-label="Переименовали слой Title mobile в hero-title, не меняя продуктовый текст"><a href="../../assets/tutorial/motion/native/rename-title-ru.mp4" download="rename-title-ru.mp4">Скачать MP4</a></video>
+<figcaption><code>Title mobile</code> → <code>hero-title</code>. Имя, не текст. <a href="../../assets/tutorial/motion/native/rename-title-ru.gif" download="rename-title-ru.gif">GIF</a>.</figcaption>
 </figure>
-<figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../../assets/tutorial/motion/move-actions.mp4" poster="../../assets/tutorial/motion/move-actions.png" width="472" height="528" controls playsinline preload="none" aria-label="Пошаговая запись Figma: перенесли весь hero-actions в hero-copy, сохранив обе кнопки"><a href="../../assets/tutorial/motion/move-actions.mp4" download="move-actions.mp4">Скачать MP4</a></video>
-<figcaption>Пошаговая запись Figma: весь <code>hero-actions</code> → внутрь <code>hero-copy</code>. <a href="../../assets/tutorial/motion/move-actions.gif" download="move-actions.gif">Скачать GIF</a>.</figcaption>
-</figure>
-</div>
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/figma-prepared-tree.png" width="752" height="1000" alt="Настоящее дерево подготовленной Figma: hero-actions с contact-button и faq-link находится внутри hero-copy" loading="lazy" />
-<figcaption>Текст и действия снова внутри hero-copy.</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/repair-copy-ru.mp4" poster="../../assets/tutorial/motion/native/repair-copy-ru.png" width="798" height="640" controls playsinline preload="none" aria-label="Вернули полный продуктовый заголовок Мастерская понятных макетов"><a href="../../assets/tutorial/motion/native/repair-copy-ru.mp4" download="repair-copy-ru.mp4">Скачать MP4</a></video>
+<figcaption>Вернули полное «Мастерская понятных макетов». <a href="../../assets/tutorial/motion/native/repair-copy-ru.gif" download="repair-copy-ru.gif">GIF</a>.</figcaption>
+</figure>
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/move-actions-ru.mp4" poster="../../assets/tutorial/motion/native/move-actions-ru.png" width="788" height="780" controls playsinline preload="none" aria-label="Перенесли весь hero-actions в существующий hero-copy, сохранив оба элемента и Auto Layout"><a href="../../assets/tutorial/motion/native/move-actions-ru.mp4" download="move-actions-ru.mp4">Скачать MP4</a></video>
+<figcaption>Весь <code>hero-actions</code> → в <code>hero-copy</code>. Не одну кнопку. <a href="../../assets/tutorial/motion/native/move-actions-ru.gif" download="move-actions-ru.gif">GIF</a>.</figcaption>
 </figure>
 
 **Другой текст — [согласованный продуктовый вариант](16-osi-variativnosti.md). Другой родитель — [описанная трансформация](03-adaptivy-i-breakpointy.md).** Внутри одного родителя порядок менять можно.
@@ -117,13 +131,18 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 
 ## 4. Собрали библиотеку
 
-`button-primary` и `button-secondary` стали общими компонентами. Правим источник — обновляются экземпляры. Не нужно чинить каждую копию.
+`button-primary` и `button-secondary` стали общими компонентами. Правим источник — обновляются экземпляры.
 
 В **UI-kit** показали состояния обоих стилей, в **Modals** — общий вид окна. Frontend и ИИ видят образцы, а не придумывают их.
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../assets/tutorial/screenshots/figma-kit-modals.png" width="1160" height="1514" alt="Настоящие UI-kit: два стиля кнопок в обычном состоянии, при наведении, фокусе, нажатии и недоступности; рядом Modals с contact-modal" loading="lazy" />
 <figcaption>Два стиля, пять примеров состояний. Окно — рядом в Modals.</figcaption>
+</figure>
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/button-states-ru.mp4" poster="../../assets/tutorial/motion/native/button-states-ru.png" width="1840" height="634" controls playsinline preload="none" aria-label="State: default → hover; затем отдельно включили Focus visible"><a href="../../assets/tutorial/motion/native/button-states-ru.mp4" download="button-states-ru.mp4">Скачать MP4</a></video>
+<figcaption>Default → hover, затем отдельный фокус. <a href="../../assets/tutorial/motion/native/button-states-ru.gif" download="button-states-ru.gif">GIF</a>.</figcaption>
 </figure>
 
 **В библиотеке — вид. На экземпляре страницы — действие.** Одна и та же кнопка в другом месте может делать другое.
@@ -136,33 +155,25 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 <figcaption>Кнопка → окно. Ссылка → FAQ.</figcaption>
 </figure>
 
-В Assistant выбрали действие и цель на самой кнопке, не на её тексте:
-
-<div class="bridge-lesson-pair">
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-layer-type-local.png" width="906" height="1173" alt="Assistant: тип Кнопка, действие Модальное окно и переход К цели" loading="lazy" />
-<figcaption>Выбрали действие на самой кнопке.</figcaption>
-</figure>
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<figure class="bridge-lesson-figure bridge-lesson-motion">
 <aside class="bridge-lesson-comment">
 <p><strong>ИИ:</strong> В этой ширине цель — contact-modal.</p>
 <img class="bridge-lesson-penguin" src="../../assets/tutorial/illustrations/handoff-penguin-ai-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../../assets/tutorial/screenshots/assistant-layer-target-local.png" width="906" height="1173" alt="Assistant: имя contact-button и выбранная цель contact-modal на 375 px" loading="lazy" />
-<figcaption>Указали цель в нужной ширине.</figcaption>
+<video src="../../assets/tutorial/motion/native/local-action-ru.mp4" poster="../../assets/tutorial/motion/native/local-action-ru.png" width="888" height="930" controls playsinline preload="none" aria-label="На экземпляре contact-button указали действие и скрытую локальную цель contact-modal на 375; К цели находит слой, не открывает окно"><a href="../../assets/tutorial/motion/native/local-action-ru.mp4" download="local-action-ru.mp4">Скачать MP4</a></video>
+<figcaption>На экземпляре: действие → цель на 375. <a href="../../assets/tutorial/motion/native/local-action-ru.gif" download="local-action-ru.gif">GIF</a>.</figcaption>
 </figure>
-</div>
 
-**К цели** только находит слой, не открывает окно. Само поведение ещё нужно реализовать.
+**К цели** находит скрытый слой, не открывает окно. Поведение ещё нужно реализовать.
 
 <details>
 <summary>Как устроены компоненты</summary>
 
-Обычный, наведение, клавиатурный фокус, нажатие и недоступность — образцы, не работающий прототип.
+Это образцы, не работающий прототип.
 
 `State=default/hover/pressed/disabled` — варианты Figma, не DFC-теги или виды страницы. Фокус независим: `Focus visible=true` может сочетаться с `hover` и `pressed`.
 
-Недоступный образец показывает только вид. Условие отключения и его владелец — в контракте реализации. Загрузки нет: здесь окно и якорь, не асинхронный запрос.
+Условие отключения и его владелец — в контракте реализации. Загрузки нет: окно и якорь, не запрос.
 
 В каждом корне — свой скрытый `[modal=contact-modal]`. Главный компонент в Modals — источник вида, не ещё одна цель. Окно с почтой, не форма отправки.
 
@@ -172,14 +183,14 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 
 ## 5. Проверили
 
-В копии с неописанными отличиями нажали **Проверить → Проверить страницу**. Assistant нашёл разный текст `hero-title` и другого родителя `hero-actions`. Auto Layout был включён.
+Отдельная копия: разный текст `hero-title` и родитель `hero-actions`. Auto Layout включён. Исправления не показаны. В ролике — старый отчёт и **Повторить**.
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-findings-local.png" width="1430" height="1656" alt="Настоящий отчёт Assistant: две ошибки, различающийся текст заголовка и изменённый смысловой родитель hero-actions" loading="lazy" />
-<figcaption>Две ошибки исходника, не запрет на дизайн.</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../../assets/tutorial/motion/native/repeat-check-ru.mp4" poster="../../assets/tutorial/motion/native/repeat-check-ru.png" width="1408" height="710" controls playsinline preload="none" aria-label="Повторная проверка отдельной копии workshop после не показанных правок: старый отчёт с двумя ошибками → ноль, только контексты 375 и 1440"><a href="../../assets/tutorial/motion/native/repeat-check-ru.mp4" download="repeat-check-ru.mp4">Скачать MP4</a></video>
+<figcaption>Правки — за кадром. Повторить: 2 ошибки → 0. Только 375/1440. <a href="../../assets/tutorial/motion/native/repeat-check-ru.gif" download="repeat-check-ru.gif">GIF</a>.</figcaption>
 </figure>
 
-**Показать слой → исправить → Повторить.** На странице 02 — выбранное здесь решение: общий заголовок, общий родитель и связанные компоненты.
+На странице 02 — это решение с UI-kit и Modals.
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
@@ -191,8 +202,8 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../../assets/tutorial/screenshots/assistant-ready-result-local.png" width="1430" height="1656" alt="Настоящий полный отчёт Assistant: workshop готово, ширины 375 и 1440 px, нулевые счётчики и граница проверки" loading="lazy" />
-<figcaption>Страница 02: в проверенной области ошибок нет.</figcaption>
+<img src="../../assets/tutorial/screenshots/assistant-ready-summary-local.png" width="1398" height="396" alt="Верхняя часть раннего отчёта локального Assistant по странице 02: 375 и 1440 px, нулевые счётчики и граница проверки исходника" loading="lazy" />
+<figcaption>Ранний отчёт страницы 02, не результат предыдущего ролика и не новая проверка обновлённого файла. <a href="../../assets/tutorial/screenshots/assistant-ready-result-local.png">Полный исторический отчёт</a>.</figcaption>
 </figure>
 
 **«Готово» — про проверенную область макета, не готовое приложение.**

@@ -1,0 +1,932 @@
+{
+  "schemaVersion": 3,
+  "kind": "annotated-native-continuous-recording",
+  "status": "focused-native-captures-reviewed",
+  "capturedAt": "2026-10-12",
+  "fileKey": "yCIbd7pIabjIepkkncPPYl",
+  "locales": [
+    "ru",
+    "en",
+    "zh"
+  ],
+  "overlayCoordinateSpace": "source-pixels",
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "gifFps": 12,
+    "crf": 12,
+    "level": "4.1",
+    "viewport": {
+      "left": 64,
+      "top": 96,
+      "width": 1792,
+      "height": 920
+    },
+    "layout": "subject-fit",
+    "padding": 24,
+    "captionHeight": 96,
+    "captionFontSize": 32
+  },
+  "clips": [
+    {
+      "id": "page-metadata",
+      "approved": true,
+      "action": "Configure the mobile Page fields: name workshop, page ID workshop, route /workshop, view default and bp 375; then jump to the matched bp 1440 root.",
+      "evidenceFact": "The Page type is already selected at the start of this continuous interval. Native name, page ID and route fields are edited; the existing default/375 values remain. The native corresponding-1440 control changes the actual selected root and viewport. Red native spacing guides are retained, not replaced by overlays.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/page-metadata.webm",
+        "sha256": "edeb88442d040267ca1051e67a87677067b2c7ac9f983c5d307891a83dc99ea7",
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may remain; no pointer is added or moved editorially.",
+        "originalFixedCrop": {
+          "left": 0,
+          "top": 76,
+          "width": 2466,
+          "height": 1560
+        },
+        "origin": {
+          "originalSha256": "76dba44aa863970240831f3b08b89b5d3800cfbc2b14cab1052e798775bb68f5",
+          "startSeconds": 60,
+          "endSeconds": 95,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        },
+        "actionFollowingCursorCaptured": false
+      },
+      "trim": {
+        "startSeconds": 1.5,
+        "endSeconds": 32
+      },
+      "crop": {
+        "left": 0,
+        "top": 250,
+        "width": 860,
+        "height": 1050
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "label": {
+            "ru": "Введите имя workshop",
+            "en": "Enter name: workshop",
+            "zh": "名称输入 workshop"
+          },
+          "highlights": [
+            {
+              "left": 420,
+              "top": 415,
+              "width": 400,
+              "height": 75
+            }
+          ]
+        },
+        {
+          "startSeconds": 2,
+          "endSeconds": 13,
+          "label": {
+            "ru": "ID страницы → workshop",
+            "en": "Page ID → workshop",
+            "zh": "页面 ID → workshop"
+          },
+          "highlights": [
+            {
+              "left": 15,
+              "top": 650,
+              "width": 400,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "startSeconds": 13,
+          "endSeconds": 23,
+          "label": {
+            "ru": "Роут → /workshop",
+            "en": "Route → /workshop",
+            "zh": "路由 → /workshop"
+          },
+          "highlights": [
+            {
+              "left": 420,
+              "top": 650,
+              "width": 400,
+              "height": 80
+            },
+            {
+              "left": 420,
+              "top": 540,
+              "width": 400,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "startSeconds": 23,
+          "endSeconds": 28,
+          "label": {
+            "ru": "Проверьте итоговый тег",
+            "en": "Check the generated tag",
+            "zh": "检查生成的标签"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 28,
+          "endSeconds": 30.5,
+          "label": {
+            "ru": "Перейдите к bp=1440",
+            "en": "Go to bp=1440",
+            "zh": "前往 bp=1440"
+          },
+          "highlights": []
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 1.7,
+          "phase": "before",
+          "kind": "existing-page-fields",
+          "pageName": "mobile-final-2",
+          "view": "default",
+          "bp": 375
+        },
+        {
+          "timeSeconds": 4,
+          "phase": "action",
+          "kind": "native-name-field-updated",
+          "pageName": "workshop"
+        },
+        {
+          "timeSeconds": 15,
+          "phase": "action",
+          "kind": "native-page-id-updated",
+          "pageId": "workshop"
+        },
+        {
+          "timeSeconds": 25,
+          "phase": "action",
+          "kind": "native-route-updated",
+          "route": "/workshop"
+        },
+        {
+          "timeSeconds": 31.6,
+          "phase": "after",
+          "kind": "native-corresponding-bp-selected",
+          "pageId": "workshop",
+          "bp": 1440
+        }
+      ],
+      "presentationPurpose": "The actual page fields and corresponding-breakpoint control. Canvas reflow is intentionally outside this fixed detail crop."
+    },
+    {
+      "id": "rename-title",
+      "approved": true,
+      "action": "Rename the matching title layer; do not change product copy.",
+      "evidenceFact": "Continuous native capture shows Title mobile selected, the real editable layer-name field, at least three growing typed prefixes, hero-title and native commit. Product heading content remains unchanged.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/rename-title.webm",
+        "sha256": "775eaaf00e469feba6bdb4f831a6d348d3d155700c8aceaef0b606da833c9e3d",
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may exist in the raw recording; no pointer is added or moved editorially.",
+        "origin": {
+          "originalSha256": "8d2fd360da5fa80cf3c956740482dc9645b505fa61a6b65097675104dc031d38",
+          "startSeconds": 19,
+          "endSeconds": 37,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        },
+        "originalFixedCrop": {
+          "left": 100,
+          "top": 76,
+          "width": 2170,
+          "height": 1404
+        },
+        "actionFollowingCursorCaptured": false
+      },
+      "trim": {
+        "startSeconds": 10,
+        "endSeconds": 17.8
+      },
+      "crop": {
+        "left": 0,
+        "top": 300,
+        "width": 770,
+        "height": 450
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 2.8,
+          "label": {
+            "ru": "Имя слоя: Title mobile",
+            "en": "Layer name: Title mobile",
+            "zh": "图层名称：Title mobile"
+          },
+          "highlights": [
+            {
+              "left": 240,
+              "top": 559,
+              "width": 505,
+              "height": 60
+            }
+          ]
+        },
+        {
+          "startSeconds": 2.8,
+          "endSeconds": 5.6,
+          "label": {
+            "ru": "Введите hero-title",
+            "en": "Type hero-title",
+            "zh": "输入 hero-title"
+          },
+          "highlights": [
+            {
+              "left": 240,
+              "top": 559,
+              "width": 505,
+              "height": 60
+            }
+          ]
+        },
+        {
+          "startSeconds": 5.6,
+          "endSeconds": 7.8,
+          "label": {
+            "ru": "Имя сохранено: hero-title",
+            "en": "Name saved: hero-title",
+            "zh": "已保存：hero-title"
+          },
+          "highlights": [
+            {
+              "left": 240,
+              "top": 559,
+              "width": 505,
+              "height": 60
+            }
+          ]
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 10.5,
+          "phase": "before",
+          "kind": "original-name",
+          "inputValue": "Title mobile"
+        },
+        {
+          "timeSeconds": 13,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "h"
+        },
+        {
+          "timeSeconds": 13.5,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "her"
+        },
+        {
+          "timeSeconds": 14,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "hero-t"
+        },
+        {
+          "timeSeconds": 14.5,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "hero-tit"
+        },
+        {
+          "timeSeconds": 16.2,
+          "phase": "after",
+          "kind": "confirmed-name",
+          "inputValue": "hero-title"
+        }
+      ],
+      "presentationPurpose": "The layer tree and genuine growing name input, not the product heading."
+    },
+    {
+      "id": "repair-copy",
+      "approved": true,
+      "action": "Restore the agreed full product title on mobile; layer identity is not a substitute for matching copy.",
+      "evidenceFact": "Native text editing restores the agreed full title Мастерская понятных макетов. The actual old copy, caret, growing characters and committed title are visible. This is one agreed-copy example, not a prohibition on declared responsive copy.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/repair-copy.webm",
+        "sha256": "383f2c648f1d26b4de8bc5737353572dbbbfcd07f5db3048f486475bc594dfd3",
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may exist in the raw recording; no pointer is added or moved editorially.",
+        "origin": {
+          "originalSha256": "8d2fd360da5fa80cf3c956740482dc9645b505fa61a6b65097675104dc031d38",
+          "startSeconds": 1096,
+          "endSeconds": 1120,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        },
+        "originalFixedCrop": {
+          "left": 100,
+          "top": 76,
+          "width": 2170,
+          "height": 1404
+        },
+        "actionFollowingCursorCaptured": false
+      },
+      "trim": {
+        "startSeconds": 9,
+        "endSeconds": 23.8
+      },
+      "crop": {
+        "left": 1190,
+        "top": 130,
+        "width": 750,
+        "height": 520
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 3,
+          "label": {
+            "ru": "Было: «Мастерская макетов»",
+            "en": "Before: «Мастерская макетов»",
+            "zh": "修改前：«Мастерская макетов»"
+          },
+          "highlights": [
+            {
+              "left": 1230,
+              "top": 199,
+              "width": 670,
+              "height": 180
+            }
+          ]
+        },
+        {
+          "startSeconds": 3,
+          "endSeconds": 8.5,
+          "label": {
+            "ru": "Возвращаем согласованный текст",
+            "en": "Restore the agreed product copy",
+            "zh": "恢复约定的产品文案"
+          },
+          "highlights": [
+            {
+              "left": 1230,
+              "top": 199,
+              "width": 670,
+              "height": 98
+            }
+          ]
+        },
+        {
+          "startSeconds": 8.5,
+          "endSeconds": 12.8,
+          "label": {
+            "ru": "Возвращаем согласованный текст",
+            "en": "Restore the agreed product copy",
+            "zh": "恢复约定的产品文案"
+          },
+          "highlights": [
+            {
+              "left": 1230,
+              "top": 199,
+              "width": 670,
+              "height": 180
+            }
+          ]
+        },
+        {
+          "startSeconds": 12.8,
+          "endSeconds": 14.8,
+          "label": {
+            "ru": "Полный заголовок восстановлен",
+            "en": "Full heading restored",
+            "zh": "完整标题已恢复"
+          },
+          "highlights": [
+            {
+              "left": 1230,
+              "top": 199,
+              "width": 670,
+              "height": 180
+            }
+          ]
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 9.5,
+          "phase": "before",
+          "kind": "original-copy",
+          "inputValue": "Мастерская макетов"
+        },
+        {
+          "timeSeconds": 15,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "Мастер"
+        },
+        {
+          "timeSeconds": 17,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "Мастерская понят"
+        },
+        {
+          "timeSeconds": 20,
+          "phase": "action",
+          "kind": "partial-typing",
+          "inputValue": "Мастерская понятных м"
+        },
+        {
+          "timeSeconds": 22.5,
+          "phase": "after",
+          "kind": "confirmed-copy",
+          "inputValue": "Мастерская понятных макетов"
+        }
+      ],
+      "presentationPurpose": "The genuine product heading, native caret and text reflow."
+    },
+    {
+      "id": "move-actions",
+      "approved": true,
+      "action": "Cut the entire hero-actions group and paste it into the existing hero-copy parent; do not create a wrapper or move the controls individually.",
+      "evidenceFact": "Compact continuous native capture shows the selected entire hero-actions group with both controls at the hero sibling level, an actual cut with controls temporarily absent, selection of the existing hero-copy parent, and native paste with the group nested inside hero-copy. Button copy and faq-link remain together; no wrapper is created and no drag is claimed. Native viewport/selection/spacing-guide changes remain unedited.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/move-actions-2026-10-13.webm",
+        "sha256": "bfc6401da08a3952c5276957d4274940ebdad54158f66ddb8315f4f6ac370c99",
+        "capturedAt": "2026-10-13",
+        "actionFollowingCursorCaptured": false,
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may remain; no pointer is added or moved editorially.",
+        "originalFixedCrop": {
+          "left": 120,
+          "top": 380,
+          "width": 740,
+          "height": 660
+        },
+        "origin": {
+          "originalSha256": "fcd3ea4645c0a60b81f834ab2ece1b4bd075a05eaaad9f0fc5f216a6c15dd6a7",
+          "startSeconds": 16.5,
+          "endSeconds": 32.5,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        }
+      },
+      "trim": {
+        "startSeconds": 0,
+        "endSeconds": 15.9
+      },
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "width": 740,
+        "height": 660
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 3.2,
+          "label": {
+            "ru": "hero-actions рядом с hero-copy",
+            "en": "hero-actions beside hero-copy",
+            "zh": "hero-actions 与 hero-copy 同级"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 3.2,
+          "endSeconds": 7.2,
+          "label": {
+            "ru": "Cmd+X — вырежьте группу",
+            "en": "Cmd+X — cut the group",
+            "zh": "Cmd+X — 剪切整个组"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 7.2,
+          "endSeconds": 11.2,
+          "label": {
+            "ru": "Выберите существующий hero-copy",
+            "en": "Select the existing hero-copy",
+            "zh": "选择现有的 hero-copy"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 11.2,
+          "endSeconds": 15.9,
+          "label": {
+            "ru": "Cmd+V — группа внутри hero-copy",
+            "en": "Cmd+V — group inside hero-copy",
+            "zh": "Cmd+V — 将组粘贴至 hero-copy 内"
+          },
+          "highlights": []
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 0.5,
+          "phase": "before",
+          "kind": "original-sibling-parent",
+          "controls": [
+            "Button copy",
+            "faq-link"
+          ],
+          "parent": "Frame 42"
+        },
+        {
+          "timeSeconds": 4.5,
+          "phase": "action",
+          "kind": "native-cut",
+          "controlsTemporarilyAbsent": true
+        },
+        {
+          "timeSeconds": 8.5,
+          "phase": "action",
+          "kind": "existing-parent-selected",
+          "parent": "hero-copy"
+        },
+        {
+          "timeSeconds": 13.5,
+          "phase": "after",
+          "kind": "native-paste-inside-existing-parent",
+          "controls": [
+            "Button copy",
+            "faq-link"
+          ],
+          "parent": "hero-copy"
+        }
+      ],
+      "presentationPurpose": "The genuine tree shows the whole hero-actions subtree, both named controls, the previous sibling relation, cut, selected existing parent, and final deeper indentation. Canvas reflow is intentionally outside this fixed detail crop."
+    },
+    {
+      "id": "button-states",
+      "approved": true,
+      "action": "Switch a linked sample instance from State=default to State=hover, then independently enable Focus visible in the native component properties.",
+      "evidenceFact": "One continuous native capture of the visible button specimen and its actual properties. State changes from default to hover through the native dropdown; Focus visible is then enabled while hover remains selected. The real focus ring appears around the entire button, without editorial outlines on the button. Native selection and spacing guides remain unedited; no pointer hover or prototype interaction is claimed.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/button-states-2026-10-13.webm",
+        "sha256": "ee04444c9367117b9d054b3f1daf14f2a96ed8e387477fccf9e1d71a77e3e4b0",
+        "capturedAt": "2026-10-13",
+        "actionFollowingCursorCaptured": false,
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may remain; no pointer is added or moved editorially.",
+        "originalFixedCrop": {
+          "left": 1060,
+          "top": 240,
+          "width": 1960,
+          "height": 780
+        },
+        "origin": {
+          "originalSha256": "1d30050a002beb4226db44d91ed0b116fd191fd131a2a387384764c3cedc37a7",
+          "startSeconds": 43,
+          "endSeconds": 58.6,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        }
+      },
+      "trim": {
+        "startSeconds": 0,
+        "endSeconds": 15.5
+      },
+      "crop": {
+        "left": 0,
+        "top": 218,
+        "width": 1960,
+        "height": 562
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 3,
+          "label": {
+            "ru": "State=default · фокус выключен",
+            "en": "State=default · focus off",
+            "zh": "State=default，焦点关闭"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 3,
+          "endSeconds": 9,
+          "label": {
+            "ru": "State → hover",
+            "en": "State → hover",
+            "zh": "State → hover"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 9,
+          "endSeconds": 12,
+          "label": {
+            "ru": "Включите Focus visible",
+            "en": "Enable Focus visible",
+            "zh": "启用 Focus visible"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 12,
+          "endSeconds": 15.5,
+          "label": {
+            "ru": "hover + видимый фокус",
+            "en": "hover + visible focus",
+            "zh": "hover + 可见焦点"
+          },
+          "highlights": []
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 1,
+          "phase": "before",
+          "kind": "native-default-state-selected",
+          "state": "default",
+          "focusVisible": false
+        },
+        {
+          "timeSeconds": 4.3,
+          "phase": "action",
+          "kind": "native-state-dropdown-open",
+          "state": "default",
+          "focusVisible": false
+        },
+        {
+          "timeSeconds": 6,
+          "phase": "action",
+          "kind": "native-hover-state-selected",
+          "state": "hover",
+          "focusVisible": false
+        },
+        {
+          "timeSeconds": 10.6,
+          "phase": "action",
+          "kind": "native-focus-visible-enabled",
+          "state": "hover",
+          "focusVisible": true
+        },
+        {
+          "timeSeconds": 15,
+          "phase": "after",
+          "kind": "native-hover-and-focus-visible",
+          "state": "hover",
+          "focusVisible": true
+        }
+      ],
+      "presentationPurpose": "The full genuine button and every edge of its native focus ring remain visible beside the State, Label and Focus visible controls in one fixed viewport. The retained source excerpt includes the component identity header; this presentation removes its unrelated blank canvas. No editorial stroke can be mistaken for the demonstrated ring."
+    },
+    {
+      "id": "local-action",
+      "approved": true,
+      "action": "Choose the local contact-modal target on the existing Button instance, inspect its generated action tag, and use native Go to target to find the hidden target layer.",
+      "evidenceFact": "The native Button and Modal action fields are already selected at the start, but no target is assigned and the actual Result is contact-button [control]. The real dropdown visibly identifies the hidden local 375 contact-modal target. Selecting it generates contact-button [action=modal:contact-modal] on the instance. Native Go to target then selects that existing hidden layer; its contact-modal header and modal ID remain visible after the native toast clears. The video does not show a modal opening, a prototype preview, or a library edit.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/local-action-2026-10-13.webm",
+        "sha256": "13ad6d2b89179d19f32a77c940c37392f0d81d82dde6279d9ff53270cff30d13",
+        "capturedAt": "2026-10-13",
+        "actionFollowingCursorCaptured": false,
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may remain; no pointer is added or moved editorially.",
+        "originalFixedCrop": {
+          "left": 0,
+          "top": 330,
+          "width": 840,
+          "height": 810
+        },
+        "origin": {
+          "originalSha256": "3f128c89364070a579ec8f42dbd74ac1c978471649b994e6acf4df5eb1470411",
+          "startSeconds": 17.5,
+          "endSeconds": 38.1,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        }
+      },
+      "trim": {
+        "startSeconds": 0,
+        "endSeconds": 20.4
+      },
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "width": 840,
+        "height": 810
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 3,
+          "label": {
+            "ru": "Цель ещё не задана",
+            "en": "No target assigned yet",
+            "zh": "尚未指定目标"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 3,
+          "endSeconds": 7,
+          "label": {
+            "ru": "Выберите скрытую contact-modal",
+            "en": "Select hidden contact-modal",
+            "zh": "选择隐藏的 contact-modal"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 7,
+          "endSeconds": 11,
+          "label": {
+            "ru": "Проверьте [action=modal:contact-modal]",
+            "en": "Check [action=modal:contact-modal]",
+            "zh": "检查 [action=modal:contact-modal]"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 11,
+          "endSeconds": 14.5,
+          "label": {
+            "ru": "Нажмите «К цели»",
+            "en": "Click Go to target",
+            "zh": "点击前往目标"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 14.5,
+          "endSeconds": 20.4,
+          "label": {
+            "ru": "Цель найдена, не открыта",
+            "en": "Target found, not opened",
+            "zh": "已找到目标，未打开弹窗"
+          },
+          "highlights": []
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 0.5,
+          "phase": "before",
+          "kind": "existing-button-with-unassigned-target",
+          "target": null,
+          "layerName": "contact-button [control]"
+        },
+        {
+          "timeSeconds": 4.5,
+          "phase": "action",
+          "kind": "native-local-target-dropdown-open",
+          "targetOption": "contact-modal · 375 px · скрыт"
+        },
+        {
+          "timeSeconds": 8,
+          "phase": "action",
+          "kind": "native-generated-action-tag",
+          "layerName": "contact-button [action=modal:contact-modal]",
+          "target": "contact-modal"
+        },
+        {
+          "timeSeconds": 13.5,
+          "phase": "action",
+          "kind": "native-hidden-target-selected",
+          "target": "contact-modal",
+          "visible": false
+        },
+        {
+          "timeSeconds": 19.5,
+          "phase": "after",
+          "kind": "native-hidden-target-selected-toast-cleared",
+          "target": "contact-modal",
+          "visible": false
+        }
+      ],
+      "presentationPurpose": "One fixed native panel crop retains the original instance and 375 breadcrumb, initially unassigned target and control tag, full hidden-target dropdown option, generated action tag, Go to target, and the final target header/ID. The complete result box remains inside the crop when synchronization expands the panel."
+    },
+    {
+      "id": "repeat-check",
+      "approved": true,
+      "action": "Repeat the actual scoped check after off-record repairs; compare the stale two-error report with the fresh zero-error result while the default/375/1440 scope remains visible.",
+      "evidenceFact": "The real old two-error report was created before repairs. Source repairs were applied off-record in the QA copy before this interval. The native Repeat command visibly enters checking and updates the stale report to 0 errors, 0 drafts and 0 notices. The default/375/1440 scope is already expanded throughout; no recorded expansion is claimed. This proves rechecking only, not the repairs or overall design readiness. One fixed report crop excludes a queued stale native toast below the report for the entire interval; no UI is locally erased or redrawn.",
+      "sourcePageName": "07 · Проверка для экскурса",
+      "sourceInterface": "Figma Desktop continuous native video capture",
+      "sourceCapture": {
+        "file": "source/video/repeat-check-2026-10-13.webm",
+        "sha256": "de59db2e89d438d2fd3b958477d05022a7a41f9ed6022959c8ca60aac71032fd",
+        "capturedAt": "2026-10-13",
+        "actionFollowingCursorCaptured": false,
+        "cursorDisclosure": "No action-following automation cursor was captured. A parked native system pointer may remain; no pointer is added or moved editorially.",
+        "originalFixedCrop": {
+          "left": 0,
+          "top": 156,
+          "width": 1360,
+          "height": 590
+        },
+        "origin": {
+          "originalSha256": "04116cb83dd86b06e497f5fa224aa76fa81ee16dc7328e71ef36080d8ce89579",
+          "startSeconds": 18.5,
+          "endSeconds": 28.6,
+          "localOriginalRetained": true,
+          "ciVerifies": "excerpt-only"
+        }
+      },
+      "trim": {
+        "startSeconds": 0,
+        "endSeconds": 10
+      },
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "width": 1360,
+        "height": 590
+      },
+      "posterAtSeconds": 0.5,
+      "cues": [
+        {
+          "startSeconds": 0,
+          "endSeconds": 3,
+          "label": {
+            "ru": "Исправления внесены; отчёт старый",
+            "en": "Repairs done; old report",
+            "zh": "修复已完成，仍是旧报告"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 3,
+          "endSeconds": 6,
+          "label": {
+            "ru": "Нажмите «Повторить»",
+            "en": "Click Repeat",
+            "zh": "点击重新检查"
+          },
+          "highlights": []
+        },
+        {
+          "startSeconds": 6,
+          "endSeconds": 10,
+          "label": {
+            "ru": "0 ошибок — только default, 375 / 1440",
+            "en": "0 errors — only default, 375 / 1440",
+            "zh": "0 个错误，仅限 default、375 / 1440"
+          },
+          "highlights": []
+        }
+      ],
+      "auditFrames": [
+        {
+          "timeSeconds": 0.5,
+          "phase": "before",
+          "kind": "stale-native-error-report-after-off-record-repairs",
+          "errors": 2,
+          "view": "default",
+          "breakpoints": [
+            375,
+            1440
+          ]
+        },
+        {
+          "timeSeconds": 3.1,
+          "phase": "action",
+          "kind": "native-repeat-in-progress"
+        },
+        {
+          "timeSeconds": 5.6,
+          "phase": "action",
+          "kind": "native-scoped-check-complete",
+          "errors": 0,
+          "drafts": 0,
+          "notices": 0
+        },
+        {
+          "timeSeconds": 9.5,
+          "phase": "after",
+          "kind": "native-result-with-scope-retained",
+          "errors": 0,
+          "drafts": 0,
+          "notices": 0,
+          "view": "default",
+          "breakpoints": [
+            375,
+            1440
+          ]
+        }
+      ],
+      "presentationPurpose": "The actual report title, Repeat control, all three summary counts, expanded default/375/1440 scope and scope limitations remain visible. A fixed crop removes the empty lower report and unrelated stale toast, not any relevant result."
+    }
+  ],
+  "reviewedAt": "2026-10-13"
+}

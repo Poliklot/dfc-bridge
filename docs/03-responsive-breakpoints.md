@@ -39,7 +39,7 @@ A narrow layout may show fewer items at once, but it must not silently delete re
 
 ## Intermediate widths matter
 
-Check the space between prepared roots. Text, cards, tables, fixed controls, and focus indicators need a defined behavior there too. Prefer intrinsic and fluid behavior over a collection of device-specific copies.
+Check widths between the prepared examples, not just the examples themselves. Text, cards, tables, fixed controls, and focus indicators need a defined behavior at those widths too. Prefer content-driven sizing and fluid layout over a collection of device-specific copies.
 
 ## Declare a real transformation
 
@@ -50,7 +50,7 @@ When the structure changes, name the source and destination and state what is pr
 - selection and open state;
 - reading and focus order.
 
-Do not put the transformation into names such as `table-mobile`.
+Record this mapping in `responsive.transformations[]` as described in the [transfer contract](04-transfer-contract.md). A name such as `table-mobile` cannot explain what changes or what is preserved.
 
 ## Direction and accessibility
 

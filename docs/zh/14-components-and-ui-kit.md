@@ -8,7 +8,7 @@
 <figcaption>页面、视图、宽度、状态目标与组件变体是独立的维度. 说明示意图。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>.</figcaption>
 </figure>
 
-[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+[图解入门](25-visual-walkthrough.md)展示了这种分工：共享组件定义按钮外观，页面实例指向当前页面的模态窗口。
 
 ## 两个库级别
 

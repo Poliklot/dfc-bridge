@@ -1,74 +1,73 @@
 # 页面路由和视图
 
-DFC Bridge 将页面、生产路线、锚点和页面/数据状态视为传输契约的一流部分。设计不仅仅是一组部分；它是一个可导航的产品表面。
-
+先确认哪些画框属于同一页面，再记录它的真实地址、可能出现的状态以及链接可以到达的区块。这样，空目录不会变成虚构页面，移动布局也不会变成第二条路由。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
 <img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="557" />
-<figcaption>同一页面与视图的两个原生宽度. 说明示意图。 <a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>.</figcaption>
+<figcaption>同一页面和视图，两种原生宽度。说明示意图。<a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
-[图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。
+在[图解入门](25-visual-walkthrough.md)中，两个 `workshop` 根节点属于同一页面、同一视图，只有声明的宽度不同。
 
 ## 页面标识和可选路由
 
-页面根始终需要稳定的 `[page=...]`。仅当真实生产 URL 或路由模式已知时才会添加路由。
+页面根节点始终需要稳定的 `[page=...]`。只有确定真实生产 URL 或路由模板后，才添加路由。
 
-已知路线：
+已知路由：
 
 ```text
 contacts [page=contacts] [route=/contacts] [bp=1200]
 contacts [page=contacts] [route=/contacts] [bp=320]
 ```
 
-Draft route unknown:
+草稿中尚未确定路由：
 
 ```text
 contacts [page=contacts] [bp=1200] [view=default]
 contacts [page=contacts] [bp=320] [view=default]
 ```
 
-Rules:
+规则：
 
-- `[page=...]` 是稳定页面标识。
-- `[route=...]` 是生产 URL 路径，不是猜测，也不是占位符。
-- `[route-pattern=...]` 是真实的生产路线模板。
-- 如果路线未知，则省略；缺少的路线是待办事项草稿，而不是硬错误。
-- 当路由已知时，一个路由页面的所有断点/视图共享相同的路由。
-- 路线在整个站点中是唯一的，除非该页面是有意的路线模板。
+- `[page=...]` 是稳定的页面标识。
+- `[route=...]` 是生产 URL 路径，不是猜测或占位符。
+- `[route-pattern=...]` 是真实的生产路由模板。
+- 路由未知时省略它；缺失路由是草稿待办项，不是阻断错误。
+- 同一页面的各断点和视图在路由已知时共享该路由。
+- 具体路由在站点内唯一；有意使用路由模板的页面应明确声明模板。
 
 ## 路由语法
 
-Recommended route forms:
+推荐形式：
 
 ```text
- [route=/]
- [route=/contacts]
- [route=/catalog]
- [route=/catalog/product]
- [route-pattern=/catalog/:slug]
+[route=/]
+[route=/contacts]
+[route=/catalog]
+[route=/catalog/product]
+[route-pattern=/catalog/:slug]
 ```
 
-Rules:
+- `[route=...]` 用于具体生产页面。
+- `[route-pattern=...]` 用于真实模板，例如商品详情页。
+- 不要为了通过清单而编造路由。
+- 除根路径 `/` 外，避免末尾斜杠，除非产品明确要求。
+- 契约中的路由区分大小写；建议采用小写 `kebab-case` 路径。
 
-- 仅将 `[route=...]` 用于具体生产页面；
-- 仅将 `[route-pattern=...]` 用于真实模板，例如产品详细信息页面；
-- 不要发明假路线来满足清单；
-- 避免尾随斜杠，根 `/` 除外，除非产品明确要求它们；
-- 合约中的路由值区分大小写，但建议使用小写短横线路径。
+<a id="页面浏览量"></a>
 
-## 页面浏览量
+## 页面视图
 
-`[view=...]` 描述页面/数据状态，而不是组件 UI 状态。
+`[view=...]` 描述页面或数据状态，不是组件的局部 UI 状态。
 
 ```text
 catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
-catalog-empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-catalog-loading [page=catalog] [route=/catalog] [bp=1200] [view=loading]
-catalog-error [page=catalog] [route=/catalog] [bp=1200] [view=error]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=loading]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=error]
 ```
 
-Common page views:
+常见视图：
 
 ```text
 default
@@ -81,69 +80,67 @@ unauthorized
 success
 ```
 
-Rules:
-
-- 每个页面都应该有 `view=default`；
-- 动态页面和集合页面应在适用时定义空视图、加载视图和错误视图；
-- 当路线已知时，同一页面的所有视图共享 `[page=...]` 和相同的 `[route=...]` ；
-- 视图可以具有特定于状态的内容，但同一视图的响应断点不得更改内容。
-- 响应式身份、类型、父级、基数和内容检查仅在一个视图内运行；`view=default` 永远不会与 `view=empty` 或 `view=err或` 的响应对应项进行比较。
-- 断点集由页面契约共享：每个声明的视图都需要每个所需页面断点的根。
+- 每个页面都应有 `view=default`。
+- 动态页面和集合页面应按需要提供空、加载和错误视图。
+- 同一页面的所有视图共享 `[page=...]`，路由已知时也共享 `[route=...]`。
+- 不同视图可以有不同内容；同一视图的响应式断点不能擅自改变内容。
+- 响应式标识、类型、父级、数量和内容只在同一视图内比较。不能把 `view=default` 与 `view=empty` 或 `view=error` 当作互相对应的断点。
+- 页面契约共用一套必需断点；每个声明的视图都要在这些断点上有根节点。
 
 ## 错误的页面状态建模
 
-不要将页面状态建模为假页面或假路由：
+不要把页面状态建成虚构页面或路由：
 
 ```text
 catalog [page=catalog] [route=/catalog] [view=default]
 catalog-empty [page=catalog-empty] [route=/catalog-empty]
 ```
 
-Correct:
+正确做法：
 
 ```text
 catalog [page=catalog] [route=/catalog] [view=default]
-catalog-empty [page=catalog] [route=/catalog] [view=empty]
+catalog [page=catalog] [route=/catalog] [view=empty]
 ```
 
-如果生产路线未知，则保留一页标识并省略路线：
+生产路由未知时，保留同一页面标识，省略路由：
 
 ```text
 catalog [page=catalog] [view=default]
-catalog-empty [page=catalog] [view=empty]
+catalog [page=catalog] [view=empty]
 ```
 
-## 截面和锚杆
+<a id="截面和锚杆"></a>
 
-可寻址部分使用 `[section=...]` 和 `[anchor=...]`：
+## 区块和锚点
+
+可通过链接到达的区块使用 `[section=...]` 和 `[anchor=...]`：
 
 ```text
 contacts-faq [section=contacts-faq] [anchor=faq]
 ```
 
-`[section=...]` 是可重用的部分/组件合约。人类图层名称可能是特定于页面的：
+`[section=...]` 指向可复用的区块或组件契约。可读的图层名称仍可反映当前页面的用途：
 
 ```text
 catalog [section=product-slider]
 related-products [section=product-slider]
 recommended-products [section=product-slider]
-first-screen [section=home-hero]
+hero [section=home-hero]
 ```
 
-在前三个示例中，内容/数据不同，但适配器可以使用一个部分组件来实现该块。`home-hero` 是页面唯一部分的示例。
+前三个例子的内容和数据不同，但适配器可以用同一个区块组件实现。`home-hero` 则是页面专属区块的例子。
 
-Rules:
-
-- 当 `[section=...]` 存在时，不要在层名称中写入 `部分/` ；
-- `[section=...]` 应在一页的断点上保持稳定；
-- 不同页面上的相同`[section=...]`可能有不同的标题、数据和内容；
-- 锚点在一页路由或页面标识中是唯一的；
-- 相同的节标识应在断点之间保持相同的锚点；
-- 锚点是导航的一部分，不应该在以后的实现中发明。
+- 已有 `[section=...]` 时，不要再给图层名添加 `Section /` 前缀。
+- 同一页面各断点的 `[section=...]` 保持稳定。
+- 不同页面中相同的 `[section=...]` 可以有不同标题、数据和内容。
+- 锚点在同一路由或页面标识内唯一。
+- 同一区块在各断点中保持相同锚点。
+- 锚点属于导航决策，应在设计中确定，而不是留给实现阶段猜测。
 
 ## 链接和 href 解析
 
-已知链接使用 `href` 作为唯一的目标事实，不需要 `[link=...]`：
+已知目标时，`href` 是唯一的目标来源，不需要 `[link=...]`：
 
 ```text
 contacts [href=/contacts]
@@ -152,61 +149,65 @@ same-page-faq [href=#faq]
 telegram [href=https://t.me/company]
 ```
 
-如果目的地未知，请使用 `[link]`：
+目标未知时使用 `[link]`：
 
 ```text
-Contacts [link]
+contacts [link]
 ```
 
-请勿使用 `[href=#]` 作为未知占位符。`#faq` 是真正的同页锚点；`#` 单独无效。
+不要用 `[href=#]` 表示未知目标。`#faq` 是真实的同页锚点，单独的 `#` 无效。
 
-Validator resolution:
+验证器按以下关系查找目标：
 
 ```text
-href-contacts-page-with [route=/contacts]
-href-contacts-faq-page [route=/contacts] + section [anchor=faq]
-href-faq-current-page-section [anchor=faq]
+href=/contacts      -> page with [route=/contacts]
+href=/contacts#faq  -> page [route=/contacts] + section [anchor=faq]
+href=#faq           -> current page + section [anchor=faq]
 href=https://...    -> external URL, no internal route required
 ```
 
-如果由于设计处于草稿阶段而导致目标页面仍然缺少其路由，则路由解析可以保留为 TODO。一旦存在 `[route=...]`，它就必须是生产 URL。
+如果目标页面尚处于草稿、路由未知，解析可以保留为待办项。一旦声明 `[route=...]`，它就必须是真实生产 URL。
 
-## 查看和断点范围
+<a id="查看和断点范围"></a>
 
-具有已知路由的顶级页面根的唯一性范围：
+## 视图和断点的唯一性范围
+
+已知路由的顶层页面根节点按以下组合区分：
 
 ```text
 page + route + bp + view
 ```
 
-如果草稿中的路线未知，请使用：
+草稿中路由未知时：
 
 ```text
 page + bp + view
 ```
 
-Example:
+例如：
 
 ```text
 catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
 catalog [page=catalog] [route=/catalog] [bp=320] [view=default]
-catalog-empty [page=catalog] [route=/catalog] [bp=1200] [view=empty]
-catalog-empty [page=catalog] [route=/catalog] [bp=320] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=1200] [view=empty]
+catalog [page=catalog] [route=/catalog] [bp=320] [view=empty]
 ```
 
-## 验证者规则
+<a id="验证者规则"></a>
 
-A DFC Bridge validator should report:
+## 验证规则
 
-- page root has no route as Draft TODO, not a hard error;
-- route value is not a production URL/path when route is specified;
-- duplicate concrete routes;
-- same page identity uses different known routes across breakpoints;
-- same page view is missing on required breakpoint;
-- dynamic collection page has no empty/loading/error view;
-- `[href=#]`用作未知占位符；
-- 当路由数据已知时，内部href路由不存在；
-- 内部 href 锚点不存在；
-- 同页锚点href在当前页面没有匹配的部分；
-- 锚点在一页路由/页面标识内重复；
-- 页面状态被建模为单独的假路由。
+DFC Bridge 验证器应报告以下情况：
+
+- 页面根节点缺少路由：标记为草稿待办项，而非阻断错误；
+- 已声明的路由不是生产 URL 路径；
+- 具体路由重复；
+- 同一页面标识在不同断点上使用不同的已知路由；
+- 某个页面视图缺少必需断点；
+- 动态集合页面缺少适用的空、加载或错误视图；
+- 用 `[href=#]` 作为未知目标的占位符；
+- 路由信息已知，但内部链接的路由不存在；
+- 内部链接的锚点不存在；
+- 同页锚点链接在当前页面找不到对应区块；
+- 同一路由或页面标识内有重复锚点；
+- 把页面状态建成独立的虚构路由。

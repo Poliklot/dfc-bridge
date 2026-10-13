@@ -15,6 +15,7 @@ const copy = locale === 'ru'
       zoomIn: 'Приблизить',
       zoomOut: 'Отдалить',
       help: 'Приближайте и листайте. Закрыть — Esc.',
+      videoHelp: 'Приближайте детали. Запись — кнопками плеера. Закрыть — Esc.',
       error: 'Не удалось открыть. Обновите страницу и попробуйте ещё раз.',
     }
   : locale === 'zh'
@@ -26,6 +27,7 @@ const copy = locale === 'ru'
         zoomIn: '放大',
         zoomOut: '缩小',
         help: '放大后滚动查看细节。按 Esc 关闭。',
+        videoHelp: '放大后滚动看细节；用播放器按钮控制录屏。按 Esc 关闭。',
         error: '无法打开。请刷新页面后重试。',
       }
     : {
@@ -36,6 +38,7 @@ const copy = locale === 'ru'
         zoomIn: 'Zoom in',
         zoomOut: 'Zoom out',
         help: 'Zoom and scroll to read details. Esc closes.',
+        videoHelp: 'Zoom and scroll for details. Use player controls. Esc closes.',
         error: 'Could not open. Refresh the page and try again.',
       };
 ---
@@ -45,7 +48,7 @@ const copy = locale === 'ru'
     <header class="bridge-media-toolbar">
       <p id="bridge-media-title"></p>
       <div class="bridge-media-controls">
-        <div class="bridge-media-zoom" data-image-controls>
+        <div class="bridge-media-zoom" data-zoom-controls>
           <button type="button" data-zoom-out aria-label={copy.zoomOut} title={copy.zoomOut}>−</button>
           <button type="button" data-actual-size aria-label={copy.actual} title={copy.actual}>100%</button>
           <button type="button" data-zoom-in aria-label={copy.zoomIn} title={copy.zoomIn}>+</button>
@@ -60,7 +63,7 @@ const copy = locale === 'ru'
       <div class="bridge-media-canvas"></div>
       <p class="bridge-media-error" role="status" hidden>{copy.error}</p>
     </div>
-    <p id="bridge-media-help" class="bridge-media-help">{copy.help}</p>
+    <p id="bridge-media-help" class="bridge-media-help" data-image-help={copy.help} data-video-help={copy.videoHelp}>{copy.help}</p>
   </dialog>
 </bridge-media-viewer>
 
@@ -72,14 +75,15 @@ const copy = locale === 'ru'
       const title = this.querySelector<HTMLElement>('#bridge-media-title');
       const stage = this.querySelector<HTMLElement>('.bridge-media-stage');
       const canvas = this.querySelector<HTMLElement>('.bridge-media-canvas');
-      const imageControls = this.querySelector<HTMLElement>('[data-image-controls]');
+      const zoomControls = this.querySelector<HTMLElement>('[data-zoom-controls]');
       const actual = this.querySelector<HTMLButtonElement>('[data-actual-size]');
       const fitButton = this.querySelector<HTMLButtonElement>('[data-fit]');
       const zoomIn = this.querySelector<HTMLButtonElement>('[data-zoom-in]');
       const zoomOut = this.querySelector<HTMLButtonElement>('[data-zoom-out]');
       const closeButton = this.querySelector<HTMLButtonElement>('[data-close]');
       const error = this.querySelector<HTMLElement>('.bridge-media-error');
-      if (!dialog || !title || !stage || !canvas || !imageControls || !actual || !fitButton || !zoomIn || !zoomOut || !closeButton || !error) return;
+      const help = this.querySelector<HTMLElement>('#bridge-media-help');
+      if (!dialog || !title || !stage || !canvas || !zoomControls || !actual || !fitButton || !zoomIn || !zoomOut || !closeButton || !error || !help) return;
       this.dataset.ready = 'true';
 
       let activeImage: HTMLImageElement | null = null;
@@ -89,13 +93,16 @@ const copy = locale === 'ru'
       let scale = 1;
 
       const resize = (nextScale?: number) => {
-        if (!activeImage?.naturalWidth || !activeImage.naturalHeight) return;
+        const media = activeImage ?? activeVideo;
+        const sourceWidth = activeImage ? activeImage.naturalWidth : activeVideo?.videoWidth || activeVideo?.width || 0;
+        const sourceHeight = activeImage ? activeImage.naturalHeight : activeVideo?.videoHeight || activeVideo?.height || 0;
+        if (!media || !sourceWidth || !sourceHeight) return;
         const centerX = (stage.scrollLeft + stage.clientWidth / 2) / canvas.scrollWidth;
         const centerY = (stage.scrollTop + stage.clientHeight / 2) / canvas.scrollHeight;
-        const fitScale = Math.min(1, (stage.clientWidth - 48) / activeImage.naturalWidth, (stage.clientHeight - 48) / activeImage.naturalHeight);
+        const fitScale = Math.min(1, (stage.clientWidth - 48) / sourceWidth, (stage.clientHeight - 48) / sourceHeight);
         scale = fit ? Math.max(.01, fitScale) : Math.max(.1, Math.min(3, nextScale ?? scale));
-        activeImage.style.width = `${activeImage.naturalWidth * scale}px`;
-        activeImage.style.height = `${activeImage.naturalHeight * scale}px`;
+        media.style.width = `${sourceWidth * scale}px`;
+        media.style.height = `${sourceHeight * scale}px`;
         actual.textContent = `${Math.round(scale * 100)}%`;
         fitButton.setAttribute('aria-pressed', String(fit));
         zoomOut.disabled = scale <= .1;
@@ -118,12 +125,17 @@ const copy = locale === 'ru'
         fit = true;
         resize();
       });
-      closeButton.addEventListener('click', () => dialog.close());
-      dialog.addEventListener('close', () => {
+      const clearMedia = () => {
         activeVideo?.pause();
         activeImage = null;
         activeVideo = null;
         canvas.replaceChildren();
+      };
+      closeButton.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('close', () => {
+        // Native close events are queued; a new inspection may already be open.
+        if (dialog.open) return;
+        clearMedia();
         returnFocus?.focus({ preventScroll: true });
       });
       new ResizeObserver(() => {
@@ -134,7 +146,9 @@ const copy = locale === 'ru'
         const figure = media.parentElement;
         const caption = figure?.querySelector('figcaption');
         if (!caption || !figure || figure.querySelector('[data-bridge-media-open]')) continue;
-        const captionText = caption.textContent?.trim() || (media instanceof HTMLImageElement ? media.alt : '');
+        const captionCopy = caption.cloneNode(true) as HTMLElement;
+        captionCopy.querySelectorAll('a[download]').forEach(link => link.remove());
+        const captionText = captionCopy.textContent?.replace(/\s+/gu, ' ').replace(/(?:\.\s*)+$/u, '.').trim() || (media instanceof HTMLImageElement ? media.alt : '');
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'bridge-media-open';
@@ -148,13 +162,14 @@ const copy = locale === 'ru'
 
         const open = () => {
           if (dialog.open) return;
+          clearMedia();
           returnFocus = button;
           title.textContent = captionText;
           error.hidden = true;
           fit = true;
           scale = 1;
           stage.scrollTo(0, 0);
-          imageControls.hidden = media instanceof HTMLVideoElement;
+          help.textContent = media instanceof HTMLVideoElement ? help.dataset.videoHelp || '' : help.dataset.imageHelp || '';
           if (media instanceof HTMLImageElement) {
             const image = new Image();
             image.alt = media.alt;
@@ -176,6 +191,9 @@ const copy = locale === 'ru'
             video.controls = true;
             video.preload = 'metadata';
             video.className = 'bridge-media-video';
+            video.addEventListener('loadedmetadata', () => {
+              if (activeVideo === video) resize();
+            });
             video.addEventListener('error', () => {
               if (activeVideo === video) error.hidden = false;
             });

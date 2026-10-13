@@ -78,7 +78,7 @@ if (typeof canonicalContractVersion !== 'string') {
 }
 if (bridgeSchema) {
   const validateBridge = ajv.getSchema(bridgeSchema.$id) || ajv.compile(bridgeSchema);
-  for (const docsPath of ['docs/04-transfer-contract.md', 'docs/ru/04-kontrakt-perenosa.md']) {
+  for (const docsPath of ['docs/04-transfer-contract.md', 'docs/ru/04-kontrakt-perenosa.md', 'docs/zh/04-transfer-contract.md']) {
     const markdown = readFileSync(resolve(root, docsPath), 'utf8');
     const candidates = [...markdown.matchAll(/```json\s*\n([\s\S]*?)\n```/gu)]
       .map((match) => match[1])
@@ -169,12 +169,13 @@ if (bridgeSchema) {
   // omit the required contract envelope, so validate the documented module
   // against its own canonical `$defs` entry rather than weakening the full schema.
   const fragmentCases = [
-    { paths: ['examples/README.md', 'examples/README.ru.md'], module: 'responsive', definition: 'responsive' },
-    { paths: ['docs/20-data-and-visualization.md', 'docs/ru/20-dannye-i-vizualizaciya.md'], module: 'data', definition: 'data' },
-    { paths: ['docs/21-motion-and-scroll.md', 'docs/ru/21-motion-i-scroll.md'], module: 'motion', definition: 'motion' },
-    { paths: ['docs/22-state-machines-and-reactions.md', 'docs/ru/22-sostoyaniya-i-reakcii.md'], module: 'interaction', definition: 'interaction' },
-    { paths: ['docs/23-accessibility-profile.md', 'docs/ru/23-profil-dostupnosti.md'], module: 'accessibility', definition: 'accessibility' },
-    { paths: ['docs/24-delivery-lifecycle.md', 'docs/ru/24-zhiznennyj-cikl-peredachi.md'], module: 'lifecycle', definition: 'lifecycle' },
+    // The task-oriented catalog links to the complete contract instead of
+    // duplicating a responsive fragment; its responsive module is checked above.
+    { paths: ['docs/20-data-and-visualization.md', 'docs/ru/20-dannye-i-vizualizaciya.md', 'docs/zh/20-data-and-visualization.md'], module: 'data', definition: 'data' },
+    { paths: ['docs/21-motion-and-scroll.md', 'docs/ru/21-motion-i-scroll.md', 'docs/zh/21-motion-and-scroll.md'], module: 'motion', definition: 'motion' },
+    { paths: ['docs/22-state-machines-and-reactions.md', 'docs/ru/22-sostoyaniya-i-reakcii.md', 'docs/zh/22-state-machines-and-reactions.md'], module: 'interaction', definition: 'interaction' },
+    { paths: ['docs/23-accessibility-profile.md', 'docs/ru/23-profil-dostupnosti.md', 'docs/zh/23-accessibility-profile.md'], module: 'accessibility', definition: 'accessibility' },
+    { paths: ['docs/24-delivery-lifecycle.md', 'docs/ru/24-zhiznennyj-cikl-peredachi.md', 'docs/zh/24-delivery-lifecycle.md'], module: 'lifecycle', definition: 'lifecycle' },
   ];
   const fragmentFiles = new Map();
   const readJsonBlocks = (docsPath) => {
@@ -196,7 +197,7 @@ if (bridgeSchema) {
     catch (error) { problems.push(`validator/bridge.schema.json: could not compile fragment ${definition} (${error.message})`); continue; }
     for (const docsPath of paths) {
       const { markdown, blocks } = readJsonBlocks(docsPath);
-      if (!/Non-standalone (?:module )?fragment|Неполный фрагмент(?: модуля)?/u.test(markdown)) {
+      if (!/Non-standalone (?:module )?fragment|Неполный фрагмент(?: модуля)?|非独立(?:模块)?片段|不能独立验证的模块片段/u.test(markdown)) {
         problems.push(`${docsPath}: module JSON must be labeled as a non-standalone fragment`);
       }
       const candidates = blocks.filter(({ value }) => value?.bridge?.[module] !== undefined);
@@ -218,7 +219,7 @@ if (bridgeSchema) {
 
   const validateDeviation = ajv.getSchema(`${bridgeSchema.$id}#/$defs/deviation`)
     || ajv.compile({ $ref: `${bridgeSchema.$id}#/$defs/deviation` });
-  for (const docsPath of ['docs/24-delivery-lifecycle.md', 'docs/ru/24-zhiznennyj-cikl-peredachi.md']) {
+  for (const docsPath of ['docs/24-delivery-lifecycle.md', 'docs/ru/24-zhiznennyj-cikl-peredachi.md', 'docs/zh/24-delivery-lifecycle.md']) {
     const { blocks } = readJsonBlocks(docsPath);
     const deviations = blocks.flatMap(({ index, value }) =>
       (value?.bridge?.lifecycle?.deviations || []).map((deviation) => ({ index, deviation })),
@@ -533,5 +534,5 @@ if (problems.length) {
   console.error(`DFC Bridge contract validation found ${problems.length} problem(s):\n- ${problems.join('\n- ')}`);
   process.exitCode = 1;
 } else {
-  console.log(`DFC Bridge contracts verified: ${catalog.rules.length} rules, ${tagRegistry.tags.length} registered tags, ${tagExamples.valid.length + tagExamples.invalid.length} executable tag cases, and ${contentManifest.pages.length} localized page pairs.`);
+  console.log(`DFC Bridge contracts verified: ${catalog.rules.length} rules, ${tagRegistry.tags.length} registered tags, ${tagExamples.valid.length + tagExamples.invalid.length} executable tag cases, and ${contentManifest.pages.length} topics across ${contentManifest.locales.length} locales.`);
 }

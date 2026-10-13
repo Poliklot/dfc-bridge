@@ -10,6 +10,10 @@ const generatedPath = join(root, 'src/content/docs/.bridge-generated.json');
 const problems = [];
 const cjk = /[\u3400-\u9fff]/u;
 const englishProse = /^[ \t]*(?:[A-Z][A-Za-z]+\s+){4,}[A-Za-z][^`]*[.!?:]?[ \t]*$/u;
+// Same layer-tag grammar as check-validator-contracts.mjs. Literal examples
+// remain unchanged even when the surrounding notes are translated.
+const tagTokens = (value) =>
+  [...new Set(value.match(/\[[a-z][a-z0-9-]*(?:=[^\]\r\n]*)?\]/gu) || [])].sort();
 
 if (JSON.stringify(manifest.locales) !== JSON.stringify(['en', 'ru', 'zh'])) {
   problems.push('site-content.json: ожидается канонический порядок локалей en, ru, zh');
@@ -53,6 +57,14 @@ for (const [id, entry] of Object.entries(rules)) {
 for (const tag of tags.tags) {
   if (!cjk.test(tag.title?.zh || '')) problems.push(`tags.zh ${tag.key}.title: отсутствует китайский текст`);
   if (tag.notes && !cjk.test(tag.notes.zh || '')) problems.push(`tags.zh ${tag.key}.notes: отсутствует китайский текст`);
+  if (!tag.notes) continue;
+  const expectedTags = tagTokens(tag.notes.en || '');
+  for (const locale of ['ru', 'zh']) {
+    const actualTags = tagTokens(tag.notes[locale] || '');
+    if (JSON.stringify(actualTags) !== JSON.stringify(expectedTags)) {
+      problems.push(`tags.${locale} ${tag.key}.notes: буквальные теги должны совпадать с оригиналом; ожидаются ${JSON.stringify(expectedTags)}, получены ${JSON.stringify(actualTags)}`);
+    }
+  }
 }
 
 if (problems.length) {

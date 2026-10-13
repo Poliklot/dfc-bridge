@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFileSync, existsSync } from 'node:fs';
 
 const base = '/dfc-bridge';
+const nativeManifest = new URL('../assets/tutorial/motion/native-provenance.json', import.meta.url);
+const walkthroughMotion = JSON.parse(readFileSync(existsSync(nativeManifest) ? nativeManifest : new URL('../assets/tutorial/motion/provenance.json', import.meta.url), 'utf8'));
 
 for (const locale of ['ru', 'en', 'zh']) {
   test(`${locale} home has no overflow and no serious accessibility violations`, async ({ page }) => {
@@ -74,16 +77,30 @@ for (const locale of ['ru', 'en', 'zh']) {
       expect(narrative.toLowerCase()).toContain(role.toLowerCase());
     }
     const figures = page.locator('.bridge-lesson-figure');
-    expect(await figures.count()).toBe(18);
+    expect(await figures.count()).toBe(20);
     const chapterNumbers = await page.locator('.sl-markdown-content h2').evaluateAll((items) => items.map((h) => h.textContent.trim().match(/^(\d+)\./)?.[1]).filter(Boolean));
     expect(chapterNumbers).toEqual(['1', '2', '3', '4', '5']);
     const storyAssets = await page.locator('.bridge-lesson-figure > img').evaluateAll((items) => items.map((img) => img.getAttribute('src').split('/').at(-1)));
     expect(storyAssets).toEqual([
-      'figma-before-overview.png', 'tree-desktop.png', 'tree-mobile.png', 'figma-broken-comparison.png',
-      `contexts-${locale}.svg`, 'figma-prepared-tree.png', `identity-${locale}.svg`,
+      'figma-before-overview.png', 'tree-desktop.png', 'tree-mobile.png', 'figma-before-hero-desktop.png', 'figma-before-hero-mobile.png',
+      `contexts-${locale}.svg`, `identity-${locale}.svg`,
       'hero-1440.png', 'hero-375.png', 'figma-kit-modals.png', `interactions-${locale}.svg`,
-      'assistant-layer-type-local.png', 'assistant-layer-target-local.png',
-      'assistant-findings-local.png', 'figma-final-overview.png', 'assistant-ready-result-local.png',
+      'figma-final-overview.png', 'assistant-ready-summary-local.png',
+    ]);
+    const readySummary = figures.filter({ has: page.locator('img[src$="assistant-ready-summary-local.png"]') });
+    await expect(readySummary.locator('figcaption')).toContainText(locale === 'ru' ? 'Ранний отчёт страницы 02' : locale === 'zh' ? '页面 02 的较早报告' : 'Earlier page-02 report');
+    await expect(readySummary.locator('figcaption a')).toHaveAttribute('href', /\/screenshots\/assistant-ready-result-local\.png$/u);
+    const heroDetails = figures.filter({ has: page.locator('img[src$="figma-before-hero-desktop.png"], img[src$="figma-before-hero-mobile.png"]') });
+    await expect(heroDetails).toHaveCount(2);
+    await expect(heroDetails.locator('a[href$="figma-before-overview.png"]')).toHaveCount(1);
+    const storyMedia = await figures.evaluateAll((items) => items.map((figure) => figure.querySelector(':scope > img, :scope > video').getAttribute('src').split('/').at(-1)));
+    expect(storyMedia).toEqual([
+      'figma-before-overview.png', 'tree-desktop.png', 'tree-mobile.png', 'figma-before-hero-desktop.png', 'figma-before-hero-mobile.png',
+      `page-metadata-${locale}.mp4`, `contexts-${locale}.svg`,
+      `rename-title-${locale}.mp4`, `repair-copy-${locale}.mp4`, `move-actions-${locale}.mp4`, `identity-${locale}.svg`,
+      'hero-1440.png', 'hero-375.png', 'figma-kit-modals.png',
+      `button-states-${locale}.mp4`, `interactions-${locale}.svg`, `local-action-${locale}.mp4`,
+      `repeat-check-${locale}.mp4`, 'figma-final-overview.png', 'assistant-ready-summary-local.png',
     ]);
     const comments = figures.locator('.bridge-lesson-comment');
     await expect(comments).toHaveCount(3);
@@ -91,10 +108,11 @@ for (const locale of ['ru', 'en', 'zh']) {
       speaker: comment.querySelector('img').getAttribute('src').split('/').at(-1),
       evidence: comment.nextElementSibling.getAttribute('src').split('/').at(-1),
       isCapture: comment.closest('figure').classList.contains('bridge-lesson-screenshot'),
+      isMotion: comment.closest('figure').classList.contains('bridge-lesson-motion'),
     })))).toEqual([
-      { speaker: 'handoff-penguin-frontend-display.png', evidence: 'figma-broken-comparison.png', isCapture: true },
-      { speaker: 'handoff-penguin-ai-display.png', evidence: 'assistant-layer-target-local.png', isCapture: true },
-      { speaker: 'handoff-penguin-backend-display.png', evidence: 'figma-final-overview.png', isCapture: true },
+      { speaker: 'handoff-penguin-frontend-display.png', evidence: 'figma-before-hero-mobile.png', isCapture: true, isMotion: false },
+      { speaker: 'handoff-penguin-ai-display.png', evidence: `local-action-${locale}.mp4`, isCapture: false, isMotion: true },
+      { speaker: 'handoff-penguin-backend-display.png', evidence: 'figma-final-overview.png', isCapture: true, isMotion: false },
     ]);
     for (const image of await comments.locator('img').all()) {
       await expect(image).toHaveAttribute('alt', '');
@@ -121,9 +139,9 @@ for (const locale of ['ru', 'en', 'zh']) {
     // Differences are design decisions to represent explicitly, not a ban on
     // intentional copy/layout choices. The repaired example is only one path.
     const designChoices = {
-      ru: { 1: ['Короче текст, кнопки под картинкой — можно', 'согласовать вариант текста и описать перенос'], 3: ['Это не единственный путь', 'согласованный продуктовый вариант', 'описанная трансформация'], 5: ['неописанными отличиями', 'не запрет на дизайн', 'выбранное здесь решение'] },
-      en: { 1: ['Shorter text, buttons below the image—allowed', 'Agree on the copy variant and describe the move'], 3: ['not the only way', 'agreed product variant', 'declared transformation'], 5: ['undeclared differences', 'not a ban on design choices', 'solution chosen here'] },
-      zh: { 1: ['都可以', '约定文案变体'], 3: ['不是唯一办法', '约定的产品变体', '声明的响应式变换'], 5: ['未说明差异', '不是禁止设计选择', '此处选择'] },
+      ru: { 1: ['Короче текст, кнопки под картинкой — можно', 'согласовать вариант текста и описать перенос'], 3: ['Это не единственный путь', 'согласованный продуктовый вариант', 'описанная трансформация'], 5: ['Отдельная копия', 'это решение'] },
+      en: { 1: ['Shorter text, buttons below the image—allowed', 'Agree on the copy variant and describe the move'], 3: ['not the only way', 'agreed product variant', 'declared transformation'], 5: ['Separate copy', 'this solution'] },
+      zh: { 1: ['都可以', '约定文案变体'], 3: ['此例统一文案和父级，也可另定方案。', '约定的产品变体', '声明的响应式变换'], 5: ['独立副本', '此方案'] },
     };
     for (const [chapter, phrases] of Object.entries(designChoices[locale])) {
       for (const phrase of phrases) expect(chapters[chapter]).toContain(phrase);
@@ -144,8 +162,8 @@ for (const locale of ['ru', 'en', 'zh']) {
     expect(narrative).not.toContain('State=default/hover/pressed/disabled');
     const stateScope = {
       ru: ['не DFC-теги или виды страницы', 'не работающий прототип', 'Фокус независим', 'сочетаться с hover и pressed', 'Условие отключения', 'владелец', 'контракте реализации', 'Загрузки нет'],
-      en: ['not DFC tags or page views', 'not a working prototype', 'Focus is independent', 'coexist with hover and pressed', 'condition and decision owner', 'implementation contract', 'No loading state'],
-      zh: ['不是 DFC 标签或页面视图', '不是可运行原型', '焦点独立', 'hover、pressed 同时出现', '禁用条件与决策负责人', '实现契约', '没有加载态'],
+      en: ['not DFC tags or page views', 'not a working prototype', 'Focus is independent', 'coexist with hover and pressed', 'condition and owner', 'implementation contract', 'No loading state'],
+      zh: ['不是 DFC 标签或页面视图', '不是可运行原型', '焦点独立', 'hover、pressed 同时出现', '禁用条件与负责人', '实现契约', '不加加载态'],
     };
     for (const phrase of stateScope[locale]) await expect(notes).toContainText(phrase);
     const summary = notes.locator('summary');
@@ -158,6 +176,13 @@ for (const locale of ['ru', 'en', 'zh']) {
     expect(await notes.getAttribute('open')).toBeNull();
     for (const layer of ['hero-title', 'hero-actions']) expect(chapters['5']).toContain(layer);
     expect(chapters['5']).not.toMatch(/contact-button-mobile|выключен Auto Layout|Auto Layout is disabled|缺失 Auto Layout/u);
+    expect(chapters['5']).toMatch(/2[^→\n]*→\s*0/u);
+    const checkedScope = {
+      ru: ['Только 375/1440', 'проверенную область макета', 'не готовое приложение'],
+      en: ['Checked 375/1440 only', 'checked design scope', 'not a finished application'],
+      zh: [/(?:只检查|仅)\s+375\/1440/u, '只指检查范围', '不是应用完成'],
+    };
+    for (const phrase of checkedScope[locale]) expect(chapters['5']).toMatch(phrase);
     const images = page.locator('.bridge-lesson-figure > img');
     await images.evaluateAll((items) => items.forEach((img) => { img.loading = 'eager'; }));
     await expect.poll(() => images.evaluateAll((items) => items.every((img) => img.complete && img.naturalWidth > 0 && img.alt.length > 0))).toBe(true);
@@ -177,15 +202,19 @@ for (const locale of ['ru', 'en', 'zh']) {
         return ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'].every((side) => Number.parseFloat(style[side]) >= 12);
       }));
       expect(breathingRoom, `${locale}: presentation image insets at ${width}px`).toBe(true);
-      const compactSpeech = await comments.evaluateAll((items) => items.every((comment) => {
+      const nativeMotionInsets = Object.fromEntries(walkthroughMotion.clips.flatMap((clip) => clip.outputs.map(({ file, height }) => [file.split('/').at(-1), (clip.nativeTransform || clip.frames[0].nativeTransform).top / height])));
+      const compactSpeech = await comments.evaluateAll((items, motionInsets) => items.every((comment) => {
         const bounds = comment.getBoundingClientRect();
         const speaker = comment.querySelector('img').getBoundingClientRect();
         const speech = comment.querySelector('p').getBoundingClientRect();
         const capture = comment.nextElementSibling;
-        const sourceTop = capture.getBoundingClientRect().top + Number.parseFloat(getComputedStyle(capture).paddingTop);
+        const frame = capture.getBoundingClientRect();
+        const sourceTop = frame.top + (capture.tagName === 'VIDEO'
+          ? frame.height * motionInsets[capture.getAttribute('src').split('/').at(-1)]
+          : Number.parseFloat(getComputedStyle(capture).paddingTop));
         return bounds.height <= 160 && speaker.width >= 48 && speaker.width <= 64
           && speech.bottom <= speaker.top && speaker.bottom <= sourceTop + 1;
-      }));
+      }), nativeMotionInsets);
       expect(compactSpeech, `${locale}: compact speech above the speaker without covering source pixels at ${width}px`).toBe(true);
     }
   });

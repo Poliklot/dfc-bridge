@@ -2,6 +2,8 @@
 
 DFC Bridge tags are short machine-readable annotations in layer names. In Figma, they are used only for transfer intent that is not present in Figma metadata.
 
+Use this page as a lookup reference, not a checklist to fill out on every layer. Start with a stable name, then choose a tag for the meaning you need to add. For the end-to-end workflow, see the [designer quick start](00-designer-quick-start.md).
+
 ## Core principle
 
 Do not write a tag if it repeats what is already authored in Figma.
@@ -111,6 +113,8 @@ hero [section=home-hero]
 Do not use prefixes such as `Section /`: the role is already clear from the tag or from the source component in `Page Sections`.
 
 ### Targets
+
+Put a target tag on the object being opened or activated; put `[action]` on the control that triggers it. For example, `[action=modal:contact-modal]` refers to `[modal=contact-modal]`.
 
 ```text
 [modal=contact-modal]

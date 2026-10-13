@@ -8,7 +8,7 @@ Do not begin by renaming the archive or rebuilding the component library. Run a 
 <figcaption>Selected section checked; its host and external destinations are outside scope. Explanatory diagram. <a href="../assets/tutorial/diagrams/scope-en.svg">Open full size</a>.</figcaption>
 </figure>
 
-The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+For the preparation steps in Figma, use the [visual introduction](25-visual-walkthrough.md). This pilot measures whether those steps help a recipient understand a real file.
 
 ## What the pilot should answer
 
@@ -51,7 +51,7 @@ Follow the [designer quick start](00-designer-quick-start.md). Do not rewrite th
 
 ### 3. Check the declared area
 
-Use the plugin for a page or the selected-section command for an isolated section. Treat the report as one input, not as proof that every product question is solved.
+Run **Check page** for the page or **Check selected section** for the explicitly selected section roots. Fix relevant findings and rerun. Record unresolved dependencies with an owner. Treat the report as one input, not as proof that every product question is solved.
 
 ### 4. Repeat the handoff
 

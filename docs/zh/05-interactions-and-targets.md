@@ -31,7 +31,7 @@ filter-button [action=state:filters-open]
 contact-button [action=modal:contact-modal]
 ```
 
-目标必须存在于声明范围内，或记录为有负责人的待解决问题。同一个共享按钮组件可以在不同页面位置执行不同动作。
+这里的 `contact-modal` 是目标标识，对应图层带有 `[modal=contact-modal]`。已确定的目标必须存在于声明范围内；未解决的决定则记录为有负责人的问题。动作本身尚未知时，使用 `[control]`，不要编造动作目标。同一个共享按钮组件可以在不同页面位置执行不同动作。
 
 ## 字段使用 `field`
 
@@ -52,7 +52,7 @@ email-field [field=email] [name=email]
 - 相关的加载、成功、空和错误结果；
 - 会影响用户的焦点、提示和历史行为。
 
-标签保持简短。更长的状态图放在[反应指南](22-state-machines-and-reactions.md)或结构化契约中。
+标签保持简短。复杂状态图记录在结构化契约中；[状态与反应指南](22-state-machines-and-reactions.md)说明如何描述事件、结果和转换。
 
 ## 交付前检查
 

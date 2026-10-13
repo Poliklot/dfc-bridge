@@ -25,7 +25,7 @@ Use [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) for expecte
 | Implementation | Native semantics, keyboard behavior, accessibility API exposure, preference handling, responsive behavior. |
 | QA | Automated checks plus keyboard, zoom/reflow, screen-reader, contrast, motion, media, and task-based manual tests. |
 
-Do not hand accessibility to the developer as an unspecified cleanup step. Do not treat an automated scan as proof of conformance.
+Apply this matrix to each complete task, not just isolated controls. For example, opening a dialog requires a designed focus destination, a recorded restoration rule, a semantic implementation, and a keyboard/screen-reader test. Do not hand accessibility to the developer as unspecified cleanup or treat an automated scan as proof of conformance.
 
 ## Semantics and reading order
 

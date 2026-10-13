@@ -1,5 +1,6 @@
 # Common designer mistakes
 
+Use this page to match a visible problem to a correction. After changing the source, rerun the relevant check and confirm that the intended content and behavior still hold. Not every problem below is detectable by the plugin.
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../assets/tutorial/screenshots/assistant-errors-local.png" alt="Local report: two real findings, jump to layer and recheck" loading="lazy" width="1430" height="1656" />
@@ -24,7 +25,7 @@ Fix: preserve exact responsive content. Model locale, experiment, or product var
 
 Problem: a button is visually designed, but nobody knows what happens on click.
 
-Fix: add `[action=...]` when the action is known, or `[control]` as a draft marker when it is not known yet.
+Fix: use `[href=...]` for navigation and `[action=...]` for a known non-navigation action. If the decision is still open, use `[link]` or `[control]` as a draft marker and record an owner; the marker does not finish the behavior.
 
 ## 4. Modal buttons without modal frames
 

@@ -1,6 +1,8 @@
 # DFC Bridge transfer contract
 
-The DFC Bridge Contract is an advanced, versioned, target-independent record that connects design evidence to implementation and QA. Use this page for integrations and tooling, not as the first reading for a designer. The structured envelope and [JSON Schema](../validator/bridge.schema.json) may evolve before 1.0, so every exchange pins `contractVersion`, `methodologyVersion`, and `rulesVersion`.
+The DFC Bridge Contract records the decisions that names and Figma properties cannot fully explain: data, responsive transformations, interaction outcomes, and delivery evidence. It connects the source design to implementation and QA without depending on one target platform.
+
+Use this reference when building an integration or preparing a structured handoff. If you are preparing your first design page, start with the [designer quick start](00-designer-quick-start.md). Below, the envelope defines what travels together, identity mappings connect it to the design, and validation checks whether those connections hold. The structured envelope and [JSON Schema](../validator/bridge.schema.json) may evolve before 1.0, so every exchange pins `contractVersion`, `methodologyVersion`, and `rulesVersion`.
 
 ## Two complementary surfaces
 
@@ -51,69 +53,6 @@ A complete payload has a `bridge` root. The core envelope includes:
 
 An omitted module means “not applicable” only when the scope proves that it is not applicable. It must not mean “nobody checked.”
 
-## Selected-section scope inside a legacy host
-
-A team may apply DFC Bridge to one new section without migrating the surrounding product. The boundary is an explicitly selected source root carrying a stable section identity:
-
-```text
-checkout-summary [section=checkout-summary]
-```
-
-Do not turn the section into a fake page. `[page]`, `[bp]`, `[view]`, and `[route]` remain page-root tags and must not be added merely to run validation. **Check selected section** traverses only the normalized selected root and its descendants. A selected editable `FRAME` or `COMPONENT` receives the full local source audit; a `GROUP` remains a blocking structural finding. When the normalized selected section root itself is an `INSTANCE`, only boundary evidence is available and the result is Partial. An ordinary descendant `INSTANCE` is a trusted atomic boundary whose internals are not applicable to this selected-source traversal and does not lower Ready. An exact `[section=id] [asset]` root is a valid opaque whole-visual boundary with internal layout N/A. A section below a different non-page-root `[asset]` ancestor is instead an invalid Blocked scope: the check cannot pierce an inherited opaque boundary. An illegal `[asset]` on a page root never creates opacity; Page Check reports that root separately and descendants remain inspectable. `[decor]` alone never stops traversal.
-
-The structured scope records what was selected and what remains outside it. This is a **non-standalone fragment**; insert it into the required `bridge` envelope:
-
-```json
-{
-  "context": {
-    "project": "Legacy storefront section adoption",
-    "scope": {
-      "kind": "section",
-      "rootIdentity": "checkout-summary",
-      "boundary": "selected-subtree",
-      "assetBoundary": "none",
-      "hostCompliance": "legacy-out-of-scope",
-      "selectionMode": "explicit-variants",
-      "contextIds": ["summary-container-360", "summary-container-1200"],
-      "readinessClaim": "section-source-only"
-    },
-    "externalDependencies": [{
-      "id": "checkout-route-dependency",
-      "kind": "route",
-      "reference": "/checkout",
-      "status": "deferred",
-      "owner": "storefront-platform",
-      "reviewAt": "host integration gate"
-    }]
-  },
-  "responsive": {
-    "defaultPolicy": "same-tree",
-    "contexts": [
-      {
-        "id": "summary-container-360",
-        "driver": "container",
-        "width": 360,
-        "label": "Container 360",
-        "labelSource": "inferred-from-selected-root-width"
-      },
-      {
-        "id": "summary-container-1200",
-        "driver": "container",
-        "width": 1200,
-        "label": "Container 1200",
-        "labelSource": "inferred-from-selected-root-width"
-      }
-    ]
-  }
-}
-```
-
-`assetBoundary` is `none` for an editable or atomic source root and `selected-root-opaque` only when that exact selected section root carries `[asset]`. An ancestor asset boundary cannot form a valid section-scope contract. `single-root` declares one requested context and can be source-ready without inventing unrequested variants. `explicit-variants` means that the user explicitly selected two or more roots with the same `[section]` identity for comparison; the validator must not discover legacy siblings and silently expand scope. When a tool derives a context label from a selected root or container width, it records `labelSource: inferred-from-selected-root-width` rather than presenting the label as authored intent.
-
-An action target resolved inside the selected roots is local. A complete valid `http:`, `https:`, `mailto:`, or `tel:` href is authored-resolved for section-source scope and does not cause Partial; its runtime availability remains outside source validation. An incomplete or malformed external href is a blocking `interaction.href-invalid` finding, not Deferred. Internal routes/anchors, modal/state/form/reset targets, components, and data that require lookup outside the selected roots are neither “missing” nor proven: link an external contract or record them in `externalDependencies` as deferred/unverified, then resolve them at the separate file/host integration check. The complete executable example is [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json).
-
-A successful section-scope contract means **section source ready for the declared selected contexts**. It never means that the legacy host page, routes, complete responsive set, end-to-end journey, implementation, product, or WCAG conformance is DFC Bridge-ready.
-
 ## Identity is a mapping, not one overloaded id
 
 A single name cannot safely represent every identity involved in transfer. DFC Bridge separates five dimensions:
@@ -132,13 +71,13 @@ Interaction targets are different: a reaction refers to the `bridgeKey` of a mod
 
 ## Canonical illustrative payload
 
-This example is intentionally broad enough to show the composition of modules. Real payloads include only applicable modules but keep the same namespaced shape.
+Read this example as a map of how modules fit together, not as a complete project to copy unchanged. It illustrates references whose full definitions are outside the excerpt. Real payloads include only applicable modules, keep the same namespaced shape, and resolve their references. For a complete executable fixture in the repository, use `validator/examples/bridge-contract.valid.json`.
 
 ```json
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.6",
+    "methodologyVersion": "0.11.7",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",
@@ -319,6 +258,89 @@ The structured `bridge.structure` tree does not duplicate Figma's native `layout
 - `[decor]` identifies only the exact intended absolute visual node and never creates a structural exemption.
 
 Page Check treats a placed INSTANCE as atomic and does not resolve its source component for the section-layout rule; audit the editable source root separately. An asset root still appears as one identity in the logical tree and one item in its parent's Auto Layout. A manual-layout exception with a reason may accompany a reported structural deviation, but it does not change the source evidence or turn a failing Page Check into a pass.
+
+## Selected-section scope inside a legacy host
+
+A team may apply DFC Bridge to one new section without migrating the surrounding product. The boundary is an explicitly selected source root carrying a stable section identity:
+
+```text
+checkout-summary [section=checkout-summary]
+```
+
+Do not turn the section into a fake page. `[page]`, `[bp]`, `[view]`, and `[route]` remain page-root tags and must not be added merely to run validation. **Check selected section** traverses only the normalized selected root and its descendants. The result depends on what was selected:
+
+- An editable `FRAME` or `COMPONENT` receives the full local source audit. A `GROUP` remains a blocking structural finding.
+- If the selected section root itself is an `INSTANCE`, only boundary evidence is available and the result is Partial.
+- An ordinary descendant `INSTANCE` is a trusted atomic boundary: its internals are not applicable to this traversal, so it does not lower Ready.
+- An exact `[section=id] [asset]` root is a valid opaque whole-visual boundary. Internal layout is N/A.
+- A section below a different non-page-root `[asset]` ancestor is an invalid Blocked scope: the check cannot pierce that inherited opaque boundary.
+
+An illegal `[asset]` on a page root never creates opacity: Page Check reports that root separately and descendants remain inspectable. `[decor]` alone never stops traversal.
+
+The structured scope records what was selected and what remains outside it. This is a **non-standalone fragment**; insert it into the required `bridge` envelope:
+
+```json
+{
+  "context": {
+    "project": "Legacy storefront section adoption",
+    "scope": {
+      "kind": "section",
+      "rootIdentity": "checkout-summary",
+      "boundary": "selected-subtree",
+      "assetBoundary": "none",
+      "hostCompliance": "legacy-out-of-scope",
+      "selectionMode": "explicit-variants",
+      "contextIds": ["summary-container-360", "summary-container-1200"],
+      "readinessClaim": "section-source-only"
+    },
+    "externalDependencies": [{
+      "id": "checkout-route-dependency",
+      "kind": "route",
+      "reference": "/checkout",
+      "status": "deferred",
+      "owner": "storefront-platform",
+      "reviewAt": "host integration gate"
+    }]
+  },
+  "responsive": {
+    "defaultPolicy": "same-tree",
+    "contexts": [
+      {
+        "id": "summary-container-360",
+        "driver": "container",
+        "width": 360,
+        "label": "Container 360",
+        "labelSource": "inferred-from-selected-root-width"
+      },
+      {
+        "id": "summary-container-1200",
+        "driver": "container",
+        "width": 1200,
+        "label": "Container 1200",
+        "labelSource": "inferred-from-selected-root-width"
+      }
+    ]
+  }
+}
+```
+
+Read the scope fields as follows:
+
+- `assetBoundary` is `none` for an editable or atomic source root and `selected-root-opaque` only when that exact selected section root carries `[asset]`. An ancestor asset boundary cannot form a valid section-scope contract.
+- `single-root` declares one requested context and can be source-ready without inventing unrequested variants.
+- `explicit-variants` means that the user explicitly selected two or more roots with the same `[section]` identity for comparison. The validator must not discover legacy siblings and silently expand scope.
+- When a tool derives a context label from a selected root or container width, it records `labelSource: inferred-from-selected-root-width` rather than presenting the label as authored intent.
+
+Separate local evidence from external dependencies:
+
+- An action target resolved inside the selected roots is local.
+- A complete valid `http:`, `https:`, `mailto:`, or `tel:` href is authored-resolved for section-source scope and does not cause Partial. Its runtime availability remains outside source validation.
+- An incomplete or malformed external href is a blocking `interaction.href-invalid` finding, not Deferred.
+- Internal routes/anchors, modal/state/form/reset targets, components, and data that require lookup outside the selected roots are neither “missing” nor proven. Link an external contract or record them in `externalDependencies` as deferred/unverified, then resolve them at the separate file/host integration check.
+
+The complete executable example is [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json).
+
+A successful section-scope contract means **section source ready for the declared selected contexts**. It never means that the legacy host page, routes, complete responsive set, end-to-end journey, implementation, product, or WCAG conformance is DFC Bridge-ready.
 
 ## Explicit unknowns: no untracked blind spots
 

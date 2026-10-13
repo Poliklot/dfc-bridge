@@ -1,14 +1,22 @@
-# DFC Bridge 转让合约
+# DFC Bridge 交付契约
 
-DFC Bridge 合同是面向进阶使用的、版本化且独立于目标平台的记录，用于连接设计、实施和 QA。此页面面向集成和工具，不是设计师的第一阅读材料。结构化信封和 [JSON Schema](../validator/bridge.schema.json) 在 1.0 之前可能继续变化，因此每次交换都要固定 `contractVersion`、`methodologyVersion` 和 `rulesVersion`。
+<a id="dfc-bridge-转让合约"></a>
 
-## 两个互补的表面
+DFC Bridge 契约记录图层名称和 Figma 属性无法完整表达的决定：数据、响应式转换、交互结果和交付证据。它将源设计与实现、QA 连接起来，不依赖某一种目标平台。
 
-DFC Bridge 故意避免将图层名称转换为数据库。
+本页供集成开发或结构化交付使用。准备第一份设计页面时，请先读[设计师快速起步](00-designer-quick-start.md)。下文先说明一起传递的数据，再说明它们如何关联设计元素，以及如何验证这些关联。外层结构和 [JSON Schema](../validator/bridge.schema.json) 在 1.0 之前可能变化，因此每次交换都要固定 `contractVersion`、`methodologyVersion` 和 `rulesVersion`。
 
-### 短层标签
+<a id="两个互补的表面"></a>
 
-设计师使用一个小的语法来表示在浏览设计时必须保持可见的意图：
+## 两种互补的表达方式
+
+图层名称用于浏览和定位，不应成为存放所有信息的数据库。
+
+<a id="短层标签"></a>
+
+### 简短的图层标签
+
+设计师用少量标签表达浏览设计时就需要看见的意图：
 
 ```text
 catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
@@ -18,11 +26,11 @@ catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
   filter [action=state:filters-open]
 ```
 
-标签定位页面、变体、部分、链接/操作、目标、字段、集合、视觉策略、溢出和显式异常。它们不携带数据模式、状态图、运动时间线、可访问性测试计划或交付历史记录。
+标签标识页面、变体、区块、链接和动作、目标、字段、集合、视觉策略、溢出及明确的例外。数据模型、状态图、动效时间线、无障碍测试计划和交付历史则不放进标签。
 
 ### 结构化 `bridge` 元数据
 
-丰富的意图存在于一个命名空间对象中。它引用设计中可见的稳定身份，并且可以存储为 Figma 插件数据、sidecar JSON 文件或适配器有效负载。它必须随交接一起移动并作为一个单元进行验证。
+详细信息统一放在 `bridge` 对象中，并引用设计中的稳定标识。它可以保存在 Figma 插件数据、随附的 JSON 文件或适配器传输数据中，但必须随设计一起交付，并作为整体接受验证。
 
 ```text
 Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
@@ -30,115 +38,58 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
                     one transferable contract
 ```
 
-当结构化字段已经存在时，不要发明新的平面标签。
+已有结构化字段能表达的信息，不要再创建新的图层标签。
 
-## 所需信封
+<a id="所需信封"></a>
 
-完整的有效负载具有 `bridge` 根。核心包络包括：
+## 外层结构与核心字段
 
-| Field | Purpose |
+完整数据以 `bridge` 为根对象。核心内容包括：
+
+| 字段 | 用途 |
 | --- | --- |
-| `contractVersion` | Version of the structured payload shape. |
-| `methodologyVersion` | DFC Bridge release used to prepare the transfer. |
-| `rulesVersion` | Rule catalog version used for validation. |
-| `source` | Tool, file/page, immutable revision, and capture context. |
-| `上下文` | Declared transfer scope, product/page context when applicable, included axes, and external dependencies. |
-| `身份` | Mapping across role, template, design instance, runtime data, and target implementation. |
-| `结构` | Logical trees in declared responsive/data contexts. Native Figma node type, layout mode, positioning, and asset boundaries remain source evidence validated alongside this tree. |
-| Contract modules | `数据`, `响应式`, `交互`, `运动`, `可访问性`, `功能`, and `生命周期` as applicable. |
-| `openQuestions` | Known unknowns with owner, scope, blocking status, review point, and fallback. |
-| `例外` | Intentional source/contract exceptions with impact and mitigation. |
+| `contractVersion` | 结构化数据格式的版本。 |
+| `methodologyVersion` | 准备交付时采用的 DFC Bridge 版本。 |
+| `rulesVersion` | 验证所用的规则目录版本。 |
+| `source` | 来源工具、文件/页面、不可变修订版本和采集上下文。 |
+| `context` | 声明的交付范围、适用的产品/页面上下文、包含的变化轴及外部依赖。 |
+| `identity` | 角色、模板、设计实例、运行时数据与目标实现之间的对应关系。 |
+| `structure` | 各响应式/数据上下文中的逻辑树。Figma 的原生节点类型、布局模式、定位和资源边界仍属于源证据，与逻辑树一起验证。 |
+| 契约模块 | 按适用范围包含 `data`、`responsive`、`interaction`、`motion`、`accessibility`、`capabilities` 和 `lifecycle`。 |
+| `openQuestions` | 未决问题及其负责人、范围、是否阻塞、复查时点和备用方案。 |
+| `exceptions` | 明确的源设计/契约例外，以及影响和补偿措施。 |
 
-仅当范围证明不适用时，省略的模块才意味着“不适用”。它绝不能意味着“没有人检查”。
+只有范围证明某模块不适用，才能省略它。缺少模块不能表示“没有人检查”。
 
-## 旧主机内的选定部分范围
+<a id="identity-是一种映射而不是一个重载的-id"></a>
 
-团队可以将 DFC Bridge 应用到一个新部分，而无需迁移周围的产品。边界是一个明确选择的源根，带有稳定的节标识：
+## 用映射区分不同标识
 
-```text
-checkout-summary [section=checkout-summary]
-```
+一个名称不能同时可靠地表示交付中的所有身份。DFC Bridge 区分五个维度：
 
-不要将该部分变成假页面。`[page]`、`[bp]`、`[view]` 和 `[route]` 仍然是页面根标记，不能仅仅为了运行验证而添加。**检查所选部分** 仅遍历规范化的所选根及其后代。选定的可编辑 `FRAME` 或 `COMPONENT` 接收完整的本地源审核；`GROUP` 仍然是一个阻塞的结构发现。当规范化的选定节根本身是 `INSTANCE` 时，仅边界证据可用，结果为 Partial。普通后代 `INSTANCE` 是一个受信任的原子边界，其内部不适用于此选定源遍历，并且不会降低 Ready。精确的 `[section=id][asset]` 根是一个有效的不透明整体视觉边界，内部布局不适用。相反，不同非页面根 `[asset]` 祖先下面的部分是无效的阻止范围：检查无法穿透继承的不透明边界。页面根目录上的非法 `[asset]` 永远不会产生不透明度；页面检查报告根分开，后代仍然可以检查。`[decor]` 本身永远不会停止遍历。
-
-结构化范围记录了选择的内容和未选择的内容。这是一个**非独立片段**；将其插入所需的 `bridge` 信封中：
-
-```json
-{
-  "context": {
-    "project": "Legacy storefront section adoption",
-    "scope": {
-      "kind": "section",
-      "rootIdentity": "checkout-summary",
-      "boundary": "selected-subtree",
-      "assetBoundary": "none",
-      "hostCompliance": "legacy-out-of-scope",
-      "selectionMode": "explicit-variants",
-      "contextIds": ["summary-container-360", "summary-container-1200"],
-      "readinessClaim": "section-source-only"
-    },
-    "externalDependencies": [{
-      "id": "checkout-route-dependency",
-      "kind": "route",
-      "reference": "/checkout",
-      "status": "deferred",
-      "owner": "storefront-platform",
-      "reviewAt": "host integration gate"
-    }]
-  },
-  "responsive": {
-    "defaultPolicy": "same-tree",
-    "contexts": [
-      {
-        "id": "summary-container-360",
-        "driver": "container",
-        "width": 360,
-        "label": "Container 360",
-        "labelSource": "inferred-from-selected-root-width"
-      },
-      {
-        "id": "summary-container-1200",
-        "driver": "container",
-        "width": 1200,
-        "label": "Container 1200",
-        "labelSource": "inferred-from-selected-root-width"
-      }
-    ]
-  }
-}
-```
-
-`assetBoundary` is `无` for an editable or atomic source root and `选定的根不透明` only when that exact selected section root carries `[asset]`. An ancestor asset boundary cannot form a valid section-scope contract. `single-root` declares one requested context and can be source-ready without inventing unrequested variants. `explicit-variants` means that the user explicitly selected two or more roots with the same `[section]` identity for comparison; the validator must not discover legacy siblings and silently expand scope. When a tool derives a context label from a selected root or container width, it records `labelSource：从所选根宽度推断` rather than presenting the label as authored intent.
-
-在所选根内解析的操作目标是本地的。完整有效的 `http:`、`https:`、`mailto:` 或 `tel：` href 是为节源范围编写解析的，不会导致部分；它的运行时可用性仍然在源代码验证之外。不完整或格式错误的外部 href 是阻塞 `interaction.href-invalid` 发现，而不是延迟。需要在选定根之外查找的内部路由/锚点、模态/状态/表单/重置目标、组件和数据既不“缺失”也不经过验证：链接外部合约或将它们记录在 `externalDependencies` 中作为延迟/未验证，然后在单独的文件/主机集成检查中解决它们。完整的可执行示例是 [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json)。
-
-成功的节范围合同意味着**节源已准备好用于声明的选定上下文**。这绝不意味着旧版主机页面、路由、完整的响应集、端到端旅程、实施、产品或 WCAG 一致性是 DFC Bridge 就绪的。
-
-## Identity 是一种映射，而不是一个重载的 id
-
-单个名称无法安全地代表传输中涉及的每个身份。DFC Bridge 划分了五个维度：
-
-| Dimension | Question | Example |
+| 维度 | 回答的问题 | 示例 |
 | --- | --- | --- |
-| `role` | What logical job does this element perform? | data item / product |
-| `template` | Which reusable definition owns its shape and behavior? | `product-card` |
-| `designInstance` | Which authored occurrence is this in the design and contexts? | `产品卡橡木椅` |
-| `runtimeData` | Which record-key rule/fixture binds content at runtime? | collection `products`, key field `sku` |
-| `target` | Which implementation entity realizes it? | web component `ProductCard` |
+| `role` | 元素承担什么逻辑作用？ | 数据项 / 商品 |
+| `template` | 哪个可复用定义拥有其形态和行为？ | `product-card` |
+| `designInstance` | 这是设计及其上下文中的哪个具体实例？ | `product-card-oak-chair` |
+| `runtimeData` | 通过什么记录键规则或样例绑定运行时内容？ | 集合 `products`，键字段 `sku` |
+| `target` | 哪个实现实体对应此元素？ | Web 组件 `ProductCard` |
 
-`bridgeKey` 连接合约引用；它不会折叠这些维度。值 `[item=product]` 是可重复的角色/类型，而不是唯一的设计装置或运行时记录 ID。像 `product-card-3` 这样的位置名称可能是临时设计夹具标识，但它绝不能成为运行时记录键。排序、过滤、分页、实时更新和重复查找记录需要稳定的产品密钥。
+`bridgeKey` 用于连接契约引用，不会把这些维度合并成一个。`[item=product]` 表示可重复的角色或类型，不是唯一设计实例或运行时记录 ID。`product-card-3` 这样的顺序名称可以临时标识设计样例，但不能成为运行时记录键。排序、筛选、分页、实时更新，以及看起来相同的不同记录，都需要稳定的业务键。
 
-交互目标不同：反应是指模态、状态、形式、路线或元素的 `bridgeKey` 。`identity.elements[].target` 字段将元素映射到实现代码或另一个目标平台。
+交互目标与实现映射也不同：交互反应引用模态窗口、状态、表单、路由或元素的 `bridgeKey`；`identity.elements[].target` 则把元素映射到实现代码或另一目标平台。
 
-## 规范说明性有效负载
+<a id="规范说明性有效负载"></a>
 
-这个例子故意足够广泛以显示模块的组成。真正的有效负载仅包含适用的模块，但保持相同的命名空间形状。
+## 模块组合示例
+
+把本例当作模块关系图，而不是可原样复制的完整项目。部分引用对象的完整定义未包含在此片段中。实际交付只包含适用模块，保留同样的命名空间结构，并验证所有引用。仓库中的完整可执行示例位于 `validator/examples/bridge-contract.valid.json`。
 
 ```json
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.6",
+    "methodologyVersion": "0.11.7",
     "rulesVersion": "0.5.0",
     "source": {
       "tool": "figma",
@@ -299,88 +250,185 @@ checkout-summary [section=checkout-summary]
 }
 ```
 
-示例中的图层标签仍然是人类可见的锚点；有效负载添加了无法安全地放在名称中的关系和决策。
+图层标签仍是人可以直接看到的定位依据；结构化数据补充无法放进名称的关系和决定。
 
-## 默认情况下是同一棵树，通过声明进行转换
+<a id="默认情况下是同一棵树通过声明进行转换"></a>
 
-`responsive.defaultPolicy` 是 `same-tree`。几何、自动布局方向、换行、同一逻辑父级内的顺序以及声明的可见性可能会在没有结构映射的情况下发生变化。
+## 默认保持同一棵树，结构变化需要声明
 
-拓扑或表示更改仅作为 `responsive.transformations[]` 记录有效。它命名源和结果身份、视口/容器条件、字段/场景/动作映射、保留的语义、读取和焦点顺序、状态转移和历史行为。如果没有转换涵盖差异，则该差异就是契约漂移。
+`responsive.defaultPolicy` 为 `same-tree`。几何、Auto Layout 方向、换行、同一逻辑父级内的顺序，以及已声明的可见性变化，不需要结构映射。
+
+树结构或呈现方式发生变化时，必须用 `responsive.transformations[]` 记录。记录包括源和结果标识、视口/容器条件、字段/场景/动作映射、保留的语义、阅读与焦点顺序、状态传递和历史行为。没有对应转换记录的差异属于契约偏移。
 
 ### 原生布局仍然需要源证据
 
-结构化 `bridge.struct` 树不会复制 Figma 的原生 `layoutMode`、节点类型或定位字段。源验证器直接读取这些字段并应用规则目录：
+`bridge.structure` 不重复保存 Figma 的原生 `layoutMode`、节点类型和定位字段。源验证器直接读取这些字段并应用规则目录：
 
-- 页面根始终使用本机自动布局并且不能是 `[asset]`；
-- 框架构建的部分根和 `Page部分` 源根使用自动布局，除非确切的部分是合法的不透明整体视觉资产；
-- 具有至少两个可见且有意义的流程子级的通用自动布局容器使用自动布局；
-- GROUP 节点仅在真正的不透明 `[asset]` 子树内有效；
-- 原始/叶几何体和放置的实例内部不被视为内容流容器；
-- `[decor]` 仅标识确切的预期绝对视觉节点，并且从不创建结构豁免。
+- 页面根始终使用原生 Auto Layout，不能标记为 `[asset]`；
+- 由画框构建的区块根与 `Page Sections` 源根使用 Auto Layout，除非该区块本身确实是整体交付的视觉资源；
+- 支持 Auto Layout 且至少包含两个可见、有意义的内容流子节点的普通容器使用 Auto Layout；
+- `GROUP` 只允许位于真正不透明的 `[asset]` 子树内；
+- 基础图形、叶节点几何与已放置的 `INSTANCE` 内部不作为内容流容器检查；
+- `[decor]` 只标识具体的、具有明确意图的绝对定位视觉节点，不构成结构检查豁免。
 
-页面检查将放置的实例视为原子的，并且不会解析其源组件的部分布局规则；单独审核可编辑源根目录。资产根仍然在逻辑树中显示为一个标识，并在其父项的自动布局中显示为一项。有原因的手动布局异常可能会伴随报告的结构偏差，但它不会改变源证据或将失败的页面检查变成通过。
+Page Check 将放置的 `INSTANCE` 视为原子对象，不会为了区块布局规则继续解析其源组件；应单独检查可编辑源根。资源根仍是逻辑树中的一个标识，也是父级 Auto Layout 中的一项。附带原因的手动布局例外可以记录结构偏差，但不会改变源证据，也不会把失败的 Page Check 变成通过。
 
-## 显式未知数：没有未跟踪的盲点
+<a id="旧主机内的选定部分范围"></a>
 
-DFC Bridge **不**承诺每个决定都是已知的。它承诺不会追踪任何相关的未知因素。
+## 在现有产品中限定选中区块的范围
 
-`unknown`、`unsupported`、`TBD` 和等效状态仅作为 `openQuestions[]` 记录有效：
+团队可以先对一个新区块采用 DFC Bridge，不必同时迁移周围的产品。边界是明确选中的源根节点，并具有稳定的区块标识：
 
-- 稳定的id和精确的范围；
-- 问题或不受支持的能力；
-- 负责任的所有者；
-- 阻塞状态；
-- 截止日期或指定审核时间；
-- 未解决时的安全后备；
-- 当前状态和解决后的决策链接。
+```text
+checkout-summary [section=checkout-summary]
+```
 
-如果后备不安全、无法访问、具有误导性或破坏性，则问题将被阻塞，受影响的范围无法通过其大门。仅存在于言语、聊天、独立任务或某人记忆中的问题是 DFC Bridge 盲点。
+不要把区块伪装成页面。`[page]`、`[bp]`、`[view]` 和 `[route]` 仍是页面根标签，不能只为启动验证而添加。**Check selected section（检查选中区块）** 只遍历规范化后的选中根节点及其后代。结果取决于所选对象：
 
-## 目标能力和性能概况
+- 可编辑的 `FRAME` 或 `COMPONENT` 接受完整的本地源检查。`GROUP` 仍是阻塞性的结构问题。
+- 如果选中的区块根节点本身是 `INSTANCE`，只能检查其边界，结果为 Partial。
+- 普通后代 `INSTANCE` 被视为可信的原子边界。本次遍历不检查其内部，因此它不会降低 Ready。
+- `[section=id] [asset]` 位于选中的根节点本身时，可形成有效的整体视觉资源边界，内部布局检查不适用。
+- 如果区块位于另一个非页面根的 `[asset]` 祖先之下，范围无效，结果为 Blocked；检查不能穿过这条继承的资源边界。
 
-合约不得假设每个目标都具有相同的编解码器、输入、布局原语、内存、网络或电源。`capability.profiles[]` 声明目标/运行时、必须在降级中生存的基本体验、支持和不支持的功能，以及针对每个不支持的需求的经过测试的回退。
+页面根上的非法 `[asset]` 不会隐藏内部结构。Page Check 会单独报告该根的问题，后代仍可检查。单独的 `[decor]` 也不会停止遍历。
 
-对于媒体/资产，声明内在尺寸、可接受的格式和质量、艺术指导/裁剪安全区域、加载优先级、海报/预览以及预加载与惰性行为。对于数据，声明预期/最大量以及分页、流式传输或虚拟化阈值。涵盖低带宽、离线、数据保护、低功耗、减少运动和缺少 API 条件（如果适用）。
+结构化范围记录选中了什么，以及什么仍在范围之外。以下是**非独立片段**，应放入完整的 `bridge` 外层结构：
 
-设计拥有基本内容、媒体、顺序和任务结果的声明。实施拥有可衡量的绩效预算、交付策略、工具和证据。尚不知道的能力或预算成为一个具有安全后备的开放性问题；它不是从最漂亮的设计框架中推断出来的。
+```json
+{
+  "context": {
+    "project": "Legacy storefront section adoption",
+    "scope": {
+      "kind": "section",
+      "rootIdentity": "checkout-summary",
+      "boundary": "selected-subtree",
+      "assetBoundary": "none",
+      "hostCompliance": "legacy-out-of-scope",
+      "selectionMode": "explicit-variants",
+      "contextIds": ["summary-container-360", "summary-container-1200"],
+      "readinessClaim": "section-source-only"
+    },
+    "externalDependencies": [{
+      "id": "checkout-route-dependency",
+      "kind": "route",
+      "reference": "/checkout",
+      "status": "deferred",
+      "owner": "storefront-platform",
+      "reviewAt": "host integration gate"
+    }]
+  },
+  "responsive": {
+    "defaultPolicy": "same-tree",
+    "contexts": [
+      {
+        "id": "summary-container-360",
+        "driver": "container",
+        "width": 360,
+        "label": "Container 360",
+        "labelSource": "inferred-from-selected-root-width"
+      },
+      {
+        "id": "summary-container-1200",
+        "driver": "container",
+        "width": 1200,
+        "label": "Container 1200",
+        "labelSource": "inferred-from-selected-root-width"
+      }
+    ]
+  }
+}
+```
 
-## 源优先级和继承
+范围字段的含义如下：
 
-每个事实使用一个所有者：
+- 对于可编辑或原子源根，`assetBoundary` 为 `none`。只有选中的区块根本身带有 `[asset]` 时，才为 `selected-root-opaque`。祖先资源边界不能构成有效的区块范围契约。
+- `single-root` 表示只请求了一个上下文。无需编造未请求的变体，也可以达到源就绪。
+- `explicit-variants` 表示用户明确选中了两个或更多具有相同 `[section]` 标识的根进行比较。验证器不能自行寻找旧文件中的相邻对象并扩大范围。
+- 工具根据选中根或容器宽度推导上下文名称时，应记录 `labelSource: inferred-from-selected-root-width`，不能把推导结果当作作者明确表达的意图。
 
-1. 目标平台的安全性、保密性、隐私性和本机语义限制所有其他来源；
-2. 批准的产品/内容决策定义含义；
-3. 结构化 DFC Bridge 合约定义了源工具无法表达的意图；
-4.Figma/源元数据定义了创作的结构、组件、几何形状和样式；
-5. 固定组件/系统契约提供继承行为；
-6. 明确批准的例外/偏差记录任何剩余差异。
+区分本地证据与外部依赖：
 
-不要将组件状态机复制到每个实例上。引用固定模板，然后仅声明特定于实例的内容、覆盖和上下文。
+- 在选中根内部找到的动作目标属于本地目标。
+- 完整且有效的 `http:`、`https:`、`mailto:` 或 `tel:` 地址，在区块源范围内视为作者已明确给出，不会导致 Partial。地址在运行时是否可用不属于源检查范围。
+- 不完整或格式错误的外部地址属于阻塞性的 `interaction.href-invalid` 问题，而不是 Deferred。
+- 需要到选中根之外查找的内部路由/锚点、模态窗口/状态/表单/重置目标、组件和数据，既不能判为缺失，也不能视为已验证。应关联外部契约，或在 `externalDependencies` 中记录为待确认/未验证，再由独立的文件或产品集成检查确认。
+
+完整可执行示例见 [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json)。
+
+成功的区块契约只表示 **选中区块的源设计在声明的上下文中就绪**。它不证明周围的旧页面、路由、完整响应式版本、端到端流程、实现或产品已就绪，也不代表符合 WCAG。
+
+<a id="显式未知数没有未跟踪的盲点"></a>
+
+## 明确记录未知项，不留下未跟踪的问题
+
+DFC Bridge **不**承诺所有决定都已确定，而是要求所有相关未知项都有记录。
+
+`unknown`、`unsupported`、`TBD` 等状态只有记录到 `openQuestions[]` 才有效。记录包含：
+
+- 稳定 ID 和准确范围；
+- 未决问题或不支持的能力；
+- 负责人；
+- 是否阻塞；
+- 截止日期或明确的复查阶段；
+- 未解决时的安全备用方案；
+- 当前状态，以及解决后的决定链接。
+
+如果备用方案不安全、不满足无障碍需求、有误导性或会破坏数据，该问题就是阻塞项，受影响范围不能通过对应验收。只存在于口头讨论、聊天、孤立任务或个人记忆中的问题，仍是 DFC Bridge 的盲点。
+
+<a id="目标能力和性能概况"></a>
+
+## 目标能力与性能约束
+
+契约不能假设所有目标平台都有相同的编解码器、输入方式、布局能力、内存、网络和电力条件。`capabilities.profiles[]` 声明目标平台与运行环境、降级时必须保留的核心体验、支持与不支持的能力，以及每项不支持需求对应的已测试备用方案。
+
+- 媒体和资源：声明原始尺寸、可接受的格式与质量、构图和裁剪安全区、加载优先级、封面/预览，以及预加载或延迟加载策略。
+- 数据：声明预期和最大数据量，以及分页、流式加载或虚拟化的阈值。
+- 适用条件：覆盖低带宽、离线、省流量、低功耗、减少动效和 API 缺失等情况。
+
+设计负责声明必要内容、媒体、顺序和任务结果。实现负责可测量的性能预算、交付策略、测量手段和证据。尚未确定的能力或预算应成为有负责人、有安全备用方案的未决问题，不能从某张漂亮的设计图中推断。
+
+<a id="源优先级和继承"></a>
+
+## 来源优先级与继承
+
+每项事实有一个负责来源：
+
+1. 目标平台的安全、隐私和原生语义约束所有其他来源；
+2. 已批准的产品和内容决定定义含义；
+3. 结构化 DFC Bridge 契约定义源工具无法表达的意图；
+4. Figma/源元数据定义设计中的结构、组件、几何和样式；
+5. 已固定版本的组件/系统契约提供继承行为；
+6. 明确批准的例外或偏差记录剩余差异。
+
+不要把组件状态机复制到每个实例。引用已固定版本的模板，只声明实例专属内容、覆盖项和上下文。
 
 ## 验证
 
-A contract validator should check:
+契约验证器应检查：
 
-- 架构和固定版本字段；
-- 范围内唯一的 `bridgeKey`、设计实例、要求、问题、异常和偏差 ID；
-- 身份、树、显示、变换、反应、运动、可访问性和测试之间的有效引用；
-- 源节点和上下文存在；
-- 运行时记录映射不是位置夹具索引；
-- 同树奇偶校验，除非适用的转换涵盖了差异；
-- 能力概况包括资产/媒体、数据量、降级、不支持的功能回退和自有预算（如适用）；
-- 状态机可达性和行动目标；
-- 所需的数据状态和可访问性配置文件；
-- 开放性问题包含所有者、范围、阻止状态、审查点和后备；
-- 临时例外/偏差有审查/到期日期和证据。
+- 数据模式及固定的版本字段；
+- 范围内 `bridgeKey`、设计实例、需求、问题、例外和偏差 ID 的唯一性；
+- 标识、树、数据显示、转换、反应、动效、无障碍与测试之间的引用有效性；
+- 源节点和上下文是否存在；
+- 运行时记录映射是否误用了样例的顺序索引；
+- 是否保持同一逻辑树，或存在覆盖差异的适用转换；
+- 能力配置是否按需包含资源/媒体、数据量、降级、不支持功能的备用方案，以及有负责人的预算；
+- 状态机可达性与动作目标；
+- 必需的数据状态和无障碍配置；
+- 未决问题的负责人、范围、阻塞状态、复查时点和备用方案；
+- 临时例外/偏差的复查或到期日期，以及证据。
 
-有效的 JSON 文档并不自动成为有效的产品合同。确定性模式检查、设计源检查和手动语义审查是互补的。
+JSON 格式有效不等于产品契约有效。确定性模式检查、源设计检查和人工语义评审互为补充。
 
-## 1.0之前的兼容性
+<a id="10之前的兼容性"></a>
 
-- Producers must emit an explicit `contractVersion`。
-- 消费者必须拒绝不受支持的主要形状并报告未知字段，而不是默默地丢弃所需的含义。
-- 附加扩展字段应保留命名空间并记录在案。
-- 迁移必须保留稳定的身份和需求链接。
-- 合同修订一旦接受实施/质量保证运行，就不可更改；更改会创建新的修订版。
+## 1.0 之前的兼容性
 
-参考 [Data and visualization](20-data-and-visualization.md)、[Responsive breakpoints](03-responsive-breakpoints.md)、[State machines and reactions](22-state-machines-and-reactions.md)、[Motion and long scroll](21-motion-and-scroll.md)、[Accessibility profile](23-accessibility-profile.md) 和 [Delivery lifecycle](24-delivery-lifecycle.md)。
+- 生成方必须明确输出 `contractVersion`。
+- 使用方必须拒绝不支持的主要数据结构，并报告未知字段，不得默默丢弃必要含义。
+- 新增扩展字段应保留命名空间并附有说明。
+- 迁移必须保留稳定标识和需求链接。
+- 契约修订一旦用于已接受的实现/QA 执行，就不可修改；变更应创建新修订。
+
+参见[数据与可视化](20-data-and-visualization.md)、[响应式行为](03-responsive-breakpoints.md)、[状态与反应](22-state-machines-and-reactions.md)、[动效与长滚动](21-motion-and-scroll.md)、[无障碍配置](23-accessibility-profile.md)和[交付生命周期](24-delivery-lifecycle.md)。

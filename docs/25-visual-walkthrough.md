@@ -1,6 +1,6 @@
 # Why DFC Bridge matters
 
-Look at the design—desktop and mobile:
+The design—desktop and mobile:
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../assets/tutorial/screenshots/figma-before-overview.png" width="1600" height="1488" alt="Actual Figma page 01: a finished-looking design at two widths, with roots named desktop and mobile-final-2" loading="eager" />
@@ -9,7 +9,7 @@ Look at the design—desktop and mobile:
 
 The design looks good. Frontend, backend and AI still guess: what to build, where data comes from and where buttons lead.
 
-DFC Bridge does not dictate design. It helps hand off **decisions, not guesses**. Watch one design change.
+DFC Bridge does not dictate design. Hand off **decisions, not guesses**.
 
 <a class="bridge-lesson-download" href="../assets/tutorial/dfc-bridge-workshop.fig" download="dfc-bridge-workshop.fig"><span aria-hidden="true">↓</span> Download the design <span class="bridge-lesson-download-format">.fig</span></a>
 
@@ -39,14 +39,20 @@ Two more “looks better on mobile” decisions:
 - «Мастерская понятных макетов» → «Мастерская макетов». Changed content, not line wrapping.
 - Moved all of `hero-actions` from `hero-copy` to `hero`, after the image. Changed parent, not just order.
 
+<div class="bridge-lesson-pair bridge-lesson-heroes">
+<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<img src="../assets/tutorial/screenshots/figma-before-hero-desktop.png" width="1184" height="720" alt="Native Figma desktop hero detail: full heading, both controls before the illustration, original root label retained" loading="lazy" />
+<figcaption>Desktop: full heading; both controls before the illustration.</figcaption>
+</figure>
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
 <p><strong>Frontend:</strong> Shorter text, buttons below the image—allowed.</p>
 <img class="bridge-lesson-penguin" src="../assets/tutorial/illustrations/handoff-penguin-frontend-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../assets/tutorial/screenshots/figma-broken-comparison.png" width="1600" height="1488" alt="Original desktop and mobile-final-2: full and shortened headings, with buttons before and after the illustration" loading="lazy" />
-<figcaption>Mobile loses «понятных» (clear); buttons move below the image.</figcaption>
+<img src="../assets/tutorial/screenshots/figma-before-hero-mobile.png" width="344" height="632" alt="Native Figma mobile-final-2 hero detail: shortened heading, both controls after the illustration, original root label retained" loading="lazy" />
+<figcaption>Mobile: «понятных» is missing; both controls are below the illustration. <a href="../assets/tutorial/screenshots/figma-before-overview.png">Full source capture</a>.</figcaption>
 </figure>
+</div>
 
 Agree on the copy variant and describe the move. Here neither is declared: frontend and AI guess.
 
@@ -58,6 +64,15 @@ Agreed: one `workshop` page, `/workshop` route, `default` view, widths 1440 and 
 workshop [page=workshop] [route=/workshop] [bp=1440] [view=default]
 workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 ```
+
+Separate continuous Figma recordings. Automated character-by-character input and Cut/Paste; the mouse pointer does not follow actions. Captions and highlights are added.
+
+Details: “View fullscreen” below → “Original size”.
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../assets/tutorial/motion/native/page-metadata-en.mp4" poster="../assets/tutorial/motion/native/page-metadata-en.png" width="802" height="1040" controls playsinline preload="none" aria-label="Declare the workshop page, /workshop route, default view and 375 width"><a href="../assets/tutorial/motion/native/page-metadata-en.mp4" download="page-metadata-en.mp4">Download MP4</a></video>
+<figcaption>Separately: linked the roots of one page. <a href="../assets/tutorial/motion/native/page-metadata-en.gif" download="page-metadata-en.gif">GIF</a>.</figcaption>
+</figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
 <img src="../assets/tutorial/diagrams/contexts-en.svg" width="481" height="557" alt="Two workshop roots share page and default view, with widths 1440 and 375" loading="lazy" />
@@ -75,22 +90,21 @@ Named by role, not device. Frontend and AI can now match elements:
 | `Heading` / `Title mobile` | `hero-title` |
 | `Button` / `Button copy` | `contact-button` |
 
-Here we chose the shared `hero-title` and put `hero-actions` back inside `hero-copy`, before `workshop-art`. This is not the only way.
+Here we chose shared copy and parent. This is not the only way.
 
-<div class="bridge-lesson-pair bridge-lesson-motion-pair">
 <figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../assets/tutorial/motion/rename-title.mp4" poster="../assets/tutorial/motion/rename-title.png" width="472" height="528" controls playsinline preload="none" aria-label="Step-by-step Figma capture: rename the Title mobile layer to hero-title without changing its text"><a href="../assets/tutorial/motion/rename-title.mp4" download="rename-title.mp4">Download MP4</a></video>
-<figcaption>Step-by-step Figma capture: <code>Title mobile</code> → <code>hero-title</code>. Text unchanged. <a href="../assets/tutorial/motion/rename-title.gif" download="rename-title.gif">Download GIF</a>.</figcaption>
+<video src="../assets/tutorial/motion/native/rename-title-en.mp4" poster="../assets/tutorial/motion/native/rename-title-en.png" width="818" height="570" controls playsinline preload="none" aria-label="Rename Title mobile to hero-title without changing product copy"><a href="../assets/tutorial/motion/native/rename-title-en.mp4" download="rename-title-en.mp4">Download MP4</a></video>
+<figcaption><code>Title mobile</code> → <code>hero-title</code>. Name, not copy. <a href="../assets/tutorial/motion/native/rename-title-en.gif" download="rename-title-en.gif">GIF</a>.</figcaption>
 </figure>
-<figure class="bridge-lesson-figure bridge-lesson-motion">
-<video src="../assets/tutorial/motion/move-actions.mp4" poster="../assets/tutorial/motion/move-actions.png" width="472" height="528" controls playsinline preload="none" aria-label="Step-by-step Figma capture: move all of hero-actions into hero-copy, preserving both buttons"><a href="../assets/tutorial/motion/move-actions.mp4" download="move-actions.mp4">Download MP4</a></video>
-<figcaption>Step-by-step Figma capture: all of <code>hero-actions</code> → inside <code>hero-copy</code>. <a href="../assets/tutorial/motion/move-actions.gif" download="move-actions.gif">Download GIF</a>.</figcaption>
-</figure>
-</div>
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../assets/tutorial/screenshots/figma-prepared-tree.png" width="752" height="1000" alt="Actual prepared Figma tree: hero-actions with contact-button and faq-link is inside hero-copy" loading="lazy" />
-<figcaption>Text and actions are back inside hero-copy.</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../assets/tutorial/motion/native/repair-copy-en.mp4" poster="../assets/tutorial/motion/native/repair-copy-en.png" width="798" height="640" controls playsinline preload="none" aria-label="Restore the full product heading Мастерская понятных макетов"><a href="../assets/tutorial/motion/native/repair-copy-en.mp4" download="repair-copy-en.mp4">Download MP4</a></video>
+<figcaption>Restored «Мастерская понятных макетов». <a href="../assets/tutorial/motion/native/repair-copy-en.gif" download="repair-copy-en.gif">GIF</a>.</figcaption>
+</figure>
+
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../assets/tutorial/motion/native/move-actions-en.mp4" poster="../assets/tutorial/motion/native/move-actions-en.png" width="788" height="780" controls playsinline preload="none" aria-label="Move all of hero-actions into existing hero-copy, retaining both controls and Auto Layout"><a href="../assets/tutorial/motion/native/move-actions-en.mp4" download="move-actions-en.mp4">Download MP4</a></video>
+<figcaption>All of <code>hero-actions</code> → <code>hero-copy</code>. Not one button. <a href="../assets/tutorial/motion/native/move-actions-en.gif" download="move-actions-en.gif">GIF</a>.</figcaption>
 </figure>
 
 **Different copy needs an [agreed product variant](16-variation-axes.md). A different parent needs a [declared transformation](03-responsive-breakpoints.md).** Reordering within one parent is allowed.
@@ -126,6 +140,11 @@ The heading stays text. `workshop-art [decor] [asset]` stays one image. Do not f
 <figcaption>Two styles, five state examples. The modal sits beside them.</figcaption>
 </figure>
 
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../assets/tutorial/motion/native/button-states-en.mp4" poster="../assets/tutorial/motion/native/button-states-en.png" width="1840" height="634" controls playsinline preload="none" aria-label="State: default → hover, then enable the independent Focus visible property"><a href="../assets/tutorial/motion/native/button-states-en.mp4" download="button-states-en.mp4">Download MP4</a></video>
+<figcaption>Default → hover, then independent focus. <a href="../assets/tutorial/motion/native/button-states-en.gif" download="button-states-en.gif">GIF</a>.</figcaption>
+</figure>
+
 **Appearance in the library. Action on the page instance.** The same button elsewhere can do something different.
 
 - `contact-button [action=modal:contact-modal]` → open the modal.
@@ -136,33 +155,25 @@ The heading stays text. `workshop-art [decor] [asset]` stays one image. Do not f
 <figcaption>Button → modal. Link → FAQ.</figcaption>
 </figure>
 
-In Assistant, set action and target on the button, not its text:
-
-<div class="bridge-lesson-pair">
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../assets/tutorial/screenshots/assistant-layer-type-local.png" width="906" height="1173" alt="Assistant: Button type, Modal action and Show target control" loading="lazy" />
-<figcaption>Action set on the button itself.</figcaption>
-</figure>
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
+<figure class="bridge-lesson-figure bridge-lesson-motion">
 <aside class="bridge-lesson-comment">
 <p><strong>AI:</strong> At this width, the target is contact-modal.</p>
 <img class="bridge-lesson-penguin" src="../assets/tutorial/illustrations/handoff-penguin-ai-display.png" width="216" height="274" alt="" aria-hidden="true" draggable="false" loading="lazy" />
 </aside>
-<img src="../assets/tutorial/screenshots/assistant-layer-target-local.png" width="906" height="1173" alt="Assistant: contact-button name and contact-modal target at 375 px" loading="lazy" />
-<figcaption>Target set in the right width.</figcaption>
+<video src="../assets/tutorial/motion/native/local-action-en.mp4" poster="../assets/tutorial/motion/native/local-action-en.png" width="888" height="930" controls playsinline preload="none" aria-label="Set an action on contact-button and find its hidden local contact-modal target at 375; Show target finds the layer, not an open modal"><a href="../assets/tutorial/motion/native/local-action-en.mp4" download="local-action-en.mp4">Download MP4</a></video>
+<figcaption>On the instance: action → target at 375. <a href="../assets/tutorial/motion/native/local-action-en.gif" download="local-action-en.gif">GIF</a>.</figcaption>
 </figure>
-</div>
 
-**Show target** only finds the layer; it does not open the modal. Behavior still needs implementation.
+**Show target** finds the hidden layer; it does not open the modal. Behavior still needs implementation.
 
 <details>
 <summary>How the components work</summary>
 
-Default, hover, keyboard focus, pressed and disabled are examples, not a working prototype.
+Examples, not a working prototype.
 
 `State=default/hover/pressed/disabled` are Figma variants, not DFC tags or page views. Focus is independent: `Focus visible=true` can coexist with `hover` and `pressed`.
 
-Disabled shows appearance only. Its condition and decision owner belong in the implementation contract. No loading state: these actions open a modal or follow an anchor, not an asynchronous request.
+The disabled condition and owner belong in the implementation contract. No loading state: modal and anchor, not an asynchronous request.
 
 Each root has its own hidden `[modal=contact-modal]`. The main component in Modals is the appearance source, not another target. Email details, not a submission form.
 
@@ -172,14 +183,14 @@ Record the source and agreements in the [data contract](20-data-and-visualizatio
 
 ## 5. Checked the result
 
-In the copy with undeclared differences, ran **Check → Check page**. Assistant found different `hero-title` text and a different `hero-actions` parent. Auto Layout stayed enabled.
+Separate copy: different `hero-title` text and `hero-actions` parent. Auto Layout stays enabled. Repairs are not shown. The clip shows the old report and **Repeat**.
 
-<figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../assets/tutorial/screenshots/assistant-findings-local.png" width="1430" height="1656" alt="Actual Assistant report: two errors, different heading text and changed meaningful parent of hero-actions" loading="lazy" />
-<figcaption>Two source errors, not a ban on design choices.</figcaption>
+<figure class="bridge-lesson-figure bridge-lesson-motion">
+<video src="../assets/tutorial/motion/native/repeat-check-en.mp4" poster="../assets/tutorial/motion/native/repeat-check-en.png" width="1408" height="710" controls playsinline preload="none" aria-label="Repeat check on a separate workshop copy after repairs not shown: old two-error report to zero, checked 375 and 1440 contexts only"><a href="../assets/tutorial/motion/native/repeat-check-en.mp4" download="repeat-check-en.mp4">Download MP4</a></video>
+<figcaption>Repairs off-clip. Repeat: 2 errors → 0. Checked 375/1440 only. <a href="../assets/tutorial/motion/native/repeat-check-en.gif" download="repeat-check-en.gif">GIF</a>.</figcaption>
 </figure>
 
-**Show layer → fix → Repeat.** Page 02 shows the solution chosen here: shared heading, shared parent and linked components.
+Page 02 shows this solution with UI-kit and Modals.
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <aside class="bridge-lesson-comment">
@@ -191,8 +202,8 @@ In the copy with undeclared differences, ran **Check → Check page**. Assistant
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
-<img src="../assets/tutorial/screenshots/assistant-ready-result-local.png" width="1430" height="1656" alt="Actual full Assistant report: workshop ready, widths 375 and 1440 px, zero counters and the check boundary" loading="lazy" />
-<figcaption>Page 02: no findings in the checked scope.</figcaption>
+<img src="../assets/tutorial/screenshots/assistant-ready-summary-local.png" width="1398" height="396" alt="Header of an earlier local Assistant report for page 02: 375 and 1440 px, zero counters and the source-check boundary" loading="lazy" />
+<figcaption>Earlier page-02 report, not the result of the preceding clip or a fresh check of the revised file. <a href="../assets/tutorial/screenshots/assistant-ready-result-local.png">Full historical report</a>.</figcaption>
 </figure>
 
 **“Ready” means the checked design scope, not a finished application.**

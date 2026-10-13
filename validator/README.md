@@ -13,7 +13,7 @@ This directory is the canonical machine-readable surface of DFC Bridge. It separ
 - [`page-check-coverage.json`](page-check-coverage.json) — verified Page Check implementation snapshot. It intentionally discloses no private source path.
 - [`section-check-coverage.json`](section-check-coverage.json) — separate **Check selected section** implementation snapshot with local, selected-variant, deferred, and notable non-emitted page/file coverage boundaries.
 - [`methodology-coverage.json`](methodology-coverage.json) — explicit automatic, heuristic, or manual validation ownership for the expanded methodology. Manual checks still require recorded evidence.
-- [`site-content.json`](site-content.json) — canonical EN/RU route/source manifest used by the site generator.
+- [`site-content.json`](site-content.json) — canonical EN/RU/ZH route/source manifest used by the site generator.
 
 ## Validation
 

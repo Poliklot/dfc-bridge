@@ -1,12 +1,14 @@
 # Hard cases and edge cases
 
-DFC Bridge becomes useful only if it covers ugly real-world design situations, not just clean landing-page examples. This document lists the cases that should shape the checklist, validator rules, examples, and future adapters.
+Use this reference when a real design does not fit the simple examples. Find the relevant case, record the decision in the source or contract, and attach evidence to the affected review gate. The “Auto-check” column describes a checking approach, not a promise that the current Figma plugin implements it; consult the [coverage manifests](12-project-roadmap.md#separate-automation-scopes) for that boundary.
 
 ## Severity model
 
-- **Blocker** — the design is not DFC Bridge-ready. Transfer would require guessing.
+- **Blocker** — the affected scope cannot pass its review gate. Transfer would require guessing.
 - **Warning** — transfer is possible, but the result is risky or adapter-specific.
 - **Manual review** — automation can detect a suspicious pattern, but a human must confirm intent.
+
+Manual review is a method of checking, not a severity: its result may reveal a blocker or confirm that the design is intentional.
 
 ## 1. Identity nightmares
 
@@ -14,7 +16,7 @@ DFC Bridge becomes useful only if it covers ugly real-world design situations, n
 | --- | --- | --- | --- |
 | Same logical element has different identities on breakpoints | The adapter creates duplicates instead of one responsive element. | Keep one stable identity: a layer name or required DFC Bridge tag. | Compare breakpoint groups. |
 | Same identity points to different element types | A button becomes text, an image becomes a card, etc. | Same identity must preserve logical type unless modeled as a different entity. | Compare type by key. |
-| Repeated cards reuse one identity | The adapter cannot distinguish instances. | Use indexed keys: `card-1`, `card-2`. | Detect duplicate identities. |
+| Repeated cards reuse one identity | The adapter cannot distinguish instances. | Use stable authored names such as `product-card-oak-chair`; `[item=product]` may repeat. Runtime records use a product key, never list position. | Detect duplicate authored identities. |
 | Component instance overrides hide changed content | Source component says one thing, override says another. | Treat resolved instance content as source of truth and report overrides. | Extract component metadata. |
 | Hidden layer is the real source of truth | Transfer may pick wrong copy/state. | Hidden alternatives must be declared as states, variants, or archive. | Detect hidden keyed layers. |
 
@@ -27,8 +29,8 @@ DFC Bridge becomes useful only if it covers ugly real-world design situations, n
 | Identity is reparented on one breakpoint | DOM/component topology, state ownership, ARIA relationships, and analytics can break. | Preserve parent-child topology; use shared wrappers or declare a structural exception. | Compare parent identity by key. |
 | Hidden element is removed instead of hidden | The adapter cannot distinguish intentional invisibility from a missing element. | Keep the identity in the same parent and mark visibility per breakpoint. | Identity coverage + visibility diff. |
 | Mobile-only copy replaces the real element | States, actions, analytics, and content can drift between copies. | Use one identity; change visibility/order/placement instead of duplicating. | Duplicate role/content heuristic. |
-| Critical element disappears on mobile | CTA, legal note, price, or error state is lost. | Mark intentional exclusions or keep key on required breakpoints. | Identity coverage check. |
-| Desktop grid becomes mobile carousel | Different behavior, states, and controls appear. | Declare `responsive-behavior=carousel` and carousel controls. | Key + role change heuristic. |
+| Critical element disappears on mobile | CTA, legal note, price, or error state is lost. | Keep the element or declare a reachable equivalent; do not silently remove essential content. | Identity coverage check. |
+| Desktop grid becomes mobile carousel | Different behavior, states, and controls appear. | Declare the transformation in `bridge.responsive`, including item mapping, carousel controls, state transfer, and accessible alternatives. Do not invent a layer tag. | Key + role change heuristic. |
 | Order changes without reason | DOM/order may differ from visual intent and accessibility. | Declare order strategy or preserve semantic order. | Compare sibling order by key. |
 | Breakpoints do not cover transition zones | Design works only at exact widths. | Define breakpoint roots first, then min/max/fluid strategy. | Check declared breakpoint set. |
 | Safe areas and device chrome are ignored | Mobile UI collides with notches, browser bars, sticky nav. | Declare safe-area and sticky/fixed behavior. | Manual/adapter check. |

@@ -16,9 +16,9 @@ Let text, data, and lists grow. Test long words, prices, names, localization, er
 
 ## When a fixed height is valid
 
-Use it when the product needs a known viewport, crop, media frame, or scroll region. Record what happens when content does not fit:
+Use it when the product needs a known viewport, crop, media frame, or scroll region. Then decide what happens when content does not fit. A growing block is no longer fixed-height; if the boundary must stay fixed, define how the content behaves inside it:
 
-- wrap or grow;
+- wrap within the boundary; if the whole block must grow, use content-driven height instead;
 - clip with a visible reason;
 - scroll inside a named region;
 - truncate with an accessible way to read the rest.

@@ -4,11 +4,27 @@ DFC Bridge accepts improvements to the public methodology, documentation, schema
 
 ## Source of truth
 
-- Author English methodology in `docs/*.md` and Russian parity in `docs/ru/*.md`.
-- Author paired recipes in `examples/README.md` and `examples/README.ru.md`.
-- Register every generated page pair in `validator/site-content.json`.
+- Author methodology in `docs/*.md` (EN), `docs/ru/*.md` (RU), and `docs/zh/*.md` (ZH).
+- Author the example catalog in `examples/README.md`, `examples/README.ru.md`, and `docs/zh/examples/README.md`.
+- Register each topic's three localized sources and routes in `validator/site-content.json`.
 - Treat `validator/tags.json`, `validator/rules.json`, and `validator/bridge.schema.json` as machine-readable contracts.
-- Do not edit generated Markdown under `src/content/docs/en/` or `src/content/docs/ru/`.
+- Do not edit generated Markdown under `src/content/docs/`. Run `npm run content:sync` after editing the authored sources.
+
+## Explain a task, not just a rule
+
+Apply this review to the section being changed; do not force every reference page into a tutorial or rewrite coherent prose unnecessarily.
+
+For an introduction, explain the reader's problem before naming the mechanism: show one familiar decision (for example, which modal a button opens), then the smallest notation that records it. Explain brackets before the first tag tree. Keep the first action close to the opening; the full grammar, brand mnemonic, validator counts, and structured contract are references, not entrance requirements. Simplify the explanation, not the rule: retain its conditions, exceptions, and what the example does not prove.
+
+1. **Start with the reader's task and scope.** Say whether the instructions apply to a page, selected section, component source, instance, or implementation. State prerequisites before the first action.
+2. **Give a usable sequence.** Explain the problem, show the smallest complete example or exact action, name the visible result to check, and link to the next step. For a UI procedure, include what to select and the actual command; do not skip an intermediate screen.
+3. **Keep decisions distinct.** Separate required rules from recommendations and examples. Explain alternatives and their conditions. Native Figma properties, short intent tags, and structured `bridge` fields are different sources; never invent a tag to replace the other two.
+4. **Keep claims within their evidence.** A source check does not prove runtime behavior or delivery readiness. State what Ready, Partial, Blocked, and Deferred mean in the relevant scope. Distinguish current features from proposals, local builds from releases, and independent examples from one continuous exercise.
+5. **Translate meaning, not syntax.** Update EN/RU/ZH together. Preserve machine keys, tag values, rule IDs, code examples, conditions, exceptions, and validation scope. Read translated paragraphs as instructions: a fluent sentence with a reversed condition is still wrong.
+6. **Preserve navigation.** Keep useful headings and incoming anchors. If a misleading heading must change, retain its old anchor explicitly. Link to the exact supporting rule rather than repeating a second, diverging specification.
+7. **Review the rendered result.** Read the changed page from its opening through the next-step link, including captions. Check that the text still works without the image and that the image supports, rather than enlarges, the claim. Automated parity, length, and link checks are not editorial approval.
+
+For tutorial screenshots, recordings, captions, and embeds, also follow [the media production runbook](assets/tutorial/MEDIA-PRODUCTION.md). Preserve deliberate teaching errors and rehearse only in disposable copies.
 
 ## Local workflow
 
@@ -27,7 +43,13 @@ npm run test:e2e
 npm audit
 ```
 
-`npm test` validates schemas and fixtures, EN/RU rule parity, Russian terminology, Page Check coverage, canonical and built links, generated-content parity, Astro types, and the production build.
+`npm test` validates schemas and fixtures, localized rule and document parity, Russian terminology, Page/Section Check coverage, canonical and built links, generated-content parity, Astro types, and the production build. It does not certify the clarity of explanations or translations; perform the editorial review above as well.
+
+### Localized interface
+
+Keep route prefixes separate from language tags: Chinese pages use `/zh/`, but Starlight configuration translations and `src/content/i18n/` use the declared BCP-47 tag `zh-CN`. Author missing shared UI strings in the native i18n collection, not in generated HTML or `node_modules`.
+
+Check rendered UI in all three languages, including sidebar group headings, copy-button feedback, screen-reader labels and missing-page recovery. Test language switching on the same article, plus the narrow-screen menu and keyboard close/reopen. A complete dictionary or translated article does not prove that the framework selected the right strings. The single static 404 uses the URL locale when JavaScript is available and exposes all three home links without it.
 
 ### Temporary dependency override
 
@@ -41,7 +63,7 @@ For a new tag, structured field, or rule:
 
 1. explain the user problem and why existing metadata is insufficient;
 2. update the schema/registry and a valid fixture or executable case;
-3. add EN/RU documentation and examples;
+3. add EN/RU/ZH documentation and examples;
 4. declare automatic, heuristic, or manual validation ownership;
 5. state compatibility and migration impact before changing an existing meaning.
 
@@ -49,7 +71,7 @@ Short layer tags are identity and intent anchors. Rich data, responsive transfor
 
 ## Visuals and accessibility
 
-Prefer editable SVG for diagrams, include a meaningful `<title>` and `<desc>`, and keep a PNG fallback when a downstream surface needs it. Every interactive change must support keyboard operation, visible focus, touch targets, reduced motion, and both RU/EN layouts.
+Prefer editable SVG for diagrams, include a meaningful `<title>` and `<desc>`, and keep a PNG fallback when a downstream surface needs it. Every interactive change must support keyboard operation, visible focus, touch targets, reduced motion, and EN/RU/ZH layouts.
 
 ## Pull request scope
 

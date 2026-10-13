@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { checkNativeMotion } from './check-native-walkthrough-motion.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const tutorial = resolve(root, 'assets/tutorial');
@@ -24,6 +25,7 @@ assert.equal(data.pages.length, 5);
 assert.equal(new Set(data.pages.map((p) => p.name)).size, 5);
 const fig = read('dfc-bridge-workshop.fig');
 assert(fig.length > 10000 && fig.subarray(0, 4).equals(Buffer.from([0x50, 0x4b, 3, 4])), 'native .fig archive');
+assert.equal(createHash('sha256').update(fig).digest('hex'), '2c7bfc560c8684777026470285aa17b1e98aa5dbda97e3f09beb2dd04a721333', 'new QA-only demonstrations do not alter the shipped teaching archive');
 const canvas = execFileSync('unzip', ['-p', resolve(tutorial, 'dfc-bridge-workshop.fig'), 'canvas.fig']);
 assert(canvas.length > 10000 && canvas.subarray(0, 8).toString() === 'fig-kiwi', 'native canvas payload');
 
@@ -284,6 +286,9 @@ for (const locale of manifest.locales) {
     }
   }
 }
+// Rebuildable detail crops must retain their immediate native source and its
+// date/revision. This gate does not certify absent historical full-window PNGs.
+execFileSync(process.execPath, [resolve(root, 'scripts/build-tutorial-screenshots.mjs'), '--check']);
 for (const capture of provenance.captures) {
   const meta = await sharp(read(capture.file)).metadata();
   assert.equal(meta.width, capture.crop.width);
@@ -298,87 +303,217 @@ for (const capture of provenance.captures) {
     const expectedPixels = await sharp(source).extract(capture.crop).ensureAlpha().raw().toBuffer();
     const actualPixels = await sharp(read(capture.file)).ensureAlpha().raw().toBuffer();
     assert(actualPixels.equals(expectedPixels), `${capture.file}: genuine rectangular crop of its retained native capture`);
-  } else if (capture.sourceCaptureFile?.startsWith('motion/')) {
+  } else if (capture.derivedFromCapture || capture.sourceCaptureFile?.startsWith('motion/')) {
     assert.fail(`${capture.file}: new native capture must retain its source file`);
   }
   for (const [x, y] of capture.numberMarkers || []) {
     assert(x > 0 && x < meta.width && y > 0 && y < meta.height);
   }
 }
-// These clips are timed sequences of actual editor states, not continuous
-// screen recordings. Keep their source pixels and playback claims verifiable.
+// Native captures and annotated derivatives have different evidence boundaries.
 const motionRoot = resolve(tutorial, 'motion');
 const motion = JSON.parse(read('motion/provenance.json'));
+const storyboard = JSON.parse(read('motion/storyboard.json'));
 const motionPath = (file) => {
   assert.equal(typeof file, 'string', 'motion file path is a string');
   const path = resolve(motionRoot, file);
-  assert(path.startsWith(`${motionRoot}${sep}`), 'motion files stay inside their evidence directory');
-  assert(existsSync(path), `motion evidence exists: ${file}`);
+  assert(path.startsWith(motionRoot + sep), 'motion files stay inside their evidence directory');
+  assert(existsSync(path), 'motion evidence exists: ' + file);
   return path;
 };
 const ffprobe = existsSync('/opt/homebrew/bin/ffprobe') ? '/opt/homebrew/bin/ffprobe' : 'ffprobe';
-assert.equal(motion.schemaVersion, 1);
-assert.equal(motion.kind, 'native-ui-step-sequence');
-assert.equal(motion.fileKey, 'yCIbd7pIabjIepkkncPPYl', 'motion belongs to the disposable QA copy, not the shipped source');
-assert.match(motion.pageName, /^01\b/u, 'motion starts from the raw teaching page');
-assert.deepEqual(motion.clips.map((clip) => clip.id).sort(), ['move-actions', 'rename-title']);
-for (const clip of motion.clips) {
-  assert.equal(typeof clip.action, 'string');
-  assert(clip.action.trim(), `${clip.id}: describes the actual action`);
-  const { crop, frames, output } = clip;
-  assert.deepEqual(Object.keys(crop).sort(), ['height', 'left', 'top', 'width']);
-  for (const value of Object.values(crop)) assert(Number.isInteger(value) && value >= 0, `${clip.id}: integer crop geometry`);
-  assert(crop.width > 0 && crop.height > 0);
-  assert(Array.isArray(frames) && frames.length >= 3, `${clip.id}: before, action and after states are retained`);
-  let durationMs = 0;
-  for (const frame of frames) {
-    assert.match(frame.sourceFile, /^source\/.+\.png$/u);
-    const source = motionPath(frame.sourceFile);
-    assert.equal(hash(source), frame.sha256, `${clip.id}: source frame hash`);
-    const meta = await sharp(source).metadata();
-    assert.equal(meta.width, frame.width, `${clip.id}: source frame width`);
-    assert.equal(meta.height, frame.height, `${clip.id}: source frame height`);
-    assert(crop.left + crop.width <= meta.width && crop.top + crop.height <= meta.height, `${clip.id}: fixed crop stays inside every native capture`);
-    assert(Number.isInteger(frame.holdMs) && frame.holdMs > 0, `${clip.id}: each native state has an explicit positive hold`);
-    durationMs += frame.holdMs;
-  }
-  assert.match(output.file, /\.mp4$/u);
-  assert.match(output.poster, /\.png$/u);
-  const video = motionPath(output.file);
-  const poster = motionPath(output.poster);
-  assert.equal(hash(video), output.sha256, `${clip.id}: encoded video hash`);
-  assert.equal(hash(poster), output.posterSha256, `${clip.id}: poster hash`);
-  assert.match(output.gif, /\.gif$/u);
-  const gif = motionPath(output.gif);
-  assert.equal(hash(gif), output.gifSha256, `${clip.id}: downloadable GIF hash`);
-  const gifMeta = await sharp(gif).metadata();
-  assert.equal(gifMeta.width, crop.width);
-  assert.equal(gifMeta.height, crop.height);
-  assert(gifMeta.pages >= 3, `${clip.id}: downloadable GIF contains native before/action/after states`);
-  assert.equal(gifMeta.delay.length, gifMeta.pages, `${clip.id}: every GIF frame has a documented playback delay`);
-  assert(gifMeta.delay.every((delay) => delay > 0), `${clip.id}: GIF frame holds remain positive`);
-  assert(Math.abs(gifMeta.delay.reduce((sum, delay) => sum + delay, 0) / 1000 - output.durationSeconds) <= .1, `${clip.id}: GIF duration matches the same native-state sequence`);
-  assert.equal(output.width, crop.width);
-  assert.equal(output.height, crop.height);
-  assert(Number.isFinite(output.durationSeconds) && output.durationSeconds > 0, `${clip.id}: duration is documented`);
-  assert(Math.abs(output.durationSeconds - durationMs / 1000) <= .1, `${clip.id}: documented playback matches the native-state holds`);
-  const posterMeta = await sharp(poster).metadata();
-  assert.equal(posterMeta.width, crop.width);
-  assert.equal(posterMeta.height, crop.height);
-  const expectedPoster = await sharp(motionPath(frames[0].sourceFile)).extract(crop).ensureAlpha().raw().toBuffer();
-  const actualPoster = await sharp(poster).ensureAlpha().raw().toBuffer();
-  assert(actualPoster.equals(expectedPoster), `${clip.id}: poster is an unmodified rectangular crop of the first real state`);
-  const probe = spawnSync(ffprobe, ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', video], { encoding: 'utf8' });
-  assert(!probe.error, `ffprobe is required to verify tutorial video: ${probe.error?.message}`);
-  assert.equal(probe.status, 0, `${clip.id}: ffprobe completed: ${probe.stderr}`);
-  const encoded = JSON.parse(probe.stdout);
-  assert.equal(encoded.streams.length, 1, `${clip.id}: one video stream only; no private audio or additional streams`);
-  assert.equal(encoded.streams[0].codec_type, 'video');
-  assert.equal(encoded.streams[0].codec_name, 'h264', `${clip.id}: broadly supported MP4 codec`);
-  assert.equal(encoded.streams[0].width, output.width);
-  assert.equal(encoded.streams[0].height, output.height);
-  assert(Math.abs(Number(encoded.format.duration) - output.durationSeconds) <= .1, `${clip.id}: encoded duration matches the documented sequence`);
+const rect = (value, label) => {
+  assert.deepEqual(Object.keys(value).sort(), ['height', 'left', 'top', 'width'], label + ': rectangle fields');
+  for (const [key, number] of Object.entries(value)) assert(Number.isInteger(number) && number >= (key === 'width' || key === 'height' ? 1 : 0), label + ': integer geometry');
+};
+const contains = (outer, inner) => inner.left >= outer.left && inner.top >= outer.top && inner.left + inner.width <= outer.left + outer.width && inner.top + inner.height <= outer.top + outer.height;
+for (const document of [motion, storyboard]) {
+  assert.equal(document.schemaVersion, 2);
+  assert.equal(document.kind, 'annotated-native-step-sequence');
+  assert.equal(document.overlayCoordinateSpace, 'source-pixels', 'cues use explicit native source coordinates');
+  assert.equal(document.fileKey, 'yCIbd7pIabjIepkkncPPYl', 'only the disposable QA copy is edited');
 }
+assert(!storyboard.draft, 'draft coordinates cannot be published as evidence');
+assert.equal(hash(motionPath('storyboard.json')), motion.storyboardSha256, 'rendering is bound to the reviewed storyboard');
+assert.equal(hash(resolve(root, 'scripts/build-walkthrough-motion.mjs')), motion.rendererSha256, 'all localized outputs use the current reviewed renderer');
+assert.match(storyboard.capturedAt, /^\d{4}-\d{2}-\d{2}$/u);
+assert.equal(motion.capturedAt, storyboard.capturedAt, 'capture date is retained, not invented by the renderer');
+assert.equal(motion.pageName, storyboard.pageName, 'top-level source scope is retained');
+assert.deepEqual(storyboard.locales, ['ru', 'en', 'zh']);
+assert.deepEqual(motion.render, storyboard.render);
+const { render } = motion;
+assert.deepEqual([render.width, render.height, render.fps, render.gifFps, render.crf], [1280, 720, 24, 12, 12]);
+rect(render.viewport, 'native presentation viewport');
+assert(contains({ left: 0, top: 0, width: render.width, height: render.height }, render.viewport));
+const nativeTransform = (crop) => {
+  const scale = Math.min(1, render.viewport.width / crop.width, render.viewport.height / crop.height);
+  const width = Math.round(crop.width * scale);
+  const height = Math.round(crop.height * scale);
+  return {
+    crop, scale, scaleX: width / crop.width, scaleY: height / crop.height,
+    left: render.viewport.left + Math.floor((render.viewport.width - width) / 2),
+    top: render.viewport.top + Math.floor((render.viewport.height - height) / 2),
+    width, height,
+  };
+};
+const verifyTransform = (crop, transform, label) => {
+  rect(crop, label + ': native crop');
+  assert.deepEqual(transform, nativeTransform(crop), label + ': native pixels are cropped and downsampled only');
+  assert(contains(render.viewport, { left: transform.left, top: transform.top, width: transform.width, height: transform.height }), label + ': native bitmap stays clear of matte labels and playback controls');
+  assert(transform.scaleX <= 1 && transform.scaleY <= 1, label + ': no native screenshot upscaling');
+};
+assert.equal(typeof motion.captureMethod, 'string');
+assert.match(motion.captureMethod, /not a continuous screen recording/iu);
+assert.match(motion.transform, /editorial/iu);
+assert.match(motion.transform, /not native|not.*recorded/iu);
+assert.deepEqual(motion.clips.map(({ id }) => id), storyboard.clips.map(({ id }) => id), 'all storyboard actions are generated in narrative order');
+assert.equal(new Set(motion.clips.map(({ id }) => id)).size, motion.clips.length);
+assert.equal(motion.clips.length, 7, 'the introduction shows seven distinct decisions, not repeated clips');
+assert.deepEqual(motion.clips.map(({ id }) => id), ['page-metadata', 'rename-title', 'repair-copy', 'move-actions', 'button-states', 'local-action', 'repeat-check'], 'each decision has its own native demonstration');
+const outputsByFile = new Map();
+for (const [clipIndex, clip] of motion.clips.entries()) {
+  const planned = storyboard.clips[clipIndex];
+  assert.match(clip.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/u);
+  for (const field of ['action', 'evidenceFact', 'sourcePageName', 'sourceInterface']) {
+    assert.equal(typeof clip[field], 'string', clip.id + ': ' + field);
+    assert(clip[field].trim(), clip.id + ': evidence and intent are both explicit');
+    assert.equal(clip[field], planned[field]);
+  }
+  assert.match(clip.sourceInterface, /Figma/iu);
+  const { crop, frames } = clip;
+  assert.deepEqual(crop, planned.crop);
+  verifyTransform(crop, clip.nativeTransform, clip.id + ': default camera');
+  assert.equal(frames.length, planned.stages.length);
+  assert(frames.length >= 3);
+  assert.equal(frames[0].phase, 'before');
+  assert.equal(frames.at(-1).phase, 'after');
+  assert(frames.some(({ phase }) => phase === 'action'));
+  let previousPhase = 0;
+  let durationMs = 0;
+  let firstBitmap;
+  let hasPointer = false;
+  let hasHighlight = false;
+  let hasActionInputCue = false;
+  for (const [frameIndex, frame] of frames.entries()) {
+    const stage = planned.stages[frameIndex];
+    for (const field of ['phase', 'sourceFile', 'holdMs', 'label', 'pointer', 'highlights', 'keys']) assert.deepEqual(frame[field], stage[field], clip.id + ': stage is bound to its actual source and editorial cues');
+    const stageCrop = stage.crop ?? crop;
+    assert.deepEqual(frame.crop, stageCrop, clip.id + ': each camera cut retains its reviewed native source bounds');
+    verifyTransform(stageCrop, frame.nativeTransform, clip.id + ': stage ' + frameIndex);
+    const { scale, width: bitmapWidth, height: bitmapHeight } = frame.nativeTransform;
+    const phase = ['before', 'action', 'after'].indexOf(frame.phase);
+    assert(phase >= previousPhase, clip.id + ': before/action/after phases never run backwards');
+    previousPhase = phase;
+    assert(Number.isInteger(frame.holdMs) && frame.holdMs >= 500 && frame.holdMs % 250 === 0);
+    durationMs += frame.holdMs;
+    assert.deepEqual(Object.keys(frame.label).sort(), ['en', 'ru', 'zh']);
+    for (const value of Object.values(frame.label)) assert(typeof value === 'string' && value.trim() && value.length <= 64, clip.id + ': short localized stage caption');
+    assert(Array.isArray(frame.pointer) && Array.isArray(frame.highlights));
+    hasPointer ||= frame.pointer.length > 0;
+    hasHighlight ||= frame.highlights.length > 0;
+    hasActionInputCue ||= frame.phase === 'action' && frame.pointer.length > 0
+      && (frame.pointer.some(({ click }) => click) || Boolean(frame.keys?.length));
+    let lastTime = -1;
+    for (const point of frame.pointer) {
+      assert(Number.isInteger(point.atMs) && point.atMs >= 0 && point.atMs < frame.holdMs && point.atMs > lastTime, clip.id + ': ordered pointer cue timing');
+      assert(Number.isFinite(point.x) && point.x >= stageCrop.left && point.x < stageCrop.left + stageCrop.width && Number.isFinite(point.y) && point.y >= stageCrop.top && point.y < stageCrop.top + stageCrop.height, clip.id + ': cursor targets stay inside real captured UI');
+      assert(point.click === undefined || typeof point.click === 'boolean');
+      lastTime = point.atMs;
+    }
+    for (const outline of frame.highlights) {
+      rect(outline, clip.id + ' editorial outline');
+      assert(contains(stageCrop, outline), clip.id + ': outline only highlights retained native evidence');
+    }
+    if (frame.keys !== undefined) assert(Array.isArray(frame.keys) && frame.keys.length > 0 && frame.keys.length <= 4 && frame.keys.every((key) => typeof key === 'string' && key.trim() && key.length <= 3), clip.id + ': bounded keyboard labels are editorial cues');
+    assert.match(frame.sourceFile, /^source\/(?:[a-z0-9][a-z0-9-]*\/)*[a-z0-9][a-z0-9-]*\.png$/u);
+    const source = motionPath(frame.sourceFile);
+    assert.equal(hash(source), frame.sha256, clip.id + ': immutable native source hash');
+    const metadata = await sharp(source).metadata();
+    assert.equal(metadata.width, frame.width);
+    assert.equal(metadata.height, frame.height);
+    assert(contains({ left: 0, top: 0, width: metadata.width, height: metadata.height }, stageCrop), clip.id + ': crop stays inside native capture');
+    const cropped = await sharp(source).extract(stageCrop).png().toBuffer();
+    assert.equal(createHash('sha256').update(cropped).digest('hex'), frame.cropSha256, clip.id + ': actual source crop hash');
+    const bitmap = scale === 1 ? cropped : await sharp(cropped).resize(bitmapWidth, bitmapHeight, { fit: 'fill', kernel: 'lanczos3' }).png().toBuffer();
+    assert.equal(createHash('sha256').update(bitmap).digest('hex'), frame.nativeBitmapSha256, clip.id + ': downsampled native bitmap hash');
+    if (frameIndex === 0) firstBitmap = await sharp(bitmap).ensureAlpha().raw().toBuffer();
+  }
+  assert(hasPointer && hasHighlight, clip.id + ': action has a visible cursor and a relevant editorial focus cue');
+  assert(hasActionInputCue, clip.id + ': at least one actual action is shown with a cursor and a click or keyboard cue');
+  assert.notEqual(frames[0].sha256, frames.at(-1).sha256, clip.id + ': final native state differs from the start');
+  assert.notEqual(frames[0].nativeBitmapSha256, frames.at(-1).nativeBitmapSha256, clip.id + ': the shown native region, not just the uncropped screen, changes');
+  const configuration = JSON.stringify({ rendererSha256: motion.rendererSha256, render, clip: planned, sources: frames.map(({ sha256 }) => sha256) });
+  assert.equal(createHash('sha256').update(configuration).digest('hex'), clip.configurationSha256);
+  assert.deepEqual(clip.outputs.map(({ locale }) => locale), ['ru', 'en', 'zh']);
+  for (const output of clip.outputs) {
+    assert.equal(output.file, clip.id + '-' + output.locale + '.mp4');
+    assert.equal(output.poster, clip.id + '-' + output.locale + '.png');
+    assert.equal(output.gif, clip.id + '-' + output.locale + '.gif');
+    assert(!outputsByFile.has(output.file));
+    outputsByFile.set(output.file, { clip, output });
+    assert.deepEqual([output.width, output.height, output.fps, output.gifFps, output.crf], [render.width, render.height, render.fps, render.gifFps, render.crf]);
+    assert.equal(output.durationSeconds, durationMs / 1000, clip.id + ': playback holds describe the same native steps');
+    assert(output.durationSeconds >= 3 && output.durationSeconds <= 20, clip.id + ': one concise action per clip');
+    for (const [field, shaField] of [['file', 'sha256'], ['poster', 'posterSha256'], ['gif', 'gifSha256']]) assert.equal(hash(motionPath(output[field])), output[shaField], clip.id + ': ' + field + ' derivative hash');
+    const poster = motionPath(output.poster);
+    const posterMeta = await sharp(poster).metadata();
+    assert.deepEqual([posterMeta.width, posterMeta.height], [render.width, render.height]);
+    // Cues can mark the evidence; they cannot replace it. Verify every native
+    // poster pixel except the explicitly declared stroke/cursor/ring footprint.
+    const first = frames[0];
+    const transform = first.nativeTransform;
+    const { width: bitmapWidth, height: bitmapHeight } = transform;
+    const nativePixels = await sharp(poster).extract({ left: transform.left, top: transform.top, width: bitmapWidth, height: bitmapHeight }).ensureAlpha().raw().toBuffer();
+    const mapped = (x, y) => ({ x: (x - first.crop.left) * transform.scaleX, y: (y - first.crop.top) * transform.scaleY });
+    const masks = first.highlights.map((outline) => {
+      const point = mapped(outline.left, outline.top);
+      return { left: point.x, top: point.y, width: outline.width * transform.scaleX, height: outline.height * transform.scaleY, stroke: true };
+    });
+    if (first.pointer.length) {
+      const point = mapped(first.pointer[0].x, first.pointer[0].y);
+      masks.push({ left: point.x - 4, top: point.y - 4, width: 35, height: 46 });
+    }
+    for (const point of first.pointer.filter(({ atMs, click }) => click && atMs === 0)) {
+      const center = mapped(point.x, point.y);
+      masks.push({ left: center.x - 13, top: center.y - 13, width: 26, height: 26 });
+    }
+    let verifiedPixels = 0;
+    for (let y = 0; y < bitmapHeight; y++) for (let x = 0; x < bitmapWidth; x++) {
+      const covered = masks.some((mask) => x >= mask.left - 5 && x <= mask.left + mask.width + 5 && y >= mask.top - 5 && y <= mask.top + mask.height + 5 && (!mask.stroke || x <= mask.left + 5 || x >= mask.left + mask.width - 5 || y <= mask.top + 5 || y >= mask.top + mask.height - 5));
+      if (covered) continue;
+      const offset = (y * bitmapWidth + x) * 4;
+      assert(nativePixels.subarray(offset, offset + 4).equals(firstBitmap.subarray(offset, offset + 4)), clip.id + ': editorial poster preserves native pixels outside disclosed cues');
+      verifiedPixels++;
+    }
+    assert(verifiedPixels >= bitmapWidth * bitmapHeight * .75, clip.id + ': overlays cannot obscure the captured UI');
+    const gifMeta = await sharp(motionPath(output.gif)).metadata();
+    assert.deepEqual([gifMeta.width, gifMeta.height], [render.width, render.height]);
+    assert(gifMeta.pages >= frames.length && gifMeta.delay.length === gifMeta.pages);
+    assert(gifMeta.delay.every((delay) => delay > 0));
+    assert(Math.abs(gifMeta.delay.reduce((sum, delay) => sum + delay, 0) / 1000 - output.durationSeconds) <= .1);
+    const probe = spawnSync(ffprobe, ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', motionPath(output.file)], { encoding: 'utf8' });
+    assert(!probe.error, 'ffprobe is required: ' + probe.error?.message);
+    assert.equal(probe.status, 0, clip.id + ': ffprobe completed: ' + probe.stderr);
+    const encoded = JSON.parse(probe.stdout);
+    assert.equal(encoded.streams.length, 1, clip.id + ': one video stream, no audio or additional streams');
+    const stream = encoded.streams[0];
+    assert.deepEqual([stream.codec_type, stream.codec_name, stream.pix_fmt, stream.width, stream.height], ['video', 'h264', 'yuv420p', render.width, render.height]);
+    assert.equal(stream.r_frame_rate, render.fps + '/1');
+    assert(Math.abs(Number(encoded.format.duration) - output.durationSeconds) <= .1);
+  }
+}
+const registeredMotionDerivatives = [...outputsByFile.values()].flatMap(({ output }) => [output.file, output.gif, output.poster]).sort();
+const publishedMotionDerivatives = readdirSync(motionRoot, { withFileTypes: true }).filter((entry) => entry.isFile() && /\.(?:mp4|gif|png)$/iu.test(entry.name)).map(({ name }) => name).sort();
+assert.equal(registeredMotionDerivatives.length, 63, 'seven actions have three localized MP4/GIF/poster sets');
+assert.deepEqual(publishedMotionDerivatives, registeredMotionDerivatives, 'only registered, verified motion derivatives can be published; no stale unlocalized clips');
+// Retained v2 evidence remains truthful and immutable. Native recordings have
+// a separate namespace; merely adding a draft storyboard never activates it.
+const nativeMotion = existsSync(resolve(motionRoot, 'native-provenance.json')) ? await checkNativeMotion() : null;
+if (nativeMotion) for (const [file, record] of nativeMotion.outputs) {
+  assert(!outputsByFile.has(file), 'native recordings cannot overwrite legacy evidence');
+  outputsByFile.set(file, record);
+}
+const activeMotion = nativeMotion?.manifest || motion;
 assert.equal(renderProvenance.schemaVersion, 1);
 assert.deepEqual(renderProvenance.renders.map((item) => item.file).sort(), ['hero-1440.png', 'hero-375.png']);
 for (const n of prepared) {
@@ -413,7 +548,7 @@ for (const n of prepared) {
 // HTML assets must resolve in canonical source as well as after site rewriting.
 let images = 0;
 for (const page of manifest.pages) {
-  for (const source of Object.values(page.source)) {
+  for (const [locale, source] of Object.entries(page.source)) {
     const text = readFileSync(resolve(root, source), 'utf8');
     for (const match of text.matchAll(/\b(src|href|poster)="((?:\.\.\/)+assets\/tutorial\/[^"]+)"/gu)) {
       assert(existsSync(resolve(root, dirname(source), match[2])), `${source}: ${match[2]}`);
@@ -434,16 +569,19 @@ for (const page of manifest.pages) {
     }
     for (const match of text.matchAll(/<video\b[^>]*\bsrc="([^"]*assets\/tutorial\/motion\/[^"]+)"[^>]*>/gu)) {
       const tag = match[0];
-      const clip = motion.clips.find(({ output }) => match[1].endsWith(`/motion/${output.file}`));
-      assert(clip, `${source}: video belongs to a registered native step sequence`);
-      assert(/\bcontrols(?:\s|[=>])/u.test(tag), `${source}: reader can pause and inspect the sequence`);
-      assert(/\bplaysinline(?:\s|[=>])/u.test(tag), `${source}: inline playback remains available on mobile`);
-      assert(/\bpreload="(?:none|metadata)"/u.test(tag), `${source}: no eager video download`);
-      assert(!/\b(?:autoplay|loop)(?:\s|[=>])/u.test(tag), `${source}: motion never starts or repeats without the reader`);
-      assert(/\baria-label="[^"]+"/u.test(tag), `${source}: sequence has a meaningful accessible name`);
-      assert.equal(Number(tag.match(/\bwidth="(\d+)"/u)?.[1]), clip.output.width, `${source}: intrinsic video width`);
-      assert.equal(Number(tag.match(/\bheight="(\d+)"/u)?.[1]), clip.output.height, `${source}: intrinsic video height`);
-      assert(tag.match(/\bposter="([^"]+)"/u)?.[1].endsWith(`/motion/${clip.output.poster}`), `${source}: poster is the registered first native state`);
+      const record = outputsByFile.get(match[1].split('/assets/tutorial/motion/')[1]);
+      assert(record, source + ': video is a registered native recording or disclosed step sequence');
+      const { clip, output } = record;
+      assert.equal(output.locale, locale, source + ': cue language matches the document locale');
+      assert(/\bcontrols(?:\s|[=>])/u.test(tag), source + ': reader can pause and inspect the sequence');
+      assert(/\bplaysinline(?:\s|[=>])/u.test(tag), source + ': inline playback remains available on mobile');
+      assert(/\bpreload="(?:none|metadata)"/u.test(tag), source + ': no eager video download');
+      assert(!/\b(?:autoplay|loop)(?:\s|[=>])/u.test(tag), source + ': motion never starts or repeats without the reader');
+      assert(/\baria-label="[^"]+"/u.test(tag), source + ': sequence has a meaningful accessible name');
+      assert.equal(Number(tag.match(/\bwidth="(\d+)"/u)?.[1]), output.width, source + ': intrinsic video width');
+      assert.equal(Number(tag.match(/\bheight="(\d+)"/u)?.[1]), output.height, source + ': intrinsic video height');
+      assert(tag.match(/\bposter="([^"]+)"/u)?.[1].endsWith('/motion/' + output.poster), source + ': registered localized editorial poster');
+      assert(!provenance.captures.some(({ file }) => file === 'motion/' + output.poster), clip.id + ': annotated output cannot masquerade as an unmodified native capture');
     }
   }
 }
@@ -460,17 +598,29 @@ for (const locale of manifest.locales) {
   }
   assert(sources.some((src) => capturedEvidence(src)?.interface === 'Figma Design'), `${locale} lesson: a recorded native Figma capture is visible`);
   assert(sources.some((src) => capturedEvidence(src)?.interface === 'local-development-not-community-release'), `${locale} lesson: a recorded local Assistant capture is visible`);
+  for (const name of ['figma-before-hero-desktop.png', 'figma-before-hero-mobile.png', 'assistant-ready-summary-local.png']) {
+    assert(sources.some((src) => src.endsWith(`/screenshots/${name}`)), `${locale}: show focused native details rather than duplicate full-page captures`);
+  }
+  assert(!sources.some((src) => src.endsWith('/screenshots/figma-broken-comparison.png')), `${locale}: the duplicate overview is not a discrepancy detail`);
+  assert(lessonText.includes('href="' + (locale === 'en' ? '../' : '../../') + 'assets/tutorial/screenshots/assistant-ready-result-local.png"'), `${locale}: retain access to the full historical report`);
   assert(lessonText.includes('assets/tutorial/dfc-bridge-workshop.fig'), `${locale} lesson: editable source is available`);
-  for (const clip of motion.clips) assert(lessonText.includes(`/motion/${clip.output.file}`), `${locale}: the ${clip.id} correction is shown at its narrative point`);
-  const comments = [...lessonText.matchAll(/<aside class="bridge-lesson-comment">([\s\S]*?)<\/aside>\s*<img\b[^>]*src="([^"]+)"/gu)];
-  assert.equal(comments.length, 3, `${locale}: only three comments, directly attached to evidence`);
-  for (const [index, [asset, role]] of [
-    ['figma-broken-comparison.png', 'frontend'],
-    ['assistant-layer-target-local.png', 'ai'],
-    ['figma-final-overview.png', 'backend'],
+  const lessonVideos = [...lessonText.matchAll(/<video\b[^>]*\bsrc="[^"]*\/motion\/([^"]+)"[^>]*>/gu)].map((match) => match[1]);
+  const expectedVideos = activeMotion.clips.map(({ outputs }) => outputs.find((output) => output.locale === locale).file);
+  assert.deepEqual(lessonVideos, expectedVideos, locale + ': all seven distinct actions appear chronologically');
+  const numberedChapters = lessonText.split(/^## /mu).filter((section) => /^\d+\./u.test(section));
+  for (const [index, chapter] of [2, 3, 3, 3, 4, 4, 5].entries()) {
+    assert(numberedChapters[chapter - 1]?.includes('/motion/' + expectedVideos[index]), locale + ': action belongs to its explanation, not a detached video pile');
+  }
+  const comments = [...lessonText.matchAll(/<aside class="bridge-lesson-comment">([\s\S]*?)<\/aside>\s*<(img|video)\b[^>]*src="([^"]+)"/gu)];
+  assert.equal(comments.length, 3, locale + ': only three comments, directly attached to evidence');
+  const localActionVideo = activeMotion.clips[5].outputs.find((output) => output.locale === locale).file;
+  for (const [index, [assets, role]] of [
+    [['figma-before-hero-mobile.png'], 'frontend'],
+    [[localActionVideo], 'ai'],
+    [['figma-final-overview.png'], 'backend'],
   ].entries()) {
-    assert(comments[index][2].endsWith(asset), `${locale}: role comments on relevant evidence`);
-    assert(comments[index][1].includes(`handoff-penguin-${role}-display.png`), `${locale}: the right speaker comments`);
+    assert(assets.some((asset) => comments[index][3].endsWith('/' + asset)), locale + ': role comments on relevant evidence');
+    assert(comments[index][1].includes('handoff-penguin-' + role + '-display.png'), locale + ': the right speaker comments');
   }
   const recipeText = readFileSync(resolve(root, recipes.source[locale]), 'utf8');
   const sections = recipeText.split(/^## /mu).slice(1, 9);
@@ -487,4 +637,5 @@ for (const locale of manifest.locales) {
 }
 const expectedDiagrams = manifest.locales.flatMap((locale) => concepts.map((concept) => `${concept}-${locale}.svg`)).sort();
 assert.deepEqual(readdirSync(resolve(tutorial, 'diagrams')).filter((name) => name.endsWith('.svg')).sort(), expectedDiagrams, 'ten intentional SVG concepts in all three locales');
-console.log(`Tutorial evidence verified: 5 native pages, ${expectedDiagrams.length} editable diagrams, ${provenance.captures.length} real captures, localized story evidence and all eight illustrated recipes (${images} image placements).`);
+const derivedCaptureCount = provenance.captures.filter((capture) => capture.derivedFromCapture).length;
+console.log(`Tutorial evidence verified: 5 native pages, ${expectedDiagrams.length} editable diagrams, ${provenance.captures.length - derivedCaptureCount} original captures + ${derivedCaptureCount} lossless derivatives, ${motion.clips.length} retained step sequences/${motion.clips.reduce((sum, clip) => sum + clip.frames.length, 0)} native stages${nativeMotion ? `, ${nativeMotion.manifest.clips.length} continuous recordings/${nativeMotion.auditedFrames} decoded audit frames` : ''}, ${outputsByFile.size} localized videos and all eight illustrated recipes (${images} image placements).`);

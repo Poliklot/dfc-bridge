@@ -56,7 +56,7 @@
       "notes": {
         "en": "A DFC Bridge page root always uses native Auto Layout and must never carry [asset]. It may sit directly on the Figma page or below native Figma SECTION canvas organizers; those organizers are transparent and contribute no DFC Bridge context.",
         "ru": "Корень страницы DFC Bridge всегда использует нативный Auto Layout и никогда не содержит [asset]. Он может лежать прямо на странице Figma или под нативными организаторами SECTION Figma; такие организаторы прозрачны и не передают контекст DFC Bridge.",
-        "zh": "DFC Bridge 页面根始终使用本机自动布局并且绝不能携带 [asset]。它可以直接位于 Figma 页面上或本地 Figma SECTION 画布组织者下方；这些组织者是透明的，不会贡献 DFC Bridge 背景。"
+        "zh": "DFC Bridge 页面根必须使用原生 Auto Layout，不能带有 [asset]。它可以直接位于 Figma 页面下，也可以位于原生 Figma SECTION 画布分区下。查找页面根时会穿过这些分区，但分区本身不提供 DFC Bridge 上下文。"
       }
     },
     {
@@ -64,7 +64,7 @@
       "title": {
         "en": "Production route",
         "ru": "Рабочий маршрут",
-        "zh": "生产路线"
+        "zh": "实际路由"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -92,7 +92,7 @@
       "title": {
         "en": "Dynamic route pattern",
         "ru": "Шаблон динамического маршрута",
-        "zh": "动态路线模式"
+        "zh": "动态路由模式"
       },
       "status": "experimental",
       "authoredInLayerName": true,
@@ -120,7 +120,7 @@
       "title": {
         "en": "Control width",
         "ru": "Контрольная ширина",
-        "zh": "控制宽度"
+        "zh": "参考宽度"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -145,7 +145,7 @@
       "title": {
         "en": "Page view",
         "ru": "Вид страницы",
-        "zh": "页面浏览量"
+        "zh": "页面视图"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -170,7 +170,7 @@
       "title": {
         "en": "Anchor target",
         "ru": "Цель якоря",
-        "zh": "锚定目标"
+        "zh": "锚点目标"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -218,7 +218,7 @@
       "notes": {
         "en": "A stable [section] value is the required boundary for Check selected section; never add page/bp/view/route tags to a section. A frame-built section or editable Page Sections source root uses native Auto Layout unless that exact selected root also carries [asset] and is a genuine opaque whole visual. A section nested below a different non-page-root opaque [asset] ancestor is an invalid blocked selection because the audit cannot pierce the inherited boundary. An invalid [asset] on a page root never creates opacity. Placed INSTANCE nodes are atomic and their source is audited separately.",
         "ru": "Стабильное значение [section] является обязательной границей для проверки выбранной секции; теги page/bp/view/route нельзя добавлять секции. Секция-фрейм или редактируемый исходный корень Page Sections использует нативный Auto Layout, кроме случая, когда сам выбранный корень также содержит [asset] и является настоящим непрозрачным цельным визуальным ресурсом. Секция под другим непрозрачным родительским [asset], не являющимся корнем страницы, является недопустимым заблокированным выбором: проверка не проходит сквозь унаследованную границу. Недопустимый [asset] на корне страницы никогда не создаёт непрозрачность. Размещённые INSTANCE атомарны, а их источник проверяется отдельно.",
-        "zh": "稳定的[截面]值是检查所选截面所需的边界；切勿将 page/bp/view/route 标签添加到某个部分。框架构建的部分或可编辑的页面部分源根使用本机自动布局，除非该确切选定的根也带有[资产]并且是真正的不透明整体视觉效果。嵌套在不同的非页面根不透明[资产]祖先下面的部分是无效的阻止选择，因为审核无法穿透继承的边界。页面根目录上的无效[资源]永远不会产生不透明度。放置的 INSTANCE 节点是原子的，并且它们的源是单独审核的。"
+        "zh": "稳定的 [section] 值是 Check selected section 所需的检查边界；不要给区块添加 page/bp/view/route 标签。用 FRAME 构建的区块或可编辑的 Page Sections 源根必须使用原生 Auto Layout；只有所选根自身带有 [asset] 且确实作为一个整体视觉资源导出时才例外。如果区块位于另一个非页面根的 [asset] 祖先内部，检查不能穿过该边界，因此选择无效并被阻止。页面根上的非法 [asset] 不会形成这种边界。已放置的 INSTANCE 作为原子节点处理，其源组件另行检查。"
       }
     },
     {
@@ -276,7 +276,7 @@
       "notes": {
         "en": "Prefer [href=...] when the destination is known; the value form is an advanced override.",
         "ru": "Когда адрес известен, используйте [href=...]; форма со значением предназначена только для расширенного переопределения.",
-        "zh": "当目的地已知时首选 [href=...]；值形式是高级覆盖。"
+        "zh": "目标地址已知时使用 [href=...]；带值形式只用于高级标识覆盖。"
       }
     },
     {
@@ -312,7 +312,7 @@
       "title": {
         "en": "Accessible control label",
         "ru": "Доступное название элемента управления",
-        "zh": "无障碍控制标签"
+        "zh": "控件的无障碍名称"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -389,7 +389,7 @@
       "notes": {
         "en": "Prefer [action=...] when behavior is known; the value form is an advanced override.",
         "ru": "Когда действие известно, используйте [action=...]; форма со значением предназначена только для расширенного переопределения.",
-        "zh": "当行为已知时更喜欢 [action=...]；值形式是高级覆盖。"
+        "zh": "行为已知时使用 [action=...]；带值形式只用于高级标识覆盖。"
       }
     },
     {
@@ -475,7 +475,7 @@
       "title": {
         "en": "Form target identity",
         "ru": "Идентификатор формы",
-        "zh": "形成目标身份"
+        "zh": "表单目标标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -505,7 +505,7 @@
       "title": {
         "en": "Modal target identity",
         "ru": "Идентификатор модального окна",
-        "zh": "模态目标身份"
+        "zh": "模态窗口目标标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -535,7 +535,7 @@
       "title": {
         "en": "State target identity",
         "ru": "Идентификатор состояния",
-        "zh": "陈述目标身份"
+        "zh": "状态目标标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -565,7 +565,7 @@
       "title": {
         "en": "Collection identity",
         "ru": "Идентификатор коллекции",
-        "zh": "收藏标识"
+        "zh": "集合标识"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -622,7 +622,7 @@
       "notes": {
         "en": "The value classifies a repeated role or type; stable design-instance and runtime-data identities remain separate.",
         "ru": "Значение классифицирует повторяемую роль или тип; стабильные идентификаторы экземпляра макета и рабочих данных задаются отдельно.",
-        "zh": "该值对重复的角色或类型进行分类；稳定的设计实例和运行时数据身份保持分离。"
+        "zh": "该值表示重复元素共享的角色或类型；设计实例的稳定标识与运行时数据标识仍需分别定义。"
       }
     },
     {
@@ -648,7 +648,7 @@
       "notes": {
         "en": "Prefer the boolean form with a stable layer name. Outside an asset, [decor] belongs only on the exact intended absolute visual node and never exempts a container or GROUP from structural rules.",
         "ru": "Предпочитайте булеву форму со стабильным именем слоя. Вне ресурса [decor] ставится только на точный намеренный абсолютный визуальный узел и никогда не освобождает контейнер или GROUP от структурных правил.",
-        "zh": "更喜欢具有稳定层名称的布尔形式。在资产之外，[decor] 仅属于确切预期的绝对视觉节点，并且永远不会使容器或组免受结构规则的约束。"
+        "zh": "优先使用稳定图层名称和布尔形式。在资源边界外，[decor] 只能标在有明确意图的绝对定位视觉节点本身，不能使容器或 GROUP 免除结构检查。"
       }
     },
     {
@@ -674,7 +674,7 @@
       "notes": {
         "en": "Prefer the boolean form with a stable layer name. An asset is one opaque visual subtree whose root remains in the parent flow; [decor] and [asset] may be combined. Page roots cannot be assets.",
         "ru": "Предпочитайте булеву форму со стабильным именем слоя. Ресурс является одним непрозрачным визуальным поддеревом, чей корень остаётся в потоке родителя; [decor] и [asset] можно сочетать. Корень страницы не может быть ресурсом.",
-        "zh": "更喜欢具有稳定层名称的布尔形式。资产是一棵不透明的视觉子树，其根保留在父流中；[装饰]和[资产]可以组合。页面根不能是资产。"
+        "zh": "优先使用稳定图层名称和布尔形式。资源的子树作为一个整体视觉单元传递，不检查其内部；资源根仍参与父层布局。[decor] 和 [asset] 可以组合使用。页面根不能作为资源。"
       }
     },
     {
@@ -716,7 +716,7 @@
       "title": {
         "en": "Overflow policy",
         "ru": "Политика переполнения",
-        "zh": "溢出政策"
+        "zh": "溢出策略"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -742,7 +742,7 @@
       "title": {
         "en": "Maximum visible lines",
         "ru": "Максимум видимых строк",
-        "zh": "最大可见线数"
+        "zh": "最大可见行数"
       },
       "status": "stable",
       "authoredInLayerName": true,
@@ -791,7 +791,7 @@
       "notes": {
         "en": "Overlay may satisfy exact-node absolute positioning intent. Manual-layout documents a proposed structural deviation but does not suppress page, section, container, or GROUP errors.",
         "ru": "Overlay может подтвердить назначение точного абсолютного узла. Manual-layout документирует предлагаемое структурное отклонение, но не подавляет ошибки страницы, секции, контейнера или GROUP.",
-        "zh": "覆盖可以满足精确节点绝对定位意图。手动布局记录了建议的结构偏差，但不会抑制页面、部分、容器或组错误。"
+        "zh": "overlay 可以说明该节点的绝对定位意图。manual-layout 只记录拟议的结构偏离，不会消除页面、区块、容器或 GROUP 的错误。"
       }
     },
     {
@@ -955,7 +955,7 @@
       "notes": {
         "en": "Use the native TEXT node type and a stable layer name.",
         "ru": "Используйте нативный тип узла TEXT и стабильное имя слоя.",
-        "zh": "使用本机 TEXT 节点类型和稳定的层名称。"
+        "zh": "使用原生 TEXT 节点类型和稳定的图层名称。"
       }
     },
     {
@@ -981,7 +981,7 @@
       "notes": {
         "en": "Use native fills/export metadata and a stable layer name.",
         "ru": "Используйте нативные заливки или данные экспорта и стабильное имя слоя.",
-        "zh": "使用本机填充/导出元数据和稳定的图层名称。"
+        "zh": "使用原生填充或导出元数据，以及稳定的图层名称。"
       }
     },
     {
@@ -1033,7 +1033,7 @@
       "notes": {
         "en": "Use frames or components with native Auto Layout. GROUP is valid only inside an opaque [asset] subtree.",
         "ru": "Используйте фреймы или компоненты с нативным Auto Layout. GROUP допустим только внутри непрозрачного поддерева [asset].",
-        "zh": "使用具有本机自动布局的框架或组件。GROUP 仅在不透明的 [asset] 子树内有效。"
+        "zh": "使用带有原生 Auto Layout 的 FRAME 或 COMPONENT。GROUP 仅允许出现在不检查内部结构的 [asset] 子树中。"
       }
     },
     {
@@ -1059,7 +1059,7 @@
       "notes": {
         "en": "Use Auto Layout and constraints.",
         "ru": "Используйте Auto Layout и ограничения.",
-        "zh": "使用自动布局和约束。"
+        "zh": "使用原生 Auto Layout 和约束。"
       }
     },
     {
@@ -1142,7 +1142,7 @@
       "title": {
         "en": "Wrapper intent tag",
         "ru": "Тег назначения обёртки",
-        "zh": "包装层职责标签"
+        "zh": "容器用途标签"
       },
       "status": "deprecated",
       "authoredInLayerName": false,
@@ -1160,7 +1160,7 @@
       "notes": {
         "en": "Express wrapper purpose with Figma structure and stable naming.",
         "ru": "Выражайте назначение обёртки структурой Figma и стабильным именем.",
-        "zh": "通过 Figma 结构和稳定的命名来表达包装器的用途。"
+        "zh": "通过 Figma 结构和稳定名称表达容器（wrapper）的用途。"
       }
     },
     {
@@ -1186,7 +1186,7 @@
       "notes": {
         "en": "Use the stable layer/component name; use [item=...] only for an explicit repeated-item contract.",
         "ru": "Используйте стабильное имя слоя или компонента; [item=...] нужен только для явного контракта повторяемости.",
-        "zh": "使用稳定的层/组件名称；仅将 [item=...] 用于显式重复项目合同。"
+        "zh": "使用稳定的图层或组件名称；只有明确声明重复元素契约时才使用 [item=...]。"
       }
     }
   ]

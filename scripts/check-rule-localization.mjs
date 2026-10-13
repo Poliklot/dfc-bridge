@@ -3,27 +3,13 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const catalog = JSON.parse(readFileSync(`${root}/validator/rules.json`, 'utf8'));
-const localization = JSON.parse(readFileSync(`${root}/src/data/rules.ru.json`, 'utf8'));
 
 const issues = [];
 const catalogIds = catalog.rules.map((rule) => rule.id);
 const catalogIdSet = new Set(catalogIds);
-const localizedIds = Object.keys(localization);
 
 if (catalogIdSet.size !== catalogIds.length) {
   issues.push('validator/rules.json содержит повторяющиеся идентификаторы правил');
-}
-
-for (const id of catalogIds) {
-  if (!Object.hasOwn(localization, id)) {
-    issues.push(`${id}: отсутствует русская локализация`);
-  }
-}
-
-for (const id of localizedIds) {
-  if (!catalogIdSet.has(id)) {
-    issues.push(`${id}: лишняя локализация без соответствующего правила в каталоге`);
-  }
 }
 
 const stripCodeAndKnownNames = (value) =>
@@ -35,38 +21,72 @@ const stripCodeAndKnownNames = (value) =>
 const untranslatedPhrasePattern =
   /(?:\b[A-Za-z][A-Za-z-]{2,}\b(?:[\s,;:()—–-]+|$)){4,}/gu;
 
-for (const rule of catalog.rules) {
-  const entry = localization[rule.id];
-  if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
+// Same layer-tag grammar as check-validator-contracts.mjs. Compare literal
+// examples, not translated prose or the number/order of repeated mentions.
+const tagTokens = (value) =>
+  [...new Set(value.match(/\[[a-z][a-z0-9-]*(?:=[^\]\r\n]*)?\]/gu) || [])].sort();
 
-  const keys = Object.keys(entry).sort();
-  if (keys.join(',') !== 'description,fix,title') {
-    issues.push(`${rule.id}: ожидаются только поля title, description и fix`);
+for (const locale of ['ru', 'zh']) {
+  const source = `src/data/rules.${locale}.json`;
+  const localization = JSON.parse(readFileSync(`${root}/${source}`, 'utf8'));
+  if (!localization || typeof localization !== 'object' || Array.isArray(localization)) {
+    issues.push(`${source}: ожидается объект локализаций по идентификаторам правил`);
+    continue;
   }
 
-  for (const field of ['title', 'description', 'fix']) {
-    const value = entry[field];
-    const minimumLength = field === 'title' ? 5 : 20;
-    if (typeof value !== 'string' || value.trim().length < minimumLength) {
-      issues.push(`${rule.id}.${field}: перевод отсутствует или слишком короткий`);
+  for (const id of catalogIds) {
+    if (!Object.hasOwn(localization, id)) issues.push(`${source} ${id}: отсутствует локализация`);
+  }
+  for (const id of Object.keys(localization)) {
+    if (!catalogIdSet.has(id)) {
+      issues.push(`${source} ${id}: лишняя локализация без соответствующего правила в каталоге`);
+    }
+  }
+
+  for (const rule of catalog.rules) {
+    if (!Object.hasOwn(localization, rule.id)) continue;
+    const entry = localization[rule.id];
+    const label = `${source} ${rule.id}`;
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+      issues.push(`${label}: ожидается объект с полями title, description и fix`);
       continue;
     }
 
-    const minimumRussianLetters = field === 'title' ? 3 : 8;
-    if ((value.match(/[А-ЯЁа-яё]/gu) ?? []).length < minimumRussianLetters) {
-      issues.push(`${rule.id}.${field}: в переводе недостаточно русского текста`);
+    if (Object.keys(entry).sort().join(',') !== 'description,fix,title') {
+      issues.push(`${label}: ожидаются только поля title, description и fix`);
     }
 
-    if (field !== 'title' && value.trim() === rule[field].trim()) {
-      issues.push(`${rule.id}.${field}: вместо перевода скопирован английский оригинал`);
-    }
+    for (const field of ['title', 'description', 'fix']) {
+      const value = entry[field];
+      const minimumLength = locale === 'ru' ? (field === 'title' ? 5 : 20) : (field === 'title' ? 2 : 8);
+      if (typeof value !== 'string' || value.trim().length < minimumLength) {
+        issues.push(`${label}.${field}: перевод отсутствует или слишком короткий`);
+        continue;
+      }
 
-    const prose = stripCodeAndKnownNames(value);
-    const untranslated = prose.match(untranslatedPhrasePattern);
-    if (untranslated) {
-      issues.push(
-        `${rule.id}.${field}: проверьте непереведённый английский фрагмент «${untranslated[0].trim()}»`,
-      );
+      if (locale === 'ru') {
+        const minimumRussianLetters = field === 'title' ? 3 : 8;
+        if ((value.match(/[А-ЯЁа-яё]/gu) ?? []).length < minimumRussianLetters) {
+          issues.push(`${label}.${field}: в переводе недостаточно русского текста`);
+        }
+        const untranslated = stripCodeAndKnownNames(value).match(untranslatedPhrasePattern);
+        if (untranslated) {
+          issues.push(`${label}.${field}: проверьте непереведённый английский фрагмент «${untranslated[0].trim()}»`);
+        }
+      } else if ((value.match(/[\u3400-\u9fff]/gu) || []).length < 2) {
+        issues.push(`${label}.${field}: в переводе недостаточно китайского текста`);
+      }
+
+      if (field !== 'title') {
+        if (value.trim() === rule[field].trim()) {
+          issues.push(`${label}.${field}: вместо перевода скопирован английский оригинал`);
+        }
+        const expectedTags = tagTokens(rule[field]);
+        const actualTags = tagTokens(value);
+        if (JSON.stringify(actualTags) !== JSON.stringify(expectedTags)) {
+          issues.push(`${label}.${field}: буквальные теги должны совпадать с оригиналом; ожидаются ${JSON.stringify(expectedTags)}, получены ${JSON.stringify(actualTags)}`);
+        }
+      }
     }
   }
 }
@@ -77,4 +97,4 @@ if (issues.length > 0) {
   process.exit(1);
 }
 
-console.log(`Русская локализация правил проверена: ${catalogIds.length} из ${catalogIds.length}.`);
+console.log(`Локализации правил RU/ZH проверены: по ${catalogIds.length} из ${catalogIds.length}.`);

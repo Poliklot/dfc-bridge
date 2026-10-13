@@ -6,7 +6,7 @@ The review covers the source design, structured data, implementation, QA, open q
 
 ## Four review stages
 
-Run the same checklist at four stages:
+Revisit this checklist at each stage. First declare the scope and current gate, then collect the evidence that gate requires. A design-stage pass does not mark implementation or release checks as passed.
 
 | Gate | Required result |
 | --- | --- |
@@ -33,7 +33,7 @@ The affected scope cannot pass its gate when any of these applies:
 - a required action or link has no known destination, reaction, or reachable target;
 - runtime data meaning, provenance, key, format, state, or privacy behavior must be invented;
 - responsive topology differs without a complete declared transformation;
-- a page root or frame-built section has native Auto Layout disabled;
+- a page root or editable frame-built section has native Auto Layout disabled; only a legitimate opaque whole-visual `[asset]` section with no live content flow is exempt;
 - a generic Auto Layout-capable container with at least two visible meaningful flow children has Auto Layout disabled;
 - a Figma `GROUP` exists outside an opaque `[asset]` subtree; a documented manual-layout deviation does not suppress the blocker;
 - an essential task or content disappears in a breakpoint, capability, reduced-motion, RTL, offline, or failure context without a mapped alternative;

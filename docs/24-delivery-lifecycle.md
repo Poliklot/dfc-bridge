@@ -1,8 +1,8 @@
 # Delivery lifecycle
 
-DFC Bridge is complete only when intent remains traceable from design through release. The lifecycle is:
+Use this lifecycle once the transfer scope is chosen. At each stage, name an owner, pin the current revision, and link the evidence needed for the next decision:
 
-> **design → contract → implementation → QA → release or declared deviation**
+> **design → contract → implementation → QA → release**
 
 ![Lifecycle from design evidence through contract, implementation, QA, and managed deviation](../assets/diagrams/delivery-lifecycle.svg)
 
@@ -262,7 +262,7 @@ For a selected-section transfer, Ready from the source check satisfies only the 
 
 - [ ] Implemented behavior traces to the accepted contract.
 - [ ] Required exact, fluid, state, data, motion, and accessibility tests pass.
-- [ ] Every failure is fixed, blocked with an owner, or approved as a visible deviation.
+- [ ] Every failure in the release scope is fixed or approved as a visible deviation. An owned but unresolved blocker still prevents release of its affected scope.
 - [ ] Active deviations have mitigation and review dates.
 - [ ] Source, contract, code/build, and QA revisions are linked.
 - [ ] Runtime feedback has a route back to the canonical source.

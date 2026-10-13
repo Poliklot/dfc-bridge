@@ -1,6 +1,6 @@
 # DFC Bridge 示例
 
-当设计问题已经明确时，使用这些简短示例。每个示例只说明一个问题、一个修正和一个原因。先看前八个示例；数据、反应、动效和无障碍请查看进阶指南。
+当设计问题已经明确时，使用这些简短示例。每个示例只说明一个问题、一个修正和一个原因。选择与你当前任务相符的示例，不必按顺序阅读。
 
 [交付决策图解入门](../docs/25-visual-walkthrough.md)：团队疑问、决策原因与真实 Figma 截图。
 
@@ -87,7 +87,7 @@ contact-modal [modal=contact-modal]
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../../assets/tutorial/screenshots/assistant-layer-local.png" alt="本地助手：按钮、真实目标与定位操作" loading="lazy" width="906" height="1173" />
-<figcaption>本地助手：按钮、真实目标与定位操作。 本地开发版的真实截图，并非已发布界面。1 名称；2 目标；3 定位。 <a href="../../../assets/tutorial/screenshots/assistant-layer-local.png">查看原图</a>.</figcaption>
+<figcaption>本地助手：按钮、真实目标与定位操作。 本地开发版的真实截图，并非已发布界面。 <a href="../../../assets/tutorial/screenshots/assistant-layer-local.png">查看原图</a>.</figcaption>
 </figure>
 
 ## 6. 有意义的结构
@@ -105,7 +105,7 @@ hero
     contact-button
 ```
 
-每个包装层都应有实际作用：内容、布局、裁剪、背景或交互区域。详细规则请看[设计规则](../docs/01-design-rules.md)和[包装器规则](../docs/06-wrapper-policy.md)。
+每个容器都应有实际作用：内容、布局、裁剪、背景或交互区域。详细规则请看[设计规则](../docs/01-design-rules.md)和[容器规则](../docs/06-wrapper-policy.md)。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
 <img src="../../../assets/tutorial/diagrams/structure-zh.svg" alt="有意义的容器而不是随意分组" loading="lazy" width="481" height="691" />
@@ -149,20 +149,6 @@ campaign-illustration [asset]
 
 ## 如何使用示例目录
 
-找到与你的问题相同的示例，采用最小的适用写法，然后完成设计师清单。数据、反应、动效和无障碍请使用进阶指南，不要继续向图层名称中添加标签。
+找到与你的文件相符的问题，采用最小的适用写法，然后按[设计师清单](../docs/17-designer-checklist.md)检查选定的交付范围。
 
-> 非独立模块片段：这个 responsive 区块应放入完整的 `bridge` 契约中。
-
-```json
-{
-  "bridge": {
-    "responsive": {
-      "defaultPolicy": "same-tree",
-      "contexts": [
-        { "id": "home-wide", "driver": "viewport", "width": 1440 },
-        { "id": "home-narrow", "driver": "viewport", "width": 375 }
-      ]
-    }
-  }
-}
-```
+图层名称不能代替完整的行为说明。[数据](../docs/20-data-and-visualization.md)、[反应](../docs/22-state-machines-and-reactions.md)、[动效](../docs/21-motion-and-scroll.md)和[无障碍](../docs/23-accessibility-profile.md)决策应写入结构化[交付契约](../docs/04-transfer-contract.md)。从仓库中可验证的 `validator/examples/bridge-contract.valid.json` 文件开始。文章中的说明性示例和单个模块片段并不构成完整交付。

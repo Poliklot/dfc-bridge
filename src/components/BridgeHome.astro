@@ -11,20 +11,21 @@ const copy = locale === 'ru'
   ? {
       eyebrow: 'Методология передачи макета',
       title: 'Макет, который можно понять без созвона.',
-      lead: 'DFC Bridge помогает показать структуру страницы, адаптивы, действия и состояния прямо в Figma — до начала разработки.',
+      lead: 'DFC Bridge помогает записать в макете, что это за страница, какие элементы повторяются на разных ширинах и что делают кнопки. Разработчику не приходится угадывать.',
       primary: 'Подготовить макет',
       secondary: 'Проверить в Figma',
       mapTitle: 'Карта макета',
-      mapReady: 'Готов к передаче',
+      mapReady: 'Связи объявлены',
       mapFrames: 'Адаптивы',
       mapAction: 'Действие',
       mapNote: 'Одна страница, два адаптива и связанное модальное окно.',
       compareEyebrow: 'Один макет — одна понятная структура',
       compareTitle: 'Что меняется после DFC Bridge',
+      compareIntro: 'Например, кнопка «Связаться» на двух ширинах должна открывать одно и то же окно. Одинаковые имена помогают узнать элементы. Записи в квадратных скобках уточняют их смысл — это метки в именах слоёв, не код.',
       without: 'Без DFC Bridge',
       with: 'С DFC Bridge',
       withoutNote: 'Названия показывают внешний вид, но не объясняют связи и действия.',
-      withNote: 'Страница, элементы и цель действия читаются по файлу.',
+      withNote: 'Видно, какие макеты относятся к одной странице и какое окно должна открыть кнопка. Теги сами не создают раскладку или работающее поведение.',
       beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
       afterTree: [
         'home [page=home] [bp=1440] [view=default]',
@@ -42,9 +43,9 @@ const copy = locale === 'ru'
       stepsEyebrow: 'Как начать',
       stepsTitle: 'Три действия до передачи',
       steps: [
-        ['01', 'Покажите структуру', 'Свяжите элементы и подготовьте нужные ширины.'],
-        ['02', 'Назовите смысл', 'Дайте стабильные имена и укажите ссылки, действия и состояния.'],
-        ['03', 'Проверьте файл', 'Попросите другого человека понять макет без устных пояснений.'],
+        ['01', 'Выберите часть макета', 'Начните с одной страницы или новой секции и её нужных ширин.'],
+        ['02', 'Запишите недостающие решения', 'Сохраните имена тех же элементов. Укажите, куда ведут ссылки и что делают кнопки.'],
+        ['03', 'Проверьте понятность', 'Попросите коллегу найти эти элементы и их цели. Если пришлось объяснять устно — дополните файл.'],
       ],
       pathsEyebrow: 'Выберите следующий шаг',
       paths: [
@@ -57,7 +58,7 @@ const copy = locale === 'ru'
       outcomes: [
         ['Дизайнер', 'Видит пропуски до передачи макета.'],
         ['Разработчик', 'Находит нужный слой, действие и состояние.'],
-        ['Команда', 'Использует один понятный критерий готовности.'],
+        ['Команда', 'Отличает принятые решения от открытых вопросов.'],
       ],
       finalTitle: 'Начните с одной страницы.',
       finalText: 'Не нужно переносить весь архив. Возьмите реальный файл, подготовьте его по быстрому старту и проверьте передачу без автора.',
@@ -67,20 +68,21 @@ const copy = locale === 'ru'
     ? {
       eyebrow: '设计交付方法论',
       title: '无需会议也能看懂的设计。',
-      lead: 'DFC Bridge 帮助你在 Figma 中写清页面结构、响应式、动作和状态，并在开发前完成检查。',
+      lead: 'DFC Bridge 帮你在设计中写清：这是哪个页面、哪些元素在不同宽度下是同一个、按钮要做什么。开发者不必猜测。',
       primary: '准备设计',
       secondary: '在 Figma 中检查',
       mapTitle: '设计地图',
-      mapReady: '可以交付',
+      mapReady: '已声明关系',
       mapFrames: '响应式',
       mapAction: '动作',
       mapNote: '一个页面、两个响应式版本和一个关联模态框。',
       compareEyebrow: '一份设计 — 一套清晰结构',
       compareTitle: '使用 DFC Bridge 后有什么不同',
+      compareIntro: '例如，两个宽度下的“联系”按钮都应打开同一个弹窗。相同名称帮助识别对应元素。方括号中的内容补充其含义：它们是图层名称中的标签，不是代码。',
       without: '未使用 DFC Bridge',
       with: '使用 DFC Bridge',
       withoutNote: '名称描述外观，却没有说明关系和动作。',
-      withNote: '页面、元素和动作目标都能直接从文件中读懂。',
+      withNote: '可以看出哪些设计属于同一页面，以及按钮应打开哪个弹窗。标签本身不会创建布局或可运行的行为。',
       beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
       afterTree: [
         'home [page=home] [bp=1440] [view=default]',
@@ -98,9 +100,9 @@ const copy = locale === 'ru'
       stepsEyebrow: '如何开始',
       stepsTitle: '交付前的三个动作',
       steps: [
-        ['01', '展示结构', '连接相关元素并准备需要的宽度。'],
-        ['02', '说明含义', '使用稳定名称，写清链接、动作和状态。'],
-        ['03', '检查文件', '请不了解设计的人独立读懂文件。'],
+        ['01', '选定设计范围', '从一个页面或新区块及其所需宽度开始。'],
+        ['02', '补充缺少的决定', '同一元素保留同一名称。写清链接去哪、按钮做什么。'],
+        ['03', '检查能否看懂', '请同事找到这些元素及其目标。需要口头解释的地方，就补进文件。'],
       ],
       pathsEyebrow: '选择下一步',
       paths: [
@@ -113,7 +115,7 @@ const copy = locale === 'ru'
       outcomes: [
         ['设计师', '在交付前发现缺失信息。'],
         ['开发', '直接找到图层、动作和状态。'],
-        ['团队', '使用统一而清晰的完成标准。'],
+        ['团队', '区分已确定的决定与未决问题。'],
       ],
       finalTitle: '从一个真实页面开始。',
       finalText: '不需要迁移整个存档。选一份真实文件，按快速起步准备，再让作者以外的人独立完成检查。',
@@ -122,20 +124,21 @@ const copy = locale === 'ru'
   : {
       eyebrow: 'Design handoff methodology',
       title: 'A design file people can understand without a call.',
-      lead: 'DFC Bridge makes page structure, responsive behavior, actions, and states clear in Figma before implementation starts.',
+      lead: 'DFC Bridge helps record which page a design shows, which elements are the same across widths, and what buttons do. Developers do not have to guess.',
       primary: 'Prepare a design',
       secondary: 'Check in Figma',
       mapTitle: 'Design map',
-      mapReady: 'Ready to hand off',
-      mapFrames: 'Responsive views',
+      mapReady: 'Connections declared',
+      mapFrames: 'Prepared widths',
       mapAction: 'Action',
-      mapNote: 'One page, two responsive views, and a connected modal.',
+      mapNote: 'One page at two prepared widths, with a connected modal.',
       compareEyebrow: 'One design — one clear structure',
       compareTitle: 'What changes with DFC Bridge',
+      compareIntro: 'For example, the Contact button at both widths should open the same modal. Matching names help identify the same elements. Square brackets add their meaning: these are tags in layer names, not code.',
       without: 'Without DFC Bridge',
       with: 'With DFC Bridge',
       withoutNote: 'Names describe appearance, but not relationships or actions.',
-      withNote: 'The page, its elements, and action targets can be read from the file.',
+      withNote: 'You can tell which designs belong to one page and which modal the button should open. Tags do not create layout or working behavior.',
       beforeTree: ['desktop', '  frame-42', '    heading', '    button', '', 'mobile-final-2', '  group-91', '    title'],
       afterTree: [
         'home [page=home] [bp=1440] [view=default]',
@@ -153,9 +156,9 @@ const copy = locale === 'ru'
       stepsEyebrow: 'How to start',
       stepsTitle: 'Three actions before handoff',
       steps: [
-        ['01', 'Show the structure', 'Connect related elements and prepare the needed widths.'],
-        ['02', 'Declare the meaning', 'Use stable names and describe links, actions, and states.'],
-        ['03', 'Check the file', 'Ask someone else to understand the design without a private explanation.'],
+        ['01', 'Choose a design scope', 'Start with one page or new section and the widths it needs.'],
+        ['02', 'Record missing decisions', 'Keep the same names for the same elements. State where links lead and what buttons do.'],
+        ['03', 'Check understanding', 'Ask a teammate to find those elements and their targets. Add any missing explanation to the file.'],
       ],
       pathsEyebrow: 'Choose the next step',
       paths: [
@@ -168,7 +171,7 @@ const copy = locale === 'ru'
       outcomes: [
         ['Designer', 'Finds missing information before handoff.'],
         ['Developer', 'Finds the exact layer, action, and state.'],
-        ['Team', 'Uses one clear definition of ready.'],
+        ['Team', 'Distinguishes agreed decisions from open questions.'],
       ],
       finalTitle: 'Start with one page.',
       finalText: 'You do not need to migrate the archive. Take a real file, follow the quick start, and test the handoff without the author.',
@@ -232,6 +235,7 @@ const copy = locale === 'ru'
   <section class="bridge-section bridge-home-compare" aria-labelledby="compare-title">
     <p class="bridge-eyebrow">{copy.compareEyebrow}</p>
     <h2 id="compare-title">{copy.compareTitle}</h2>
+    <p>{copy.compareIntro}</p>
     <div class="bridge-compare-grid">
       <article class="bridge-compare-card">
         <header><span>01</span><h3>{copy.without}</h3></header>

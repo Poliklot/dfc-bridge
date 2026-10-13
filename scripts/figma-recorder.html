@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Native Figma recorder</title>
+<style>
+:root{font:16px/1.5 system-ui,sans-serif;color:#20333d;background:#edf2f5;color-scheme:light}body{margin:0;padding:40px 24px}main{max-width:900px;margin:auto}h1{font-size:30px;margin:0 0 8px}p{margin:8px 0}.controls{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}button,a.button{font:inherit;font-weight:600;border:1px solid #6c7d86;border-radius:8px;padding:12px 22px;background:#fff;color:inherit;text-decoration:none;cursor:pointer}#start{background:#117e91;border-color:#117e91;color:#fff}button:disabled{opacity:.4;cursor:default}button:focus-visible,a:focus-visible{outline:3px solid #117e91;outline-offset:4px}#status{font-weight:600;min-height:24px}#details{white-space:pre-wrap;font:14px/1.65 ui-monospace,monospace;background:#fff;padding:16px;border:1px solid #cad3d8;border-radius:8px;min-height:130px}video{display:block;width:100%;max-height:380px;object-fit:contain;background:#162028;margin-top:20px;border-radius:8px}.note{color:#52656f;font-size:14px}#download{display:none}#error{color:#a6222d;white-space:pre-wrap}
+</style>
+<main>
+<h1>Native Figma recorder</h1>
+<p>Start, select only the disposable teaching Figma window, then work in Figma. Return here to Stop and save both files. Clear only after checking the downloads, then Start the next take.</p>
+<p class="note">Local only. Video only, no microphone or system audio. Native cursor requested. Recording starts immediately after you select a surface.</p>
+<div class="controls"><button id="start" type="button">Start</button><button id="stop" type="button" disabled>Stop</button><button id="save" type="button" disabled>Save WebM</button><button id="metadata" type="button" disabled>Save capture metadata</button><button id="clear" type="button" disabled>Clear</button></div>
+<p id="status" role="status" aria-live="polite">Ready. Nothing is being captured.</p>
+<pre id="details">Target: 30 fps; cursor: always requested
+Audio: none
+Capture permissions require your explicit selection.</pre>
+<p id="error" role="alert"></p><a id="download" class="button">Download recording</a>
+<video id="preview" muted playsinline autoplay></video>
+<p class="note">Save uses a local browser download. If it does not open automatically, use the download link above. This page never uploads the recording.</p>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let stream=null, recorder=null, chunks=[], blob=null, url=null, startedAt=0, stoppedAt=0, ticker=null, settings={}, label='', filename='', state='ready', recordingError='';
+function status(text){$('status').textContent=text}
+function controls(){const busy=['choosing','recording','stopping'].includes(state);$('start').disabled=busy||!!blob;$('stop').disabled=state!=='recording';$('save').disabled=busy||!blob;$('clear').disabled=busy||!blob;$('metadata').disabled=busy||!blob}
+function details(){
+ const duration=startedAt?((stoppedAt||performance.now())-startedAt)/1000:0;
+ $('details').textContent=[
+  'Surface: '+(label||'not selected'),
+  'Dimensions: '+(settings.width&&settings.height?settings.width+' × '+settings.height:'not available'),
+  'Reported frame rate: '+(settings.frameRate||'not reported')+' fps (requested 30)',
+  'Cursor: '+(settings.cursor||'browser did not report setting')+' (requested always)',
+  'Audio tracks: '+(stream?stream.getAudioTracks().length:0),
+  'Duration: '+duration.toFixed(1)+' s',
+  'Format: '+(recorder?.mimeType||'not started'),
+  'Size: '+(blob?(blob.size/1024/1024).toFixed(2)+' MiB':'recording chunks: '+chunks.length),
+  'File: '+(filename||'not saved yet')
+ ].join('\n');
+}
+function release(){stream?.getTracks().forEach(track=>track.stop())}
+function clear(){
+ if(['choosing','recording','stopping'].includes(state))return;
+ if(url)URL.revokeObjectURL(url);url=null;blob=null;chunks=[];recorder=null;stream=null;startedAt=stoppedAt=0;settings={};label=filename=recordingError='';
+ $('preview').srcObject=null;$('preview').removeAttribute('src');$('preview').controls=false;$('download').style.display='none';$('download').removeAttribute('href');$('error').textContent='';
+ state='ready';status('Ready. Nothing is being captured.');controls();details();
+}
+function stop(){
+ if(state!=='recording')return;
+ state='stopping';stoppedAt=performance.now();clearInterval(ticker);ticker=null;status('Stopping. Finalizing the real screen recording…');controls();details();
+ if(recorder?.state!=='inactive')recorder.stop();release();
+}
+$('start').addEventListener('click',async()=>{
+ if(blob||['choosing','recording','stopping'].includes(state))return;
+ $('error').textContent='';recordingError='';state='choosing';status('Choose only the teaching Figma window in the browser picker.');controls();
+ try{
+  if(!navigator.mediaDevices?.getDisplayMedia||!window.MediaRecorder)throw new Error('This browser does not support native screen capture and MediaRecorder.');
+  stream=await navigator.mediaDevices.getDisplayMedia({video:{displaySurface:'window',frameRate:{ideal:30,max:30},cursor:'always'},audio:false,selfBrowserSurface:'exclude',systemAudio:'exclude',surfaceSwitching:'exclude'});
+  if(stream.getAudioTracks().length)throw new Error('Unexpected audio track. Recording cancelled.');
+  const track=stream.getVideoTracks()[0];if(!track)throw new Error('No video track returned.');
+  track.contentHint='detail';settings=track.getSettings();label=track.label;
+  if(settings.displaySurface!=='window')throw new Error('Only a window is allowed. Entire screens and browser tabs are rejected. Choose the teaching Figma window.');
+  const mimeType=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(type=>MediaRecorder.isTypeSupported(type));
+  if(!mimeType)throw new Error('This browser cannot encode WebM.');
+  recorder=new MediaRecorder(stream,{mimeType,videoBitsPerSecond:30000000});
+  recorder.addEventListener('dataavailable',event=>{if(event.data.size)chunks.push(event.data)});
+  recorder.addEventListener('error',event=>{recordingError=event.error?.message||'Recorder error.';$('error').textContent=recordingError;stop()});
+  recorder.addEventListener('stop',()=>{
+   stoppedAt||=performance.now();clearInterval(ticker);ticker=null;release();blob=new Blob(chunks,{type:recorder.mimeType});
+   if(!blob.size){blob=null;$('preview').srcObject=null;state='error';status('No recording data returned. Retry Start.');controls();details();return}
+   url=URL.createObjectURL(blob);filename='dfc-native-'+new Date().toISOString().replace(/[:.]/g,'-')+'.webm';
+   $('preview').srcObject=null;$('preview').src=url;$('preview').autoplay=false;$('preview').controls=true;
+   $('download').href=url;$('download').download=filename;$('download').textContent='Download '+filename;$('download').style.display='inline-block';
+   state='stopped';status(recordingError?'Stopped with a recorder error. Data may be incomplete; inspect it before use.':'Stopped. Save both files and check downloads before Clear and the next take.');controls();details();
+  });
+  track.addEventListener('ended',stop,{once:true});$('preview').srcObject=stream;$('preview').controls=false;$('preview').autoplay=true;$('preview').play().catch(()=>{});
+  chunks=[];startedAt=performance.now();stoppedAt=0;recorder.start(1000);state='recording';status('Recording the selected surface. Work in Figma, then return here and press Stop.');controls();details();ticker=setInterval(details,250);
+ }catch(error){release();stream=null;clearInterval(ticker);ticker=null;$('preview').srcObject=null;state='error';$('error').textContent=error.name+': '+error.message;status('Not recording. You can retry Start.');controls();details()}
+});
+$('stop').addEventListener('click',stop);
+$('save').addEventListener('click',()=>{if(blob){$('download').click();status('Save requested. Check browser downloads; the recording remains available here.')}});
+$('metadata').addEventListener('click',async()=>{
+ if(!blob)return;
+ // Snapshot before awaiting a large recording's hash: Clear/Start must never
+ // combine the previous recording's digest with the next recording's fields.
+ const capture=blob;
+ const metadata={schemaVersion:1,file:filename,surface:label,settings:{...settings},mimeType:capture.type,bytes:capture.size,durationSeconds:(stoppedAt-startedAt)/1000,audioTracks:0,recorderError:recordingError||null,clock:'performance.now; duration from recorder.start to stop request, not an event timeline',cursor:'Requested always; inspect actual video. This setting does not prove an action-following cursor.'};
+ try{
+  const digest=await crypto.subtle.digest('SHA-256',await capture.arrayBuffer());
+  metadata.sha256=Array.from(new Uint8Array(digest),n=>n.toString(16).padStart(2,'0')).join('');
+  const metadataUrl=URL.createObjectURL(new Blob([JSON.stringify(metadata,null,2)+'\n'],{type:'application/json'}));
+  const a=document.createElement('a');a.href=metadataUrl;a.download=metadata.file.replace(/\.webm$/u,'.json');a.click();setTimeout(()=>URL.revokeObjectURL(metadataUrl),1000);
+ }catch(error){$('error').textContent='Metadata could not be saved: '+error.message}
+});
+$('clear').addEventListener('click',clear);
+window.addEventListener('beforeunload',event=>{
+ if(blob||['choosing','recording','stopping'].includes(state)){event.preventDefault();event.returnValue=''}
+});
+// A cancelled navigation must not stop the capture. Release only on departure.
+window.addEventListener('pagehide',()=>{if(recorder?.state==='recording')recorder.stop();release()});
+</script>
+</html>

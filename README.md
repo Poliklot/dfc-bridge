@@ -8,20 +8,13 @@
 
 ## Design Frontend Contract
 
-**Designs that can cross the gap.**
+**Prepare a design so the file answers the developer's questions.**
 
-DFC Bridge is a target-independent methodology for making interface designs transferable: from Figma or any other design source into code, design systems, no-code tools, internal editors, or AI-assisted implementation pipelines.
+DFC Bridge is a method for making a design understandable before implementation. A developer or AI should be able to tell which screens belong together, which layers are the same element, and what each control does—without guessing from appearance.
 
-![DFC Bridge covers the blind spots between design evidence, structured intent, implementation, and QA](assets/diagrams/dfc-bridge-coverage-map.svg)
-
-**No blind spots** does not mean every answer is known immediately. It means every relevant unknown is explicit, scoped, owned, assigned a blocking status and review point, and given a safe fallback.
-
-Languages: [English](README.md) · [Русский](README.ru.md)
+Languages: [English](README.md) · [Русский](README.ru.md) · [中文快速入门](docs/zh/00-designer-quick-start.md)
 
 **Documentation site:** [poliklot.github.io/dfc-bridge](https://poliklot.github.io/dfc-bridge/)
-
-> **DFC Bridge is not a tool and not a platform adapter.**
-> DFC Bridge is the contract that makes a design understandable before anyone tries to implement it.
 
 ## Where to start
 
@@ -30,72 +23,59 @@ Do not read the documentation front to back. Choose your task:
 | I want to… | Start here | Then use |
 | --- | --- | --- |
 | prepare a design for the first time | **[Designer quick start](docs/00-designer-quick-start.md)** | [DFC Bridge by example](examples/README.md) |
-| review a design before handoff | **[Preflight checklist](docs/08-preflight-checklist.md)** | [Common designer mistakes](docs/09-common-designer-mistakes.md) |
+| review a design before handoff | **[Designer checklist](docs/17-designer-checklist.md)** | [Full preflight review](docs/08-preflight-checklist.md) |
 | resolve one specific question | **[Example catalog](examples/README.md)** | [Tag grammar](docs/13-tag-grammar.md) |
 | build a validator or adapter | **[Transfer contract](docs/04-transfer-contract.md)** | [Validation and autochecks](docs/11-validation-and-autochecks.md) |
 
 > **Recommended designer path:** quick start → matching example → checklist. The full specification is reference material, not a prerequisite.
 
-## The name
+## Minimal example
 
-**DFC Bridge — Design Frontend Contract** is the public name. “Bridge” stays the natural spoken shorthand: the design becomes a bridge between intention and implementation. Product names are **DFC Bridge Assistant** and **DFC Bridge Explorer**; technical slugs use `dfc-bridge` and `dfc-bridge-*`.
-
-The six principles retain the Bridge mnemonic:
-
-| Letter | Principle | Rule |
-| --- | --- | --- |
-| **B** | **Breakpoints** | Responsive states are explicit and comparable as one logical tree. |
-| **R** | **Roles** | A layer role is clear from Figma structure, UI Kit metadata, or a required DFC Bridge intent tag. |
-| **I** | **Identity** | Logical elements keep stable keys and tree positions across breakpoints. |
-| **D** | **Dependencies** | Links, modals, states, anchors, and actions are declared. |
-| **G** | **Geometry** | Position, size, spacing, and text metrics are reproducible. |
-| **E** | **Exceptions** | Assets, fixed heights, overflow, decor, and non-standard behavior are intentional. |
-
-## Brand vocabulary
-
-Use the name consistently:
-
-- **DFC Bridge-ready design** — a design that can be transferred without guessing.
-- **DFC Bridge Contract** — the structured data expected from the design.
-- **DFC Bridge Preflight** — the checklist before handoff.
-- **DFC Bridge Adapter** — a target-specific implementation layer.
-- **DFC Bridge Linter** — a future validator for design mistakes.
-- **DFC Bridge Exception** — an intentional deviation with an explicit reason.
-
-The visual mark follows the same contract: six stable modules stand for the six DFC Bridge principles and form one transferable identity. See the [brand system](docs/brand-system.md) for meaning, colors, clear space, and source assets.
-
-Short formula:
+The “Contact” button appears on a wide and a narrow version of the home page. Give it the same stable name and the same real modal target in both. These are Figma layer names; the parts in square brackets are tags, not visible button text:
 
 ```text
-DFC Bridge-ready = stable identity + declared behavior/data/accessibility + tracked unknowns and deviations
+home [page=home] [route=/] [bp=1440] [view=default]
+  hero [section=home-hero]
+    contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
+
+home [page=home] [route=/] [bp=375] [view=default]
+  hero [section=home-hero]
+    contact-button [action=modal:contact-modal]
+  contact-modal [modal=contact-modal]
 ```
 
-## Why DFC Bridge exists
-
-A design that should be transferred by humans, AI agents, or deterministic tools must be authored as a system, not as a visual sketch.
-
-DFC Bridge is not tied to any specific platform. It does not prescribe a particular framework, CMS, visual editor, runtime, or design-to-code tool. Target adapters may map the same contract to HTML/CSS, React, Vue, mobile UI, internal tools, or any other implementation surface.
+Now the reader can see that `contact-button` is the same control at both widths and should open `contact-modal`. Figma still holds the actual layout. The action tag declares the intended behavior; it does not wire up a prototype or implement the modal. This tree is a naming excerpt, not a complete handoff: modal states, closing behavior, and layout still need to be prepared and checked.
 
 ## Core idea
 
-DFC Bridge separates two things:
+Use the information where it belongs:
 
-1. **Figma metadata** — the technical truth of the design: node type, Auto Layout, hierarchy, constraints, positioning, component source, variants.
-2. **DFC Bridge intent tags** — product meaning Figma does not know by itself: page, route, section, link, action, field, modal, state, decor, asset, exception.
+1. **Build the real structure in Figma.** Use its hierarchy, Auto Layout, components, variants, and layout settings. Do not copy these native properties into hand-written metadata.
+2. **Use stable names and short tags for meaning.** Names connect the same element across widths. Tags identify a page or section, a link destination, an action, a state, or an intentional exception.
+3. **Add structured `bridge` metadata when short tags are not enough.** For example, describe a data schema, conditional behavior, accessibility requirements, or a different mobile composition here—not in a growing layer name. This is also where open questions and delivery evidence are recorded.
 
-Rich data schemas, responsive transformations, state machines, motion timelines, accessibility requirements, target capabilities, questions, and delivery evidence live in the structured `bridge` contract—not in dozens of flat layer tags. Same logical tree remains the responsive default; a different composition requires an explicit mapping.
+By default, the same element keeps its key and logical parent across prepared widths. If the composition changes, declare the mapping rather than silently replacing the tree. Record unresolved decisions instead of inventing answers.
 
-Designers do not duplicate technical properties by hand. They build proper structure in Figma and use tags only for transferable intent.
+## Why DFC Bridge exists
 
-No accidental free-floating layers. No mystery buttons. No responsive versions that silently change content meaning or rebuild the element tree.
+A picture shows how an interface looks. It does not reliably say whether two buttons are the same control, whether a mobile layout changes the content, or what should happen after a click. DFC Bridge makes those decisions explicit so another person or tool can implement and check them.
+
+DFC Bridge is not tied to any specific platform. It does not prescribe a particular framework, CMS, visual editor, runtime, or design-to-code tool. Target adapters may map the same contract to HTML/CSS, React, Vue, mobile UI, internal tools, or any other implementation surface.
+
+![DFC Bridge covers the blind spots between design evidence, structured intent, implementation, and QA](assets/diagrams/dfc-bridge-coverage-map.svg)
+
+**No blind spots** does not mean every answer is known immediately. It means every relevant unknown is explicit, scoped, owned, assigned a blocking status and review point, and given a safe fallback.
 
 ## Full documentation
 
 ### Practice
 
+- [Visual introduction: why handoff decisions matter](docs/25-visual-walkthrough.md)
 - [Designer quick start](docs/00-designer-quick-start.md)
 - [DFC Bridge by example](examples/README.md)
-- [Preflight checklist](docs/08-preflight-checklist.md)
+- [Designer checklist](docs/17-designer-checklist.md)
+- [Full preflight review](docs/08-preflight-checklist.md)
 - [Common designer mistakes](docs/09-common-designer-mistakes.md)
 - [Hard cases and edge cases](docs/10-hard-cases-and-edge-cases.md)
 
@@ -115,6 +95,8 @@ No accidental free-floating layers. No mystery buttons. No responsive versions t
 
 ### Reference and tooling
 
+- [Terminology](docs/18-terminology.md)
+- [Team adoption](docs/19-team-adoption.md)
 - [Tag grammar](docs/13-tag-grammar.md)
 - [Transfer contract](docs/04-transfer-contract.md)
 - [Variation axes](docs/16-variation-axes.md)
@@ -127,7 +109,9 @@ No accidental free-floating layers. No mystery buttons. No responsive versions t
 
 ## Tooling
 
-[DFC Bridge Assistant](https://www.figma.com/community/plugin/1654485530503673254) is the companion Figma plugin. Its installable build is public in Figma Community, while its implementation repository is private. The methodology, documentation, schemas, checklists, and rule catalog in this repository remain open under MIT.
+DFC Bridge is a methodology, not a tool or a platform adapter. You can apply it without a plugin.
+
+[DFC Bridge Assistant](https://www.figma.com/community/plugin/1654485530503673254) is the optional companion Figma plugin. Its installable build is public in Figma Community, while its implementation repository is private. The methodology, documentation, schemas, checklists, and rule catalog in this repository remain open under MIT.
 
 The catalog contains **107 rules**. Public coverage snapshots record two exact, non-additive emitted-rule unions: Page Check covers **42** (40 automatic and 2 heuristic), while **Check selected section** covers **26** (24 automatic and 2 heuristic; 20 local and 6 selected-variant). Both include the blocking source-structure rules; structured and manual coverage remains explicit.
 
@@ -150,28 +134,41 @@ npm run test:e2e
 npm audit
 ```
 
-Canonical content lives in `docs/`, `docs/ru/`, and `examples/`. Do not edit generated files under `src/content/docs/en/` or `src/content/docs/ru/`; `npm run content:sync` recreates them from [`validator/site-content.json`](validator/site-content.json). Use `SITE_BASE=/ npm run build` when testing a root-hosted build.
+Canonical EN/RU/ZH content lives in `docs/`, `docs/ru/`, `docs/zh/`, and `examples/`. Do not edit generated files under `src/content/docs/`; `npm run content:sync` recreates them from [`validator/site-content.json`](validator/site-content.json). Use `SITE_BASE=/ npm run build` when testing a root-hosted build.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contract-change rules and the complete review flow, and [CHANGELOG.md](CHANGELOG.md) for public methodology releases.
 
-## Minimal example
+## The name
 
-```text
-Home Page [page=home] [route=/] [bp=1200] [view=default]
-  Hero [section=home-hero]
-    hero-bg [decor]
+**Designs that can cross the gap.**
 
-    hero-copy
-      hero-title
-      hero-subtitle
+**DFC Bridge — Design Frontend Contract** is the public name. “Bridge” stays the natural spoken shorthand: the design becomes a bridge between intention and implementation. Product names are **DFC Bridge Assistant** and **DFC Bridge Explorer**; technical slugs use `dfc-bridge` and `dfc-bridge-*`.
 
-    button-group
-      email-link [href=mailto:sales@example.com]
-      contact-cta [action=modal:contact-modal]
+The six principles retain the Bridge mnemonic:
 
-Contact Modal [modal=contact-modal]
-  contact-modal-content
-```
+| Letter | Principle | Rule |
+| --- | --- | --- |
+| **B** | **Breakpoints** | Responsive states are explicit and comparable as one logical tree. |
+| **R** | **Roles** | A layer role is clear from Figma structure, UI Kit metadata, or a required DFC Bridge intent tag. |
+| **I** | **Identity** | Logical elements keep stable keys and parents by default; composition changes need an explicit mapping. |
+| **D** | **Dependencies** | Links, modals, states, anchors, and actions are declared. |
+| **G** | **Geometry** | Position, size, spacing, and text metrics are reproducible. |
+| **E** | **Exceptions** | Assets, fixed heights, overflow, decor, and non-standard behavior are intentional. |
+
+## Brand vocabulary
+
+Use the name consistently:
+
+- **DFC Bridge-ready design** — a design that can be transferred without guessing.
+- **DFC Bridge Contract** — the structured data expected from the design.
+- **DFC Bridge Preflight** — the checklist before handoff.
+- **DFC Bridge Adapter** — a target-specific implementation layer.
+- **DFC Bridge Linter** — a future validator for design mistakes.
+- **DFC Bridge Exception** — an intentional deviation with an explicit reason.
+
+The visual mark follows the same contract: six stable modules stand for the six DFC Bridge principles and form one transferable identity. See the [brand system](docs/brand-system.md) for meaning, colors, clear space, and source assets.
+
+Before handoff, the decisions that apply to the design must be easy to find and check. Record unresolved questions with an owner instead of hiding them. A clean design check does not prove that the implementation works.
 
 ## License
 

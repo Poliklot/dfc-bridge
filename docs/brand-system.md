@@ -6,7 +6,7 @@
   <img alt="DFC Bridge" src="../assets/brand/dfc-bridge-lockup-light.svg" width="420">
 </picture>
 
-The identity is part of the methodology’s language, not a separate decorative layer.
+Use this page when naming a DFC Bridge product or choosing its mark for a site, diagram, or release. Keep the public identity consistent without renaming the stable identifiers used by the transfer contract.
 
 ## Naming
 

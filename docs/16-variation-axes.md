@@ -1,6 +1,6 @@
 # Variation axes
 
-DFC Bridge separates the reasons a design changes. One axis must not hide the effect of another.
+Two frames can differ because the screen is narrower, the language changed, or the data has not loaded. Identify the reason before comparing them. DFC Bridge calls each independent reason an **axis**; width must not silently explain a change in content or behavior.
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
@@ -14,7 +14,7 @@ The [visual introduction](25-visual-walkthrough.md) shows why these decisions ma
 
 > A breakpoint is the same logical tree in another layout by default. A different composition requires a declared responsive transformation; width alone never explains it.
 
-Content changes require a content-bearing axis. Topology that changes only to preserve responsive usability requires a mapped transformation. Neither may appear as unexplained drift between roots.
+If the text changes, name the product reason, such as locale or an approved experiment. If the parent or composition changes for responsive usability, declare how the old structure maps to the new one. Neither change may remain unexplained between roots.
 
 ## Canonical axes
 

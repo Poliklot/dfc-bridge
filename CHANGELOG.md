@@ -2,6 +2,34 @@
 
 All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
 
+## [0.11.7] — 2026-10-13
+
+### Changed
+
+- Simplified the homepage, quick starts, and repository introductions around a familiar design decision before introducing tags or the full contract, consistently across English, Russian, and Chinese.
+- Reviewed the 84 localized authored pages and corrected task order, prerequisites, examples, next steps, and translation errors where needed. Clarified page versus selected-section scope and the distinction between source checks, implementation QA, and delivery readiness.
+- Reworked seven tutorial scenarios in all three locales using continuous native Figma recordings at original speed: four operations were re-recorded on 13 October; three retain their 12 October sources and are not presented as newly captured or newly certified against the recording-hold standard.
+- Reframed and localized MP4/GIF/poster outputs, added three lossless detail crops, and extended the media viewer with video zoom so native interface details can be inspected on narrow screens.
+
+### Added
+
+- A canonical media-production runbook with exact selection and recording steps, provenance, readability checks, and rejection criteria; a shared editorial review sequence for future documentation changes.
+- Recorder, provenance, media-integrity, and browser regression checks; stricter three-locale contract-example and literal-tag checks to catch translated syntax and incomplete localized rule records.
+
+### Security
+
+- Updated transitive `http-cache-semantics` to 4.3.0 and scoped `postcss-nested@6.2.0` to patched `postcss-selector-parser@7.1.6`, addressing GHSA-ch52-4w7c-c8xp and GHSA-rj75-hqrm-r3gf without downgrading Starlight. The parser override passes all 69 upstream nesting tests; dependency audit reports zero vulnerabilities.
+
+### Fixed
+
+- Corrected the Chinese sidebar translation keys to `zh-CN`, matching Starlight's declared language rather than the `/zh/` route prefix. All six group headings now use the requested language, including after language switching and in the mobile menu.
+- Removed Russian copy-button text from English code examples, translated Chinese heading-link and GitHub-star accessibility labels, and added locale-aware 404 recovery with usable language links without JavaScript.
+- Removed an obsolete mobile-menu accessibility shim; the current native popover owns keyboard and expanded-state behavior. Added rendered UI regression checks for all three languages.
+
+### Compatibility
+
+- No changes to tag grammar, schema or contract versions, the 107 rule IDs, or the declared Page Check and selected-section coverage. Example methodology versions now identify 0.11.7; historical fixture and capture dates remain intact.
+
 ## 0.11.6 — DFC Bridge
 
 - Adopted **DFC Bridge** (Design Frontend Contract) as the public name across English, Russian and Chinese documentation, the site, diagrams and Assistant media. Spoken Bridge / Бридж remains unchanged.

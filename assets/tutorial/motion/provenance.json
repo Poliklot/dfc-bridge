@@ -1,121 +1,2441 @@
 {
-  "schemaVersion": 1,
-  "kind": "native-ui-step-sequence",
-  "capturedAt": "2026-10-11",
+  "schemaVersion": 2,
+  "kind": "annotated-native-step-sequence",
+  "capturedAt": "2026-10-12",
   "fileKey": "yCIbd7pIabjIepkkncPPYl",
-  "pageName": "01 · До разметки",
-  "captureMethod": "CUA screenshots of actual Chrome Figma editor states, assembled with explicit holds. Not a continuous screen recording.",
-  "transform": "One fixed lossless rectangular crop per clip; held states, no interpolation, synthetic padding, compositing or editor overlays.",
-  "sourceScope": "Separate imported QA copy only. Shipped archive and original teaching file unchanged. These actions do not claim Ready.",
+  "pageName": "06 · Действия для экскурса",
+  "captureMethod": "CUA screenshots of real native Figma editor states, held as a discrete step sequence. Not a continuous screen recording.",
+  "transform": "Native pixels are only cropped and optionally downsampled, never upscaled or redrawn. Matte, stage text, vector cursor, click rings and stroke-only focus outlines are editorial overlays, not native Figma UI or recorded pointer motion.",
+  "sourceScope": "Separate imported QA copy only. Shipped archive and original teaching file unchanged. Individual teaching actions do not claim Ready.",
+  "storyboardSha256": "58bd27b92eea419435a6a1b51d13d84105c6a9212ff9b028477837058ad59633",
+  "rendererSha256": "826e7af8fddaf8abef89a678942e2e0dff4c0526b9683f6623bcc3b89f9a11f6",
+  "overlayCoordinateSpace": "source-pixels",
+  "render": {
+    "width": 1280,
+    "height": 720,
+    "fps": 24,
+    "gifFps": 12,
+    "crf": 12,
+    "viewport": {
+      "left": 48,
+      "top": 92,
+      "width": 1184,
+      "height": 556
+    }
+  },
   "clips": [
     {
-      "id": "rename-title",
-      "action": "Title mobile → hero-title. Layer identity only; product text remains unchanged.",
+      "id": "page-metadata",
+      "action": "Give the mobile root page/workshop identity, route /workshop, view default and breakpoint 375, then jump to the corresponding 1440 root.",
+      "evidenceFact": "Native Assistant Type changes from Ordinary layer to Page. Its fields show workshop, page ID workshop, route /workshop, width 375 and view default. The native counterpart button jumps to the matching root; the fields then show width 1440 with the same page/route/view.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
       "crop": {
-        "left": 40,
-        "top": 108,
-        "width": 472,
-        "height": 528
+        "left": 0,
+        "top": 450,
+        "width": 928,
+        "height": 556
       },
+      "nativeTransform": {
+        "crop": {
+          "left": 0,
+          "top": 450,
+          "width": 928,
+          "height": 556
+        },
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1,
+        "left": 176,
+        "top": 92,
+        "width": 928,
+        "height": 556
+      },
+      "configurationSha256": "38117bc1895cc269007c984d20c6952ec91bc669019acc16e7be2da16998953c",
       "frames": [
         {
-          "sourceFile": "source/rename-01.png",
-          "sha256": "671cfd9e30b0762aa13ed326d5fbce45639bdb04a52fb1aeb1643dec60b1c41e",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 1400
+          "phase": "before",
+          "sourceFile": "source/hd/page-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "mobile-final-2 — пока обычный слой",
+            "en": "mobile-final-2 is still an ordinary layer",
+            "zh": "mobile-final-2 还是普通图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 665
+            },
+            {
+              "atMs": 650,
+              "x": 220,
+              "y": 538,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 497,
+              "width": 442,
+              "height": 80
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 450,
+            "width": 928,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 450,
+              "width": 928,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 176,
+            "top": 92,
+            "width": 928,
+            "height": 556
+          },
+          "sha256": "22fe86f3a5348272a42fe7ebef59209e3e027e03621c8a783c53b695baea364d",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "58fd1078f979e5ae658c417cec31245fc80109da731235ebeb058388e40ac095",
+          "nativeBitmapSha256": "58fd1078f979e5ae658c417cec31245fc80109da731235ebeb058388e40ac095"
         },
         {
-          "sourceFile": "source/rename-02.png",
-          "sha256": "555ba573ab55341b28bb7ccb99897b644e31f54d04300f583e5237d712d4cfef",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 1000
+          "phase": "action",
+          "sourceFile": "source/hd/page-03-page-form.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Тип — «Страница». Появились её поля",
+            "en": "Choose Page. Its fields appear",
+            "zh": "类型选「页面」，显示页面字段"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 220,
+              "y": 578
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 450,
+            "width": 928,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 450,
+              "width": 928,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 176,
+            "top": 92,
+            "width": 928,
+            "height": 556
+          },
+          "sha256": "0affd6a6df1635a913b14b1a2035206c8dcc40fa9b2c29cde84730e038c9abc9",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "bdfd61c952db0834c058218c56411d6118d4ec3f24b19ad8d36e688c6932afcf",
+          "nativeBitmapSha256": "bdfd61c952db0834c058218c56411d6118d4ec3f24b19ad8d36e688c6932afcf"
         },
         {
-          "sourceFile": "source/rename-03.png",
-          "sha256": "971d6fbf405837be29fad5de703089b0e1aa1f504eaf461beb03e309a9c5ccab",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 600
+          "phase": "action",
+          "sourceFile": "source/hd/page-04-shared-identity.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Те же page, route и view. Ширина — 375",
+            "en": "Same page, route and view. Width: 375",
+            "zh": "page、route、view 相同，宽度为 375"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 578
+            },
+            {
+              "atMs": 650,
+              "x": 875,
+              "y": 838
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 888,
+              "height": 338
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ],
+          "crop": {
+            "left": 0,
+            "top": 450,
+            "width": 928,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 450,
+              "width": 928,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 176,
+            "top": 92,
+            "width": 928,
+            "height": 556
+          },
+          "sha256": "377f7659e3fe66b9863ac5a3d98fe02f7d3b7ce4d7bb061540eda2b463de2768",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "e4d0976960353bd4c085109c90de286dddc4b776f3c6c17bfa7b789ae7a7c24d",
+          "nativeBitmapSha256": "e4d0976960353bd4c085109c90de286dddc4b776f3c6c17bfa7b789ae7a7c24d"
         },
         {
-          "sourceFile": "source/rename-04.png",
-          "sha256": "a7a35a0751681d84d8e222967dc611e5dd1d57158a9e7ac864e2acb712a9f255",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 1000
+          "phase": "action",
+          "sourceFile": "source/hd/page-04-shared-identity.png",
+          "holdMs": 2000,
+          "crop": {
+            "left": 0,
+            "top": 1000,
+            "width": 928,
+            "height": 556
+          },
+          "label": {
+            "ru": "Открываем найденный вариант 1440",
+            "en": "Open the matching 1440 root",
+            "zh": "打开找到的 1440 版本"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 1410
+            },
+            {
+              "atMs": 900,
+              "x": 145,
+              "y": 1298,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 1263,
+              "width": 253,
+              "height": 72
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 1000,
+              "width": 928,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 176,
+            "top": 92,
+            "width": 928,
+            "height": 556
+          },
+          "sha256": "377f7659e3fe66b9863ac5a3d98fe02f7d3b7ce4d7bb061540eda2b463de2768",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "b21cd25a79b30d3a69afc7a165057ff3b2de5a00933e49237f54830c5a763a5d",
+          "nativeBitmapSha256": "b21cd25a79b30d3a69afc7a165057ff3b2de5a00933e49237f54830c5a763a5d"
         },
         {
-          "sourceFile": "source/rename-05.png",
-          "sha256": "8b64e58349973645856b679b6ab4e9b22322e58aaf95c36e8052563c8a7eb793",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 2000
+          "phase": "after",
+          "sourceFile": "source/hd/page-05-counterpart.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Ширина — 1440. Страница та же",
+            "en": "Width: 1440. The page is the same",
+            "zh": "宽度为 1440，还是同一页面"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 708
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 888,
+              "height": 338
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 450,
+            "width": 928,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 450,
+              "width": 928,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 176,
+            "top": 92,
+            "width": 928,
+            "height": 556
+          },
+          "sha256": "f0bbfb60b62d119dde1e776a9f9c607e73ff62579a1dee6c3870bab58e1b166d",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "586a7e067ec3532f419898de6e248584f2367161cedc827bed8e186d073b62e0",
+          "nativeBitmapSha256": "586a7e067ec3532f419898de6e248584f2367161cedc827bed8e186d073b62e0"
         }
       ],
-      "output": {
-        "file": "rename-title.mp4",
-        "poster": "rename-title.png",
-        "gif": "rename-title.gif",
-        "sha256": "a59ba33739c19b2043759e492331a506e7c4ac1f176664ae9f2b8fd1b7d5935c",
-        "posterSha256": "26526dde723984fa6ff46421604e573f3f64bd2347b9f6b2ede79972882f37ef",
-        "gifSha256": "76cf805d08e90faaac81a87912845681a3d9fd05e0e542ccc3d28d5f782d3eb8",
-        "width": 472,
-        "height": 528,
-        "durationSeconds": 6
-      }
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "page-metadata-ru.mp4",
+          "gif": "page-metadata-ru.gif",
+          "poster": "page-metadata-ru.png",
+          "sha256": "d6e023cdf70706ba521965e91e8db309c5c46d359e61692dffab19426814fb13",
+          "gifSha256": "eac6e5dfe69a1cd70d66386aac9eefc64f57e954c139bdb45a930f523573cbdc",
+          "posterSha256": "8cf74c61c9e75318d6e72a0f20b4abe732f055f50972615938e79d55e2694858",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 12,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "page-metadata-en.mp4",
+          "gif": "page-metadata-en.gif",
+          "poster": "page-metadata-en.png",
+          "sha256": "ce0be023e8e2c0e47078f1bf2861c3eeb8f07c06bee65d2412e28979ef49e267",
+          "gifSha256": "0f1c7b65ebe278c2042f7a95fe06ed08c76f727eb2837cbfe4503a2e48fd4bb0",
+          "posterSha256": "cc6cebb8f32247d9270de22e10f04c817406f4d516885b0c1e0f25bfa336615e",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 12,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "page-metadata-zh.mp4",
+          "gif": "page-metadata-zh.gif",
+          "poster": "page-metadata-zh.png",
+          "sha256": "180f48eada2530f2ad645eeb5d408cf30faaa43a85cc60e585cc5208936e93f0",
+          "gifSha256": "b284fb6c557565fdfbc02ac45144824bee0492cdd5a04a1ba7c99750a5504a4f",
+          "posterSha256": "93db1558d56ad83505d7c95f1bd970094d1e86b624d9844d8be65d7cfe35057c",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 12,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
+    },
+    {
+      "id": "rename-title",
+      "action": "Rename the matching title layer; do not change product copy.",
+      "evidenceFact": "Native Figma rename field is opened with Cmd+R, replaced with hero-title and confirmed with Enter. Product characters remain unchanged; the mobile title is still the shorter string.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 124,
+        "top": 470,
+        "width": 826,
+        "height": 500
+      },
+      "nativeTransform": {
+        "crop": {
+          "left": 124,
+          "top": 470,
+          "width": 826,
+          "height": 500
+        },
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1,
+        "left": 227,
+        "top": 120,
+        "width": 826,
+        "height": 500
+      },
+      "configurationSha256": "d18be23bfa4603942b2a2b34e1912c892b3936cf13040f2bd6d65c1cc27e28f5",
+      "frames": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/rename-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Title mobile — имя слоя",
+            "en": "Title mobile is the layer name",
+            "zh": "Title mobile 是图层名"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 820,
+              "y": 620
+            },
+            {
+              "atMs": 650,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "crop": {
+            "left": 124,
+            "top": 470,
+            "width": 826,
+            "height": 500
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 470,
+              "width": 826,
+              "height": 500
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 227,
+            "top": 120,
+            "width": 826,
+            "height": 500
+          },
+          "sha256": "4ca66746e1217d46b5abab630adc094cc9751407821d21a75bb4d58c1a80d27c",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "f4944bda65ebd9941ebf82808bacef8a74e51fa9cacfc78eea8fe24ca8af74f9",
+          "nativeBitmapSha256": "f4944bda65ebd9941ebf82808bacef8a74e51fa9cacfc78eea8fe24ca8af74f9"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/rename-02-selected-name.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Открываем имя слоя",
+            "en": "Open the layer name",
+            "zh": "打开图层名"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "⌘",
+            "R"
+          ],
+          "crop": {
+            "left": 124,
+            "top": 470,
+            "width": 826,
+            "height": 500
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 470,
+              "width": 826,
+              "height": 500
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 227,
+            "top": 120,
+            "width": 826,
+            "height": 500
+          },
+          "sha256": "045219a26949e50dbcc4985d96df5defab236a92cac0eda5579721a71a1d676d",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "a41267bf4f01510932bfb2253b574bf3c9307383464f5c027a40cfa241f98447",
+          "nativeBitmapSha256": "a41267bf4f01510932bfb2253b574bf3c9307383464f5c027a40cfa241f98447"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/rename-03-new-name.png",
+          "holdMs": 2500,
+          "label": {
+            "ru": "Новое имя: hero-title",
+            "en": "New name: hero-title",
+            "zh": "新图层名：hero-title"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ],
+          "crop": {
+            "left": 124,
+            "top": 470,
+            "width": 826,
+            "height": 500
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 470,
+              "width": 826,
+              "height": 500
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 227,
+            "top": 120,
+            "width": 826,
+            "height": 500
+          },
+          "sha256": "cbb79d20275b2a88fee1a68960b2680b918cfde31ec6a4b524aac759601ae594",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "b53b961f07c20055f5859f93c83d0cce9b819d482a762e84bc9b77da99a3edd0",
+          "nativeBitmapSha256": "b53b961f07c20055f5859f93c83d0cce9b819d482a762e84bc9b77da99a3edd0"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/rename-04-after.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Имя изменили. Текст не трогали",
+            "en": "The name changed. The text did not",
+            "zh": "图层名改了，文本没变"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            },
+            {
+              "atMs": 650,
+              "x": 820,
+              "y": 620
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "↵"
+          ],
+          "crop": {
+            "left": 124,
+            "top": 470,
+            "width": 826,
+            "height": 500
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 470,
+              "width": 826,
+              "height": 500
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 227,
+            "top": 120,
+            "width": 826,
+            "height": 500
+          },
+          "sha256": "4f3d2ef37e0fff39f5a32f53c7c517ec59a3c5e158e8172a9f007a7844a497e4",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "5638ce09571b517ccebc545ffa96fb945d793e24d885b3065ca5e85afff81898",
+          "nativeBitmapSha256": "5638ce09571b517ccebc545ffa96fb945d793e24d885b3065ca5e85afff81898"
+        }
+      ],
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "rename-title-ru.mp4",
+          "gif": "rename-title-ru.gif",
+          "poster": "rename-title-ru.png",
+          "sha256": "d83f11693f3d31bbb793b18b3134688f63f1545c2c522e481a5cbd26326f7ddd",
+          "gifSha256": "8cc35337b1595b255aa10a0488c24ec94c88c7cf0abdcf581abb89ba5f49699e",
+          "posterSha256": "9071b179eee4b7a6a1ca1545c52a35077a89c34d6f582b5f5aa2a3343db49e04",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "rename-title-en.mp4",
+          "gif": "rename-title-en.gif",
+          "poster": "rename-title-en.png",
+          "sha256": "8830d929ace3a292e89d16f830425c269e54c29428b456a3774093f227c284b9",
+          "gifSha256": "bba55d90f8fc3b257a5f193956c67709a2a382e3d962327ed323e28b4559b0a7",
+          "posterSha256": "2a9d00dc38ec4eb95080ceb81415ae30b613e21ffcf2b8b8001a8d4943857e20",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "rename-title-zh.mp4",
+          "gif": "rename-title-zh.gif",
+          "poster": "rename-title-zh.png",
+          "sha256": "ea715007cf1bb8137c416ec9faefd638d1ade5cd83cd53acbb54ff516472c426",
+          "gifSha256": "e51c77f9b19b86033695dbcc84b624a1950e99816a5e2a888e08a6cf056e270e",
+          "posterSha256": "a06394362e6157e6e98ae1bb6c287cc1bee5f9ac47e78a497d0b8dd8450cc63c",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
+    },
+    {
+      "id": "repair-copy",
+      "action": "Restore the agreed full product title on mobile; layer identity is not a substitute for matching copy.",
+      "evidenceFact": "Return enters text editing, Cmd+A selects the text, Cmd+V replaces Мастерская макетов with Мастерская понятных макетов and Escape exits. Both native titles occupy two lines; their height does not increase.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 1150,
+        "top": 110,
+        "width": 1000,
+        "height": 556
+      },
+      "nativeTransform": {
+        "crop": {
+          "left": 1150,
+          "top": 110,
+          "width": 1000,
+          "height": 556
+        },
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1,
+        "left": 140,
+        "top": 92,
+        "width": 1000,
+        "height": 556
+      },
+      "configurationSha256": "e057a7bd2b2038ffc883b4888c33ddd08f104fc4830c41a34b2dfdee6c59c8eb",
+      "frames": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/copy-01-before.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "На mobile пропало «понятных»",
+            "en": "Mobile uses the shorter text",
+            "zh": "移动版少了「понятных」"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2110,
+              "y": 605
+            },
+            {
+              "atMs": 650,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "crop": {
+            "left": 1150,
+            "top": 110,
+            "width": 1000,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1150,
+              "top": 110,
+              "width": 1000,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 140,
+            "top": 92,
+            "width": 1000,
+            "height": 556
+          },
+          "sha256": "0b7b2900c00a1d8126fcf16d4039a722686694c619ee4f35cda3f3bb998dd3bb",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "955fb46bf38fdf866c6d7689b33d3a9b57d3a977b539f7ff4ece9c0214cf4f9b",
+          "nativeBitmapSha256": "955fb46bf38fdf866c6d7689b33d3a9b57d3a977b539f7ff4ece9c0214cf4f9b"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/copy-02-selected-text.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Выделяем текст, не слой",
+            "en": "Select the text, not the layer",
+            "zh": "选中文字，不是图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "⌘",
+            "A"
+          ],
+          "crop": {
+            "left": 1150,
+            "top": 110,
+            "width": 1000,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1150,
+              "top": 110,
+              "width": 1000,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 140,
+            "top": 92,
+            "width": 1000,
+            "height": 556
+          },
+          "sha256": "ccf72c66fbdef821bbfce248ed7f826c3e6c581672f860d6f8c2e8bdf6361616",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "d316d533070c036695430996487638fee5082618608fed1f736bae48be5d4d06",
+          "nativeBitmapSha256": "d316d533070c036695430996487638fee5082618608fed1f736bae48be5d4d06"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/copy-03-reflow.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "Вернули согласованный полный текст",
+            "en": "Restore the agreed full text",
+            "zh": "恢复约定的完整文本"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ],
+          "crop": {
+            "left": 1150,
+            "top": 110,
+            "width": 1000,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1150,
+              "top": 110,
+              "width": 1000,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 140,
+            "top": 92,
+            "width": 1000,
+            "height": 556
+          },
+          "sha256": "3ac116bd4743d7048bca8954feda8ff41640f83c5f9b742c57092b2c08e9ca9d",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "429ad983b7ff6e7b2cdaaa6bb069f3cc82879496274490705b838697b6501a27",
+          "nativeBitmapSha256": "429ad983b7ff6e7b2cdaaa6bb069f3cc82879496274490705b838697b6501a27"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/copy-04-after.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Теперь — «Мастерская понятных макетов»",
+            "en": "Now: Мастерская понятных макетов",
+            "zh": "现在：Мастерская понятных макетов"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            },
+            {
+              "atMs": 650,
+              "x": 2110,
+              "y": 605
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "Esc"
+          ],
+          "crop": {
+            "left": 1150,
+            "top": 110,
+            "width": 1000,
+            "height": 556
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1150,
+              "top": 110,
+              "width": 1000,
+              "height": 556
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 140,
+            "top": 92,
+            "width": 1000,
+            "height": 556
+          },
+          "sha256": "541005cae64ff558b6edacfb9ae87876a80fd4387508f3923423535d92f3e2aa",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "db355111fa597171dc2cdec21b69e30373fae9653f74b83cb4ce26cbbfd6ba42",
+          "nativeBitmapSha256": "db355111fa597171dc2cdec21b69e30373fae9653f74b83cb4ce26cbbfd6ba42"
+        }
+      ],
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "repair-copy-ru.mp4",
+          "gif": "repair-copy-ru.gif",
+          "poster": "repair-copy-ru.png",
+          "sha256": "bd94ed494e3de58c4f0a475baf0f2a6102ec0c0dacb9099b401139d6ca636862",
+          "gifSha256": "ae46c6daf8cf1842bddd7b75421214318ee96ce870f77e5fcde43e02a8f0b79d",
+          "posterSha256": "9e6fa6f9201866969fc86d2fc1d7054c8dfafaaf3d334a6e53b25a769d91eae3",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "repair-copy-en.mp4",
+          "gif": "repair-copy-en.gif",
+          "poster": "repair-copy-en.png",
+          "sha256": "065c172372f4e26bcd4d18828273f50e03907efee2f3ad5e35d2aa26e2c5a0a9",
+          "gifSha256": "e56b03ae6cfaf4f12c9f9b2f6e94ee2c9126f691b819c5cc3d884e19a6b17e06",
+          "posterSha256": "ee22d4c42f86c54fa736b6dca1d3f2539c70cbfc732e2e3a34534d2dca6fcdeb",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "repair-copy-zh.mp4",
+          "gif": "repair-copy-zh.gif",
+          "poster": "repair-copy-zh.png",
+          "sha256": "8d9a3a3d83cb8c41a9de8829653f458865ee22eb940ab4bdebcf05b8a0c59968",
+          "gifSha256": "f3972bdce7b259d7c10a5868e8e07299448ae7e817904c442adc6b79e315d501",
+          "posterSha256": "23924c5a13b627906b28ec8b2ba1887e51d1193c32613a503bd4747815acadb7",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
     },
     {
       "id": "move-actions",
-      "action": "Cut the whole hero-actions, select existing hero-copy, paste as its last child. Both controls and Auto Layout retained.",
+      "action": "Cut the entire hero-actions group and paste it into the existing hero-copy parent; do not create a wrapper or move the controls individually.",
+      "evidenceFact": "Native Cmd+X removes hero-actions and both controls. The existing hero-copy is visibly selected, then Cmd+V inserts a new hero-actions group (82:2) inside it, retaining Button copy and faq-link. workshop-art remains a sibling of hero-copy.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
       "crop": {
-        "left": 40,
-        "top": 108,
-        "width": 472,
-        "height": 528
+        "left": 124,
+        "top": 550,
+        "width": 826,
+        "height": 650
       },
+      "nativeTransform": {
+        "crop": {
+          "left": 124,
+          "top": 550,
+          "width": 826,
+          "height": 650
+        },
+        "scale": 0.8553846153846154,
+        "scaleX": 0.8559322033898306,
+        "scaleY": 0.8553846153846154,
+        "left": 286,
+        "top": 92,
+        "width": 707,
+        "height": 556
+      },
+      "configurationSha256": "335eb892c30e19f21e857e152d23d10bc25f9a114523658ce7504537bef1b4a2",
       "frames": [
         {
-          "sourceFile": "source/move-01.png",
-          "sha256": "fa9bf9154af4ec3d2930b921760ceb16c7d81eff7354d0c4767c3d12ceac525d",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 1600
+          "phase": "before",
+          "sourceFile": "source/hd/move-01-before.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "hero-actions — снаружи hero-copy",
+            "en": "hero-actions is outside hero-copy",
+            "zh": "hero-actions 在 hero-copy 外面"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 760
+            },
+            {
+              "atMs": 650,
+              "x": 800,
+              "y": 932
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 900,
+              "width": 650,
+              "height": 222
+            }
+          ],
+          "crop": {
+            "left": 124,
+            "top": 550,
+            "width": 826,
+            "height": 650
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 550,
+              "width": 826,
+              "height": 650
+            },
+            "scale": 0.8553846153846154,
+            "scaleX": 0.8559322033898306,
+            "scaleY": 0.8553846153846154,
+            "left": 286,
+            "top": 92,
+            "width": 707,
+            "height": 556
+          },
+          "sha256": "c83a4ad37360286167ba3e20578c9fd70adf4c0ef9ff0ade01a1c2796a1e310a",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "821e744ff5818a1a2c9a94f6bad5b8743c9c332e8f6d8f9ef4506ea0551eadb5",
+          "nativeBitmapSha256": "f1f409668fc08c709408b347481ca40ae1d2c36f83152b8c46ba6fbe82be28a3"
         },
         {
-          "sourceFile": "source/move-02.png",
-          "sha256": "870370efaef2555525e16b04295a4eda60c368a0c9331a885e974312101b3669",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 900
+          "phase": "action",
+          "sourceFile": "source/hd/move-02-cut.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Вырезаем всю группу. Обе кнопки с ней",
+            "en": "Cut the whole group, including both controls",
+            "zh": "剪切整组，两个控件一起"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 932
+            }
+          ],
+          "highlights": [],
+          "keys": [
+            "⌘",
+            "X"
+          ],
+          "crop": {
+            "left": 124,
+            "top": 550,
+            "width": 826,
+            "height": 650
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 550,
+              "width": 826,
+              "height": 650
+            },
+            "scale": 0.8553846153846154,
+            "scaleX": 0.8559322033898306,
+            "scaleY": 0.8553846153846154,
+            "left": 286,
+            "top": 92,
+            "width": 707,
+            "height": 556
+          },
+          "sha256": "bd3f44f44f8f745f92cdbd2b71bf42169e87a3f7d7c84382f696665fe70300ed",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "3f8fed118633bf2d62a1a384fb32baacff9ff9f8cbf5122c0f651b9e48ebd4e5",
+          "nativeBitmapSha256": "e73f070a635307fc792b3aa793bdfa3a59c295a90ea6fe44c62033b64bb4252f"
         },
         {
-          "sourceFile": "source/move-03.png",
-          "sha256": "21cb18eee018eabff43858bcbceeefa1de5be56aae965bf4f9c802d4d275995f",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 1100
+          "phase": "action",
+          "sourceFile": "source/hd/move-02-cut.png",
+          "holdMs": 1000,
+          "label": {
+            "ru": "Выбираем существующий hero-copy",
+            "en": "Select the existing hero-copy",
+            "zh": "选择已有的 hero-copy"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 932
+            },
+            {
+              "atMs": 550,
+              "x": 800,
+              "y": 651,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 615,
+              "width": 650,
+              "height": 70
+            }
+          ],
+          "crop": {
+            "left": 124,
+            "top": 550,
+            "width": 826,
+            "height": 650
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 550,
+              "width": 826,
+              "height": 650
+            },
+            "scale": 0.8553846153846154,
+            "scaleX": 0.8559322033898306,
+            "scaleY": 0.8553846153846154,
+            "left": 286,
+            "top": 92,
+            "width": 707,
+            "height": 556
+          },
+          "sha256": "bd3f44f44f8f745f92cdbd2b71bf42169e87a3f7d7c84382f696665fe70300ed",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "3f8fed118633bf2d62a1a384fb32baacff9ff9f8cbf5122c0f651b9e48ebd4e5",
+          "nativeBitmapSha256": "e73f070a635307fc792b3aa793bdfa3a59c295a90ea6fe44c62033b64bb4252f"
         },
         {
-          "sourceFile": "source/move-04.png",
-          "sha256": "a00e6226de161fad31a6eb7c2fc71b34ed2dc667913ef290814efaac8bbb94b0",
-          "width": 1920,
-          "height": 963,
-          "holdMs": 2400
+          "phase": "action",
+          "sourceFile": "source/hd/move-03-target-parent.png",
+          "holdMs": 1250,
+          "label": {
+            "ru": "Родитель выбран: hero-copy",
+            "en": "Selected parent: hero-copy",
+            "zh": "已选父级：hero-copy"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 651
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 615,
+              "width": 650,
+              "height": 70
+            }
+          ],
+          "crop": {
+            "left": 124,
+            "top": 550,
+            "width": 826,
+            "height": 650
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 550,
+              "width": 826,
+              "height": 650
+            },
+            "scale": 0.8553846153846154,
+            "scaleX": 0.8559322033898306,
+            "scaleY": 0.8553846153846154,
+            "left": 286,
+            "top": 92,
+            "width": 707,
+            "height": 556
+          },
+          "sha256": "ead9e1a01c0eff6f78605501305aa82b535181cf9b7dcf886f2813a4ad20930e",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "e917ef349913b67f6b983260ef19766733c0ff756465eec76a32f4fd8b63690f",
+          "nativeBitmapSha256": "620027dd7d18c7273149dca2264d0ed309e6846b4af8b4867cdb790d24e2dfe3"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/move-04-after.png",
+          "holdMs": 3250,
+          "label": {
+            "ru": "Вставили внутрь. Обе кнопки на месте",
+            "en": "Paste inside. Both controls are retained",
+            "zh": "粘贴到里面，两个控件都在"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 651
+            },
+            {
+              "atMs": 650,
+              "x": 800,
+              "y": 862
+            }
+          ],
+          "highlights": [
+            {
+              "left": 320,
+              "top": 829,
+              "width": 595,
+              "height": 225
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ],
+          "crop": {
+            "left": 124,
+            "top": 550,
+            "width": 826,
+            "height": 650
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 550,
+              "width": 826,
+              "height": 650
+            },
+            "scale": 0.8553846153846154,
+            "scaleX": 0.8559322033898306,
+            "scaleY": 0.8553846153846154,
+            "left": 286,
+            "top": 92,
+            "width": 707,
+            "height": 556
+          },
+          "sha256": "94a766d7037c7b75e43b196d5b71075c701d9bff3e43885d522d0ceb3b7fc423",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "72d92415af481979f82a8d9a6275b2786062b0888574641aa0b85d66b4598a7c",
+          "nativeBitmapSha256": "ccaa62cbb796a08da997def706574a4092ff9974549aeb169a7d032fd5450f07"
         }
       ],
-      "output": {
-        "file": "move-actions.mp4",
-        "poster": "move-actions.png",
-        "gif": "move-actions.gif",
-        "sha256": "4826c37a6b69038344bee0c2d35f5388fff692a3834bc4ac671d8c87b3e7e35e",
-        "posterSha256": "4a40cc3adf4c2b04b402f81bfe995890f9ddb50bd4c4f6adf26e555499809276",
-        "gifSha256": "2f1168eefe13022e0586c30e7481cff70a9a43b28dd39b5fda6e8dfad70c86b7",
-        "width": 472,
-        "height": 528,
-        "durationSeconds": 6
-      }
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "move-actions-ru.mp4",
+          "gif": "move-actions-ru.gif",
+          "poster": "move-actions-ru.png",
+          "sha256": "33b6016299eb4006eebdafdd1c215ea455f8b2df7bf29fe557f26004c8b84462",
+          "gifSha256": "4368f8b17fd0baa62529c791bb64fcba30fb54508e6457fc76aa4543976b7374",
+          "posterSha256": "6af368abbba84297a00acf883c8a59bba0fcc8a79c145a5431d0f20c7ff8e847",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "move-actions-en.mp4",
+          "gif": "move-actions-en.gif",
+          "poster": "move-actions-en.png",
+          "sha256": "0a87c7c2a36a4b869e5849322e62172f466beb1f2f46bec21050eb1b462674ca",
+          "gifSha256": "88b082dfdc3540d38946d12e85e4e78a8736a69f1af5408d29943557ade973a2",
+          "posterSha256": "ec00b8d6ba64111a3107dc28261842d9eb059ebedd31eb548f1d857da0d728e1",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "move-actions-zh.mp4",
+          "gif": "move-actions-zh.gif",
+          "poster": "move-actions-zh.png",
+          "sha256": "c2c74e3446b59c6a7a866d557b4d936bd4fc47409b7b810057446e99e8bfe5d3",
+          "gifSha256": "91ad05226f288df5a89e6d30d273ca7a2a7172af2d3893e4350169d6d459eb50",
+          "posterSha256": "01a748d1de01194d61bc30e3a73dea040c312d471194cc6a8f8885e8d5270633",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
+    },
+    {
+      "id": "button-states",
+      "action": "Switch a linked sample instance from State=default to State=hover, then independently enable Focus visible in the native component properties.",
+      "evidenceFact": "Clean QA instance 86:27 inside Button specimen 86:26 remains linked to the original button-primary set. Native State changes from default to hover, then Focus visible changes from false to true while State remains hover (confirmed in native AX). The button becomes darker and gains its real component focus ring; this is a design-state preview, not a runtime hover test. No atlas label or adjacent sample is cropped into this view.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 1610,
+        "top": 475,
+        "width": 1390,
+        "height": 355
+      },
+      "nativeTransform": {
+        "crop": {
+          "left": 1610,
+          "top": 475,
+          "width": 1390,
+          "height": 355
+        },
+        "scale": 0.8517985611510791,
+        "scaleX": 0.8517985611510791,
+        "scaleY": 0.8507042253521127,
+        "left": 48,
+        "top": 219,
+        "width": 1184,
+        "height": 302
+      },
+      "configurationSha256": "c2ab8ed41202a4c3822edfb694667bd6b482a9787bba2cf03ac453c0ba5cd637",
+      "frames": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/states-clean-01-default.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "UI-kit: сейчас State=default",
+            "en": "UI kit: State=default",
+            "zh": "UI-kit：当前 State=default"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2940,
+              "y": 700
+            },
+            {
+              "atMs": 750,
+              "x": 2815,
+              "y": 535,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2695,
+              "top": 502,
+              "width": 250,
+              "height": 70
+            }
+          ],
+          "crop": {
+            "left": 1610,
+            "top": 475,
+            "width": 1390,
+            "height": 355
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1610,
+              "top": 475,
+              "width": 1390,
+              "height": 355
+            },
+            "scale": 0.8517985611510791,
+            "scaleX": 0.8517985611510791,
+            "scaleY": 0.8507042253521127,
+            "left": 48,
+            "top": 219,
+            "width": 1184,
+            "height": 302
+          },
+          "sha256": "5bd25232e666dc55d4fb3ce47b9927f98cb2156765a68457e4f845c4226696e2",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "f85aea2da8ca68aee8a4148bf15824d113d34d40dd8be6909b8e705850c8a570",
+          "nativeBitmapSha256": "e4000bfae50fd3a174c2c20880ff9f82ce0ed837c5368620fe5cfb913f4a5662"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/states-clean-02-hover.png",
+          "holdMs": 2250,
+          "crop": {
+            "left": 2410,
+            "top": 470,
+            "width": 600,
+            "height": 280
+          },
+          "label": {
+            "ru": "State=hover — другой вариант в макете",
+            "en": "State=hover: a design variant",
+            "zh": "State=hover：切换设计稿变体"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2815,
+              "y": 535
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2695,
+              "top": 502,
+              "width": 250,
+              "height": 70
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 2410,
+              "top": 470,
+              "width": 600,
+              "height": 280
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 340,
+            "top": 230,
+            "width": 600,
+            "height": 280
+          },
+          "sha256": "46455d8d0d7282d2019325f7dd5d825d8717eb1f00e54c57d6d0673190118cad",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "bb7395f18f1a8a72a1be4b141cfd53c673d56fa3c6e19db19af625328707f985",
+          "nativeBitmapSha256": "bb7395f18f1a8a72a1be4b141cfd53c673d56fa3c6e19db19af625328707f985"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/states-clean-02-hover.png",
+          "holdMs": 2000,
+          "crop": {
+            "left": 2410,
+            "top": 470,
+            "width": 600,
+            "height": 280
+          },
+          "label": {
+            "ru": "Фокус включаем отдельно от hover",
+            "en": "Enable focus independently of hover",
+            "zh": "焦点可独立于 hover 开启"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2815,
+              "y": 535
+            },
+            {
+              "atMs": 750,
+              "x": 2735,
+              "y": 699,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2689,
+              "top": 677,
+              "width": 97,
+              "height": 48
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 2410,
+              "top": 470,
+              "width": 600,
+              "height": 280
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 340,
+            "top": 230,
+            "width": 600,
+            "height": 280
+          },
+          "sha256": "46455d8d0d7282d2019325f7dd5d825d8717eb1f00e54c57d6d0673190118cad",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "bb7395f18f1a8a72a1be4b141cfd53c673d56fa3c6e19db19af625328707f985",
+          "nativeBitmapSha256": "bb7395f18f1a8a72a1be4b141cfd53c673d56fa3c6e19db19af625328707f985"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/states-clean-03-hover-focus.png",
+          "holdMs": 3250,
+          "label": {
+            "ru": "hover + focus visible — образец в макете",
+            "en": "hover + focus visible: a design sample",
+            "zh": "hover + focus visible：这是设计示例"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2735,
+              "y": 699
+            },
+            {
+              "atMs": 1000,
+              "x": 1700,
+              "y": 755
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2689,
+              "top": 677,
+              "width": 97,
+              "height": 48
+            }
+          ],
+          "crop": {
+            "left": 1610,
+            "top": 475,
+            "width": 1390,
+            "height": 355
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 1610,
+              "top": 475,
+              "width": 1390,
+              "height": 355
+            },
+            "scale": 0.8517985611510791,
+            "scaleX": 0.8517985611510791,
+            "scaleY": 0.8507042253521127,
+            "left": 48,
+            "top": 219,
+            "width": 1184,
+            "height": 302
+          },
+          "sha256": "0ff6de8b52acb00f5f67212edae8eb1f20f54e67aa05ae5a9486d8590396c113",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "a6b890db9a88eb3afd9b08f6103e93eb8cf63da728cd958d1910743d0852209d",
+          "nativeBitmapSha256": "b1e2293fb6a4484d9d795d8539c6566c76972538eaa85530f46f52116eacb0a1"
+        }
+      ],
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "button-states-ru.mp4",
+          "gif": "button-states-ru.gif",
+          "poster": "button-states-ru.png",
+          "sha256": "f59f78855e9c9c1200cc163968ae8160549d36adda1c4fcce2d543977f50a969",
+          "gifSha256": "d6fa26ac08c463f43f297a41e45cd7fc5dd15b548f0e65e94932cfd899b4ae52",
+          "posterSha256": "33d34a792f6161e610213682877fc6e9f70f907b18c2b836225621687e352519",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "button-states-en.mp4",
+          "gif": "button-states-en.gif",
+          "poster": "button-states-en.png",
+          "sha256": "9eceb23039a7b0d5aadaeea7ecb68ce9801a830e87300e658ef6a263ec7b6aed",
+          "gifSha256": "b9af2d8adf14718fac89c7a6e92df318fcd55d33cd7d6792c6242cdd1b5ed71c",
+          "posterSha256": "bca2a1c55f485a64704f8418c23c701f592ff501c005dcf51a35e1701ce64ca9",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "button-states-zh.mp4",
+          "gif": "button-states-zh.gif",
+          "poster": "button-states-zh.png",
+          "sha256": "fb14bd3b623d2a428d31f8e277873a9037f98828f6200d2689823ba4b3db5495",
+          "gifSha256": "aac5605b1e2026c26a62de294197c58444a1c595bcb5f273edfd5ef6648cf418",
+          "posterSha256": "6ed33b0acae80eefcabc1e06698dd05baaf04c71ef8ec672d062c2ebca1460fc",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 9.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
+    },
+    {
+      "id": "local-action",
+      "action": "Declare a modal action on the page instance, choose the local contact-modal target, then use the native Go to target command to find its hidden layer.",
+      "evidenceFact": "Page 08 uses a disposable recording root 85:31 with unique page=workshop-recording, route=/workshop-recording, bp=375 and view=default; original page/route contexts and linked library sources are unchanged. Its contact-button changes from Ordinary layer to Button (six Down presses and Return). Modal is the native action default; Down and Return choose contact-modal at 375. The form synchronizes. Go to target selects actual hidden node 85:80; the modal form identifies contact-modal and the native tree retains its closed-eye icon. This navigates to a target layer, not a runtime modal opening.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 0,
+        "top": 350,
+        "width": 928,
+        "height": 600
+      },
+      "nativeTransform": {
+        "crop": {
+          "left": 0,
+          "top": 350,
+          "width": 928,
+          "height": 600
+        },
+        "scale": 0.9266666666666666,
+        "scaleX": 0.9267241379310345,
+        "scaleY": 0.9266666666666666,
+        "left": 210,
+        "top": 92,
+        "width": 860,
+        "height": 556
+      },
+      "configurationSha256": "7b22151d86222f7af413e467300dfeff9196e4642512de710f7591e74f08fef5",
+      "frames": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/action-clean-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Вид кнопки общий. Действия пока нет",
+            "en": "The appearance is shared. No action yet",
+            "zh": "外观共用，但还没定义动作"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 790
+            },
+            {
+              "atMs": 650,
+              "x": 220,
+              "y": 579,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 600
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 350,
+              "width": 928,
+              "height": 600
+            },
+            "scale": 0.9266666666666666,
+            "scaleX": 0.9267241379310345,
+            "scaleY": 0.9266666666666666,
+            "left": 210,
+            "top": 92,
+            "width": 860,
+            "height": 556
+          },
+          "sha256": "6fc94d9bac0f1fa94fd32d1afa3c563d3fa58281c439236c7145a0d441cda068",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "b4a8e223e87064b654bf956311beb3a2815170894f440c6d639e46c0f7069a07",
+          "nativeBitmapSha256": "79b91e32319b8af6c701894bfd1c9a1b5662766a5ad49cd7d96aec5e5c16680b"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-02-button-form.png",
+          "holdMs": 2500,
+          "label": {
+            "ru": "Тип — «Кнопка». Выбираем цель для модалки",
+            "en": "Choose Button, then its modal target",
+            "zh": "类型选「按钮」，再选弹窗目标"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 220,
+              "y": 579
+            },
+            {
+              "atMs": 750,
+              "x": 850,
+              "y": 716,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 678,
+              "width": 442,
+              "height": 80
+            }
+          ],
+          "keys": [
+            "↓",
+            "↵"
+          ],
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 600
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 350,
+              "width": 928,
+              "height": 600
+            },
+            "scale": 0.9266666666666666,
+            "scaleX": 0.9267241379310345,
+            "scaleY": 0.9266666666666666,
+            "left": 210,
+            "top": 92,
+            "width": 860,
+            "height": 556
+          },
+          "sha256": "d075d6c9c2cd462f770581d768f38a37fc0c884d9be6db3a92f07b500aa6e82f",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "76cd15d90aaae5ad6ec95db3bd680ac895f940275c19d3c6ea9768b97a170b33",
+          "nativeBitmapSha256": "e3c529c547db59729d8f0c50541be726bf26e6195b9f50131081f3df6813bf93"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-03-local-target.png",
+          "holdMs": 2500,
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 630
+          },
+          "label": {
+            "ru": "Цель — contact-modal. Уже синхронизировано",
+            "en": "Target: contact-modal. Synchronized",
+            "zh": "目标为 contact-modal，已同步"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 850,
+              "y": 716
+            },
+            {
+              "atMs": 900,
+              "x": 880,
+              "y": 939
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 678,
+              "width": 442,
+              "height": 80
+            },
+            {
+              "left": 18,
+              "top": 908,
+              "width": 430,
+              "height": 55
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 350,
+              "width": 928,
+              "height": 630
+            },
+            "scale": 0.8825396825396825,
+            "scaleX": 0.8825431034482759,
+            "scaleY": 0.8825396825396825,
+            "left": 230,
+            "top": 92,
+            "width": 819,
+            "height": 556
+          },
+          "sha256": "255318a666171515f7b9f9ce087b1b055227b6f0ffdf9a35597aa76fb820b0c4",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "bcf12d01d41e36fbd2cd728571d3a5d9f4623080f49c0a5e39d88de558b9d867",
+          "nativeBitmapSha256": "c95c9f9933b3d1f2855fa9e107137663a745d8d38225171a9097ff98e3bd28ba"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-03-local-target.png",
+          "holdMs": 1500,
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 630
+          },
+          "label": {
+            "ru": "«К цели» — найти её слой в Figma",
+            "en": "Go to target finds its layer in Figma",
+            "zh": "「转到目标」会定位 Figma 图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 880,
+              "y": 939
+            },
+            {
+              "atMs": 750,
+              "x": 115,
+              "y": 860,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 818,
+              "width": 195,
+              "height": 77
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 350,
+              "width": 928,
+              "height": 630
+            },
+            "scale": 0.8825396825396825,
+            "scaleX": 0.8825431034482759,
+            "scaleY": 0.8825396825396825,
+            "left": 230,
+            "top": 92,
+            "width": 819,
+            "height": 556
+          },
+          "sha256": "255318a666171515f7b9f9ce087b1b055227b6f0ffdf9a35597aa76fb820b0c4",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "bcf12d01d41e36fbd2cd728571d3a5d9f4623080f49c0a5e39d88de558b9d867",
+          "nativeBitmapSha256": "c95c9f9933b3d1f2855fa9e107137663a745d8d38225171a9097ff98e3bd28ba"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-04-found.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Нашли contact-modal на ширине 375",
+            "en": "Found contact-modal at width 375",
+            "zh": "找到宽度 375 的 contact-modal"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 579
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            },
+            {
+              "left": 18,
+              "top": 678,
+              "width": 888,
+              "height": 80
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 600
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 350,
+              "width": 928,
+              "height": 600
+            },
+            "scale": 0.9266666666666666,
+            "scaleX": 0.9267241379310345,
+            "scaleY": 0.9266666666666666,
+            "left": 210,
+            "top": 92,
+            "width": 860,
+            "height": 556
+          },
+          "sha256": "f01890ff0852b41ee1e1e1e317b7ed41051acb5610583987d0d7675998db16a8",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "21b84fbd543d802cafe4de47df281fe09f7ab51dad452244bc7324a7717f95e5",
+          "nativeBitmapSha256": "ba0fd8b234a996f80020c4d3f4da4d8ab1a914818f8499456f45b6a8feee350b"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/action-clean-05-hidden-layer.png",
+          "holdMs": 3250,
+          "crop": {
+            "left": 124,
+            "top": 1070,
+            "width": 826,
+            "height": 635
+          },
+          "label": {
+            "ru": "Слой скрыт. Модалку мы не открывали",
+            "en": "The layer is hidden. We did not open the modal",
+            "zh": "图层仍隐藏，我们没有打开弹窗"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 1533
+            },
+            {
+              "atMs": 650,
+              "x": 930,
+              "y": 1430
+            }
+          ],
+          "highlights": [
+            {
+              "left": 205,
+              "top": 1498,
+              "width": 717,
+              "height": 75
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 124,
+              "top": 1070,
+              "width": 826,
+              "height": 635
+            },
+            "scale": 0.8755905511811024,
+            "scaleX": 0.8753026634382567,
+            "scaleY": 0.8755905511811024,
+            "left": 278,
+            "top": 92,
+            "width": 723,
+            "height": 556
+          },
+          "sha256": "7bd2cdd078c0d1105d2786029737af8d07c0a49b16835d11ad536859ff0169df",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "c7be1663415f77d0fead8a97d886868b4484e412214a00f17e05e501d8b17b1b",
+          "nativeBitmapSha256": "7a75dd9ee122bb4bf7afc380d4ec11d28b21e5b70a5751979ae6256631805ff0"
+        }
+      ],
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "local-action-ru.mp4",
+          "gif": "local-action-ru.gif",
+          "poster": "local-action-ru.png",
+          "sha256": "8f538e10a2a0a66717d0cf46d46a7182a846313bfac94b29565116211d33bd5d",
+          "gifSha256": "560f275eb4967fb9e8778d1d61a8939aa9ce18b6889ad7d2fc723621c65e79f7",
+          "posterSha256": "2e852fa8725c91e10e080889c3abc2a6964a16453e41ce8a7d592e550de54427",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 13.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "local-action-en.mp4",
+          "gif": "local-action-en.gif",
+          "poster": "local-action-en.png",
+          "sha256": "153a2dc48d65b7afdb9c3b562b662d07d1d86ce06128371f96955660ba9c660d",
+          "gifSha256": "cf3dd7cd2d77ffa5f65f728dc54f8197c2bb4fd362aa4804a44f918404e3777a",
+          "posterSha256": "5ef66dc6c0e8b9c6641e947ac3a3233467bc73749f0530b3bedb93daa4bb4f4e",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 13.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "local-action-zh.mp4",
+          "gif": "local-action-zh.gif",
+          "poster": "local-action-zh.png",
+          "sha256": "ab42259c6531e83a532eb635e91e8b1d6997bf76577db51ce02c3d9e73ddb339",
+          "gifSha256": "dfed4af269185e9b388c069901cf467a163bff19e997d32259ec7e6b10cf6cad",
+          "posterSha256": "913f22c11fcaf5bd32c985054d0cca2fe2000db3ba6824daf86bc75cf8b2c214",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 13.75,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
+    },
+    {
+      "id": "repeat-check",
+      "action": "Repeat the scoped automatic source check after the two already demonstrated repairs; show native counters and preserve the limited scope of the result.",
+      "evidenceFact": "On disposable page 07, selected mobile root 81:166 and its 1440 counterpart initially report exactly two findings: hero-title has different content and hero-actions has a different parent. The previously demonstrated text and parent repairs were then applied through the Figma API only on this QA page: title 81:172 restored to the full text and group 81:174 moved into existing hero-copy 81:171, retaining both controls. This clip does not depict those API repairs as UI edits. Source 02 retains the stale two-finding report after the repairs. An actual native Repeat click at source coordinates 1360,227 produces source 03 with zero errors, zero TODO and zero warnings, and the native notice explicitly limits this to automatic source checks; implementation and manual handoff verification are still required. The old stale two-error toast is outside every crop.",
+      "sourcePageName": "07 · Проверка для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 0,
+        "top": 175,
+        "width": 1495,
+        "height": 310
+      },
+      "nativeTransform": {
+        "crop": {
+          "left": 0,
+          "top": 175,
+          "width": 1495,
+          "height": 310
+        },
+        "scale": 0.7919732441471572,
+        "scaleX": 0.7919732441471572,
+        "scaleY": 0.7935483870967742,
+        "left": 48,
+        "top": 247,
+        "width": 1184,
+        "height": 246
+      },
+      "configurationSha256": "8fea9c7bd3480224bf126420b5a81d371ef1a6be48a031ccbd72bc44e633a302",
+      "frames": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/check-clean-01-two-findings.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Проверка нашла две проблемы",
+            "en": "The check found two problems",
+            "zh": "检查发现了两个问题"
+          },
+          "pointer": [],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 168,
+              "height": 49
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 175,
+            "width": 1495,
+            "height": 310
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 175,
+              "width": 1495,
+              "height": 310
+            },
+            "scale": 0.7919732441471572,
+            "scaleX": 0.7919732441471572,
+            "scaleY": 0.7935483870967742,
+            "left": 48,
+            "top": 247,
+            "width": 1184,
+            "height": 246
+          },
+          "sha256": "638588869a27d3a60981d06b72615132880b0e1654b1b1a78ec811db6bf1cdee",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "1e9334df78ddcc91f65b0834bf79910a154992e787dde4adfea318b43f0e2f2e",
+          "nativeBitmapSha256": "4c2773bffd65be8ff77646b8b2cbab878aabb325bec460fbe02d219b569637ff"
+        },
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/check-clean-01-two-findings.png",
+          "holdMs": 2250,
+          "crop": {
+            "left": 0,
+            "top": 490,
+            "width": 487,
+            "height": 470
+          },
+          "label": {
+            "ru": "Текст разный. Родитель тоже",
+            "en": "Different text. Different parent",
+            "zh": "文本不同，父级也不同"
+          },
+          "pointer": [],
+          "highlights": [
+            {
+              "left": 24,
+              "top": 635,
+              "width": 457,
+              "height": 143
+            },
+            {
+              "left": 24,
+              "top": 781,
+              "width": 457,
+              "height": 148
+            }
+          ],
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 490,
+              "width": 487,
+              "height": 470
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 396,
+            "top": 135,
+            "width": 487,
+            "height": 470
+          },
+          "sha256": "638588869a27d3a60981d06b72615132880b0e1654b1b1a78ec811db6bf1cdee",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "04f08d63d5d16e86d670da54fe46b2e3d2e5d09243d21f002ba0ed4d26f70888",
+          "nativeBitmapSha256": "04f08d63d5d16e86d670da54fe46b2e3d2e5d09243d21f002ba0ed4d26f70888"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/check-clean-02-edited.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Правки уже есть. Отчёт пока старый",
+            "en": "Repairs are in. The report is still old",
+            "zh": "修改已完成，报告尚未更新"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1160,
+              "y": 435
+            }
+          ],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 168,
+              "height": 49
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 175,
+            "width": 1495,
+            "height": 310
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 175,
+              "width": 1495,
+              "height": 310
+            },
+            "scale": 0.7919732441471572,
+            "scaleX": 0.7919732441471572,
+            "scaleY": 0.7935483870967742,
+            "left": 48,
+            "top": 247,
+            "width": 1184,
+            "height": 246
+          },
+          "sha256": "01c9de993aa40ab2f9e5cb0b484b9e6226e57d37bf73e62b345e4ae78431c386",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "1e9334df78ddcc91f65b0834bf79910a154992e787dde4adfea318b43f0e2f2e",
+          "nativeBitmapSha256": "4c2773bffd65be8ff77646b8b2cbab878aabb325bec460fbe02d219b569637ff"
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/check-clean-02-edited.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Нажимаем «Повторить»",
+            "en": "Click Repeat",
+            "zh": "点击「重新检查」"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1160,
+              "y": 435
+            },
+            {
+              "atMs": 900,
+              "x": 1360,
+              "y": 227,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1255,
+              "top": 200,
+              "width": 220,
+              "height": 58
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 175,
+            "width": 1495,
+            "height": 310
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 175,
+              "width": 1495,
+              "height": 310
+            },
+            "scale": 0.7919732441471572,
+            "scaleX": 0.7919732441471572,
+            "scaleY": 0.7935483870967742,
+            "left": 48,
+            "top": 247,
+            "width": 1184,
+            "height": 246
+          },
+          "sha256": "01c9de993aa40ab2f9e5cb0b484b9e6226e57d37bf73e62b345e4ae78431c386",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "1e9334df78ddcc91f65b0834bf79910a154992e787dde4adfea318b43f0e2f2e",
+          "nativeBitmapSha256": "4c2773bffd65be8ff77646b8b2cbab878aabb325bec460fbe02d219b569637ff"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/check-clean-03-zero-findings.png",
+          "holdMs": 2750,
+          "label": {
+            "ru": "Повторили: все три счётчика — 0",
+            "en": "Rechecked: all three counters are 0",
+            "zh": "复查后，三个计数均为 0"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1360,
+              "y": 227
+            },
+            {
+              "atMs": 650,
+              "x": 1465,
+              "y": 465
+            }
+          ],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 591,
+              "height": 49
+            }
+          ],
+          "crop": {
+            "left": 0,
+            "top": 175,
+            "width": 1495,
+            "height": 310
+          },
+          "nativeTransform": {
+            "crop": {
+              "left": 0,
+              "top": 175,
+              "width": 1495,
+              "height": 310
+            },
+            "scale": 0.7919732441471572,
+            "scaleX": 0.7919732441471572,
+            "scaleY": 0.7935483870967742,
+            "left": 48,
+            "top": 247,
+            "width": 1184,
+            "height": 246
+          },
+          "sha256": "fb9e40c6c6afc0f8155c438785675936f3a839c67f30c666713e02e04a1d00aa",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "4a305c13c69594f0d444f4b533af12f5fab5a99c66870a8faf90b0ad39c1a982",
+          "nativeBitmapSha256": "43255bf8c8e7b69de40b81b4187f38d0d97c55170ab1a7ce445a35300179cd19"
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/check-clean-03-zero-findings.png",
+          "holdMs": 3500,
+          "crop": {
+            "left": 210,
+            "top": 880,
+            "width": 1140,
+            "height": 330
+          },
+          "label": {
+            "ru": "Исходник проверен. Реализация — отдельно",
+            "en": "Source checked. Verify implementation separately",
+            "zh": "源文件已检查，实现仍需单独验证"
+          },
+          "pointer": [],
+          "highlights": [],
+          "nativeTransform": {
+            "crop": {
+              "left": 210,
+              "top": 880,
+              "width": 1140,
+              "height": 330
+            },
+            "scale": 1,
+            "scaleX": 1,
+            "scaleY": 1,
+            "left": 70,
+            "top": 205,
+            "width": 1140,
+            "height": 330
+          },
+          "sha256": "fb9e40c6c6afc0f8155c438785675936f3a839c67f30c666713e02e04a1d00aa",
+          "width": 3024,
+          "height": 1748,
+          "cropSha256": "ec3fc0a4ade63817d133f712b0634f79dc9c4117769302b3a93c861896658082",
+          "nativeBitmapSha256": "ec3fc0a4ade63817d133f712b0634f79dc9c4117769302b3a93c861896658082"
+        }
+      ],
+      "outputs": [
+        {
+          "locale": "ru",
+          "file": "repeat-check-ru.mp4",
+          "gif": "repeat-check-ru.gif",
+          "poster": "repeat-check-ru.png",
+          "sha256": "bcfd8840334491a8f3fce55a907b2d52b05f5f345eeec96bae6c1ab15dc51ef0",
+          "gifSha256": "e2e357978b3d524b3fb3e22bf13d589926857eed8dfe1bc7ed6fe8f864a7fc83",
+          "posterSha256": "5dbdb44d81e0b3490d0b743dd432049b1eb29c41f61f029196e15249ef80cb98",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 14.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "en",
+          "file": "repeat-check-en.mp4",
+          "gif": "repeat-check-en.gif",
+          "poster": "repeat-check-en.png",
+          "sha256": "2b4bcf132f1bd2b44e6a1f5f32d0d26d556b3fa76bb8b53cbd79782ac9222461",
+          "gifSha256": "69260a9e74781c308dbead94b72386994f6d901a587a13608bfc16ae019a6c14",
+          "posterSha256": "b7bac142de831be460cb26c14d5a606edf2c4b2d24e3dc53664a1bdd2160d4f6",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 14.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        },
+        {
+          "locale": "zh",
+          "file": "repeat-check-zh.mp4",
+          "gif": "repeat-check-zh.gif",
+          "poster": "repeat-check-zh.png",
+          "sha256": "ed7de782ad6bbf4dc14614e3aaf8e358d7973615f80b872f95bda9973e947e43",
+          "gifSha256": "184931328087433d234d93b84905efcb7f04708b64f69254e9bf1c1546b70ed7",
+          "posterSha256": "fc47755d0fa7bd66475652483e28f8fc2dc6a3584b2908df982281c05e7db114",
+          "width": 1280,
+          "height": 720,
+          "durationSeconds": 14.5,
+          "fps": 24,
+          "gifFps": 12,
+          "crf": 12
+        }
+      ]
     }
   ]
 }

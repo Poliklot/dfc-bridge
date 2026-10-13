@@ -30,7 +30,7 @@ hero-copy
 - changes coordinates without adding meaning;
 - is a default `GROUP` or `Frame 53` outside an asset.
 
-Use native Figma layout for content flow. `[decor]` marks a visual layer; it does not excuse a free-form content container. A genuinely opaque visual can use `[decor] [asset]`.
+Remove the unnecessary level, not the content inside it. If a `GROUP` has a real layout job, replace it with a frame using native Figma layout rather than deleting the relationship. `[decor]` marks a visual layer; it does not excuse a free-form content container. A decorative composition transferred as one whole resource can use `[decor] [asset]`.
 
 ## Keep the tree stable
 

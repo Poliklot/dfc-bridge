@@ -8,7 +8,7 @@ Use the component library to keep shared visual behavior consistent. Use page st
 <figcaption>Page, view, width, state and component variant are separate axes. Explanatory diagram. <a href="../assets/tutorial/diagrams/axes-en.svg">Open full size</a>.</figcaption>
 </figure>
 
-The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+The [visual introduction](25-visual-walkthrough.md) demonstrates this split: a shared button supplies appearance; its page instance points to the local modal.
 
 ## Two library levels
 

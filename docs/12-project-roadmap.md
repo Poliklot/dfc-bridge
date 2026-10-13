@@ -1,12 +1,12 @@
 # Status and roadmap
 
-**Updated 14 August 2026.** DFC Bridge is a public, MIT-licensed methodology and open-source documentation/validator repository. The DFC Bridge Assistant plugin is publicly installable from Figma Community, but its implementation repository is private. Public installation does not imply public plugin source, issues, or release history.
+**Updated 13 October 2026.** DFC Bridge is a public, MIT-licensed methodology and open-source documentation/validator repository. The DFC Bridge Assistant plugin is publicly installable from Figma Community, but its implementation repository is private. Public installation does not imply public plugin source, issues, or release history.
 
 ## Current releases
 
 | Product | Version | Status |
 | --- | --- | --- |
-| DFC Bridge methodology and site | **0.11.6** | Concise trilingual entry path, simplified navigation and checks, practical designer guides, and stable advanced references. Contract/schema, tag registry, and validator artifacts remain compatible. |
+| DFC Bridge methodology and site | **0.11.7** | Simpler trilingual introduction, clearer task sequences and validation boundaries, corrected translations, and seven native-video scenarios with zoomable media. Contract/schema, tag grammar, rule IDs, and checker coverage remain compatible. |
 | DFC Bridge rule catalog | **107 rules** | Explicit automatic, heuristic, and manual coverage across methodology surfaces. |
 | DFC Bridge Assistant for Figma coverage snapshot | **Verified coverage** | Verified implementation contract for blocking source-structure checks, Section-organized page roots, page checking, and separately scoped **Check selected section**. Figma Community remains authoritative for the currently published installable build; implementation remains private. |
 
@@ -24,7 +24,7 @@ The canonical guidance covers:
 - state machines, forms, async behavior, focus, URL/history, and recovery;
 - motion, long-scroll scenes, reverse/re-entry, reduced motion, and fallbacks;
 - WCAG 2.2 AA accessibility profile, RTL/bidirectional context, and target capabilities;
-- design → contract → implementation → QA → deviation lifecycle;
+- design → contract → implementation → QA → release, with managed deviations;
 - explicit open questions so an unknown is owned instead of becoming a blind spot.
 
 ### Structured contract and validation artifacts

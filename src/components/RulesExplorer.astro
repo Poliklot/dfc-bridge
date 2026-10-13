@@ -72,7 +72,7 @@ const copy = locale === 'ru'
   ? {
       eyebrow: 'Открытый каталог',
       title: 'Каталог правил валидатора',
-      lead: `Найдите, почему макет не проходит проверку и что именно исправить. В каталоге ${catalog.rules.length} правил с постоянными идентификаторами, серьёзностью и способом проверки.`,
+      lead: `Найдите, почему макет не проходит проверку и что именно исправить. В каталоге ${catalog.rules.length} правил с идентификаторами, серьёзностью и способом проверки. Это полный справочник, включая ручные проверки, а не список всех автоматических проверок плагина.`,
       search: 'Поиск по правилу',
       searchPlaceholder: 'Например: модальное окно, адаптив…',
       severityLabel: 'Серьёзность',
@@ -90,7 +90,7 @@ const copy = locale === 'ru'
     ? {
       eyebrow: '机器可读参考',
       title: '校验规则目录',
-      lead: `在这个包含 ${catalog.rules.length} 条规则的目录里，按 ID、原则、严重程度和执行方式查找问题及修复方法。`,
+      lead: `在这个包含 ${catalog.rules.length} 条规则的目录里，查找问题、原因和修复方法。目录包含人工检查要求，并不表示插件会自动执行所有规则。`,
       search: '搜索规则',
       searchPlaceholder: '例如：模态框、断点、文本……',
       severityLabel: '严重程度',
@@ -107,7 +107,7 @@ const copy = locale === 'ru'
   : {
       eyebrow: 'Machine-readable reference',
       title: 'Validator rule catalog',
-      lead: `${catalog.rules.length} rules from validator/rules.json. Filter by ID, principle, severity, and automation level.`,
+      lead: `Find the cause and correction among ${catalog.rules.length} canonical rules. Filter by ID, principle, severity, and automation level. This full catalog includes manual checks; it is not the list of checks the plugin runs automatically.`,
       search: 'Search rules',
       searchPlaceholder: 'For example: modal, breakpoint, text…',
       severityLabel: 'Severity',

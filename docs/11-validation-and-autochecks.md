@@ -1,6 +1,6 @@
 # Validation and autochecks
 
-DFC Bridge should become comfortable because a designer can run a preflight check before handoff and see concrete, fixable problems. The methodology must therefore define not only advice, but also machine-checkable rules.
+Validation turns a prepared source into a list of findings and remaining decisions. Choose the page or selected-section scope first; then fix findings, rerun the check, and review what the tool did not cover. This page explains that boundary and the broader validation model—it is not a claim that the plugin runs every rule below.
 
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
@@ -11,6 +11,8 @@ DFC Bridge should become comfortable because a designer can run a preflight chec
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
 
 ## Validation layers
+
+These layers organize the methodology's rules. The [current coverage](12-project-roadmap.md#separate-automation-scopes) distinguishes implemented source checks from checks that need structured data, an implementation, or human judgment.
 
 1. **Syntax validation** — tags, boolean visual-intent/draft flags, optional tag values, keys, href/action syntax, breakpoint tags.
 2. **Identity validation** — identity uniqueness, identity stability, breakpoint-neutral identity values, type stability, and correct exclusion of `[decor]`/`[asset]` flags from identity-tag counting.
@@ -30,7 +32,7 @@ The [visual introduction](25-visual-walkthrough.md) shows why these decisions ma
 
 ## Report severity
 
-- **error** — blocks DFC Bridge-ready status.
+- **error** — blocks readiness in the checked scope.
 - **warning** — requires explanation or fix before serious transfer.
 - **info** — useful context for implementers and adapters.
 
@@ -205,7 +207,7 @@ Use before showing the file to engineering:
 
 ### Reviewer strict check
 
-Use before approving a handoff:
+Use before approving a handoff. Review the applicable rules below using their declared automatic, heuristic, or manual method; this is not one “run all” plugin command:
 
 - full rule catalog;
 - edge-case checklist;
@@ -242,12 +244,13 @@ Use to prove that a target implementation path supports DFC Bridge:
 - Invalid unknown href placeholder `[href=#]`; use `[link]` instead.
 - Fake or placeholder `[route=...]` value; omit route until the production URL is known.
 - Action target missing.
-- Page root without route is a Draft TODO (`routing.page-route-missing`), not a blocker.
 - Modal without close behavior.
 - Text fixed height with no overflow policy.
 - Dynamic text that relies on manual line breaks.
 - Hidden keyed layers used as source of truth.
 - Rasterized text without explicit reason.
+
+A page root without a known route is a Draft TODO (`routing.page-route-missing`), not a blocker. Likewise, draft `[link]` and `[control]` are valid markers of unfinished decisions, not proof that the interaction is ready.
 
 ## False positives are acceptable
 

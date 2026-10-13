@@ -469,7 +469,86 @@
       "sourcePageName": "01 · До разметки",
       "sourceRevision": "QA-copy-before-motion-2026-10-11",
       "captureNotes": "Independent native capture. Hero, copy and both controls expanded; artwork internals omitted. HTML pair is not a composited editor screenshot."
+    },
+    {
+      "file": "screenshots/figma-before-hero-desktop.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "before-overview",
+      "sourceSha256": "748892ac369d85bd4e0b91915fa00d379b7782e1e21e26dab3af61ad9c5bd931",
+      "sourceDimensions": {
+        "width": 1600,
+        "height": 1488
+      },
+      "crop": {
+        "left": 24,
+        "top": 16,
+        "width": 1184,
+        "height": 720
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "screenshots/figma-before-overview.png",
+      "derivedFromCapture": "screenshots/figma-before-overview.png",
+      "derivedAt": "2026-10-13",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49",
+      "captureNotes": "Desktop hero detail: retains the native desktop root label, full heading, both controls and artwork. Content below hero is outside this crop. Lossless rectangular crop only. Immediate source is retained and pixel-verifiable; the original full-window capture is not retained in this repository."
+    },
+    {
+      "file": "screenshots/figma-before-hero-mobile.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "before-overview",
+      "sourceSha256": "748892ac369d85bd4e0b91915fa00d379b7782e1e21e26dab3af61ad9c5bd931",
+      "sourceDimensions": {
+        "width": 1600,
+        "height": 1488
+      },
+      "crop": {
+        "left": 1232,
+        "top": 16,
+        "width": 344,
+        "height": 632
+      },
+      "interface": "Figma Design",
+      "sourceCaptureFile": "screenshots/figma-before-overview.png",
+      "derivedFromCapture": "screenshots/figma-before-overview.png",
+      "derivedAt": "2026-10-13",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "01 · До разметки",
+      "sourceRevision": "current-teaching-file",
+      "teachingFileSha256": "6dd39f8678a0cbf4a27ef3b39319e8dfc7ab610d0fbce6f80b3e283188a84e49",
+      "captureNotes": "Mobile hero detail: retains the native mobile-final-2 root label, shortened heading, artwork and both controls. Layout position alone does not prove parent ownership; use the independent tree captures. Lossless rectangular crop only. Immediate source is retained and pixel-verifiable; the original full-window capture is not retained in this repository."
+    },
+    {
+      "file": "screenshots/assistant-ready-summary-local.png",
+      "kind": "native-figma-screenshot",
+      "capturedAt": "2026-10-09",
+      "sourceFrame": "ready",
+      "sourceSha256": "bc9e5a75140e480156d08f73f36476a55078e490b7bbcdc1a1f4b830ea46ee31",
+      "sourceDimensions": {
+        "width": 1430,
+        "height": 1656
+      },
+      "crop": {
+        "left": 16,
+        "top": 32,
+        "width": 1398,
+        "height": 396
+      },
+      "interface": "local-development-not-community-release",
+      "sourceCaptureFile": "screenshots/assistant-ready-result-local.png",
+      "derivedFromCapture": "screenshots/assistant-ready-result-local.png",
+      "derivedAt": "2026-10-13",
+      "fileKey": "sEqZJypggdFJasxDa57TzV",
+      "sourcePageName": "02 · Подготовленная страница",
+      "sourceRevision": "earlier-native-evidence",
+      "reusedEvidence": "Earlier page 02 native Ready result; unchanged result UI, not a new check of the revised component-based teaching file.",
+      "captureNotes": "Header detail of the earlier page-02 Ready report. Retains scope warning, 375/1440 widths, zero counters and view summary. This is not the result of the adjacent recording and not a fresh check of the revised archive. Full historical report remains separately accessible. Lossless rectangular crop only. Immediate source is retained and pixel-verifiable; the original full-window capture is not retained in this repository."
     }
   ],
-  "latestCaptureRevision": "The button-state-library-2026-10-09 records identify the fresh state atlas and final overview. Other native captures retain their own actual earlier source hashes/revisions; they are not restamped as new captures or new archive checks."
+  "latestCaptureRevision": "The button-state-library-2026-10-09 records identify the fresh state atlas and final overview. Other native captures retain their own actual earlier source hashes/revisions; they are not restamped as new captures or new archive checks.",
+  "derivativePolicy": "derivedFromCapture points to a retained registered screenshot, not a new capture. Immediate source hashes, dimensions and exact crop pixels are checked; the original capture date, file and revision are inherited. Historical entries whose full-window source is absent cannot be freshly pixel-verified against that missing original."
 }

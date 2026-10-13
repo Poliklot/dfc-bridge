@@ -1,6 +1,6 @@
 # Page routing and views
 
-DFC Bridge treats pages, production routes, anchors, and page/data states as first-class parts of the transfer contract. A design is not only a set of sections; it is a navigable product surface.
+Start by identifying which frames describe the same page. Then record its real address, the states users can encounter, and the sections links can reach. This keeps an empty catalog from becoming a fictitious page and a mobile layout from becoming a second route.
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
@@ -8,7 +8,7 @@ DFC Bridge treats pages, production routes, anchors, and page/data states as fir
 <figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
 </figure>
 
-The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
+In the [visual introduction](25-visual-walkthrough.md), two `workshop` roots share a page and a view; only their declared widths differ.
 
 ## Page identity and optional route
 

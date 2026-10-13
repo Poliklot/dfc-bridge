@@ -1,0 +1,1165 @@
+{
+  "schemaVersion": 2,
+  "kind": "annotated-native-step-sequence",
+  "draft": false,
+  "capturedAt": "2026-10-12",
+  "fileKey": "yCIbd7pIabjIepkkncPPYl",
+  "pageName": "06 · Действия для экскурса",
+  "locales": [
+    "ru",
+    "en",
+    "zh"
+  ],
+  "render": {
+    "width": 1280,
+    "height": 720,
+    "fps": 24,
+    "gifFps": 12,
+    "crf": 12,
+    "viewport": {
+      "left": 48,
+      "top": 92,
+      "width": 1184,
+      "height": 556
+    }
+  },
+  "clips": [
+    {
+      "id": "page-metadata",
+      "action": "Give the mobile root page/workshop identity, route /workshop, view default and breakpoint 375, then jump to the corresponding 1440 root.",
+      "evidenceFact": "Native Assistant Type changes from Ordinary layer to Page. Its fields show workshop, page ID workshop, route /workshop, width 375 and view default. The native counterpart button jumps to the matching root; the fields then show width 1440 with the same page/route/view.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 0,
+        "top": 450,
+        "width": 928,
+        "height": 556
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/page-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "mobile-final-2 — пока обычный слой",
+            "en": "mobile-final-2 is still an ordinary layer",
+            "zh": "mobile-final-2 还是普通图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 665
+            },
+            {
+              "atMs": 650,
+              "x": 220,
+              "y": 538,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 497,
+              "width": 442,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/page-03-page-form.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Тип — «Страница». Появились её поля",
+            "en": "Choose Page. Its fields appear",
+            "zh": "类型选「页面」，显示页面字段"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 220,
+              "y": 578
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/page-04-shared-identity.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Те же page, route и view. Ширина — 375",
+            "en": "Same page, route and view. Width: 375",
+            "zh": "page、route、view 相同，宽度为 375"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 578
+            },
+            {
+              "atMs": 650,
+              "x": 875,
+              "y": 838
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 888,
+              "height": 338
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/page-04-shared-identity.png",
+          "holdMs": 2000,
+          "crop": {
+            "left": 0,
+            "top": 1000,
+            "width": 928,
+            "height": 556
+          },
+          "label": {
+            "ru": "Открываем найденный вариант 1440",
+            "en": "Open the matching 1440 root",
+            "zh": "打开找到的 1440 版本"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 1410
+            },
+            {
+              "atMs": 900,
+              "x": 145,
+              "y": 1298,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 1263,
+              "width": 253,
+              "height": 72
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/page-05-counterpart.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Ширина — 1440. Страница та же",
+            "en": "Width: 1440. The page is the same",
+            "zh": "宽度为 1440，还是同一页面"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 708
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 888,
+              "height": 338
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rename-title",
+      "action": "Rename the matching title layer; do not change product copy.",
+      "evidenceFact": "Native Figma rename field is opened with Cmd+R, replaced with hero-title and confirmed with Enter. Product characters remain unchanged; the mobile title is still the shorter string.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 124,
+        "top": 470,
+        "width": 826,
+        "height": 500
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/rename-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Title mobile — имя слоя",
+            "en": "Title mobile is the layer name",
+            "zh": "Title mobile 是图层名"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 820,
+              "y": 620
+            },
+            {
+              "atMs": 650,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/rename-02-selected-name.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Открываем имя слоя",
+            "en": "Open the layer name",
+            "zh": "打开图层名"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "⌘",
+            "R"
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/rename-03-new-name.png",
+          "holdMs": 2500,
+          "label": {
+            "ru": "Новое имя: hero-title",
+            "en": "New name: hero-title",
+            "zh": "新图层名：hero-title"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/rename-04-after.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Имя изменили. Текст не трогали",
+            "en": "The name changed. The text did not",
+            "zh": "图层名改了，文本没变"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 920,
+              "y": 720
+            },
+            {
+              "atMs": 650,
+              "x": 820,
+              "y": 620
+            }
+          ],
+          "highlights": [
+            {
+              "left": 370,
+              "top": 690,
+              "width": 570,
+              "height": 64
+            }
+          ],
+          "keys": [
+            "↵"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "repair-copy",
+      "action": "Restore the agreed full product title on mobile; layer identity is not a substitute for matching copy.",
+      "evidenceFact": "Return enters text editing, Cmd+A selects the text, Cmd+V replaces Мастерская макетов with Мастерская понятных макетов and Escape exits. Both native titles occupy two lines; their height does not increase.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 1150,
+        "top": 110,
+        "width": 1000,
+        "height": 556
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/copy-01-before.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "На mobile пропало «понятных»",
+            "en": "Mobile uses the shorter text",
+            "zh": "移动版少了「понятных」"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2110,
+              "y": 605
+            },
+            {
+              "atMs": 650,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/copy-02-selected-text.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Выделяем текст, не слой",
+            "en": "Select the text, not the layer",
+            "zh": "选中文字，不是图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "⌘",
+            "A"
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/copy-03-reflow.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "Вернули согласованный полный текст",
+            "en": "Restore the agreed full text",
+            "zh": "恢复约定的完整文本"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/copy-04-after.png",
+          "holdMs": 3000,
+          "label": {
+            "ru": "Теперь — «Мастерская понятных макетов»",
+            "en": "Now: Мастерская понятных макетов",
+            "zh": "现在：Мастерская понятных макетов"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2075,
+              "y": 345
+            },
+            {
+              "atMs": 650,
+              "x": 2110,
+              "y": 605
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1287,
+              "top": 152,
+              "width": 790,
+              "height": 204
+            }
+          ],
+          "keys": [
+            "Esc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "move-actions",
+      "action": "Cut the entire hero-actions group and paste it into the existing hero-copy parent; do not create a wrapper or move the controls individually.",
+      "evidenceFact": "Native Cmd+X removes hero-actions and both controls. The existing hero-copy is visibly selected, then Cmd+V inserts a new hero-actions group (82:2) inside it, retaining Button copy and faq-link. workshop-art remains a sibling of hero-copy.",
+      "sourcePageName": "06 · Действия для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 124,
+        "top": 550,
+        "width": 826,
+        "height": 650
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/move-01-before.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "hero-actions — снаружи hero-copy",
+            "en": "hero-actions is outside hero-copy",
+            "zh": "hero-actions 在 hero-copy 外面"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 760
+            },
+            {
+              "atMs": 650,
+              "x": 800,
+              "y": 932
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 900,
+              "width": 650,
+              "height": 222
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/move-02-cut.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Вырезаем всю группу. Обе кнопки с ней",
+            "en": "Cut the whole group, including both controls",
+            "zh": "剪切整组，两个控件一起"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 932
+            }
+          ],
+          "highlights": [],
+          "keys": [
+            "⌘",
+            "X"
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/move-02-cut.png",
+          "holdMs": 1000,
+          "label": {
+            "ru": "Выбираем существующий hero-copy",
+            "en": "Select the existing hero-copy",
+            "zh": "选择已有的 hero-copy"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 932
+            },
+            {
+              "atMs": 550,
+              "x": 800,
+              "y": 651,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 615,
+              "width": 650,
+              "height": 70
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/move-03-target-parent.png",
+          "holdMs": 1250,
+          "label": {
+            "ru": "Родитель выбран: hero-copy",
+            "en": "Selected parent: hero-copy",
+            "zh": "已选父级：hero-copy"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 651
+            }
+          ],
+          "highlights": [
+            {
+              "left": 265,
+              "top": 615,
+              "width": 650,
+              "height": 70
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/move-04-after.png",
+          "holdMs": 3250,
+          "label": {
+            "ru": "Вставили внутрь. Обе кнопки на месте",
+            "en": "Paste inside. Both controls are retained",
+            "zh": "粘贴到里面，两个控件都在"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 800,
+              "y": 651
+            },
+            {
+              "atMs": 650,
+              "x": 800,
+              "y": 862
+            }
+          ],
+          "highlights": [
+            {
+              "left": 320,
+              "top": 829,
+              "width": 595,
+              "height": 225
+            }
+          ],
+          "keys": [
+            "⌘",
+            "V"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "button-states",
+      "action": "Switch a linked sample instance from State=default to State=hover, then independently enable Focus visible in the native component properties.",
+      "evidenceFact": "Clean QA instance 86:27 inside Button specimen 86:26 remains linked to the original button-primary set. Native State changes from default to hover, then Focus visible changes from false to true while State remains hover (confirmed in native AX). The button becomes darker and gains its real component focus ring; this is a design-state preview, not a runtime hover test. No atlas label or adjacent sample is cropped into this view.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 1610,
+        "top": 475,
+        "width": 1390,
+        "height": 355
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/states-clean-01-default.png",
+          "holdMs": 2250,
+          "label": {
+            "ru": "UI-kit: сейчас State=default",
+            "en": "UI kit: State=default",
+            "zh": "UI-kit：当前 State=default"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2940,
+              "y": 700
+            },
+            {
+              "atMs": 750,
+              "x": 2815,
+              "y": 535,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2695,
+              "top": 502,
+              "width": 250,
+              "height": 70
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/states-clean-02-hover.png",
+          "holdMs": 2250,
+          "crop": {
+            "left": 2410,
+            "top": 470,
+            "width": 600,
+            "height": 280
+          },
+          "label": {
+            "ru": "State=hover — другой вариант в макете",
+            "en": "State=hover: a design variant",
+            "zh": "State=hover：切换设计稿变体"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2815,
+              "y": 535
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2695,
+              "top": 502,
+              "width": 250,
+              "height": 70
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/states-clean-02-hover.png",
+          "holdMs": 2000,
+          "crop": {
+            "left": 2410,
+            "top": 470,
+            "width": 600,
+            "height": 280
+          },
+          "label": {
+            "ru": "Фокус включаем отдельно от hover",
+            "en": "Enable focus independently of hover",
+            "zh": "焦点可独立于 hover 开启"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2815,
+              "y": 535
+            },
+            {
+              "atMs": 750,
+              "x": 2735,
+              "y": 699,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2689,
+              "top": 677,
+              "width": 97,
+              "height": 48
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/states-clean-03-hover-focus.png",
+          "holdMs": 3250,
+          "label": {
+            "ru": "hover + focus visible — образец в макете",
+            "en": "hover + focus visible: a design sample",
+            "zh": "hover + focus visible：这是设计示例"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 2735,
+              "y": 699
+            },
+            {
+              "atMs": 1000,
+              "x": 1700,
+              "y": 755
+            }
+          ],
+          "highlights": [
+            {
+              "left": 2689,
+              "top": 677,
+              "width": 97,
+              "height": 48
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local-action",
+      "action": "Declare a modal action on the page instance, choose the local contact-modal target, then use the native Go to target command to find its hidden layer.",
+      "evidenceFact": "Page 08 uses a disposable recording root 85:31 with unique page=workshop-recording, route=/workshop-recording, bp=375 and view=default; original page/route contexts and linked library sources are unchanged. Its contact-button changes from Ordinary layer to Button (six Down presses and Return). Modal is the native action default; Down and Return choose contact-modal at 375. The form synchronizes. Go to target selects actual hidden node 85:80; the modal form identifies contact-modal and the native tree retains its closed-eye icon. This navigates to a target layer, not a runtime modal opening.",
+      "sourcePageName": "08 · Компоненты для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 0,
+        "top": 350,
+        "width": 928,
+        "height": 600
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/action-clean-01-before.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Вид кнопки общий. Действия пока нет",
+            "en": "The appearance is shared. No action yet",
+            "zh": "外观共用，但还没定义动作"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 790
+            },
+            {
+              "atMs": 650,
+              "x": 220,
+              "y": 579,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-02-button-form.png",
+          "holdMs": 2500,
+          "label": {
+            "ru": "Тип — «Кнопка». Выбираем цель для модалки",
+            "en": "Choose Button, then its modal target",
+            "zh": "类型选「按钮」，再选弹窗目标"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 220,
+              "y": 579
+            },
+            {
+              "atMs": 750,
+              "x": 850,
+              "y": 716,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 678,
+              "width": 442,
+              "height": 80
+            }
+          ],
+          "keys": [
+            "↓",
+            "↵"
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-03-local-target.png",
+          "holdMs": 2500,
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 630
+          },
+          "label": {
+            "ru": "Цель — contact-modal. Уже синхронизировано",
+            "en": "Target: contact-modal. Synchronized",
+            "zh": "目标为 contact-modal，已同步"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 850,
+              "y": 716
+            },
+            {
+              "atMs": 900,
+              "x": 880,
+              "y": 939
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 678,
+              "width": 442,
+              "height": 80
+            },
+            {
+              "left": 18,
+              "top": 908,
+              "width": 430,
+              "height": 55
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-03-local-target.png",
+          "holdMs": 1500,
+          "crop": {
+            "left": 0,
+            "top": 350,
+            "width": 928,
+            "height": 630
+          },
+          "label": {
+            "ru": "«К цели» — найти её слой в Figma",
+            "en": "Go to target finds its layer in Figma",
+            "zh": "「转到目标」会定位 Figma 图层"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 880,
+              "y": 939
+            },
+            {
+              "atMs": 750,
+              "x": 115,
+              "y": 860,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 18,
+              "top": 818,
+              "width": 195,
+              "height": 77
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/action-clean-04-found.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Нашли contact-modal на ширине 375",
+            "en": "Found contact-modal at width 375",
+            "zh": "找到宽度 375 的 contact-modal"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 875,
+              "y": 579
+            }
+          ],
+          "highlights": [
+            {
+              "left": 465,
+              "top": 539,
+              "width": 442,
+              "height": 80
+            },
+            {
+              "left": 18,
+              "top": 678,
+              "width": 888,
+              "height": 80
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/action-clean-05-hidden-layer.png",
+          "holdMs": 3250,
+          "crop": {
+            "left": 124,
+            "top": 1070,
+            "width": 826,
+            "height": 635
+          },
+          "label": {
+            "ru": "Слой скрыт. Модалку мы не открывали",
+            "en": "The layer is hidden. We did not open the modal",
+            "zh": "图层仍隐藏，我们没有打开弹窗"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 870,
+              "y": 1533
+            },
+            {
+              "atMs": 650,
+              "x": 930,
+              "y": 1430
+            }
+          ],
+          "highlights": [
+            {
+              "left": 205,
+              "top": 1498,
+              "width": 717,
+              "height": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "repeat-check",
+      "action": "Repeat the scoped automatic source check after the two already demonstrated repairs; show native counters and preserve the limited scope of the result.",
+      "evidenceFact": "On disposable page 07, selected mobile root 81:166 and its 1440 counterpart initially report exactly two findings: hero-title has different content and hero-actions has a different parent. The previously demonstrated text and parent repairs were then applied through the Figma API only on this QA page: title 81:172 restored to the full text and group 81:174 moved into existing hero-copy 81:171, retaining both controls. This clip does not depict those API repairs as UI edits. Source 02 retains the stale two-finding report after the repairs. An actual native Repeat click at source coordinates 1360,227 produces source 03 with zero errors, zero TODO and zero warnings, and the native notice explicitly limits this to automatic source checks; implementation and manual handoff verification are still required. The old stale two-error toast is outside every crop.",
+      "sourcePageName": "07 · Проверка для экскурса",
+      "sourceInterface": "Figma Desktop Retina capture",
+      "crop": {
+        "left": 0,
+        "top": 175,
+        "width": 1495,
+        "height": 310
+      },
+      "stages": [
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/check-clean-01-two-findings.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Проверка нашла две проблемы",
+            "en": "The check found two problems",
+            "zh": "检查发现了两个问题"
+          },
+          "pointer": [],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 168,
+              "height": 49
+            }
+          ]
+        },
+        {
+          "phase": "before",
+          "sourceFile": "source/hd/check-clean-01-two-findings.png",
+          "holdMs": 2250,
+          "crop": {
+            "left": 0,
+            "top": 490,
+            "width": 487,
+            "height": 470
+          },
+          "label": {
+            "ru": "Текст разный. Родитель тоже",
+            "en": "Different text. Different parent",
+            "zh": "文本不同，父级也不同"
+          },
+          "pointer": [],
+          "highlights": [
+            {
+              "left": 24,
+              "top": 635,
+              "width": 457,
+              "height": 143
+            },
+            {
+              "left": 24,
+              "top": 781,
+              "width": 457,
+              "height": 148
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/check-clean-02-edited.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Правки уже есть. Отчёт пока старый",
+            "en": "Repairs are in. The report is still old",
+            "zh": "修改已完成，报告尚未更新"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1160,
+              "y": 435
+            }
+          ],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 168,
+              "height": 49
+            }
+          ]
+        },
+        {
+          "phase": "action",
+          "sourceFile": "source/hd/check-clean-02-edited.png",
+          "holdMs": 2000,
+          "label": {
+            "ru": "Нажимаем «Повторить»",
+            "en": "Click Repeat",
+            "zh": "点击「重新检查」"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1160,
+              "y": 435
+            },
+            {
+              "atMs": 900,
+              "x": 1360,
+              "y": 227,
+              "click": true
+            }
+          ],
+          "highlights": [
+            {
+              "left": 1255,
+              "top": 200,
+              "width": 220,
+              "height": 58
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/check-clean-03-zero-findings.png",
+          "holdMs": 2750,
+          "label": {
+            "ru": "Повторили: все три счётчика — 0",
+            "en": "Rechecked: all three counters are 0",
+            "zh": "复查后，三个计数均为 0"
+          },
+          "pointer": [
+            {
+              "atMs": 0,
+              "x": 1360,
+              "y": 227
+            },
+            {
+              "atMs": 650,
+              "x": 1465,
+              "y": 465
+            }
+          ],
+          "highlights": [
+            {
+              "left": 882,
+              "top": 345,
+              "width": 591,
+              "height": 49
+            }
+          ]
+        },
+        {
+          "phase": "after",
+          "sourceFile": "source/hd/check-clean-03-zero-findings.png",
+          "holdMs": 3500,
+          "crop": {
+            "left": 210,
+            "top": 880,
+            "width": 1140,
+            "height": 330
+          },
+          "label": {
+            "ru": "Исходник проверен. Реализация — отдельно",
+            "en": "Source checked. Verify implementation separately",
+            "zh": "源文件已检查，实现仍需单独验证"
+          },
+          "pointer": [],
+          "highlights": []
+        }
+      ]
+    }
+  ],
+  "overlayCoordinateSpace": "source-pixels"
+}

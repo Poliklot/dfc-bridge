@@ -8,7 +8,7 @@ DFC Bridge treats data display as a product contract, not as sample copy arrange
 
 ## What belongs in the contract
 
-For each table, grid, metric, list, or chart, record:
+Start with the question a table, grid, metric, list, or chart must answer. Then use the following decisions to define its data, presentation, and failure cases:
 
 | Concern | Required decision |
 | --- | --- |
@@ -72,6 +72,8 @@ Do not encode the entire schema in names such as `[series-revenue]`, `[currency-
   }
 }
 ```
+
+In this example, `revenue-chart` and `revenue-table` expose the same actual/target values. Changing `period-filter` also needs a [reaction](22-state-machines-and-reactions.md): what loads, what stays visible, and how failure is reported. The data record alone does not define that interaction.
 
 Structured metadata is versionable, reviewable, and target-independent. It may live in Figma plugin data, a sidecar file, or an adapter payload, but it must reference stable DFC Bridge identities and travel with the handoff.
 
@@ -169,7 +171,7 @@ A smaller screen is not permission to remove comparison fields, provenance, or r
 
 ## Data review gate
 
-A data display is ready only when reviewers can answer:
+Use these questions to review the data-display contract. This is not a page-wide Ready result or proof of the implemented application:
 
 - Can we implement it with zero invented fields or formats?
 - Do fixtures cover zero, one, typical, maximum, long, missing, stale, partial, and failed data?

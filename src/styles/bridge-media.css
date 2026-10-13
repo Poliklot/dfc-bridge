@@ -29,6 +29,12 @@
   margin: 0 0 .25rem .75rem;
 }
 
+/* Keep the floated inspection control inside its caption/figure, including
+   short one-line captions. Following content and figure captures must clear it. */
+.sl-markdown-content .bridge-lesson-figure > figcaption {
+  display: flow-root;
+}
+
 .sl-markdown-content .bridge-media-open:hover,
 .bridge-media-controls button:hover:not(:disabled) {
   border-color: var(--sl-color-text-accent);
@@ -130,18 +136,17 @@
   padding: 24px;
 }
 
-.bridge-media-image {
+.bridge-media-image,
+.bridge-media-video {
   display: block;
   flex: none;
   max-width: none;
+  max-height: none;
+  /* Inspect exact pixels; the global reduced-motion duration must not animate scale. */
+  transition-property: none;
 }
 
 .bridge-media-video {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: min(80rem, calc(100vw - 48px));
-  max-height: calc(100dvh - 11rem);
   object-fit: contain;
 }
 
@@ -229,6 +234,20 @@
   margin: 0;
   padding: var(--bridge-figure-inset);
   background: var(--bridge-surface);
+}
+
+/* One action per row. Keep each subject-fit canvas at or below its native size. */
+.sl-markdown-content .bridge-lesson-pair.bridge-lesson-motion-pair {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.sl-markdown-content .bridge-lesson-motion > video {
+  width: auto;
+  padding: 0;
+  border: 1px solid var(--bridge-line);
+  border-radius: .4rem;
+  object-fit: contain;
 }
 
 @media (max-width: 40rem) {

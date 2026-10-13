@@ -13,6 +13,8 @@ Do not add page metadata to an existing product just to make one section checkab
 
 ## Page and widths
 
+For a page, check all three points. For a selected section, check its `[section=...]` root and only the contexts being handed over; do not require page tags or invent missing variants.
+
 - [ ] The page, route when known, width, and state are clear from the root.
 - [ ] The prepared roots describe the same page and preserve the same meaning.
 - [ ] The same logical element keeps the same name across widths.
@@ -29,7 +31,7 @@ See [layer names](02-layer-naming-and-identity.md) and [design rules](01-design-
 
 ## Links, actions, and states
 
-- [ ] Every link has an `[href]` or a deliberate open decision.
+- [ ] Every link has a known `[href=...]`, or a draft `[link]` backed by an owned open question.
 - [ ] Every interface change has an `[action]` and an existing target.
 - [ ] Important default, loading, empty, error, and success states are shown or described.
 
@@ -45,9 +47,9 @@ See [components](14-components-and-ui-kit.md) and [content and overflow](07-heig
 
 ## Handoff test
 
-- [ ] A person who did not prepare the file can find the page, widths, actions, targets, and editable resources without a call.
+- [ ] A person who did not prepare the file can find the declared page or section, its contexts, actions, targets, and editable resources without a call.
 
-If one answer still lives in chat, add it to the file or record it as an owned open question. Then run [Check page in Figma](https://www.figma.com/community/plugin/1654485530503673254).
+If one answer still lives in chat, add it to the file or record it as an owned open question. In [DFC Bridge Assistant](https://www.figma.com/community/plugin/1654485530503673254), run **Check page** for a page or **Check selected section** for the selected section roots. Fix findings and rerun. Keep external dependencies with their owners; a clean source report does not approve the host page or the implementation.
 
 ## For a stricter review
 

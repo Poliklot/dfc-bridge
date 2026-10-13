@@ -1,6 +1,6 @@
 {
   "name": "dfc-bridge",
-  "version": "0.11.6",
+  "version": "0.11.7",
   "private": true,
   "type": "module",
   "engines": {
@@ -27,7 +27,7 @@
     "lint:links": "node scripts/check-links.mjs",
     "lint:built": "node scripts/check-built-site.mjs",
     "build:legacy": "node scripts/build-legacy-site.mjs",
-    "lint:tutorial": "node scripts/check-tutorial-assets.mjs"
+    "lint:tutorial": "node --test scripts/native-motion-checks.test.mjs scripts/figma-recorder.test.mjs && node scripts/build-tutorial-screenshots.mjs --check && node scripts/check-tutorial-assets.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

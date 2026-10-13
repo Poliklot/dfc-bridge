@@ -31,7 +31,7 @@ filter-button [action=state:filters-open]
 contact-button [action=modal:contact-modal]
 ```
 
-The target must exist in the declared area or be recorded as an owned open question. The same shared button component can have different actions in different page contexts.
+Here, `contact-modal` is the target id: the destination layer carries `[modal=contact-modal]`. A known target must exist in the declared scope; an unresolved decision is recorded as an owned open question. Use `[control]` while the action itself is unknown, not an invented action target. The same shared button component can have different actions in different page contexts.
 
 ## Fields use `field`
 
@@ -52,7 +52,7 @@ For a meaningful interaction, show or record:
 - loading, success, empty, and error outcomes when relevant;
 - focus, announcement, and history behavior when they affect the user.
 
-Keep tags short. Put a longer state graph in the [reactions guide](22-state-machines-and-reactions.md) or structured contract.
+Keep tags short. Record a longer state graph in the structured contract; the [reactions guide](22-state-machines-and-reactions.md) explains how to describe events, outcomes, and transitions.
 
 ## Check before handoff
 

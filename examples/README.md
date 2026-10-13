@@ -1,6 +1,6 @@
 # DFC Bridge examples
 
-Use these short recipes when a design question is concrete. Each example has one problem, one correction, and one reason. Start with the first eight examples; the advanced guides cover data, reactions, motion, and accessibility.
+Use these short recipes when a design question is concrete. Each example has one problem, one correction, and one reason. Choose the example that matches your current problem; you do not need to read them in order.
 
 [A visual introduction to handoff decisions](../docs/25-visual-walkthrough.md): team questions, reasons and real Figma captures.
 
@@ -87,7 +87,7 @@ The same UI Kit button can have different actions in different contexts. The act
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../assets/tutorial/screenshots/assistant-layer-local.png" alt="Local Assistant: button, actual modal and jump to destination" loading="lazy" width="906" height="1173" />
-<figcaption>Local Assistant: button, actual modal and jump to destination. Real capture of a local development build, not the published UI. 1 name; 2 target; 3 jump. <a href="../assets/tutorial/screenshots/assistant-layer-local.png">Open full size</a>.</figcaption>
+<figcaption>Local Assistant: button, actual modal and jump to destination. Real capture of a local development build, not the published UI. <a href="../assets/tutorial/screenshots/assistant-layer-local.png">Open full size</a>.</figcaption>
 </figure>
 
 ## 6. Meaningful structure
@@ -149,20 +149,6 @@ campaign-illustration [asset]
 
 ## How to use this catalog
 
-Find the question that matches the file, copy the smallest applicable pattern, and then run the designer checklist. For data, state machines, motion, and accessibility, use the advanced guides instead of adding more tags to a layer name.
+Find the question that matches your file and apply the smallest relevant pattern. Then use the [designer checklist](../docs/17-designer-checklist.md) to review the chosen handoff scope.
 
-> Non-standalone module fragment: this responsive block belongs inside the full `bridge` contract.
-
-```json
-{
-  "bridge": {
-    "responsive": {
-      "defaultPolicy": "same-tree",
-      "contexts": [
-        { "id": "home-wide", "driver": "viewport", "width": 1440 },
-        { "id": "home-narrow", "driver": "viewport", "width": 375 }
-      ]
-    }
-  }
-}
-```
+Layer names are not the place for an entire behavior specification. When the design needs [data](../docs/20-data-and-visualization.md), [reactions](../docs/22-state-machines-and-reactions.md), [motion](../docs/21-motion-and-scroll.md), or [accessibility](../docs/23-accessibility-profile.md), describe those decisions in the structured [transfer contract](../docs/04-transfer-contract.md). Use the executable `validator/examples/bridge-contract.valid.json` file in the repository as the starting point; the article’s illustrative excerpt and individual module fragments are not a complete handoff.

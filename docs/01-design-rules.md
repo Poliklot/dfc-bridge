@@ -18,7 +18,7 @@ Do not put sizes, gaps, colors, layout direction, or component variants into lay
 
 Use frames and components to express real relationships. A wrapper should have a job: content grouping, layout, clipping, background, or interaction area.
 
-Keep the main flow in native Figma layout. A `GROUP` is not a content container; use it only inside a genuinely opaque `[asset]` subtree. The [wrapper guide](06-wrapper-policy.md) explains exceptions.
+Keep the main flow in native Figma layout. A `GROUP` is not a content container; use it only inside a genuine `[asset]` subtree that transfers as one whole visual. “Opaque” means its internal composition is not rebuilt or checked as content layout. The [wrapper guide](06-wrapper-policy.md) explains which containers to keep.
 
 ## 3. Give each root one context
 
@@ -33,7 +33,7 @@ Use the same `[page]` and `[view]` for the other widths. A native Figma Section 
 ## 4. Separate content, decoration, and export
 
 - editable text, data, and images remain content;
-- `[decor]` marks an exact intentional visual layer;
+- `[decor]` marks the specific decorative visual layer, not its surrounding content container;
 - `[asset]` marks a visual that is transferred as one resource.
 
 Do not turn editable text into an image just to protect a composition.

@@ -1,6 +1,6 @@
 # State machines and reactions
 
-A clickable prototype shows one path. A DFC Bridge reaction contract defines every relevant path: the event, current state, guard, side effect, next state, feedback, focus, URL/history effect, and recovery behavior.
+A form can look complete yet leave the team guessing what happens after Submit: does it wait, reject invalid input, preserve values after failure, or allow a second request? A clickable prototype usually shows just one of these paths. A DFC Bridge reaction contract describes all relevant paths, including feedback, focus, history, and recovery.
 
 ## Reaction, state, and view
 
@@ -71,7 +71,7 @@ A reaction should answer all fields that apply:
 }
 ```
 
-Values in the structured contract are adapter-facing identifiers, not a request to place them all in Figma layer names.
+Read the example as a flow: submit from an allowed state, check the guard, show `submitting`, then follow the response branch. A failure preserves values for retry; a success moves focus to its heading. The identifiers belong to the adapter-facing contract, not to a longer Figma layer name.
 
 ## Model state at the right scope
 
@@ -196,7 +196,7 @@ Before handoff, enumerate at least:
 
 ## Review gate
 
-A flow is DFC Bridge-ready only when:
+Before handing off this flow, verify the following. This is a review of the reaction contract, not an automatic Ready result for the page or application:
 
 - every interactive anchor has an action or real navigation destination;
 - every action resolves to a target and a complete reaction record;

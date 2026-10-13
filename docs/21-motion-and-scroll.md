@@ -21,6 +21,8 @@ feature-story
 
 Each state must be comprehensible as a still frame. Motion defines how the interface moves between those states. If content is meaningful only while it is moving, the fallback is incomplete.
 
+For an interactive flow, define [which event changes the state](22-state-machines-and-reactions.md) first. This chapter adds the transition over time; animation must not become the only way to complete the action.
+
 ## Declare the driver
 
 | Driver | Examples | Contract requirement |
@@ -163,7 +165,7 @@ If narrow presentation replaces a pinned story with a disclosure list or static 
 
 ## Motion review gate
 
-A sequence is ready only when reviewers can answer:
+Review the sequence against these questions. The answers establish its motion contract, not a Ready result for the whole page:
 
 - What purpose does it serve and which stable states exist without it?
 - What drives progress, and what are the exact ranges and timing?

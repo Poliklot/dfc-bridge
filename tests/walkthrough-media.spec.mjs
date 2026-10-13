@@ -1,11 +1,14 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFileSync, existsSync } from 'node:fs';
 
 const base = '/dfc-bridge';
 const route = (locale) => `${base}/${locale}/start/visual-walkthrough/`;
 const figures = '.sl-markdown-content .bridge-lesson-figure';
 const opener = '[data-bridge-media-open]';
 const dialog = '.bridge-media-dialog';
+const nativeManifest = new URL('../assets/tutorial/motion/native-provenance.json', import.meta.url);
+const motion = JSON.parse(readFileSync(existsSync(nativeManifest) ? nativeManifest : new URL('../assets/tutorial/motion/provenance.json', import.meta.url), 'utf8'));
 
 for (const locale of ['ru', 'en', 'zh']) {
   test(`${locale} fullscreen evidence is keyboard operable and restores focus`, async ({ page }) => {
@@ -88,8 +91,8 @@ for (const locale of ['ru', 'en', 'zh']) {
       }));
     });
     const firstLead = introduction.find(({ beforeImage }) => beforeImage);
-    expect(firstLead?.text).toMatch(locale === 'ru' ? /^Посмотрим на макет/u : locale === 'zh' ? /设计|稿|看看/u : /design|look/iu);
-    expect(introduction.some(({ text, beforeImage }) => !beforeImage && /frontend|前端/iu.test(text))).toBe(true);
+    expect(firstLead?.text).toMatch(locale === 'ru' ? /^Макет:/u : locale === 'zh' ? /设计|稿|看看/u : /design|look/iu);
+    expect(introduction.some(({ text, beforeImage }) => !beforeImage && /frontend|前(?:后)?端/iu.test(text))).toBe(true);
     await expect(firstImage).toBeVisible();
     const pair = page.locator('.bridge-lesson-tree-pair');
     await expect(pair).toHaveCount(1);
@@ -122,7 +125,12 @@ for (const locale of ['ru', 'en', 'zh']) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(route(locale));
     const videos = page.locator(`${figures} > video`);
-    await expect(videos).toHaveCount(2);
+    const continuous = motion.schemaVersion === 3;
+    expect(motion.schemaVersion).toBe(continuous ? 3 : 2);
+    expect(motion.kind).toBe(continuous ? 'annotated-native-continuous-recording' : 'annotated-native-step-sequence');
+    if (continuous) expect(motion.complete).toBe(true);
+    expect(motion.clips).toHaveLength(7);
+    await expect(videos).toHaveCount(motion.clips.length);
     const inventory = await videos.evaluateAll((items) => items.map((video) => ({
       src: video.getAttribute('src'),
       poster: video.getAttribute('poster'),
@@ -134,16 +142,49 @@ for (const locale of ['ru', 'en', 'zh']) {
       autoplay: video.hasAttribute('autoplay'),
       loop: video.hasAttribute('loop'),
       caption: video.closest('figure').querySelector('figcaption').textContent,
+      width: video.getAttribute('width'),
+      height: video.getAttribute('height'),
     })));
-    expect(inventory.map(({ src }) => src.split('/').at(-1)).sort()).toEqual(['move-actions.mp4', 'rename-title.mp4']);
-    for (const item of inventory) {
+    const expected = motion.clips.map(({ outputs }) => outputs.find((output) => output.locale === locale));
+    expect(inventory.map(({ src }) => src.split('/assets/tutorial/motion/')[1])).toEqual(expected.map(({ file }) => file));
+    const narrative = await page.locator('.sl-markdown-content').innerText();
+    if (continuous) {
+      expect(narrative).toMatch(/непрерывн|continuous|连续/iu);
+      expect(narrative).toMatch(locale === 'ru' ? /подсветк[\s\S]*(?:добав|поверх)/iu : locale === 'en' ? /(?:editorial|added)[\s\S]*highlights|highlights[\s\S]*(?:editorial|added)/iu : /高亮[\s\S]*(?:后加|添加)|(?:后加|添加)[\s\S]*高亮/u);
+      if (motion.clips.every(({ sourceCapture }) => !sourceCapture.actionFollowingCursorCaptured)) expect(narrative).toMatch(locale === 'ru' ? /(?:курсор|указатель)[\s\S]*(?:не\s+(?:запис|виден|двиг|след)|не сопровож)|без\s+движущегося\s+курсор/iu : locale === 'en' ? /(?:cursor|pointer)[\s\S]*(?:not\s+(?:captured|recorded|visible|move)|does not follow)|no\s+(?:moving|action-following|automation)\s+(?:cursor|pointer)/iu : /光标[\s\S]*(?:未|没有|不可见|不随)|(?:未|没有)[\s\S]*光标/u);
+    } else {
+      const disclosure = locale === 'ru' ? /курсор[\s\S]*подсветк[\s\S]*добавлен/iu : locale === 'en' ? /cursor[\s\S]*highlights[\s\S]*added/iu : /光标[\s\S]*高亮[\s\S]*后加/u;
+      expect(narrative).toMatch(disclosure);
+      expect(narrative).toMatch(/пошаг|step|分步|步骤/iu);
+    }
+    for (const [index, item] of inventory.entries()) {
       expect(item.controls && item.inline && item.paused).toBe(true);
       expect(item.autoplay || item.loop).toBe(false);
       expect(['none', 'metadata']).toContain(item.preload);
       expect(item.name?.trim()).toBeTruthy();
-      expect(item.caption).toMatch(/пошаг|step|分步|步骤/iu);
+      expect(item.caption.trim().length).toBeGreaterThan(10);
+      expect([Number(item.width), Number(item.height)]).toEqual([expected[index].width, expected[index].height]);
       expect((await request.get(item.src)).ok()).toBe(true);
       expect((await request.get(item.poster)).ok()).toBe(true);
+    }
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({ width, height: 844 });
+      await expect.poll(() => videos.evaluateAll((items, expectedWidth) => innerWidth === expectedWidth && items.every((video) => {
+        const article = video.closest('.sl-markdown-content').getBoundingClientRect();
+        const figure = video.closest('figure').getBoundingClientRect();
+        const frame = video.getBoundingClientRect();
+        const style = getComputedStyle(video);
+        const contentWidth = frame.width - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
+        const contentHeight = frame.height - parseFloat(style.borderTopWidth) - parseFloat(style.borderBottomWidth);
+        const sourceWidth = Number(video.getAttribute('width'));
+        const sourceHeight = Number(video.getAttribute('height'));
+        const horizontalBorder = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+        return frame.left >= article.left - 1 && frame.right <= article.right + 1
+          && frame.width <= figure.width + 1 && contentWidth <= sourceWidth + .5
+          && Math.abs(frame.width - Math.min(sourceWidth + horizontalBorder, article.width)) < 1
+          && Math.abs(contentWidth / contentHeight - sourceWidth / sourceHeight) < .01
+          && ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'].every((side) => parseFloat(style[side]) === 0);
+      }), width), `${locale}: each action preserves its subject-fit ratio without upscaling at ${width}px`).toBe(true);
     }
     const video = videos.first();
     const button = video.locator('..').locator(opener);
@@ -154,22 +195,63 @@ for (const locale of ['ru', 'en', 'zh']) {
     await page.keyboard.press('Enter');
     await expect(modal).toBeVisible();
     const fullVideo = modal.locator('.bridge-media-video');
+    await expect(modal.locator('#bridge-media-title')).not.toContainText(/GIF/iu);
+    await expect(video.locator('..').locator('a[download][href$=".gif"]')).toHaveCount(1);
     await expect(fullVideo).toHaveAttribute('src', await video.getAttribute('src'));
     await expect(fullVideo).toHaveAttribute('poster', await video.getAttribute('poster'));
     await expect.poll(() => fullVideo.evaluate((element) => element.readyState >= 1)).toBe(true);
     expect(await fullVideo.evaluate((element) => element.controls && element.paused && !element.autoplay)).toBe(true);
     expect(await video.evaluate((element) => element.paused)).toBe(true);
-    await expect(modal.locator('[data-image-controls]')).toBeHidden();
+    await expect(modal.locator('[data-zoom-controls]')).toBeVisible();
+    await expect(modal.locator('[data-fit]')).toHaveAttribute('aria-pressed', 'true');
+    expect(await fullVideo.evaluate((element) => getComputedStyle(element).transitionProperty)).toBe('none');
+    const identity = await fullVideo.elementHandle();
+    const fittedWidth = await fullVideo.evaluate((element) => element.getBoundingClientRect().width);
+    await fullVideo.evaluate((element) => { element.currentTime = Math.min(1, element.duration / 4); });
+    await expect.poll(() => fullVideo.evaluate((element) => element.readyState >= 2)).toBe(true);
+    await fullVideo.evaluate((element) => element.play());
+    await expect.poll(() => fullVideo.evaluate((element) => element.currentTime)).toBeGreaterThan(.5);
+    const timeBeforeZoom = await fullVideo.evaluate((element) => element.currentTime);
+    await modal.locator('[data-zoom-in]').click();
+    await expect.poll(() => fullVideo.evaluate((element) => element.getBoundingClientRect().width)).toBeGreaterThan(fittedWidth);
+    await expect(modal.locator('[data-fit]')).toHaveAttribute('aria-pressed', 'false');
+    expect(await identity.evaluate((element) => element === document.querySelector('.bridge-media-video') && !element.paused)).toBe(true);
+    expect(await fullVideo.evaluate((element) => element.currentTime)).toBeGreaterThanOrEqual(timeBeforeZoom);
+    await modal.locator('[data-actual-size]').click();
+    expect(await fullVideo.evaluate((element) => Math.abs(element.getBoundingClientRect().width - element.videoWidth))).toBeLessThan(1);
+    await expect(modal.locator('[data-actual-size]')).toHaveText('100%');
+    await expect(modal.locator('[data-fit]')).toHaveAttribute('aria-pressed', 'false');
+    expect(await identity.evaluate((element) => element === document.querySelector('.bridge-media-video') && !element.paused)).toBe(true);
+    expect(await fullVideo.evaluate((element) => element.currentTime)).toBeGreaterThanOrEqual(timeBeforeZoom);
+    await fullVideo.evaluate((element) => /** @type {HTMLVideoElement} */ (element).pause());
+    const pausedTime = await fullVideo.evaluate((element) => element.currentTime);
+    await modal.locator('[data-zoom-out]').click();
+    await modal.locator('[data-fit]').click();
+    expect(await identity.evaluate((element) => element === document.querySelector('.bridge-media-video') && element.paused)).toBe(true);
+    expect(await fullVideo.evaluate((element) => element.currentTime)).toBeCloseTo(pausedTime, 3);
+    await expect(modal.locator('[data-fit]')).toHaveAttribute('aria-pressed', 'true');
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({ width, height: 844 });
       await expect.poll(() => fullVideo.evaluate((element, expectedWidth) => {
         const frame = element.closest('.bridge-media-stage').getBoundingClientRect();
         const pixels = element.getBoundingClientRect();
         return innerWidth === expectedWidth && frame.left >= -.5 && frame.right <= innerWidth + .5
-          && pixels.left >= frame.left && pixels.right <= frame.right + .5
+          && pixels.left >= frame.left + 23 && pixels.right <= frame.right - 23
+          && pixels.top >= frame.top + 23 && pixels.bottom <= frame.bottom - 23
           && pixels.width <= element.videoWidth + .5 && pixels.height <= element.videoHeight + .5
           && Math.abs(pixels.width / pixels.height - element.videoWidth / element.videoHeight) < .01;
       }, width), `${locale}: video keeps its native ratio without clipping or upscaling at ${width}px`).toBe(true);
+      await modal.locator('[data-actual-size]').click();
+      expect(await fullVideo.evaluate((element) => Math.abs(element.getBoundingClientRect().width - element.videoWidth))).toBeLessThan(1);
+      await expect(modal.locator('[data-actual-size]')).toHaveText('100%');
+      await expect(modal.locator('[data-fit]')).toHaveAttribute('aria-pressed', 'false');
+      expect(await identity.evaluate((element) => element === document.querySelector('.bridge-media-video') && element.paused)).toBe(true);
+      expect(await fullVideo.evaluate((element) => element.currentTime)).toBeCloseTo(pausedTime, 3);
+      if (width <= 390) expect(await fullVideo.evaluate((element) => {
+        const stage = element.closest('.bridge-media-stage');
+        return stage.scrollWidth > stage.clientWidth && element.videoWidth > stage.clientWidth;
+      })).toBe(true);
+      await modal.locator('[data-fit]').click();
     }
     await fullVideo.evaluate((element) => element.play());
     await expect.poll(() => fullVideo.evaluate((element) => element.currentTime)).toBeGreaterThan(0);
@@ -179,9 +261,56 @@ for (const locale of ['ru', 'en', 'zh']) {
     await expect(modal.locator('video')).toHaveCount(0);
     expect(await playback.evaluate((element) => element.paused)).toBe(true);
     await playback.dispose();
+    await identity.dispose();
     expect(await video.evaluate((element) => element.paused)).toBe(true);
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.reload();
     expect(await videos.evaluateAll((items) => items.every((element) => element.paused && !element.autoplay && !element.loop))).toBe(true);
   });
 }
+
+test('a queued close event cannot clear a newly opened evidence session', async ({ page }) => {
+  await page.goto(route('ru'));
+  const images = page.locator(`${figures} > img`);
+  const videos = page.locator(`${figures} > video`);
+  const sources = [images.nth(0), images.nth(1), videos.nth(0), videos.nth(1), images.nth(0)];
+  const modal = page.locator(dialog);
+  const sourceButton = (source) => source.locator('..').locator(opener);
+  await sourceButton(sources[0]).click();
+  await expect(modal).toBeVisible();
+  for (const nextSource of sources.slice(1)) {
+    const currentVideos = modal.locator('.bridge-media-video');
+    const previousVideo = await currentVideos.count() ? await currentVideos.elementHandle() : null;
+    if (previousVideo) {
+      await previousVideo.evaluate((video) => video.play());
+      expect(await previousVideo.evaluate((video) => video.paused)).toBe(false);
+    }
+    const nextButton = sourceButton(nextSource);
+    // Intentionally reopen in the same task, before the native queued close
+    // event can run. Cover image→image, image→video, video→video, video→image.
+    await nextButton.evaluate((button) => {
+      document.querySelector('.bridge-media-dialog').close();
+      button.click();
+    });
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await expect(modal).toHaveAttribute('open', '');
+    await expect(modal.locator('.bridge-media-canvas > *')).toHaveCount(1);
+    const isVideo = await nextSource.evaluate((media) => media.tagName === 'VIDEO');
+    const nextMedia = modal.locator(isVideo ? '.bridge-media-video' : '.bridge-media-image');
+    expect(await nextMedia.evaluate((media) => media.currentSrc || media.src)).toBe(await nextSource.evaluate((media) => media.currentSrc || media.src));
+    await expect(modal.locator('[data-close]')).toBeFocused();
+    if (previousVideo) {
+      expect(await previousVideo.evaluate((video) => video.paused)).toBe(true);
+      await previousVideo.dispose();
+    }
+    await page.keyboard.press('Escape');
+    await expect(modal).not.toBeVisible();
+    await expect(modal.locator('.bridge-media-canvas > *')).toHaveCount(0);
+    await expect(nextButton).toBeFocused();
+    await nextButton.click();
+    await expect(modal).toBeVisible();
+  }
+  await page.keyboard.press('Escape');
+  await expect(modal.locator('.bridge-media-canvas > *')).toHaveCount(0);
+  await expect(sourceButton(sources.at(-1))).toBeFocused();
+});
