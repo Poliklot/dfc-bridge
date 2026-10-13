@@ -40,6 +40,11 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 
 已有结构化字段能表达的信息，不要再创建新的图层标签。
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/dfc-bridge-coverage-map-zh.svg" alt="设计与契约分为源检查，以及实现和运行时 QA 两条路径" loading="lazy" width="481" height="947" />
+<figcaption>先看证据：Figma 原生属性描述设计，简短标签定位意图，结构化 bridge 元数据记录更详细的决策。再分别阅读源检查与实现路径。源报告只覆盖其范围内声明的规则，不代表运行时获准交付，也不证明符合 WCAG。 <a href="../../assets/tutorial/diagrams/dfc-bridge-coverage-map-zh.svg">查看原图</a>。</figcaption>
+</figure>
+
 <a id="所需信封"></a>
 
 ## 外层结构与核心字段

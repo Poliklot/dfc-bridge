@@ -34,6 +34,11 @@ catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
 
 Не изобретайте плоские теги, если для смысла уже существует структурированное поле.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/dfc-bridge-coverage-map-ru.svg" alt="Дизайн и контракт ведут к отдельным путям проверки исходника и реализации с проверкой работающего продукта" loading="lazy" width="481" height="947" />
+<figcaption>Начните со свидетельств: нативные свойства Figma описывают макет, короткие теги закрепляют намерение, структурированные данные bridge — подробные решения. Затем разделите проверку исходника и реализацию. Отчёт по исходнику охватывает объявленные правила в своей области, но не подтверждает работу продукта или соответствие WCAG. <a href="../../assets/tutorial/diagrams/dfc-bridge-coverage-map-ru.svg">Открыть в полном размере</a>.</figcaption>
+</figure>
+
 ## Обязательная оболочка
 
 Полная структура имеет корень `bridge`:

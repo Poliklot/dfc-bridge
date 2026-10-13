@@ -4,8 +4,8 @@ Every interactive layer should answer two questions: what starts the interaction
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/interactions-en.svg" alt="Navigation and interface change point to different targets" loading="lazy" width="481" height="839" />
-<figcaption>Navigation and interface change point to different targets. Explanatory diagram. <a href="../assets/tutorial/diagrams/interactions-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/interactions-en.svg" alt="href=#faq points to anchor=faq; action=modal:contact-modal points to modal=contact-modal" loading="lazy" width="481" height="839" />
+<figcaption>Read the two paths separately: href names the FAQ anchor destination; action names the modal to open in the current interface. These are declared intentions, not a wired Figma prototype or proof of working navigation, modal focus or closing behavior. <a href="../assets/tutorial/diagrams/interactions-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.

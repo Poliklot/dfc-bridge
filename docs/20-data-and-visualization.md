@@ -2,7 +2,10 @@
 
 DFC Bridge treats data display as a product contract, not as sample copy arranged in rectangles. A transferable design states what the data means, where it comes from, how it is formatted, which operations users can perform, and what happens when the ideal dataset is unavailable.
 
-![Pipeline from data semantics to an accessible responsive presentation](../assets/diagrams/data-contract-pipeline.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/data-contract-pipeline-en.svg" alt="One monthly revenue fixture feeds a chart and table with the same actual and target values, followed by data states" loading="lazy" width="481" height="1079" />
+<figcaption>Read from the fixture to both presentations: actual 120 USD and target 150 USD keep the same meaning in the chart and table. Declare units, aggregation and formatting or other transforms before choosing presentation; also define loading, empty, error, partial and stale behavior. The fixture illustrates values, not a runtime source or a complete data contract. <a href="../assets/tutorial/diagrams/data-contract-pipeline-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 *One semantic dataset may have several declared presentations. Formatting and responsive composition must not change its meaning.*
 

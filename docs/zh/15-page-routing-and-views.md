@@ -3,8 +3,8 @@
 先确认哪些画框属于同一页面，再记录它的真实地址、可能出现的状态以及链接可以到达的区块。这样，空目录不会变成虚构页面，移动布局也不会变成第二条路由。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="557" />
-<figcaption>同一页面和视图，两种原生宽度。说明示意图。<a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>。</figcaption>
+<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="原生宽度为 1440 和 375 的根节点共用 workshop 和 default" loading="lazy" width="481" height="557" />
+<figcaption>先读共同的 page 和 view，再读两个 bp 值：它们是同一页面视图的不同宽度。URL 由 route 另行声明；bp 记录已准备的原生宽度，不是 CSS 媒体查询阈值。 <a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 在[图解入门](25-visual-walkthrough.md)中，两个 `workshop` 根节点属于同一页面、同一视图，只有声明的宽度不同。

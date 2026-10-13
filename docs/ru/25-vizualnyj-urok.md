@@ -75,8 +75,8 @@ workshop [page=workshop] [route=/workshop] [bp=375] [view=default]
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/contexts-ru.svg" width="481" height="557" alt="Два корня workshop имеют одну страницу и вид default, но ширины 1440 и 375" loading="lazy" />
-<figcaption>Одна страница, один вид, две ширины.</figcaption>
+<img src="../../assets/tutorial/diagrams/contexts-ru.svg" width="481" height="557" alt="Корни с нативными ширинами 1440 и 375 имеют общие workshop и default" loading="lazy" />
+<figcaption>Один вид; две ширины.</figcaption>
 </figure>
 
 Frontend знает, что собирать. ИИ не ищет «самый final». Теги описывают договорённость, не создают раскладку или код.
@@ -110,8 +110,8 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 **Другой текст — [согласованный продуктовый вариант](16-osi-variativnosti.md). Другой родитель — [описанная трансформация](03-adaptivy-i-breakpointy.md).** Внутри одного родителя порядок менять можно.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/identity-ru.svg" width="481" height="613" alt="Те же contact-button и faq-link внутри hero-actions: ряд на 1440, колонка на 375" loading="lazy" />
-<figcaption>Те же кнопки. Другая раскладка.</figcaption>
+<img src="../../assets/tutorial/diagrams/identity-ru.svg" width="481" height="613" alt="Те же два элемента внутри hero-actions переходят из ряда на 1440 в колонку на 375" loading="lazy" />
+<figcaption>Те же кнопки и родитель.</figcaption>
 </figure>
 
 На desktop кнопки рядом, на mobile — друг под другом. **Разная раскладка — нормально:** меняется Auto Layout, текст и родитель здесь те же.
@@ -151,8 +151,8 @@ Frontend знает, что собирать. ИИ не ищет «самый fi
 - `faq-link [href=#faq]` → перейти к FAQ.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/interactions-ru.svg" width="481" height="839" alt="contact-button указывает на локальное окно contact-modal, faq-link — на якорь faq" loading="lazy" />
-<figcaption>Кнопка → окно. Ссылка → FAQ.</figcaption>
+<img src="../../assets/tutorial/diagrams/interactions-ru.svg" width="481" height="839" alt="href=#faq указывает на anchor=faq, action=modal:contact-modal — на modal=contact-modal" loading="lazy" />
+<figcaption>Объявленные цели, не работающий интерфейс.</figcaption>
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-motion">

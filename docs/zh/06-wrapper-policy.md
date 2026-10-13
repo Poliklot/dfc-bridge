@@ -6,8 +6,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="有意义的容器而不是随意分组" loading="lazy" width="481" height="691" />
-<figcaption>有意义的容器而不是随意分组. 说明示意图。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="hero 中的 hero-copy 组织文字，hero-actions 组织控件" loading="lazy" width="481" height="691" />
+<figcaption>沿嵌套关系阅读：hero-copy 包含相关文字，hero-actions 包含相关控件；每个容器都有布局作用。图中只展示一种有意义的结构，不是正误对比，也不要求处处增加容器。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

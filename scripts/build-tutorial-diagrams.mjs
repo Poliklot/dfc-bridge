@@ -14,38 +14,50 @@ const C = { ink: '#202124', blue: '#006BB6', slate: '#64748B', line: '#B8C1CB', 
 const esc = (s) => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll('\n', '&#xa;');
 const languages = {
   en: {
+    'dfc-bridge-coverage-map': ['Evidence has different boundaries', 'Native Figma facts, short intent tags and structured bridge metadata supply design and contract evidence for two distinct paths. A source check reports only declared rules in the selected scope. Implementation and runtime QA supply separate evidence for complete tasks; no single check establishes WCAG 2.2 AA conformance.', 'Design + contract', 'Native Figma facts\nShort intent tags\nStructured bridge', 'Source check', 'Declared rules;\nselected scope', 'Implement\nbehavior', 'Semantics +\nkeyboard', 'Ready / Partial\n/ Blocked', 'Source evidence\nonly', 'Runtime QA', 'Complete task;\nscreen reader', 'No single check proves\nWCAG 2.2 AA'],
+    'data-contract-pipeline': ['One dataset, equivalent presentations', 'Illustrative monthly revenue fixture: actual 120 USD and target 150 USD, both sums. One dataset supplies a chart and its table equivalent without changing meaning. The example contract also declares loading, empty, error, partial and stale states; visible data and recovery must be specified, and missing is not zero.', 'One meaning,\ntwo presentations', 'Example · one month', 'Same values in both', 'Example contract states', 'Specify visible data,\nmessage and recovery.', 'Zero is not missing'],
+    'motion-scroll-storyboard': ['Stable scenes before animation', 'Example scroll-progress mapping: scene-intro from 0 to 0.32, scene-compare from 0.32 to 0.68 and scene-result from 0.68 to 1. Re-entry derives the scene from current progress. The declared reduced-motion example presents every scene in document order with equivalent content and actions; it is not an automatic fallback.', 'Three stable scenes', 'Example · scroll progress', 'Re-entry derives the scene\nfrom current progress.', 'Reduced motion · example', 'All scenes in document order', 'Same content and actions;\nno scroll trap.'],
+    'delivery-lifecycle': ['From design evidence to release and re-verification', 'A scoped, owned, revision-pinned chain links design, contract, implementation, QA and release. Changes return to the owner of the affected truth and update linked evidence before renewed QA. Deviations require approval, mitigation and a review date, not a shortcut to release.', 'One linked evidence chain', 'Scope + owners + revisions', 'Design', 'Source revision', 'Contract', 'Decisions + criteria', 'Implementation', 'Build revision', 'QA', 'Results + environment', 'Release', 'Pinned evidence', 'Change or deviation', 'Update affected source\nand linked evidence', 'Deviations need approval,\nmitigation + review date.'],
     contexts: ['Two widths of one page', 'Roots share page and view; silhouette widths preserve the actual 1440:375 ratio.', 'Native width'],
     identity: ['The same buttons, rearranged', 'The two connectors track the same named buttons between horizontal and vertical layouts inside hero-actions.', 'Same parent'],
     structure: ['A layout has real parents', 'Text belongs to hero-copy, buttons to hero-actions; both wrappers and the artwork belong to the vertical hero frame.', 'Auto Layout · VERTICAL', 'Hug height', 'Flow'],
     interactions: ['Navigation and interface action', 'The shown href=#faq leads to a position in this page. A modal action opens an overlay in the current interface.', 'Navigate within the page', 'Change the current interface'],
     content: ['The same text needs room', 'A fixed-height card clips the final lines. Hug height keeps all words and pushes its next neighbour down.', 'Fixed height · clipped', 'Hug height · grows', 'Next card', 'A catalogue with long names\nand detailed descriptions\nthat must remain readable\nwhen the available space\ngets narrower.'],
-    roles: ['Role and export boundary', 'Editable text, native decorative shapes and one opaque exported visual have different inspection boundaries.', 'Layer', 'Role', 'Transfer', 'Content', 'Decor', 'Native\nTEXT', 'Native\nshapes', 'One\nresource', 'Inside: opaque'],
+    roles: ['Role and export boundary', 'Editable text, native decorative shapes and one opaque exported visual have different inspection boundaries.', 'Layer', 'Role', 'Transfer', 'Content', 'Decor', 'Native\nTEXT', 'Native\nshapes', 'One\nresource', '[asset]: opaque inside'],
     axes: ['Page views are not button variants', 'Default and empty each have two width roots. Native component variants and an interface state target are separate.', 'Page views', 'Native variants · example', 'Interface state · example'],
-    scope: ['The selected boundary matters', 'The modal resolves inside the selected section. The route edge crosses the boundary and remains Deferred, not missing.', 'Host not checked', 'Selected section', 'Outside selection'],
+    scope: ['The selected boundary matters', 'The modal resolves inside the selected section. The route edge crosses the boundary and remains Deferred, not missing.', 'Host not checked', 'Selected section', 'Outside selection', 'Partial: external\nreference → Deferred', 'Local target found'],
     'handoff-questions': ['One design, three different concerns', 'Illustrative handoff, not a recorded conversation. Three penguins identify frontend (browser/code), backend (server/data) and AI (a Codex glyph face). Each has a question and a possible misunderstanding, not an actual failure report.', 'One Figma file', 'Frontend', 'One page\nor two?', 'Risk: two unrelated\nscreens', 'Backend', 'Where is the data from?\nHave we agreed?', 'Risk: an invented API\nfrom a card’s appearance', 'AI', 'Where does\nthis button go?', 'Risk: an action\nchosen by guesswork'],
     'handoff-clarified': ['Clear design facts, decisions still open', 'The reference on page 02 has the same page context and a separate local modal target in each width root. The same three penguins connect design facts to remaining responsibilities. Data source and schema still need a decision owner; targets are design intent, not implemented runtime or a readiness report.', 'What is now explicit', 'Design targets in each root.', 'Frontend', 'One page.\nThe same elements.', 'Still: layout between\nthe prepared widths.', 'Backend', 'Source and schema\nare still undecided.', 'Needs a decision\nand its owner.', 'AI', 'Context and targets\nare explicit.', 'Ask about unknowns;\ndo not invent them.'],
   },
   ru: {
+    'dfc-bridge-coverage-map': ['У свидетельств разные границы', 'Нативные свойства Figma, короткие теги намерений и структурированный bridge дают свидетельства дизайна и контракта для двух разных путей. Проверка исходника оценивает только заявленные правила в выбранной области. Реализация и runtime-QA дают отдельные свидетельства для целых задач; одна проверка не доказывает соответствие WCAG 2.2 AA.', 'Дизайн + контракт', 'Нативные свойства Figma\nКороткие теги намерений\nСтруктурированный bridge', 'Исходник', 'Правила\nв выбранной\nобласти', 'Реализация', 'Семантика +\nклавиатура', 'Ready / Partial\n/ Blocked', 'Только\nисходник', 'Runtime-QA', 'Вся задача;\nскринридер', 'Одна проверка не доказывает\nсоответствие WCAG 2.2 AA'],
+    'data-contract-pipeline': ['Одни данные, равнозначные представления', 'Условные данные выручки за месяц: actual — 120 USD, target — 150 USD, оба значения являются суммами. Один набор питает диаграмму и её табличный эквивалент без изменения смысла. В примере контракта также заданы loading, empty, error, partial и stale; нужно определить видимые данные и восстановление, отсутствие значения не равно нулю.', 'Один смысл,\nдва представления', 'Пример · один месяц', 'Значения совпадают', 'Состояния в примере', 'Задать видимые данные,\nсообщение и восстановление.', 'Ноль — не пропуск'],
+    'motion-scroll-storyboard': ['Сначала неподвижные сцены', 'Пример зависимости от прогресса прокрутки: scene-intro от 0 до 0.32, scene-compare от 0.32 до 0.68 и scene-result от 0.68 до 1. При повторном входе сцена определяется текущим прогрессом. В объявленном варианте reduced motion все сцены идут в порядке документа с теми же данными и действиями; это не автоматический fallback.', 'Три неподвижные сцены', 'Пример · прогресс прокрутки', 'Повторный вход: сцена\nиз текущего прогресса.', 'Меньше движения · пример', 'Все сцены в порядке документа', 'Те же данные и действия;\nбез перехвата прокрутки.'],
+    'delivery-lifecycle': ['От исходника к релизу и повторной проверке', 'Цепочка с заданной областью, владельцами и ревизиями связывает дизайн, контракт, реализацию, QA и релиз. Изменение возвращается к владельцу затронутой истины: связанные свидетельства обновляются до новой QA. Отклонению нужны согласование, смягчение последствий и дата пересмотра, а не обход релизной проверки.', 'Одна цепочка свидетельств', 'Область + владельцы + ревизии', 'Дизайн', 'Ревизия исходника', 'Контракт', 'Решения + критерии', 'Реализация', 'Ревизия сборки', 'QA', 'Результаты + окружение', 'Релиз', 'Связанные ревизии', 'Изменение / отклонение', 'Обновить источник\nи связанные свидетельства', 'Отклонению: согласование,\nмера защиты + пересмотр.'],
     contexts: ['Две ширины одной страницы', 'Корни имеют одинаковые page и view; ширины силуэтов сохраняют настоящее соотношение 1440:375.', 'Нативная ширина'],
     identity: ['Те же кнопки в другой раскладке', 'Линии связывают те же именованные кнопки между горизонтальной и вертикальной раскладками внутри hero-actions.', 'Тот же родитель'],
     structure: ['У раскладки есть настоящие родители', 'Текст принадлежит hero-copy, кнопки — hero-actions; обе обёртки и визуал находятся внутри вертикального hero.', 'Auto Layout · VERTICAL', 'Высота Hug', 'Поток'],
     interactions: ['Переход и действие интерфейса', 'В этом примере href=#faq ведёт к месту на странице. Действие modal открывает окно в текущем интерфейсе.', 'Перейти к месту на странице', 'Изменить текущий интерфейс'],
     content: ['Тем же словам нужно место', 'Фиксированная карточка обрезает последние строки. Высота Hug сохраняет слова и сдвигает соседа вниз.', 'Фиксированная · обрезка', 'Высота Hug · растёт', 'Следующая карточка', 'Каталог с длинными\nназваниями и подробными\nописаниями, которые должны\nоставаться читаемыми\nна узком экране.'],
-    roles: ['Роль и граница экспорта', 'Редактируемый текст, нативные декоративные фигуры и единый экспортируемый визуал имеют разные границы проверки.', 'Слой', 'Роль', 'Передача', 'Контент', 'Декор', 'Нативный\nTEXT', 'Нативные\nфигуры', 'Один\nресурс', 'Внутри не проверяем'],
+    roles: ['Роль и граница экспорта', 'Редактируемый текст, нативные декоративные фигуры и единый экспортируемый визуал имеют разные границы проверки.', 'Слой', 'Роль', 'Передача', 'Контент', 'Декор', 'Нативный\nTEXT', 'Нативные\nфигуры', 'Один\nресурс', '[asset]: внутри не проверяем'],
     axes: ['Вид страницы — не вариант кнопки', 'default и empty имеют корни двух ширин. Нативные варианты компонента и цель состояния интерфейса показаны отдельно.', 'Виды страницы', 'Пример нативных вариантов', 'Отдельный пример состояния'],
-    scope: ['Важна граница выбора', 'Окно найдено внутри выбранной секции. Связь с маршрутом пересекает границу и остаётся Deferred, а не missing.', 'Окружение не проверено', 'Выбранная секция', 'За границей выбора'],
+    scope: ['Важна граница выбора', 'Окно найдено внутри выбранной секции. Связь с маршрутом пересекает границу и остаётся Deferred, а не missing.', 'Окружение не проверено', 'Выбранная секция', 'За границей выбора', 'Partial: внешняя\nсвязь → Deferred', 'Локальная цель найдена'],
     'handoff-questions': ['Один макет — разные вопросы участников', 'Условная ситуация передачи, не записанный разговор. Три пингвина обозначают frontend (браузер с кодом), backend (сервер с данными) и ИИ (логотип Codex вместо лица). У каждого есть свой вопрос и возможный риск непонимания, а не отчёт о случившейся ошибке.', 'Один Figma-файл', 'Frontend', 'Одна страница\nили две?', 'Риск: два отдельных\nэкрана', 'Backend', 'Данные откуда?\nУже решили?', 'Риск: выдуманный API\nпо виду карточки', 'ИИ', 'Куда ведёт\nэта кнопка?', 'Риск: действие\nнаугад'],
     'handoff-clarified': ['Явные дизайн-факты и незакрытые решения', 'Образец на странице 02 задаёт один контекст страницы и свою локальную цель окна в каждом корне ширины. Те же три пингвина связывают известные факты с оставшейся работой. Источник и схема данных требуют решения и владельца; дизайн-цели не означают готовую runtime-реализацию или отчёт проверки.', 'Что теперь записано', 'Дизайн-цели в каждом корне.', 'Frontend', 'Одна страница.\nТе же элементы.', 'Ещё: раскладка между\nзаданными ширинами.', 'Backend', 'Источник и схема\nещё не согласованы.', 'Нужны решение\nи его владелец.', 'ИИ', 'Контекст и цели\nзаписаны явно.', 'Неизвестное уточнить,\nа не выдумывать.'],
   },
   zh: {
+    'dfc-bridge-coverage-map': ['不同证据有不同边界', 'Figma 原生事实、简短意图标签与结构化 bridge 元数据为设计和契约提供证据，再进入两条不同路径。源检查仅在选定范围内核查已声明规则。实现与运行时 QA 为完整任务提供独立证据；任何单项检查都不能证明符合 WCAG 2.2 AA。', '设计 + 契约', 'Figma 原生事实\n简短意图标签\n结构化 bridge', '源检查', '已声明规则；\n选定范围', '实现', '语义 +\n键盘操作', 'Ready / Partial\n/ Blocked', '仅为\n源证据', '运行时 QA', '完整任务；\n屏幕阅读器', '单项检查不能证明\n符合 WCAG 2.2 AA'],
+    'data-contract-pipeline': ['同一数据，等价呈现', '月收入示例数据：actual 为 120 USD，target 为 150 USD，均为总和。同一数据集供给图表及其表格等价形式，含义保持不变。示例契约还声明 loading、empty、error、partial 和 stale 状态；必须明确可见数据与恢复方式，缺失不等于零。', '同一含义，\n两种呈现', '示例 · 一个月', '两种呈现的数值相同', '示例契约中的状态', '明确可见数据、\n提示与恢复方式。', '零不等于缺失'],
+    'motion-scroll-storyboard': ['先定义静态场景', '滚动进度映射示例：scene-intro 为 0 至 0.32，scene-compare 为 0.32 至 0.68，scene-result 为 0.68 至 1。再次进入时按当前进度确定场景。声明的减少动态效果示例按文档顺序展示所有场景，保留等价内容与操作；这不是自动回退。', '三个静态场景', '示例 · 滚动进度', '再次进入时，\n按当前进度确定场景。', '减少动态效果 · 示例', '所有场景按文档顺序展示', '保留相同内容与操作；\n不劫持滚动。'],
+    'delivery-lifecycle': ['从设计证据到发布与重新验证', '在明确范围、负责人和固定版本后，证据链连接设计、契约、实现、QA 与发布。变更返回受影响事实的负责人，先更新关联证据，再重新进行 QA。偏差需要审批、缓解措施与复审日期，不可绕过发布验证。', '一条相连的证据链', '范围 + 负责人 + 固定版本', '设计', '源版本', '契约', '决策 + 验收标准', '实现', '构建版本', 'QA', '结果 + 测试环境', '发布', '固定关联证据', '变更或偏差', '更新受影响事实\n及关联证据', '偏差须有审批、\n缓解措施与复审日期。'],
     contexts: ['同一页面的两种宽度', '两个根节点共用 page 和 view；轮廓宽度保持真实的 1440:375 比例。', '原生宽度'],
     identity: ['同样的按钮，不同的排列', '连线对应横向和纵向布局中的同名按钮；父级始终是 hero-actions。', '父级不变'],
     structure: ['布局中的真实父子关系', '文字属于 hero-copy，按钮属于 hero-actions；两个容器和插图都属于纵向 hero 框架。', 'Auto Layout · VERTICAL', 'Hug 高度', '排列'],
     interactions: ['导航与界面动作', '此示例中的 href=#faq 指向页面中的位置。modal 动作打开当前界面内的模态框。', '前往页面中的位置', '改变当前界面'],
     content: ['相同文字需要足够空间', '固定高度会裁掉末尾文字。Hug 高度保留完整文字并将下一张卡片下移。', '固定高度 · 文字被裁切', 'Hug 高度 · 随内容增长', '下一张卡片', '带有长名称和详细描述的目录，\n应在可用空间变窄时\n仍然保留相同的全部文字，\n自然换行，保持可读，\n而不是删掉最后几行。'],
-    roles: ['角色与导出边界', '可编辑文字、原生装饰图形和单一导出视觉具有不同的检查边界。', '图层', '角色', '传递', '内容', '装饰', '原生\nTEXT', '原生\n图形', '一个\n资源', '内部不检查'],
+    roles: ['角色与导出边界', '可编辑文字、原生装饰图形和单一导出视觉具有不同的检查边界。', '图层', '角色', '传递', '内容', '装饰', '原生\nTEXT', '原生\n图形', '一个\n资源', '[asset]：内部不检查'],
     axes: ['页面视图不是按钮变体', 'default 和 empty 都有两个宽度的根节点。原生组件变体和界面状态目标是独立的。', '页面视图', '原生变体示例', '独立状态示例'],
-    scope: ['选择决定检查边界', '模态框在所选区块内解析。路由连线跨越边界，保持 Deferred，而不是 missing。', '宿主未检查', '所选区块', '选择范围外'],
+    scope: ['选择决定检查边界', '模态框在所选区块内解析。路由连线跨越边界，保持 Deferred，而不是 missing。', '宿主未检查', '所选区块', '选择范围外', 'Partial：外部引用\n→ Deferred', '已找到本地目标'],
     'handoff-questions': ['同一设计，不同参与者的疑问', '这是交付示意，不是真实对话。三只企鹅分别代表前端（浏览器与代码）、后端（服务器与数据）和 AI（脸部为 Codex 标志）。每个角色有自己的问题与潜在误解，不是在报告已发生的错误。', '一个 Figma 文件', '前端', '一个页面\n还是两个？', '风险：实现成\n两个独立页面', '后端', '数据从哪来？\n已经决定了吗？', '风险：看着卡片\n自行编造 API', 'AI', '这个按钮\n指向哪里？', '风险：凭猜测\n实现动作'],
     'handoff-clarified': ['明确的设计事实，仍需决策的事项', '第 02 页的参考设计具有同一个页面上下文，每种宽度根节点都有自己的本地模态框目标。相同的三只企鹅将已知事实与后续责任对应。数据来源与结构仍需决策及负责人；设计目标不代表运行时已实现或检查已通过。', '现在明确的内容', '每个根节点中的设计目标。', '前端', '同一个页面。\n元素保持对应。', '仍需实现两种宽度\n之间的布局。', '后端', '来源与数据结构\n尚未确定。', '需要明确决策\n及其负责人。', 'AI', '上下文与目标\n已经明确。', '询问缺失的决策，\n不自行猜测。'],
   },
@@ -150,6 +162,118 @@ function participantRows(d, labels, firstLabel, positions, { known = false } = {
 }
 
 const builders = {
+  'dfc-bridge-coverage-map'(L) {
+    const d = new Drawing(480, 946, { nativeText: true });
+    const source = d.rect(24, 24, 432, 216, { stroke: C.ink, sw: 2 });
+    d.text(L[2], 20, 18, 392, 34, { size: 26, bold: true, parent: source });
+    d.text(L[3], 20, 68, 392, 118, { size: 24, parent: source });
+    const check = d.rect(24, 304, 208, 174, { stroke: C.slate });
+    d.text(L[4], 14, 16, 180, 34, { size: 26, bold: true, parent: check });
+    d.text(L[5], 14, 66, 180, 90, { size: 24, parent: check });
+    const implementation = d.rect(252, 304, 204, 174, { stroke: C.blue, sw: 2 });
+    d.text(L[6], 14, 16, 176, 64, { size: 26, bold: true, parent: implementation });
+    d.text(L[7], 14, 88, 176, 70, { size: 24, parent: implementation });
+    d.edge(source, check, { color: C.slate, extra: 'exitX=0.24;exitY=1;entryX=0.5;entryY=0;' });
+    d.edge(source, implementation, { extra: 'exitX=0.76;exitY=1;entryX=0.5;entryY=0;' });
+    const report = d.rect(24, 548, 208, 100, { stroke: C.slate });
+    d.text(L[8], 14, 15, 180, 70, { size: 24, parent: report });
+    d.edge(check, report, { color: C.slate });
+    d.text(L[9], 38, 680, 180, 80, { size: 24, color: C.slate });
+    const qa = d.rect(252, 548, 204, 212, { stroke: C.blue, sw: 2 });
+    d.text(L[10], 14, 18, 176, 34, { size: 26, bold: true, parent: qa });
+    d.text(L[11], 14, 86, 176, 82, { size: 24, parent: qa });
+    d.edge(implementation, qa);
+    d.line(24, 806, 456, 806, { color: C.ink });
+    d.text(L[12], 24, 844, 432, 76, { size: 26, bold: true, align: 'center' });
+    return d;
+  },
+  'data-contract-pipeline'(L) {
+    const d = new Drawing(480, 1078, { nativeText: true });
+    d.text(L[2], 24, 16, 432, 68, { size: 26, bold: true });
+    d.text(L[3], 24, 100, 432, 32, { size: 24, color: C.slate });
+    const data = d.rect(24, 152, 432, 140, { stroke: C.blue, sw: 2 });
+    d.text('month = 2026-01', 20, 14, 392, 32, { size: 26, bold: true, parent: data });
+    d.text('actual = 120    target = 150', 20, 55, 392, 32, { size: 24, parent: data });
+    d.text('USD · sum · UTC', 20, 96, 392, 30, { size: 24, color: C.slate, parent: data });
+    d.text(L[4], 76, 320, 380, 32, { size: 24, color: C.blue });
+    // Both presentations branch from the same dataset, not from each other.
+    const chart = d.rect(76, 382, 380, 194, { stroke: C.slate });
+    d.text('revenue-chart', 16, 12, 348, 32, { size: 26, bold: true, parent: chart });
+    for (const [key, value, y, fill] of [['actual', 120, 73, C.blue], ['target', 150, 124, C.slate]]) {
+      d.text(key, 16, y - 4, 108, 32, { size: 24, parent: chart });
+      d.rect(126, y, value, 24, { fill, stroke: 'none', parent: chart });
+      d.text(String(value), 294, y - 4, 66, 32, { size: 24, parent: chart });
+    }
+    d.line(126, 64, 126, 159, { color: C.ink, parent: chart });
+    d.text('0', 118, 160, 28, 28, { size: 24, parent: chart });
+    const table = d.rect(76, 618, 380, 136, { stroke: C.slate });
+    d.text('revenue-table', 16, 10, 348, 32, { size: 26, bold: true, parent: table });
+    d.line(16, 52, 364, 52, { parent: table });
+    d.text('actual', 16, 60, 164, 30, { size: 24, parent: table });
+    d.text('target', 208, 60, 156, 30, { size: 24, parent: table });
+    d.text('120', 16, 96, 164, 30, { size: 24, parent: table });
+    d.text('150', 208, 96, 156, 30, { size: 24, parent: table });
+    d.edge(data, chart, { points: [[44, 340], [44, 479]], extra: 'exitX=0.046;exitY=1;entryX=0;entryY=0.5;' });
+    d.edge(data, table, { points: [[44, 340], [44, 686]], extra: 'exitX=0.046;exitY=1;entryX=0;entryY=0.5;' });
+    d.line(24, 786, 456, 786, { color: C.ink });
+    d.text(L[5], 24, 806, 432, 34, { size: 26, bold: true });
+    d.text('loading · empty · error', 24, 852, 432, 32, { size: 24 });
+    d.text('partial · stale', 24, 890, 432, 32, { size: 24 });
+    d.text(L[6], 24, 938, 432, 66, { size: 24 });
+    d.text('0 ≠ —', 24, 1030, 106, 32, { size: 26, color: C.blue, bold: true });
+    d.text(L[7], 152, 1030, 304, 32, { size: 24, color: C.blue });
+    return d;
+  },
+  'motion-scroll-storyboard'(L) {
+    const d = new Drawing(480, 1042, { nativeText: true });
+    d.text(L[2], 24, 16, 432, 38, { size: 26, bold: true });
+    d.text(L[3], 24, 70, 432, 34, { size: 24, color: C.slate });
+    d.line(44, 138, 44, 556, { color: C.blue, sw: 2, startArrow: 'block', arrow: 'block' });
+    const scenes = [['0–0.32', 'scene-intro'], ['0.32–0.68', 'scene-compare'], ['0.68–1', 'scene-result']];
+    scenes.forEach(([range, id], index) => {
+      const y = 138 + index * 148;
+      const scene = d.rect(80, y, 376, 122, { stroke: C.ink });
+      d.text(range, 18, 12, 340, 32, { size: 24, color: C.blue, parent: scene });
+      d.text(id, 18, 62, 340, 36, { size: 26, bold: true, parent: scene });
+      d.line(44, y + 61, 80, y + 61, { color: C.blue, sw: 2 });
+    });
+    d.text(L[4], 24, 584, 432, 70, { size: 24 });
+    d.line(24, 680, 456, 680, { color: C.ink });
+    d.text(L[5], 24, 704, 432, 36, { size: 26, bold: true });
+    d.text(L[6], 24, 752, 432, 32, { size: 24 });
+    // Normal document order is a declared equivalent, not a zero-duration animation.
+    scenes.forEach(([, id], index) => {
+      const y = 810 + index * 42;
+      d.text(String(index + 1), 24, y, 34, 32, { size: 24, color: C.blue });
+      d.text(id, 76, y, 380, 32, { size: 26 });
+    });
+    d.text(L[7], 24, 954, 432, 70, { size: 24, color: C.blue });
+    return d;
+  },
+  'delivery-lifecycle'(L) {
+    const d = new Drawing(480, 1160, { nativeText: true });
+    d.text(L[2], 24, 16, 432, 38, { size: 26, bold: true });
+    d.text(L[3], 24, 68, 432, 34, { size: 24, color: C.slate });
+    const stages = [];
+    for (let index = 0; index < 5; index++) {
+      const y = 138 + index * 142;
+      const stage = d.rect(92, y, 364, 100, { stroke: index === 4 ? C.blue : C.ink, sw: index === 4 ? 2 : 1.5 });
+      d.text(L[4 + index * 2], 18, 12, 328, 34, { size: 26, bold: true, parent: stage });
+      d.text(L[5 + index * 2], 18, 56, 328, 32, { size: 24, parent: stage });
+      if (index) d.edge(stages[index - 1], stage);
+      stages.push(stage);
+    }
+    const change = d.rect(92, 876, 364, 140, { stroke: C.slate });
+    d.text(L[14], 18, 12, 328, 34, { size: 26, bold: true, parent: change });
+    d.text(L[15], 18, 60, 328, 68, { size: 24, parent: change });
+    d.edge(stages[4], change);
+    d.edge(stages[3], change, { color: C.slate, points: [[472, 614], [472, 946]], extra: 'exitX=1;exitY=0.5;entryX=1;entryY=0.5;' });
+    // First update the affected truth and its linked evidence, then verify again.
+    // The return is QA, not an automatic new release or a forced design rewrite.
+    d.edge(change, stages[3], { points: [[24, 946], [24, 614]], extra: 'exitX=0;exitY=0.5;entryX=0;entryY=0.5;' });
+    d.text(L[16], 24, 1060, 432, 76, { size: 24, color: C.slate });
+    return d;
+  },
   contexts(L) {
     const d = new Drawing(480, 556, { nativeText: true });
     d.text('[page=workshop]', 24, 16, 432, 34, { size: 26, bold: true, color: C.blue });
@@ -268,7 +392,7 @@ const builders = {
     return d;
   },
   roles(L) {
-    const d = new Drawing(480, 760);
+    const d = new Drawing(480, 760, { nativeText: true });
     d.text(L[2], 24, 14, 160, 34, { bold: true, size: 22 });
     d.text(L[3], 203, 14, 108, 34, { bold: true, size: 22 });
     d.text(L[4], 336, 14, 120, 34, { bold: true, size: 22 });
@@ -339,7 +463,7 @@ const builders = {
     return d;
   },
   scope(L) {
-    const d = new Drawing(480, 894);
+    const d = new Drawing(480, 894, { nativeText: true });
     d.text(L[2],24,12,432,36,{color:C.slate,size:24});
     const host=d.rect(24,66,432,657,{stroke:C.line});
     d.text('legacy-page',20,13,392,32,{color:C.slate,parent:host});
@@ -347,6 +471,7 @@ const builders = {
     const selection=d.rect(20,151,392,406,{stroke:C.blue,sw:2,parent:host});
     d.text('hero',18,13,240,30,{bold:true,size:24,parent:selection});
     d.text('Partial',280,13,94,30,{bold:true,size:22,color:C.blue,parent:selection});
+    d.text(L[3],20,112,392,32,{color:C.blue,size:22,parent:host});
     d.text('[section=workshop-hero]',18,47,356,32,{color:C.blue,size:22,parent:selection});
     const action=d.rect(18,106,356,75,{stroke:C.line,parent:selection});
     d.text('contact-button',12,7,332,30,{bold:true,size:22,parent:action});
@@ -355,11 +480,13 @@ const builders = {
     d.text('contact-modal',12,7,332,30,{bold:true,size:22,parent:modal});
     d.text('[modal=contact-modal]',12,38,332,30,{size:20,parent:modal});
     d.edge(action,modal,{parent:selection});
+    d.text(L[6],18,294,356,28,{color:C.blue,size:20,parent:selection});
     const link=d.rect(18,326,296,60,{stroke:'none',parent:selection});
     d.text('workshop-link',0,0,296,30,{bold:true,size:22,parent:link});
     d.text('[href=/workshop]',0,30,296,30,{size:22,parent:link});
     d.bars(20,593,[392,350,273],{gap:14,parent:host});
     d.text(L[4],24,754,260,34,{color:C.slate,size:22});
+    d.text(L[5],24,800,250,68,{color:C.slate,size:22});
     const route=d.rect(285,799,171,74,{stroke:C.slate,dash:true});
     d.text('/workshop',12,3,147,30,{size:22,parent:route});
     d.text('Deferred',12,35,147,30,{size:22,color:C.slate,parent:route});
@@ -394,6 +521,12 @@ const builders = {
   },
 };
 
+// These historical public URLs stay as editable English aliases.
+const legacyConcepts = new Set([
+  'dfc-bridge-coverage-map', 'data-contract-pipeline',
+  'motion-scroll-storyboard', 'delivery-lifecycle',
+]);
+
 // Optional concept names let a narrative extension preserve existing exports.
 const requested = new Set(process.argv.slice(2));
 for (const concept of requested) {
@@ -411,11 +544,22 @@ try {
       const source = join(temporary, `${concept}-${locale}.drawio`);
       const target = join(output, `${concept}-${locale}.svg`);
       const staged = join(temporary, `${concept}-${locale}.svg`);
-      writeFileSync(source, diagram.xml(`${concept}-${locale}`));
+      let xml = diagram.xml(`${concept}-${locale}`);
+      // draw.io's mechanical XML repair pass; generated labels are already escaped.
+      xml = xml.replace(/="([^"]*)"/g, (_, value) => `="${value.replace(/</g, '&lt;').replace(/&(?!(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9a-fA-F]+);)/g, '&amp;')}"`);
+      xml = xml.replace(/<mxCell id="([^"]+)" parent="\1"\s*\/>/g, '<mxCell id="$1" parent="0"/>');
+      writeFileSync(source, xml);
       execFileSync(drawio, ['-x', '-f', 'svg', '-e', '-b', '0', '-o', staged, source], { stdio: 'pipe' });
       const svg = readFileSync(staged, 'utf8').replace(/<!--[\s\S]*?-->/gu, '');
       if (!svg.includes('mxfile') || !svg.includes('<svg')) throw new Error(`Invalid editable export: ${target}`);
-      exports.push([target, svg.replace(/(<svg[^>]*>)/u, `$1<title>${esc(L[0])}</title><desc>${esc(L[1])}</desc>`)]);
+      const accessibleSvg = svg.replace(/(<svg[^>]*>)/u, `$1<title>${esc(L[0])}</title><desc>${esc(L[1])}</desc>`);
+      exports.push([target, accessibleSvg]);
+      if (locale === 'en' && legacyConcepts.has(concept)) {
+        const legacy = join(root, 'assets/diagrams', concept);
+        const png = join(temporary, `${concept}.png`);
+        execFileSync(drawio, ['-x', '-f', 'png', '-e', '-b', '0', '-o', png, source], { stdio: 'pipe' });
+        exports.push([`${legacy}.svg`, accessibleSvg], [`${legacy}.png`, readFileSync(png)]);
+      }
       console.log(`${concept}-${locale}.svg ${diagram.width}×${diagram.height}`);
     }
   }

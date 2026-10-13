@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Имена и смысловые родители сохраняются при перестроении" loading="lazy" width="481" height="613" />
-<figcaption>Имена и смысловые родители сохраняются при перестроении. Объясняющая схема. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Те же два элемента внутри hero-actions переходят из ряда на 1440 в колонку на 375" loading="lazy" width="481" height="613" />
+<figcaption>Читайте сверху вниз: ряд становится колонкой, имена и смысловой родитель сохраняются. Для такого перестроения не нужна структурная трансформация. Смену родителя или другую структуру объявляют отдельно. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

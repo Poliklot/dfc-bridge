@@ -2,7 +2,10 @@
 
 DFC Bridge targets **WCAG 2.2 Level AA** for final implementations. This profile turns that target into design, contract, implementation, and QA responsibilities. It does not claim that a Figma file alone can conform: conformance is evaluated on the complete product and all applicable [WCAG 2.2](https://www.w3.org/TR/WCAG22/) success criteria.
 
-![DFC Bridge coverage from design evidence through implementation and accessibility QA](../assets/diagrams/dfc-bridge-coverage-map.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg" alt="Design and contract lead to separate source-check and implementation/runtime-QA paths" loading="lazy" width="481" height="947" />
+<figcaption>Start with the evidence: native Figma properties describe the design, short tags anchor intent, and structured bridge metadata records richer decisions. Follow the source-check and implementation paths separately. A source report covers declared rules in its scope; it is not runtime approval or proof of WCAG conformance. <a href="../assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 *Design evidence, structured intent, semantic implementation, and user-facing tests are all required. No single layer proves accessibility.*
 

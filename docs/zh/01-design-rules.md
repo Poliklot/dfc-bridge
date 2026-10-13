@@ -4,8 +4,8 @@ DFC Bridge 只补充 Figma 没有保存的含义。文件本身仍然是布局�
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="691" />
-<figcaption>同一页面与视图的两个原生宽度. 说明示意图。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/structure-zh.svg" alt="hero 内包含文字容器 hero-copy、带两个控件的 hero-actions 和 workshop-art" loading="lazy" width="481" height="691" />
+<figcaption>从外向内阅读嵌套框：hero 包含文字组、动作组和插图；文字与控件分别属于有意义的父级。这是结构示意，不是宽度对比，也不是 Figma 截图。 <a href="../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

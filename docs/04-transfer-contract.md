@@ -34,6 +34,11 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 
 Do not invent new flat tags when a structured field already exists.
 
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg" alt="Design and contract lead to separate source-check and implementation/runtime-QA paths" loading="lazy" width="481" height="947" />
+<figcaption>Start with the evidence: native Figma properties describe the design, short tags anchor intent, and structured bridge metadata records richer decisions. Follow the source-check and implementation paths separately. A source report covers declared rules in its scope; it is not runtime approval or proof of WCAG conformance. <a href="../assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg">Open full size</a>.</figcaption>
+</figure>
+
 ## Required envelope
 
 A complete payload has a `bridge` root. The core envelope includes:

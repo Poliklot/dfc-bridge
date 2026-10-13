@@ -2,7 +2,10 @@
 
 数据显示不是把示例文字填进矩形。可交付的设计应说明数据含义、来源、格式、用户可执行的操作，以及理想数据不可用时的行为。
 
-![从数据语义到无障碍响应式呈现的流程](../assets/diagrams/data-contract-pipeline.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/data-contract-pipeline-zh.svg" alt="同一个月收入示例生成 actual 与 target 值相同的图表和表格，下方列出数据状态" loading="lazy" width="481" height="1079" />
+<figcaption>从示例数据读到两种呈现：actual 为 120 USD，target 为 150 USD，在图表和表格中含义一致。选择呈现前先声明单位、聚合、格式化或其他转换；还须定义 loading、empty、error、partial 和 stale 行为。示例数值不是运行时数据来源，也不是完整数据契约。 <a href="../../assets/tutorial/diagrams/data-contract-pipeline-zh.svg">查看原图</a>。</figcaption>
+</figure>
 
 *同一组语义数据可以有多种明确声明的呈现方式，但格式化和响应式布局不能改变数据含义。*
 

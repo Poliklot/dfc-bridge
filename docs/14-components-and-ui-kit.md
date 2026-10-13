@@ -4,8 +4,8 @@ Use the component library to keep shared visual behavior consistent. Use page st
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/axes-en.svg" alt="Page, view, width, state and component variant are separate axes" loading="lazy" width="481" height="853" />
-<figcaption>Page, view, width, state and component variant are separate axes. Explanatory diagram. <a href="../assets/tutorial/diagrams/axes-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/axes-en.svg" alt="A page-view by width grid sits above separate native button variants and a state-action target" loading="lazy" width="481" height="853" />
+<figcaption>Read three separate examples: page views default/empty across widths; native button variants Type=Primary/Secondary; an action targeting filters-open. A component variant is not a page view, and declaring a state target does not implement its runtime transition. <a href="../assets/tutorial/diagrams/axes-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) demonstrates this split: a shared button supplies appearance; its page instance points to the local modal.

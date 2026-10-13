@@ -4,8 +4,8 @@ A stable name lets the team recognize one logical element across widths and stat
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Names and meaningful parents survive reflow" loading="lazy" width="481" height="613" />
-<figcaption>Names and meaningful parents survive reflow. Explanatory diagram. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Lines match contact-button and faq-link between the two hero-actions frames" loading="lazy" width="481" height="613" />
+<figcaption>Follow each connector to find the same named control at both widths. Names identify correspondence; they do not freeze position. Here both controls also keep hero-actions as their parent; a different meaningful parent requires a declared transformation. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.

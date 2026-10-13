@@ -4,7 +4,10 @@
 
 动效是随时间发生的行为。可交付的设计不仅提供两个好看的关键帧，还应说明驱动来源、状态、时间参数、中断、再次进入和无障碍替代方案。
 
-![滚动驱动的场景、过渡与替代方案分镜](../assets/diagrams/motion-scroll-storyboard.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/motion-scroll-storyboard-zh.svg" alt="三个静态场景对应示例滚动区间 0–32%、32–68% 和 68–100%，并有按顺序展示的静态替代形式" loading="lazy" width="481" height="1043" />
+<figcaption>先读三个静态场景，再读滚动区间与再次进入规则。32% 和 68% 是此例的选择，不是必需默认值。减少动态效果的替代形式按文档顺序展示全部场景，保留等价内容与操作；必须实现并验证，不能假定会自动出现。 <a href="../../assets/tutorial/diagrams/motion-scroll-storyboard-zh.svg">查看原图</a>。</figcaption>
+</figure>
 
 *先描述稳定场景，再描述过渡以及驱动它们的条件。*
 

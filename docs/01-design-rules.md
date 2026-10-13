@@ -4,8 +4,8 @@ DFC Bridge adds only the meaning that Figma does not already store. The file its
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/structure-en.svg" alt="Same page and view, two native widths" loading="lazy" width="481" height="691" />
-<figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/structure-en.svg" alt="The hero frame contains hero-copy with text, hero-actions with two controls, and workshop-art" loading="lazy" width="481" height="691" />
+<figcaption>Read the nested frames from outside in: hero owns the copy, actions and artwork; the text and controls have their own meaningful parents. This is a structure diagram, not a comparison of widths or a Figma capture. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.

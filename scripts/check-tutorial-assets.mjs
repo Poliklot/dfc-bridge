@@ -16,7 +16,8 @@ const reports = JSON.parse(read('check-results.json')).reports;
 const provenance = JSON.parse(read('capture-provenance.json'));
 const renderProvenance = JSON.parse(read('renders/provenance.json'));
 const manifest = JSON.parse(readFileSync(resolve(root, 'validator/site-content.json')));
-const concepts = ['contexts', 'identity', 'structure', 'interactions', 'content', 'roles', 'axes', 'scope', 'handoff-questions', 'handoff-clarified'];
+const concepts = ['contexts', 'identity', 'structure', 'interactions', 'content', 'roles', 'axes', 'scope', 'handoff-questions', 'handoff-clarified', 'dfc-bridge-coverage-map', 'data-contract-pipeline', 'motion-scroll-storyboard', 'delivery-lifecycle'];
+const advancedConcepts = ['dfc-bridge-coverage-map', 'data-contract-pipeline', 'motion-scroll-storyboard', 'delivery-lifecycle'];
 const walk = (node) => [node, ...(node.children || []).flatMap(walk)];
 const find = (node, name) => walk(node).find((item) => item.name === name);
 const parentOf = (root, child) => walk(root).find((item) => item.children?.includes(child));
@@ -264,6 +265,19 @@ for (const locale of manifest.locales) {
     assert(/<desc>.+<\/desc>/u.test(svg));
     assert(/content="[^"\n]*mxfile/u.test(svg), 'SVG embeds editable draw.io source');
     assert(!/<script\b/u.test(svg));
+    if (advancedConcepts.includes(concept)) {
+      assert(!/<foreignObject\b/u.test(svg), `${concept}-${locale}: readable native SVG text, not a foreignObject fallback`);
+      assert(!/NO BLIND SPOTS|DFC Bridge READY/u.test(svg), 'an overview cannot certify complete checker coverage or readiness');
+      if (locale === 'en') {
+        assert.equal(readFileSync(resolve(root, `assets/diagrams/${concept}.svg`), 'utf8'), svg, `${concept}: historical URL shares the canonical English export`);
+        const png = await sharp(resolve(root, `assets/diagrams/${concept}.png`)).metadata();
+        const box = svg.match(/\bviewBox="0 0 ([\d.]+) ([\d.]+)"/u);
+        assert(box, `${concept}: an explicit viewBox is required`);
+        // Native draw.io raster export rounds the outer stroke by up to 1px.
+        // Keep the editable export rather than rescaling it to hide that edge.
+        assert(Math.abs(png.width - Number(box[1])) <= 1 && Math.abs(png.height - Number(box[2])) <= 1, `${concept}: PNG alias preserves native diagram geometry`);
+      }
+    }
     if (['handoff-questions', 'handoff-clarified'].includes(concept)) {
       // Check the native graph, not just its rendered appearance: each speech
       // bubble must stay above the corresponding member of the recurring cast.
@@ -286,6 +300,31 @@ for (const locale of manifest.locales) {
     }
   }
 }
+// Validate authored embeds as well as generated site URLs: site-sync can repair
+// a relative path that is still broken when read directly on GitHub.
+for (const locale of manifest.locales) {
+  const sources = manifest.pages.map(({ source }) => source[locale]);
+  if (locale !== 'zh') sources.push(locale === 'en' ? 'README.md' : 'README.ru.md');
+  for (const source of sources) {
+    const markdown = readFileSync(resolve(root, source), 'utf8');
+    for (const concept of advancedConcepts) {
+      assert(!markdown.includes(`assets/diagrams/${concept}.`), `${source}: use the localized diagram, not an English compatibility alias`);
+    }
+    for (const [tag, src] of [...markdown.matchAll(/<img\b[^>]*\bsrc="([^"]*assets\/tutorial\/diagrams\/[^"/]+\.svg)"[^>]*>/gu)]) {
+      assert(src.endsWith(`-${locale}.svg`), `${source}: diagram language matches the article`);
+      const path = resolve(root, dirname(source), src);
+      assert(existsSync(path), `${source}: diagram resolves from the authored Markdown location`);
+      const svg = readFileSync(path, 'utf8');
+      const dimensions = svg.match(/\bviewBox="0 0 ([\d.]+) ([\d.]+)"/u);
+      assert(dimensions, `${src}: dimensions available`);
+      for (const [attribute, actual] of [['width', dimensions[1]], ['height', dimensions[2]]]) {
+        const declared = tag.match(new RegExp(`\\b${attribute}="(\\d+)"`, 'u'))?.[1];
+        assert.equal(declared, actual, `${source}: ${src} ${attribute} matches the export`);
+      }
+    }
+  }
+}
+
 // Rebuildable detail crops must retain their immediate native source and its
 // date/revision. This gate does not certify absent historical full-window PNGs.
 execFileSync(process.execPath, [resolve(root, 'scripts/build-tutorial-screenshots.mjs'), '--check']);
@@ -636,6 +675,6 @@ for (const locale of manifest.locales) {
   }
 }
 const expectedDiagrams = manifest.locales.flatMap((locale) => concepts.map((concept) => `${concept}-${locale}.svg`)).sort();
-assert.deepEqual(readdirSync(resolve(tutorial, 'diagrams')).filter((name) => name.endsWith('.svg')).sort(), expectedDiagrams, 'ten intentional SVG concepts in all three locales');
+assert.deepEqual(readdirSync(resolve(tutorial, 'diagrams')).filter((name) => name.endsWith('.svg')).sort(), expectedDiagrams, 'fourteen intentional SVG concepts in all three locales');
 const derivedCaptureCount = provenance.captures.filter((capture) => capture.derivedFromCapture).length;
 console.log(`Tutorial evidence verified: 5 native pages, ${expectedDiagrams.length} editable diagrams, ${provenance.captures.length - derivedCaptureCount} original captures + ${derivedCaptureCount} lossless derivatives, ${motion.clips.length} retained step sequences/${motion.clips.reduce((sum, clip) => sum + clip.frames.length, 0)} native stages${nativeMotion ? `, ${nativeMotion.manifest.clips.length} continuous recordings/${nativeMotion.auditedFrames} decoded audit frames` : ''}, ${outputsByFile.size} localized videos and all eight illustrated recipes (${images} image placements).`);

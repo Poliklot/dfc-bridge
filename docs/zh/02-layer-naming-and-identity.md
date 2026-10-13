@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="重排后保留名称与有意义的父层" loading="lazy" width="481" height="613" />
-<figcaption>重排后保留名称与有意义的父层. 说明示意图。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="连线对应两个 hero-actions 框中的 contact-button 和 faq-link" loading="lazy" width="481" height="613" />
+<figcaption>沿连线找到两种宽度中的同名控件。名称表示身份对应，不表示位置必须不变。此例还保留共同父级 hero-actions；若改变有意义的父级，须声明结构转换。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

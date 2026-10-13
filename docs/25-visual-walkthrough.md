@@ -75,8 +75,8 @@ Details: “View fullscreen” below → “Original size”.
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/contexts-en.svg" width="481" height="557" alt="Two workshop roots share page and default view, with widths 1440 and 375" loading="lazy" />
-<figcaption>One page, one view, two widths.</figcaption>
+<img src="../assets/tutorial/diagrams/contexts-en.svg" width="481" height="557" alt="workshop and default are shared by roots with native widths 1440 and 375" loading="lazy" />
+<figcaption>One page/view, two widths.</figcaption>
 </figure>
 
 Frontend knows what to build. AI stops hunting for the “most final” screen. Tags describe the agreement; they do not create layout or code.
@@ -110,8 +110,8 @@ Here we chose shared copy and parent. This is not the only way.
 **Different copy needs an [agreed product variant](16-variation-axes.md). A different parent needs a [declared transformation](03-responsive-breakpoints.md).** Reordering within one parent is allowed.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/identity-en.svg" width="481" height="613" alt="The same contact-button and faq-link inside hero-actions: a row at 1440 and a column at 375" loading="lazy" />
-<figcaption>Same buttons. Different layout.</figcaption>
+<img src="../assets/tutorial/diagrams/identity-en.svg" width="481" height="613" alt="The same two controls change from a row at 1440 to a column at 375 inside hero-actions" loading="lazy" />
+<figcaption>Same buttons, same parent.</figcaption>
 </figure>
 
 Desktop buttons sit side by side; mobile buttons stack. **Different layouts are fine:** Auto Layout changes; text and parent stay the same here.
@@ -151,8 +151,8 @@ The heading stays text. `workshop-art [decor] [asset]` stays one image. Do not f
 - `faq-link [href=#faq]` → go to FAQ.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/interactions-en.svg" width="481" height="839" alt="contact-button points to the local contact-modal; faq-link points to the faq anchor" loading="lazy" />
-<figcaption>Button → modal. Link → FAQ.</figcaption>
+<img src="../assets/tutorial/diagrams/interactions-en.svg" width="481" height="839" alt="href=#faq points to anchor=faq; action=modal:contact-modal points to modal=contact-modal" loading="lazy" />
+<figcaption>Declared destinations—not runtime proof.</figcaption>
 </figure>
 
 <figure class="bridge-lesson-figure bridge-lesson-motion">

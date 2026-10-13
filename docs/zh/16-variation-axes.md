@@ -3,8 +3,8 @@
 两个画框可能因为屏幕变窄、语言改变或数据尚未加载而不同。比较它们之前，先说明原因。DFC Bridge 把每个独立原因称为一个**轴**；宽度不能解释未经声明的内容或行为变化。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="页面、视图、宽度、状态目标与组件变体是独立的维度" loading="lazy" width="481" height="853" />
-<figcaption>页面、视图、宽度、状态目标与组件变体是独立的维度。说明示意图。<a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>。</figcaption>
+<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="上方是页面视图与宽度矩阵，下方分别是原生按钮变体和状态动作目标" loading="lazy" width="481" height="853" />
+<figcaption>分开阅读三个示例：不同宽度的页面视图 default/empty、原生按钮变体 Type=Primary/Secondary，以及指向 filters-open 的动作。组件变体不是页面视图；声明状态目标也不等于实现运行时转换。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)展示了这些区别如何影响团队交付。

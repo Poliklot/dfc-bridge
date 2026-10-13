@@ -4,7 +4,10 @@
 
 > **设计 → 契约 → 实现 → QA → 发布**
 
-![从设计证据到契约、实现、QA 和受控偏差的生命周期](../assets/diagrams/delivery-lifecycle.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../../assets/tutorial/diagrams/delivery-lifecycle-zh.svg" alt="设计、契约、实现、QA 和发布构成证据链；变更在新一轮 QA 前返回受影响的证据" loading="lazy" width="482" height="1161" />
+<figcaption>沿设计 → 契约 → 实现 → QA → 发布阅读，并固定范围、负责人和版本。变更须返回受影响的事实来源，更新关联证据，再验证后发布。已批准偏差也需要缓解措施与复审，不能绕过 QA。这是流程图，不是某次发布已通过的证据。 <a href="../../assets/tutorial/diagrams/delivery-lifecycle-zh.svg">查看原图</a>。</figcaption>
+</figure>
 
 *偏差是必须回到验证环节的受控分支，不是绕过契约的捷径。*
 

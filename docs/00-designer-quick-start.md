@@ -56,8 +56,8 @@ home [page=home] [bp=375] [view=default]
 A simplified tree excerpt: both widths keep the button and a real modal target. Native Auto Layout and modal behaviour still need preparation.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="Two widths of the same page and view, not two unrelated designs. Explanatory diagram." loading="lazy" width="481" height="557" />
-<figcaption>Two widths of the same page and view, not two unrelated designs. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="workshop and default are shared by roots with native widths 1440 and 375" loading="lazy" width="481" height="557" />
+<figcaption>Same page/view, two native widths. bp is not a CSS threshold; route supplies the URL separately.</figcaption>
 </figure>
 
 

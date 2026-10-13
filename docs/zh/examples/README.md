@@ -18,8 +18,8 @@ home [page=home] [route=/] [bp=375] [view=default]
 相同的 `[page]` 和 `[view]` 表示准备好的宽度属于同一页面。`[bp]` 记录每个根图层展示的宽度。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面与视图的两个原生宽度" loading="lazy" width="481" height="557" />
-<figcaption>同一页面与视图的两个原生宽度。 说明示意图。 <a href="../../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/contexts-zh.svg" alt="原生宽度为 1440 和 375 的根节点共用 workshop 和 default" loading="lazy" width="481" height="557" />
+<figcaption>独立 workshop 示例，非上方 home 代码。先读共同的 page 和 view，再读两个 bp 值：它们是同一页面视图的不同宽度。URL 由 route 另行声明；bp 记录已准备的原生宽度，不是 CSS 媒体查询阈值。 <a href="../../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 2. 不同宽度使用同一个名称
@@ -35,8 +35,8 @@ hero-title
 尺寸或位置可以变化，但稳定名称能让人识别同一个逻辑元素。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/identity-zh.svg" alt="重排后保留名称与有意义的父层" loading="lazy" width="481" height="613" />
-<figcaption>重排后保留名称与有意义的父层。 说明示意图。 <a href="../../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/identity-zh.svg" alt="连线对应两个 hero-actions 框中的 contact-button 和 faq-link" loading="lazy" width="481" height="613" />
+<figcaption>按钮示意，不是上方 hero-title。沿连线找到两种宽度中的同名控件。名称表示身份对应，不表示位置必须不变。此例还保留共同父级 hero-actions；若改变有意义的父级，须声明结构转换。 <a href="../../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 3. 页面区块
@@ -51,8 +51,8 @@ product-results [section=product-results]
 来自 `Page Sections` 库的实例已经有源组件。如果当前图层不是区块边界，就不要重复添加区块键。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/structure-zh.svg" alt="区块中包含有意义的文字及动作容器" loading="lazy" width="481" height="691" />
-<figcaption>区块中包含有意义的文字及动作容器。 说明示意图。 <a href="../../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/structure-zh.svg" alt="hero 内包含文字容器 hero-copy、带两个控件的 hero-actions 和 workshop-art" loading="lazy" width="481" height="691" />
+<figcaption>hero 示意，不是上方 product-results 树。从外向内阅读嵌套框：hero 包含文字组、动作组和插图；文字与控件分别属于有意义的父级。这是结构示意，不是宽度对比，也不是 Figma 截图。 <a href="../../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 4. 链接还是动作
@@ -67,8 +67,8 @@ filter-button [action=state:filters-open]
 不要给按钮使用假的 `href`，也不要给普通链接使用假的动作。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/interactions-zh.svg" alt="导航与界面变化指向不同目标" loading="lazy" width="481" height="839" />
-<figcaption>导航与界面变化指向不同目标。 说明示意图。 <a href="../../../assets/tutorial/diagrams/interactions-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/interactions-zh.svg" alt="href=#faq 指向 anchor=faq；action=modal:contact-modal 指向 modal=contact-modal" loading="lazy" width="481" height="839" />
+<figcaption>锚点与模态框示意，不是上方路由与状态代码。分别阅读两条路径：href 声明 FAQ 锚点目的地，action 声明在当前界面打开的模态框。这些是意图，不是已连接的 Figma 原型，也不证明导航、模态框焦点或关闭行为已实现。 <a href="../../../assets/tutorial/diagrams/interactions-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 5. 按钮和模态窗口
@@ -87,7 +87,7 @@ contact-modal [modal=contact-modal]
 
 <figure class="bridge-lesson-figure bridge-lesson-screenshot">
 <img src="../../../assets/tutorial/screenshots/assistant-layer-local.png" alt="本地助手：按钮、真实目标与定位操作" loading="lazy" width="906" height="1173" />
-<figcaption>本地助手：按钮、真实目标与定位操作。 本地开发版的真实截图，并非已发布界面。 <a href="../../../assets/tutorial/screenshots/assistant-layer-local.png">查看原图</a>.</figcaption>
+<figcaption>本地助手：按钮、真实目标与定位操作。本地开发版的真实截图，并非已发布界面。 <a href="../../../assets/tutorial/screenshots/assistant-layer-local.png">查看原图</a>。</figcaption>
 </figure>
 
 ## 6. 有意义的结构
@@ -108,8 +108,8 @@ hero
 每个容器都应有实际作用：内容、布局、裁剪、背景或交互区域。详细规则请看[设计规则](../docs/01-design-rules.md)和[容器规则](../docs/06-wrapper-policy.md)。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/structure-zh.svg" alt="有意义的容器而不是随意分组" loading="lazy" width="481" height="691" />
-<figcaption>有意义的容器而不是随意分组。 说明示意图。 <a href="../../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/structure-zh.svg" alt="hero 中的 hero-copy 组织文字，hero-actions 组织控件" loading="lazy" width="481" height="691" />
+<figcaption>扩展结构示意，非上方简略树。沿嵌套关系阅读：hero-copy 包含相关文字，hero-actions 包含相关控件；每个容器都有布局作用。图中只展示一种有意义的结构，不是正误对比，也不要求处处增加容器。 <a href="../../../assets/tutorial/diagrams/structure-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 7. 真实内容
@@ -126,8 +126,8 @@ product-card
 检查短、长、空、加载和错误状态。不要用一张最终构图图片替代会变化的内容。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/content-zh.svg" alt="长文本换行，卡片增长而不是裁剪" loading="lazy" width="481" height="703" />
-<figcaption>长文本换行，卡片增长而不是裁剪。 说明示意图。 <a href="../../../assets/tutorial/diagrams/content-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/content-zh.svg" alt="上方固定高度卡片裁掉文字；下方 Hug 高度卡片保留文字并下移下一张卡片" loading="lazy" width="481" height="703" />
+<figcaption>比较上下相同的文字：此例中 Hug 高度保留末尾行，并将下一张卡片下移。固定高度、滚动与截断并非一律禁止，但都需要明确且适用的溢出策略。 <a href="../../../assets/tutorial/diagrams/content-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 8. 内容、装饰和导出
@@ -143,8 +143,8 @@ campaign-illustration [asset]
 `[decor]` 表示视觉作用，`[asset]` 表示整个视觉作为一个资源交付。如果两个说明都成立，同一图层可以同时使用两个标签。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../../assets/tutorial/diagrams/roles-zh.svg" alt="可编辑内容、装饰与整体导出的区别" loading="lazy" width="481" height="761" />
-<figcaption>可编辑内容、装饰与整体导出的区别。 说明示意图。 <a href="../../../assets/tutorial/diagrams/roles-zh.svg">查看原图</a>.</figcaption>
+<img src="../../../assets/tutorial/diagrams/roles-zh.svg" alt="按角色和传递边界比较可编辑文字、原生装饰与一个内部不展开的视觉资源" loading="lazy" width="481" height="761" />
+<figcaption>这是使用 hero-title、hero-glow 和 workshop-art 的独立示意。逐行从角色读到传递边界：文字保持可编辑；decor 声明视觉用途；asset 将整个视觉作为单一资源传递。两者是不同决策，因此 decor 与 asset 可以并用。此图不表示所有产品图片都是装饰。 <a href="../../../assets/tutorial/diagrams/roles-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 ## 如何使用示例目录

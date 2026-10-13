@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/interactions-zh.svg" alt="导航与界面变化指向不同目标" loading="lazy" width="481" height="839" />
-<figcaption>导航与界面变化指向不同目标. 说明示意图。 <a href="../../assets/tutorial/diagrams/interactions-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/interactions-zh.svg" alt="href=#faq 指向 anchor=faq；action=modal:contact-modal 指向 modal=contact-modal" loading="lazy" width="481" height="839" />
+<figcaption>分别阅读两条路径：href 声明 FAQ 锚点目的地，action 声明在当前界面打开的模态框。这些是意图，不是已连接的 Figma 原型，也不证明导航、模态框焦点或关闭行为已实现。 <a href="../../assets/tutorial/diagrams/interactions-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

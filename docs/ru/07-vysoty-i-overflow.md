@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/content-ru.svg" alt="Длинный текст переносится, карточка растёт вместо обрезки" loading="lazy" width="481" height="703" />
-<figcaption>Длинный текст переносится, карточка растёт вместо обрезки. Объясняющая схема. <a href="../../assets/tutorial/diagrams/content-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/content-ru.svg" alt="Верхняя карточка фиксированной высоты обрезает текст; нижняя с высотой Hug сохраняет его и сдвигает соседа" loading="lazy" width="481" height="703" />
+<figcaption>Сравните один текст сверху и снизу: в этом примере высота Hug сохраняет последние строки и сдвигает следующую карточку. Фиксированная высота, прокрутка и сокращение не запрещены вообще: для них нужна явная, подходящая политика переполнения. <a href="../../assets/tutorial/diagrams/content-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

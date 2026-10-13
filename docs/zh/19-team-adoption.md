@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/scope-zh.svg" alt="检查所选区块；宿主及外部目标不在范围内" loading="lazy" width="481" height="895" />
-<figcaption>检查所选区块；宿主及外部目标不在范围内. 说明示意图。 <a href="../../assets/tutorial/diagrams/scope-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/scope-zh.svg" alt="模态框目标在所选区块内，路由引用跨越边界并保持 Deferred" loading="lazy" width="481" height="895" />
+<figcaption>先看选择边界：模态框可在内部解析，但 /workshop 路由需要在外部查找。此例因该 Deferred 依赖而为 Partial。区块检查并非总是 Partial，也不证明旧宿主合规或运行时集成正确。 <a href="../../assets/tutorial/diagrams/scope-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)展示 Figma 中的准备步骤。下面的试点用于衡量：完成这些步骤后，接收者是否更容易理解真实文件。

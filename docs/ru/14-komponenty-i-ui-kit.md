@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/axes-ru.svg" alt="Страница, вид, ширина, цель состояния и вариант компонента — разные оси" loading="lazy" width="481" height="853" />
-<figcaption>Страница, вид, ширина, цель состояния и вариант компонента — разные оси. Объясняющая схема. <a href="../../assets/tutorial/diagrams/axes-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/axes-ru.svg" alt="Над отдельными нативными вариантами кнопки и целью действия показана сетка видов страницы и ширин" loading="lazy" width="481" height="853" />
+<figcaption>Читайте три отдельных примера: виды страницы default/empty на разных ширинах; нативные варианты кнопки Type=Primary/Secondary; действие с целью filters-open. Вариант компонента — не вид страницы, а объявление цели состояния не реализует переход во время работы приложения. <a href="../../assets/tutorial/diagrams/axes-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 В [визуальном экскурсе](25-vizualnyj-urok.md) общий компонент задаёт вид кнопки, а её экземпляр на странице указывает на локальное окно.

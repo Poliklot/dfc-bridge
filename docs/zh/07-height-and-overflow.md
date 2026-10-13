@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/content-zh.svg" alt="长文本换行，卡片增长而不是裁剪" loading="lazy" width="481" height="703" />
-<figcaption>长文本换行，卡片增长而不是裁剪. 说明示意图。 <a href="../../assets/tutorial/diagrams/content-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/content-zh.svg" alt="上方固定高度卡片裁掉文字；下方 Hug 高度卡片保留文字并下移下一张卡片" loading="lazy" width="481" height="703" />
+<figcaption>比较上下相同的文字：此例中 Hug 高度保留末尾行，并将下一张卡片下移。固定高度、滚动与截断并非一律禁止，但都需要明确且适用的溢出策略。 <a href="../../assets/tutorial/diagrams/content-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

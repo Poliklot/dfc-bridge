@@ -4,8 +4,8 @@ Do not begin by renaming the archive or rebuilding the component library. Run a 
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/scope-en.svg" alt="Selected section checked; its host and external destinations are outside scope" loading="lazy" width="481" height="895" />
-<figcaption>Selected section checked; its host and external destinations are outside scope. Explanatory diagram. <a href="../assets/tutorial/diagrams/scope-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/scope-en.svg" alt="The selected section contains a modal target, while its route reference crosses the boundary and stays Deferred" loading="lazy" width="481" height="895" />
+<figcaption>Start at the selection boundary: the modal resolves inside it, but the /workshop route needs lookup outside it. That Deferred dependency makes this example Partial. A section check is not always Partial, and it does not certify the legacy host or runtime integration. <a href="../assets/tutorial/diagrams/scope-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 For the preparation steps in Figma, use the [visual introduction](25-visual-walkthrough.md). This pilot measures whether those steps help a recipient understand a real file.

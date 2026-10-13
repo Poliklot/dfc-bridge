@@ -4,7 +4,10 @@ Use this lifecycle once the transfer scope is chosen. At each stage, name an own
 
 > **design → contract → implementation → QA → release**
 
-![Lifecycle from design evidence through contract, implementation, QA, and managed deviation](../assets/diagrams/delivery-lifecycle.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/delivery-lifecycle-en.svg" alt="Design, contract, implementation, QA and release form one evidence chain; changes return to affected evidence before another QA" loading="lazy" width="482" height="1161" />
+<figcaption>Follow design → contract → implementation → QA → release with scope, owners and pinned revisions. A change returns to the affected source of truth; update its linked evidence and verify again before release. An approved deviation needs mitigation and review, not a shortcut around QA. This is a process map, not evidence that a release has passed. <a href="../assets/tutorial/diagrams/delivery-lifecycle-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 *A deviation is a controlled branch that must return to verification; it is not a shortcut around the contract.*
 

@@ -56,8 +56,8 @@ home [page=home] [bp=375] [view=default]
 Сокращённое дерево: на обеих ширинах сохранены кнопка и настоящая цель. Нативную раскладку и поведение окна нужно подготовить отдельно.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/contexts-ru.svg" alt="Две ширины одной страницы и одного вида, а не два несвязанных макета. Объясняющая схема." loading="lazy" width="481" height="557" />
-<figcaption>Две ширины одной страницы и одного вида, а не два несвязанных макета. Объясняющая схема. <a href="../../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/contexts-ru.svg" alt="Корни с нативными ширинами 1440 и 375 имеют общие workshop и default" loading="lazy" width="481" height="557" />
+<figcaption>Одна page/view, две нативные ширины. bp — не порог CSS; URL задаёт route.</figcaption>
 </figure>
 
 

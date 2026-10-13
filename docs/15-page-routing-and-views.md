@@ -4,8 +4,8 @@ Start by identifying which frames describe the same page. Then record its real a
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="Same page and view, two native widths" loading="lazy" width="481" height="557" />
-<figcaption>Same page and view, two native widths. Explanatory diagram. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/contexts-en.svg" alt="workshop and default are shared by roots with native widths 1440 and 375" loading="lazy" width="481" height="557" />
+<figcaption>Read the shared page and view first, then the two bp values. They identify widths of one page view. A route supplies its URL separately; bp records a prepared native width, not a CSS media-query threshold. <a href="../assets/tutorial/diagrams/contexts-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 In the [visual introduction](25-visual-walkthrough.md), two `workshop` roots share a page and a view; only their declared widths differ.

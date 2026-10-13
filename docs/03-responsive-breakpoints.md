@@ -4,8 +4,8 @@ Responsive design is one page with a clear meaning at more than one width. It is
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/identity-en.svg" alt="Names and meaningful parents survive reflow" loading="lazy" width="481" height="613" />
-<figcaption>Names and meaningful parents survive reflow. Explanatory diagram. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/identity-en.svg" alt="The same two controls change from a row at 1440 to a column at 375 inside hero-actions" loading="lazy" width="481" height="613" />
+<figcaption>Read top to bottom: a row becomes a column, while names and the meaningful parent stay the same. This reflow needs no structural transformation. A changed parent or genuinely different structure must be declared separately. <a href="../assets/tutorial/diagrams/identity-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.

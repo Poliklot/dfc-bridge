@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/interactions-ru.svg" alt="Переход и изменение интерфейса ссылаются на разные цели" loading="lazy" width="481" height="839" />
-<figcaption>Переход и изменение интерфейса ссылаются на разные цели. Объясняющая схема. <a href="../../assets/tutorial/diagrams/interactions-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/interactions-ru.svg" alt="href=#faq указывает на anchor=faq, action=modal:contact-modal — на modal=contact-modal" loading="lazy" width="481" height="839" />
+<figcaption>Читайте два пути отдельно: href задаёт переход к якорю FAQ, action — открытие окна в текущем интерфейсе. Это объявленные намерения, не настроенный прототип Figma и не доказательство работы перехода, фокуса или закрытия окна. <a href="../../assets/tutorial/diagrams/interactions-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

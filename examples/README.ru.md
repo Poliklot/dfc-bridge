@@ -18,8 +18,8 @@ home [page=home] [route=/] [bp=375] [view=default]
 Одинаковые `[page]` и `[view]` связывают подготовленные ширины. `[bp]` записывает ширину каждого корня.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/contexts-ru.svg" alt="Одна страница и один вид на двух нативных ширинах" loading="lazy" width="481" height="557" />
-<figcaption>Одна страница и один вид на двух нативных ширинах. Объясняющая схема. <a href="../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/contexts-ru.svg" alt="Корни с нативными ширинами 1440 и 375 имеют общие workshop и default" loading="lazy" width="481" height="557" />
+<figcaption>Отдельная иллюстрация на workshop, не снимок примера home выше. Сначала прочитайте общие page и view, затем два значения bp. Они задают ширины одного вида страницы. URL задаётся отдельно через route; bp обозначает подготовленную нативную ширину, не порог CSS-медиазапроса. <a href="../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 2. Одно имя на разных ширинах
@@ -35,8 +35,8 @@ hero-title
 Размер и положение могут измениться. Стабильное имя помогает узнать тот же логический элемент.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/identity-ru.svg" alt="Имена и смысловые родители сохраняются при перестроении" loading="lazy" width="481" height="613" />
-<figcaption>Имена и смысловые родители сохраняются при перестроении. Объясняющая схема. <a href="../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/identity-ru.svg" alt="Линии сопоставляют contact-button и faq-link в двух рамках hero-actions" loading="lazy" width="481" height="613" />
+<figcaption>Отдельная иллюстрация с двумя элементами управления, не изображение hero-title выше. Проследите линии до одноимённых элементов на обеих ширинах. Имя задаёт соответствие, а не неизменную позицию. Здесь оба элемента также сохраняют родителя hero-actions; смену смыслового родителя нужно объявить как преобразование. <a href="../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 3. Секция страницы
@@ -51,8 +51,8 @@ product-results [section=product-results]
 Экземпляр из библиотеки `Page Sections` уже имеет исходный компонент. Не повторяйте ключ секции, если локальный фрейм не является её границей.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/structure-ru.svg" alt="Секция содержит осмысленные обёртки текста и действий" loading="lazy" width="481" height="691" />
-<figcaption>Секция содержит осмысленные обёртки текста и действий. Объясняющая схема. <a href="../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/structure-ru.svg" alt="Внутри hero: hero-copy с текстом, hero-actions с двумя элементами управления и workshop-art" loading="lazy" width="481" height="691" />
+<figcaption>Отдельная иллюстрация секции hero, не дерева product-results выше. Читайте вложенные рамки снаружи внутрь: hero содержит текстовую группу, действия и визуал; текст и элементы управления имеют смысловых родителей. Это схема структуры, не сравнение ширин и не снимок Figma. <a href="../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 4. Ссылка или действие
@@ -67,8 +67,8 @@ filter-button [action=state:filters-open]
 Не используйте фальшивый `href` для кнопки и фальшивое действие для обычной ссылки.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/interactions-ru.svg" alt="Переход и изменение интерфейса ссылаются на разные цели" loading="lazy" width="481" height="839" />
-<figcaption>Переход и изменение интерфейса ссылаются на разные цели. Объясняющая схема. <a href="../assets/tutorial/diagrams/interactions-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/interactions-ru.svg" alt="href=#faq указывает на anchor=faq, action=modal:contact-modal — на modal=contact-modal" loading="lazy" width="481" height="839" />
+<figcaption>Отдельная иллюстрация с якорем и окном, не примером маршрута и состояния выше. Читайте два пути отдельно: href задаёт переход к якорю FAQ, action — открытие окна в текущем интерфейсе. Это объявленные намерения, не настроенный прототип Figma и не доказательство работы перехода, фокуса или закрытия окна. <a href="../assets/tutorial/diagrams/interactions-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 5. Кнопка и модальное окно
@@ -108,8 +108,8 @@ hero
 У каждой обёртки должна быть настоящая задача: содержимое, раскладка, обрезка, фон или область взаимодействия. Подробности — в [правилах подготовки макета](../docs/ru/01-pravila-dizajna.md) и [правилах обёрток](../docs/ru/06-politika-obertok.md).
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/structure-ru.svg" alt="Осмысленные обёртки вместо случайной группы" loading="lazy" width="481" height="691" />
-<figcaption>Осмысленные обёртки вместо случайной группы. Объясняющая схема. <a href="../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/structure-ru.svg" alt="hero-copy объединяет текст, hero-actions — элементы управления внутри hero" loading="lazy" width="481" height="691" />
+<figcaption>Расширенная схема структуры, не изображение сокращённого дерева выше. Проследите вложенность: hero-copy содержит связанный текст, hero-actions — связанные элементы управления. У каждой обёртки есть задача в раскладке. Показана одна осмысленная структура, не сравнение хорошего и плохого и не требование добавлять обёртки везде. <a href="../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 7. Реальный контент
@@ -126,8 +126,8 @@ product-card
 Проверьте короткий, длинный, пустой, загружаемый и ошибочный варианты. Не заменяйте изменяемый контент картинкой готовой композиции.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/content-ru.svg" alt="Длинный текст переносится, карточка растёт вместо обрезки" loading="lazy" width="481" height="703" />
-<figcaption>Длинный текст переносится, карточка растёт вместо обрезки. Объясняющая схема. <a href="../assets/tutorial/diagrams/content-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/content-ru.svg" alt="Верхняя карточка фиксированной высоты обрезает текст; нижняя с высотой Hug сохраняет его и сдвигает соседа" loading="lazy" width="481" height="703" />
+<figcaption>Сравните один текст сверху и снизу: в этом примере высота Hug сохраняет последние строки и сдвигает следующую карточку. Фиксированная высота, прокрутка и сокращение не запрещены вообще: для них нужна явная, подходящая политика переполнения. <a href="../assets/tutorial/diagrams/content-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## 8. Контент, декор и экспорт
@@ -143,8 +143,8 @@ campaign-illustration [asset]
 `[decor]` описывает визуальную роль. `[asset]` означает, что визуал передаётся одним ресурсом. Один слой может использовать оба тега, если верны оба утверждения.
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/roles-ru.svg" alt="Редактируемый контент, декор и неделимый экспорт различаются" loading="lazy" width="481" height="761" />
-<figcaption>Редактируемый контент, декор и неделимый экспорт различаются. Объясняющая схема. <a href="../assets/tutorial/diagrams/roles-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/roles-ru.svg" alt="Редактируемый текст, нативный декор и единый непрозрачный визуал сопоставлены по роли и границе передачи" loading="lazy" width="481" height="761" />
+<figcaption>Отдельная иллюстрация на hero-title, hero-glow и workshop-art. Читайте каждую строку от роли к границе передачи: текст остаётся редактируемым; метка декора задаёт визуальное назначение; метка ресурса — передачу одним целым. Это разные решения, поэтому метки совместимы. Схема не относит все продуктовые изображения к декору. <a href="../assets/tutorial/diagrams/roles-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 ## Как пользоваться каталогом

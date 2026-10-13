@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="重排后保留名称与有意义的父层" loading="lazy" width="481" height="613" />
-<figcaption>重排后保留名称与有意义的父层. 说明示意图。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/identity-zh.svg" alt="hero-actions 内的同样两个控件从 1440 的横排变为 375 的纵排" loading="lazy" width="481" height="613" />
+<figcaption>从上到下阅读：横排变为纵排，名称和有意义的父级不变。这种重排不需要结构转换声明；若改变父级或采用不同结构，则须另行声明。 <a href="../../assets/tutorial/diagrams/identity-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)说明这些决策为什么对团队重要。

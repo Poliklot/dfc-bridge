@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/contexts-ru.svg" alt="Одна страница и один вид на двух нативных ширинах" loading="lazy" width="481" height="557" />
-<figcaption>Одна страница и один вид на двух нативных ширинах. Объясняющая схема. <a href="../../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/contexts-ru.svg" alt="Корни с нативными ширинами 1440 и 375 имеют общие workshop и default" loading="lazy" width="481" height="557" />
+<figcaption>Сначала прочитайте общие page и view, затем два значения bp. Они задают ширины одного вида страницы. URL задаётся отдельно через route; bp обозначает подготовленную нативную ширину, не порог CSS-медиазапроса. <a href="../../assets/tutorial/diagrams/contexts-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 В [визуальном экскурсе](25-vizualnyj-urok.md) два корня `workshop` относятся к одной странице и одному состоянию; различаются их контрольные ширины.

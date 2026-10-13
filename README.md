@@ -63,7 +63,10 @@ A picture shows how an interface looks. It does not reliably say whether two but
 
 DFC Bridge is not tied to any specific platform. It does not prescribe a particular framework, CMS, visual editor, runtime, or design-to-code tool. Target adapters may map the same contract to HTML/CSS, React, Vue, mobile UI, internal tools, or any other implementation surface.
 
-![DFC Bridge covers the blind spots between design evidence, structured intent, implementation, and QA](assets/diagrams/dfc-bridge-coverage-map.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg" alt="Design and contract lead to separate source-check and implementation/runtime-QA paths" loading="lazy" width="481" height="947" />
+<figcaption>Start with the evidence: native Figma properties describe the design, short tags anchor intent, and structured bridge metadata records richer decisions. Follow the source-check and implementation paths separately. A source report covers declared rules in its scope; it is not runtime approval or proof of WCAG conformance. <a href="assets/tutorial/diagrams/dfc-bridge-coverage-map-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 **No blind spots** does not mean every answer is known immediately. It means every relevant unknown is explicit, scoped, owned, assigned a blocking status and review point, and given a safe fallback.
 

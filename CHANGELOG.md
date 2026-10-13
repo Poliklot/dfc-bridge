@@ -10,6 +10,7 @@ All notable changes to the public BRIDGE methodology, schemas, rule catalog, and
 - Reviewed the 84 localized authored pages and corrected task order, prerequisites, examples, next steps, and translation errors where needed. Clarified page versus selected-section scope and the distinction between source checks, implementation QA, and delivery readiness.
 - Reworked seven tutorial scenarios in all three locales using continuous native Figma recordings at original speed: four operations were re-recorded on 13 October; three retain their 12 October sources and are not presented as newly captured or newly certified against the recording-hold standard.
 - Reframed and localized MP4/GIF/poster outputs, added three lossless detail crops, and extended the media viewer with video zoom so native interface details can be inspected on narrow screens.
+- Replaced four English-only overview graphics with editable EN/RU/ZH infographics for evidence ownership, data presentation, motion alternatives and delivery/reverification. Corrected diagram captions across the guides and examples so they explain the actual relationships without implying runtime approval. Historical asset URLs remain available as compatibility exports.
 
 ### Added
 

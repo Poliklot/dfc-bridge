@@ -2,7 +2,10 @@
 
 Motion is behavior over time. A transferable design must define its driver, states, timing, interruption, re-entry, and accessible fallback—not only a pair of attractive keyframes.
 
-![Storyboard of scroll-driven scenes, transitions, and fallbacks](../assets/diagrams/motion-scroll-storyboard.svg)
+<figure class="bridge-lesson-figure bridge-lesson-diagram">
+<img src="../assets/tutorial/diagrams/motion-scroll-storyboard-en.svg" alt="Three stable scenes map to example scroll ranges 0–32%, 32–68% and 68–100%, with an ordered static alternative" loading="lazy" width="481" height="1043" />
+<figcaption>Read the three stable scenes first, then their scroll ranges and re-entry rule. The 32% and 68% boundaries are choices in this example, not required defaults. Its reduced-motion alternative shows all scenes in document order with equivalent content and actions; it must be implemented and checked, not assumed to appear automatically. <a href="../assets/tutorial/diagrams/motion-scroll-storyboard-en.svg">Open full size</a>.</figcaption>
+</figure>
 
 *Describe the stable scenes first, then the transitions and the conditions that drive them.*
 

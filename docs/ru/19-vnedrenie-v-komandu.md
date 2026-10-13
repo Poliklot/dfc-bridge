@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/scope-ru.svg" alt="Проверена выбранная секция; её окружение и внешние цели вне охвата" loading="lazy" width="481" height="895" />
-<figcaption>Проверена выбранная секция; её окружение и внешние цели вне охвата. Объясняющая схема. <a href="../../assets/tutorial/diagrams/scope-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/scope-ru.svg" alt="Цель окна находится внутри выбранной секции, а ссылка на маршрут пересекает границу и остаётся Deferred" loading="lazy" width="481" height="895" />
+<figcaption>Начните с границы выбора: окно найдено внутри, но для маршрута /workshop нужен поиск снаружи. Из-за этой зависимости Deferred результат данного примера — Partial. Проверка секции не всегда даёт Partial и не подтверждает соответствие старого окружения или работу интеграции. <a href="../../assets/tutorial/diagrams/scope-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 Шаги подготовки в Figma показаны в [визуальном уроке](25-vizualnyj-urok.md). Пилот ниже помогает измерить, насколько после этих шагов реальный файл стал понятнее получателю.

@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Имена и смысловые родители сохраняются при перестроении" loading="lazy" width="481" height="613" />
-<figcaption>Имена и смысловые родители сохраняются при перестроении. Объясняющая схема. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/identity-ru.svg" alt="Линии сопоставляют contact-button и faq-link в двух рамках hero-actions" loading="lazy" width="481" height="613" />
+<figcaption>Проследите линии до одноимённых элементов на обеих ширинах. Имя задаёт соответствие, а не неизменную позицию. Здесь оба элемента также сохраняют родителя hero-actions; смену смыслового родителя нужно объявить как преобразование. <a href="../../assets/tutorial/diagrams/identity-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

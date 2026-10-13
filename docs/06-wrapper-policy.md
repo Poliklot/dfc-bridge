@@ -4,8 +4,8 @@ A wrapper is a real Figma frame or component with a clear job. It is not an extr
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/structure-en.svg" alt="Semantic wrappers versus an arbitrary group" loading="lazy" width="481" height="691" />
-<figcaption>Semantic wrappers versus an arbitrary group. Explanatory diagram. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/structure-en.svg" alt="hero-copy groups text; hero-actions groups controls inside hero" loading="lazy" width="481" height="691" />
+<figcaption>Follow the containment: hero-copy owns related text and hero-actions owns related controls. Each wrapper has a layout job. The diagram shows one meaningful structure, not a good-versus-bad comparison or a rule to add wrappers everywhere. <a href="../assets/tutorial/diagrams/structure-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.

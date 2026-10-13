@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/structure-ru.svg" alt="Осмысленные обёртки вместо случайной группы" loading="lazy" width="481" height="691" />
-<figcaption>Осмысленные обёртки вместо случайной группы. Объясняющая схема. <a href="../../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/structure-ru.svg" alt="hero-copy объединяет текст, hero-actions — элементы управления внутри hero" loading="lazy" width="481" height="691" />
+<figcaption>Проследите вложенность: hero-copy содержит связанный текст, hero-actions — связанные элементы управления. У каждой обёртки есть задача в раскладке. Показана одна осмысленная структура, не сравнение хорошего и плохого и не требование добавлять обёртки везде. <a href="../../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

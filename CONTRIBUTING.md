@@ -73,6 +73,8 @@ Short layer tags are identity and intent anchors. Rich data, responsive transfor
 
 Prefer editable SVG for diagrams, include a meaningful `<title>` and `<desc>`, and keep a PNG fallback when a downstream surface needs it. Every interactive change must support keyboard operation, visible focus, touch targets, reduced motion, and EN/RU/ZH layouts.
 
+For explanatory infographics, use the [diagram recipe](assets/tutorial/MEDIA-PRODUCTION.md#11-объясняющие-схемы-и-инфографика). Author the relationship in `scripts/build-tutorial-diagrams.mjs`, not separately in exported SVGs. Match the figure to its paragraph: a tree does not demonstrate two widths; a declared action does not demonstrate working runtime behavior. Localize visible labels as well as alt text. Keep the prose useful without the figure and verify the actual rendered figure at 320/390 px, not just its source dimensions.
+
 ## Pull request scope
 
 Keep a change internally consistent: documentation, machine-readable truth, examples, localized copy, and tests should land together. Do not expose private plugin source URLs, issue trackers, release feeds, or implementation details.

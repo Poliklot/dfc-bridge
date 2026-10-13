@@ -4,8 +4,8 @@ DFC Bridge добавляет только тот смысл, которого �
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/structure-ru.svg" alt="Одна страница и один вид на двух нативных ширинах" loading="lazy" width="481" height="691" />
-<figcaption>Одна страница и один вид на двух нативных ширинах. Объясняющая схема. <a href="../../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/structure-ru.svg" alt="Внутри hero: hero-copy с текстом, hero-actions с двумя элементами управления и workshop-art" loading="lazy" width="481" height="691" />
+<figcaption>Читайте вложенные рамки снаружи внутрь: hero содержит текстовую группу, действия и визуал; текст и элементы управления имеют смысловых родителей. Это схема структуры, не сравнение ширин и не снимок Figma. <a href="../../assets/tutorial/diagrams/structure-ru.svg">Открыть в полном размере</a>.</figcaption>
 </figure>
 
 [Визуальный экскурс](25-vizualnyj-urok.md) показывает, зачем эти решения нужны команде.

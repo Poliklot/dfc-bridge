@@ -56,8 +56,8 @@ home [page=home] [bp=375] [view=default]
 这是简化的层级片段：两个宽度都保留按钮和真实目标。仍须准备原生布局及窗口行为。
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="同一页面和视图的两个宽度，不是两个无关设计。说明示意图。" loading="lazy" width="481" height="557" />
-<figcaption>同一页面和视图的两个宽度，不是两个无关设计。说明示意图。 <a href="../../assets/tutorial/diagrams/contexts-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/contexts-zh.svg" alt="原生宽度为 1440 和 375 的根节点共用 workshop 和 default" loading="lazy" width="481" height="557" />
+<figcaption>同一 page/view，两种 bp 原生宽度；非 CSS 阈值；route 声明 URL。</figcaption>
 </figure>
 
 

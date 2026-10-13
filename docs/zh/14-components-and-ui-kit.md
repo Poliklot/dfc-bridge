@@ -4,8 +4,8 @@
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="页面、视图、宽度、状态目标与组件变体是独立的维度" loading="lazy" width="481" height="853" />
-<figcaption>页面、视图、宽度、状态目标与组件变体是独立的维度. 说明示意图。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>.</figcaption>
+<img src="../../assets/tutorial/diagrams/axes-zh.svg" alt="上方是页面视图与宽度矩阵，下方分别是原生按钮变体和状态动作目标" loading="lazy" width="481" height="853" />
+<figcaption>分开阅读三个示例：不同宽度的页面视图 default/empty、原生按钮变体 Type=Primary/Secondary，以及指向 filters-open 的动作。组件变体不是页面视图；声明状态目标也不等于实现运行时转换。 <a href="../../assets/tutorial/diagrams/axes-zh.svg">查看原图</a>。</figcaption>
 </figure>
 
 [图解入门](25-visual-walkthrough.md)展示了这种分工：共享组件定义按钮外观，页面实例指向当前页面的模态窗口。

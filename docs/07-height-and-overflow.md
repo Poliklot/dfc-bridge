@@ -4,8 +4,8 @@ Dynamic content should be allowed to use the space it needs. A fixed height is a
 
 
 <figure class="bridge-lesson-figure bridge-lesson-diagram">
-<img src="../assets/tutorial/diagrams/content-en.svg" alt="Long text wraps and the card grows instead of clipping" loading="lazy" width="481" height="703" />
-<figcaption>Long text wraps and the card grows instead of clipping. Explanatory diagram. <a href="../assets/tutorial/diagrams/content-en.svg">Open full size</a>.</figcaption>
+<img src="../assets/tutorial/diagrams/content-en.svg" alt="The upper fixed-height card clips text; the lower Hug-height card retains it and moves the next card down" loading="lazy" width="481" height="703" />
+<figcaption>Compare the same text above and below: in this example, Hug height preserves the final lines and moves the next card down. Fixed height, scrolling and truncation are not universally forbidden; each needs an explicit, appropriate overflow policy. <a href="../assets/tutorial/diagrams/content-en.svg">Open full size</a>.</figcaption>
 </figure>
 
 The [visual introduction](25-visual-walkthrough.md) shows why these decisions matter to the team.
