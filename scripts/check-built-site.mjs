@@ -210,6 +210,45 @@ if (!existsSync(sitemap)) {
       if (matches.length !== 1) problems.push(`sitemap alternate group has ${matches.length} ${hreflang} links`);
     }
   }
+
+  // Check the indexable delivery, not redirect/404 shells. The sitemap already
+  // owns that distinction and must stay aligned with actual built metadata.
+  const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}=(['"])([\\s\\S]*?)\\1`, 'u'))?.[2];
+  for (const [, pageUrl] of xml.matchAll(/<loc>([^<]+)<\/loc>/gu)) {
+    const path = targetForPath(new URL(pageUrl).pathname);
+    const label = relative(root, path);
+    if (!existsSync(path)) {
+      problems.push(`${label}: sitemap target does not exist`);
+      continue;
+    }
+    const html = readFileSync(path, 'utf8');
+    const head = html.match(/<head(?:\s[^>]*)?>([\s\S]*?)<\/head>/u)?.[1] || '';
+    const titles = [...head.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gu)];
+    if (titles.length !== 1 || !titles[0][1].trim()) problems.push(`${label}: expected one nonempty title`);
+    if ((html.match(/<h1(?:\s|>)/gu) || []).length !== 1) problems.push(`${label}: expected one H1`);
+    const descriptions = (head.match(/<meta\b[^>]*>/gu) || [])
+      .filter((tag) => attribute(tag, 'name') === 'description');
+    const description = attribute(descriptions[0] || '', 'content') || '';
+    if (descriptions.length !== 1 || !description.trim()) problems.push(`${label}: expected one nonempty description`);
+    const decoded = description.replace(/&(?:lt|#60|#x3c);/giu, '<');
+    if (/<(?:!--|\/?[a-z][\w:-]*(?:\s|>|&gt;|$))/iu.test(decoded)) problems.push(`${label}: HTML leaked into description`);
+    const canonicals = (head.match(/<link\b[^>]*>/gu) || [])
+      .filter((tag) => attribute(tag, 'rel') === 'canonical');
+    if (canonicals.length !== 1 || attribute(canonicals[0], 'href') !== pageUrl) problems.push(`${label}: canonical does not match sitemap URL`);
+    const jsonLd = [...head.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gu)];
+    if (jsonLd.length !== 1) problems.push(`${label}: expected one JSON-LD graph`);
+    for (const [, content] of jsonLd) {
+      try {
+        const graph = JSON.parse(content);
+        if (graph['@context'] !== 'https://schema.org' || !Array.isArray(graph['@graph'])) throw new Error('missing context or graph');
+        const page = graph['@graph'].find((node) => node['@type'] === 'WebPage');
+        if (page?.url !== pageUrl) throw new Error('WebPage URL does not match canonical');
+      } catch (error) { problems.push(`${label}: invalid JSON-LD (${error.message})`); }
+    }
+    const route = new URL(pageUrl).pathname.slice(new URL(publicRoot).pathname.length);
+    if (/^(?:en|ru|zh)\/$/u.test(route) && !html.includes('Design Frontend Contract')) problems.push(`${label}: missing methodology expansion`);
+    if (/^(?:en|ru|zh)\/check\/$/u.test(route) && !html.includes('DFC Bridge Assistant')) problems.push(`${label}: missing companion product name`);
+  }
 }
 
 const notFound = join(dist, '404.html');
@@ -225,5 +264,5 @@ if (problems.length) {
   console.error(`Built-site link check found ${problems.length} problem(s):\n- ${problems.join('\n- ')}`);
   process.exitCode = 1;
 } else {
-  console.log(`Built site verified across ${htmlFiles.length} HTML files: links, anchors, assets, schema endpoints, contracts, sitemap, and 404.`);
+  console.log(`Built site verified across ${htmlFiles.length} HTML files: links, anchors, assets, schema endpoints, contracts, sitemap, metadata, JSON-LD, and 404.`);
 }

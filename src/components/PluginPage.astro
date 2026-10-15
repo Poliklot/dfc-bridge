@@ -17,10 +17,12 @@ const copy = locale === 'ru'
       designer: 'Чеклист дизайнера',
       full: 'Полная проверка',
       plugin: 'Проверка в Figma',
-      pluginEyebrow: 'Помощник в Figma',
+      pluginEyebrow: 'DFC Bridge Assistant · Figma',
       pluginTitle: 'Проверьте макет прямо в файле.',
-      pluginLead: 'Плагин помогает добавить смысл слоям, увидеть карту файла и перейти от замечания к точному месту.',
-      open: 'Открыть плагин DFC Bridge',
+      pluginLead: 'Необязательный помощник для методологии DFC Bridge помогает добавить смысл слоям, увидеть карту файла и перейти от замечания к точному месту. Он не создаёт готовое приложение и не заменяет проверку работающего интерфейса.',
+      open: 'Открыть DFC Bridge Assistant',
+      start: 'Установите плагин через Figma Community. Для проверки выберите корневой фрейм подготовленной страницы или корневой слой отдельной секции. Исправьте найденное замечание и повторите проверку в той же области.',
+      startLink: 'Как подготовить первый макет',
       capabilitiesLabel: 'Что делает плагин',
       capabilities: [
         ['Добавляет смысл', 'Помогает разметить слой без ручного набора синтаксиса.'],
@@ -39,10 +41,12 @@ const copy = locale === 'ru'
       designer: '设计师清单',
       full: '完整检查',
       plugin: '在 Figma 中检查',
-      pluginEyebrow: 'Figma 助手',
+      pluginEyebrow: 'DFC Bridge Assistant · Figma',
       pluginTitle: '直接在文件中检查设计。',
-      pluginLead: '插件帮助为图层添加含义、查看文件地图，并从问题跳到相关位置。',
-      open: '打开 DFC Bridge 插件',
+      pluginLead: '这是 DFC Bridge 方法论的可选助手，帮助为图层添加含义、查看文件地图，并从问题跳到相关位置。它不会生成完整应用，也不能代替对运行中界面的验证。',
+      open: '打开 DFC Bridge Assistant',
+      start: '先从 Figma Community 安装插件。检查前，选择已准备页面的根画框或独立区块的根图层。修正发现的问题后，在相同范围内重新检查。',
+      startLink: '如何准备第一份设计',
       capabilitiesLabel: '插件功能',
       capabilities: [
         ['添加含义', '无需手工拼接语法即可标记图层。'],
@@ -60,10 +64,12 @@ const copy = locale === 'ru'
       designer: 'Designer checklist',
       full: 'Full review',
       plugin: 'Check in Figma',
-      pluginEyebrow: 'Figma companion',
+      pluginEyebrow: 'DFC Bridge Assistant · Figma',
       pluginTitle: 'Check the design directly in the file.',
-      pluginLead: 'The plugin helps add meaning to layers, see the file map, and move from an issue to the exact place.',
-      open: 'Open DFC Bridge plugin',
+      pluginLead: 'The optional companion to the DFC Bridge methodology helps add meaning to layers, see the file map, and move from an issue to the exact place. It does not create a finished application or replace testing the running interface.',
+      open: 'Open DFC Bridge Assistant',
+      start: 'Install the plugin from Figma Community. Before checking, select the root frame of a prepared page or the root layer of a separate section. Correct a reported issue and rerun the check in the same scope.',
+      startLink: 'Prepare your first design',
       capabilitiesLabel: 'What the plugin does',
       capabilities: [
         ['Add meaning', 'Helps tag a layer without handwritten syntax.'],
@@ -92,6 +98,7 @@ const copy = locale === 'ru'
       <p class="bridge-eyebrow">{copy.pluginEyebrow}</p>
       <h2 id="plugin-title">{copy.pluginTitle}</h2>
       <p class="plugin-brief-lead">{copy.pluginLead}</p>
+      <p class="plugin-brief-start">{copy.start} <a href={url('start/designer-quick-start/')}>{copy.startLink}</a>.</p>
       <a
         class="plugin-brief-cta bridge-button bridge-button-primary"
         href={pluginUrl}

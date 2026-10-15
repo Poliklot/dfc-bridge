@@ -12,6 +12,11 @@ const copy = locale === 'ru'
       eyebrow: 'Методология передачи макета',
       title: 'Макет, который можно понять без созвона.',
       lead: 'DFC Bridge помогает записать в макете, что это за страница, какие элементы повторяются на разных ширинах и что делают кнопки. Разработчику не приходится угадывать.',
+      definitionTitle: 'Что такое DFC Bridge?',
+      definition: 'DFC Bridge — Design Frontend Contract — открытая методология подготовки интерфейсного дизайна к реализации без скрытых предположений. В Figma она связывает реальную структуру макета, стабильные имена и явно записанные решения: адаптивы, действия, данные и состояния.',
+      companion: 'Методологию можно применять без плагина. DFC Bridge Assistant — необязательный помощник в Figma для разметки и проверки поддерживаемых правил. Он не генерирует готовое приложение, а результат проверки исходного макета не заменяет проверку работающего интерфейса.',
+      companionLink: 'DFC Bridge Assistant и способы проверки',
+      sourceLink: 'Официальная методология на GitHub · MIT',
       primary: 'Подготовить макет',
       secondary: 'Проверить в Figma',
       mapTitle: 'Карта макета',
@@ -69,6 +74,11 @@ const copy = locale === 'ru'
       eyebrow: '设计交付方法论',
       title: '无需会议也能看懂的设计。',
       lead: 'DFC Bridge 帮你在设计中写清：这是哪个页面、哪些元素在不同宽度下是同一个、按钮要做什么。开发者不必猜测。',
+      definitionTitle: '什么是 DFC Bridge？',
+      definition: 'DFC Bridge（Design Frontend Contract）是一套开源的界面设计交付方法论，让实现不依赖隐含假设。在 Figma 中，它将真实设计结构、稳定名称与明确记录的决定连接起来，涵盖响应式、动作、数据和状态。',
+      companion: '无需插件也能使用这套方法。DFC Bridge Assistant 是可选的 Figma 助手，帮助标注并检查已支持的规则。它不会生成完整应用，对源设计的检查也不能代替对运行中界面的验证。',
+      companionLink: 'DFC Bridge Assistant 与检查方式',
+      sourceLink: 'GitHub 上的官方方法论 · MIT',
       primary: '准备设计',
       secondary: '在 Figma 中检查',
       mapTitle: '设计地图',
@@ -125,6 +135,11 @@ const copy = locale === 'ru'
       eyebrow: 'Design handoff methodology',
       title: 'A design file people can understand without a call.',
       lead: 'DFC Bridge helps record which page a design shows, which elements are the same across widths, and what buttons do. Developers do not have to guess.',
+      definitionTitle: 'What is DFC Bridge?',
+      definition: 'DFC Bridge — Design Frontend Contract — is an open methodology for preparing interface designs for implementation without hidden assumptions. In Figma, it connects the real design structure, stable names, and explicit decisions about responsive behavior, actions, data, and states.',
+      companion: 'You can apply the methodology without a plugin. DFC Bridge Assistant is the optional Figma companion for tagging and checking supported rules. It does not generate a finished application, and a source-design check does not replace testing the running interface.',
+      companionLink: 'DFC Bridge Assistant and review options',
+      sourceLink: 'Official methodology on GitHub · MIT',
       primary: 'Prepare a design',
       secondary: 'Check in Figma',
       mapTitle: 'Design map',
@@ -230,6 +245,13 @@ const copy = locale === 'ru'
       </div>
       <p class="bridge-handoff-note">{copy.mapNote}</p>
     </figure>
+  </section>
+
+  <section class="bridge-section bridge-home-definition" aria-labelledby="about-dfc-bridge">
+    <h2 id="about-dfc-bridge">{copy.definitionTitle}</h2>
+    <p>{copy.definition}</p>
+    <p>{copy.companion}</p>
+    <p><a href={url('check/')}>{copy.companionLink}</a> · <a href="https://github.com/Poliklot/dfc-bridge">{copy.sourceLink}</a></p>
   </section>
 
   <section class="bridge-section bridge-home-compare" aria-labelledby="compare-title">
@@ -511,6 +533,14 @@ const copy = locale === 'ru'
     color: #aab4bc;
     font-size: 0.75rem;
     line-height: 1.45;
+  }
+
+  .bridge-home-definition > p {
+    max-width: 68ch;
+    margin: 1.25rem 0 0;
+    color: var(--bridge-muted);
+    font-size: 1.02rem;
+    line-height: 1.62;
   }
 
   .bridge-home-compare h2 {

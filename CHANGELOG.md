@@ -1,6 +1,25 @@
 # Changelog
 
-All notable changes to the public BRIDGE methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
+All notable changes to the public DFC Bridge methodology, schemas, rule catalog, and documentation are recorded here. The private Figma plugin has its own non-public implementation history; only its public coverage boundary is documented in this repository.
+
+## Unreleased
+
+### Fixed
+
+- Parse authored Markdown when extracting titles, descriptions, and article bodies. Compatibility anchors and comments no longer become Chinese descriptions or leave a duplicate H1; anchors and code examples remain intact.
+
+### Changed
+
+- Explain Design Frontend Contract and its optional DFC Bridge Assistant companion on the EN/RU/ZH home and review pages, with consistent metadata and public source links. The methodology can be used without a plugin; source checks do not certify a running application.
+
+### Added
+
+- Minimal JSON-LD linking the public methodology, its creator, documentation pages, and the distinct Figma companion without invented ratings, prices, or publication versions.
+- Markdown extraction regression tests, built-page metadata and JSON-LD checks, and browser checks for official identities and Chinese compatibility anchors.
+
+### Compatibility
+
+- No methodology version, tag grammar, rule ID, validation coverage, schema identity, locale route, or plugin command changes. This is a documentation/site update, not a new Figma plugin build.
 
 ## [0.11.7] — 2026-10-13
 

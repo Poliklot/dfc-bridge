@@ -10,7 +10,9 @@
 
 **Prepare a design so the file answers the developer's questions.**
 
-DFC Bridge is a method for making a design understandable before implementation. A developer or AI should be able to tell which screens belong together, which layers are the same element, and what each control does—without guessing from appearance.
+DFC Bridge — Design Frontend Contract — is an open methodology for preparing interface designs for implementation without hidden assumptions. In Figma, a developer or AI should be able to tell which screens belong together, which layers are the same element, and what each control does—without guessing from appearance.
+
+[DFC Bridge Assistant](https://www.figma.com/community/plugin/1654485530503673254) is the optional companion Figma plugin for tagging and checking supported rules. The methodology works without it; a source-design check does not generate or certify a working application.
 
 Languages: [English](README.md) · [Русский](README.ru.md) · [中文快速入门](docs/zh/00-designer-quick-start.md)
 

@@ -1,0 +1,54 @@
+---
+import DefaultHead from '@astrojs/starlight/components/Head.astro';
+
+const route = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL.replace(/\/$/u, '');
+const root = new URL(`${base}/`, Astro.site).href;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const locale = route.locale === 'zh' ? 'zh-CN' : route.locale === 'en' ? 'en' : 'ru';
+const isPluginPage = Astro.url.pathname === `${base}/${route.locale}/check/`;
+const methodologyId = `${root}#methodology`;
+const pluginId = `${root}#assistant`;
+const creatorId = 'https://github.com/Poliklot#person';
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person', '@id': creatorId,
+      name: 'Poliklot', url: 'https://github.com/Poliklot',
+    },
+    {
+      '@type': 'CreativeWork', '@id': methodologyId,
+      name: 'DFC Bridge', alternateName: 'Design Frontend Contract',
+      url: new URL('en/', root).href,
+      sameAs: 'https://github.com/Poliklot/dfc-bridge',
+      license: 'https://github.com/Poliklot/dfc-bridge/blob/main/LICENSE',
+      inLanguage: ['en', 'ru', 'zh-CN'],
+      creator: { '@id': creatorId },
+    },
+    {
+      '@type': 'WebPage', '@id': `${pageUrl}#webpage`,
+      url: pageUrl, name: route.entry.data.title,
+      description: route.entry.data.description,
+      inLanguage: locale,
+      about: { '@id': methodologyId },
+      mainEntity: { '@id': isPluginPage ? pluginId : methodologyId },
+    },
+    ...(isPluginPage ? [{
+      '@type': 'SoftwareApplication', '@id': pluginId,
+      name: 'DFC Bridge Assistant',
+      url: 'https://www.figma.com/community/plugin/1654485530503673254',
+      applicationCategory: 'DesignApplication',
+      softwareRequirements: 'Figma',
+      isBasedOn: { '@id': methodologyId },
+    }] : []),
+  ],
+};
+// Metadata is authored text, not executable HTML. Escape '<' before emitting
+// JSON-LD so a future title/description cannot terminate this script element.
+const serialized = JSON.stringify(graph).replaceAll('<', '\\u003c');
+---
+
+<DefaultHead />
+<script type="application/ld+json" set:html={serialized} />

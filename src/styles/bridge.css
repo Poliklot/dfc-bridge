@@ -1146,6 +1146,13 @@ main:is(:has(.bridge-home), :has(.plugin-page), :has(.preflight), :has(.rules-ex
   margin-top: 1.75rem;
 }
 
+.plugin-brief-start {
+  max-width: 52rem;
+  margin: 1.25rem 0 0;
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
 .plugin-capabilities {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

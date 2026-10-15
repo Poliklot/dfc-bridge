@@ -37,6 +37,7 @@ export default defineConfig({
       ],
       customCss: ['/src/styles/bridge.css'],
       components: {
+        Head: './src/components/BridgeHead.astro',
         Header: './src/components/BridgeHeader.astro',
         SocialIcons: './src/components/ExternalSocialIcons.astro',
         ThemeSelect: './src/components/BridgeThemeSelect.astro',
