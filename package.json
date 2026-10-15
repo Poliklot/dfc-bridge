@@ -8,6 +8,7 @@
   },
   "scripts": {
     "content:sync": "node scripts/sync-site-content.mjs",
+    "test:content": "node --test scripts/site-content-markdown.test.mjs",
     "lint:ru": "node scripts/check-russian-copy.mjs",
     "lint:rules": "node scripts/check-rule-localization.mjs",
     "lint:locale": "node scripts/check-locale-coverage.mjs",
@@ -17,7 +18,7 @@
     "dev": "astro dev",
     "prebuild": "npm run content:sync",
     "build": "astro build",
-    "check": "npm run content:sync && npm run lint:contracts && npm run lint:ru && npm run lint:rules && npm run lint:locale && npm run lint:docs && npm run lint:coverage && npm run lint:links && npm run lint:tutorial && npm run content:check && astro check",
+    "check": "npm run test:content && npm run content:sync && npm run lint:contracts && npm run lint:ru && npm run lint:rules && npm run lint:locale && npm run lint:docs && npm run lint:coverage && npm run lint:links && npm run lint:tutorial && npm run content:check && astro check",
     "preview": "astro preview",
     "test": "npm run check && npm run build && npm run content:check && npm run lint:built && npm run build:legacy",
     "test:e2e": "playwright test",
@@ -43,6 +44,7 @@
     "@playwright/test": "1.63.0",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
+    "mdast-util-from-markdown": "2.0.3",
     "typescript": "6.0.3"
   },
   "overrides": {

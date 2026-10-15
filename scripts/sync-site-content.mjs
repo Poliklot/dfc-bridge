@@ -11,6 +11,7 @@ import {
 } from 'node:fs';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readMarkdownContent } from './site-content-markdown.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = join(root, 'src', 'content', 'docs');
@@ -164,14 +165,6 @@ function rewriteLinks(markdown, sourceFile, locale) {
   );
 }
 
-function extractTitle(markdown, source) {
-  const matches = [...markdown.matchAll(/^#\s+(.+)$/gmu)];
-  if (matches.length !== 1) {
-    throw new Error(`Expected exactly one H1 in ${relative(root, source)}; found ${matches.length}.`);
-  }
-  return matches[0][1].replaceAll('`', '').trim();
-}
-
 function githubSlug(text) {
   return text
     .trim()
@@ -203,36 +196,18 @@ function headingAliases(localizedMarkdown, canonicalMarkdown) {
   }).join('\n');
 }
 
-function extractDescription(markdown, locale, overrides) {
-  const explicit = overrides?.[locale];
-  if (explicit) return explicit;
-
-  const body = markdown
-    .replace(/^#\s+.+$/mu, '')
-    .replace(/<picture>[\s\S]*?<\/picture>/gu, '')
-    .replace(/```[\s\S]*?```/gu, '')
-    .replace(/^#{2,}\s+.+$/gmu, '')
-    .split('\n')
-    .map((line) => line.trim())
-    .find((line) => line && !line.startsWith('|') && !line.startsWith('-') && !line.startsWith('!'));
-
-  return (body || (locale === 'ru' ? 'Документация DFC Bridge.' : locale === 'zh' ? 'DFC Bridge 中文文档。' : 'DFC Bridge documentation.'))
-    .replace(/\[([^\]]+)\]\([^)]+\)/gu, '$1')
-    .replace(/[*_`>]/gu, '')
-    .slice(0, 220);
-}
-
 const outputs = new Map();
 for (const entry of entries) {
   for (const locale of locales) {
     const source = resolve(root, entry[locale]);
     const raw = readFileSync(source, 'utf8').replace(/\r\n?/gu, '\n');
-    const title = extractTitle(raw, source);
-    const description = extractDescription(raw, locale, entry.description);
-    let body = rewriteLinks(raw.replace(/^#\s+.+\n+/u, ''), source, locale);
+    const { title, description, body: authoredBody } = readMarkdownContent(raw, {
+      source: relative(root, source), locale, descriptions: entry.description,
+    });
+    let body = rewriteLinks(authoredBody, source, locale);
     if (locale === 'zh') {
-      const canonical = readFileSync(resolve(root, entry.en), 'utf8').replace(/^#\s+.+\n+/u, '');
-      body = headingAliases(body, canonical);
+      const canonical = readFileSync(resolve(root, entry.en), 'utf8').replace(/\r\n?/gu, '\n');
+      body = headingAliases(body, readMarkdownContent(canonical, { source: entry.en, locale: 'en' }).body);
     }
     const output = join(contentRoot, locale, `${entry.route}.md`);
     const sidebarLabel = entry.sidebarLabel?.[locale];
