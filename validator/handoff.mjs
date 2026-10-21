@@ -35,10 +35,45 @@ export function validateHandoff(input) {
   if (!validate(input)) throw new Error('Invalid DFC Bridge handoff: ' + (validate.errors?.[0]?.instancePath || '/') + ' ' + (validate.errors?.[0]?.message || 'schema mismatch'));
   if (new TextEncoder().encode(canonicalHandoffJSON(input)).length > MAX_HANDOFF_BYTES) throw new Error('Snapshot exceeds 2 MiB; export a smaller selected section.');
   if (input.nodes.length + input.dependencies.length > 10000) throw new Error('Snapshot exceeds 10000 native nodes including dependencies.');
+  let inspected = 0;
+  const familyIds = new Set();
+  const inspectionVariantIds = new Set();
+  for (const family of input.componentInspection?.families || []) {
+    if (familyIds.has(family.id)) throw new Error('Duplicate component family.');
+    familyIds.add(family.id);
+    const variantIds = new Set();
+    for (const variant of family.variants) {
+      if (variantIds.has(variant.id) || inspectionVariantIds.has(variant.id)) throw new Error('Duplicate component variant.');
+      variantIds.add(variant.id);
+      inspectionVariantIds.add(variant.id);
+      const paths = new Set(), ids = new Set();
+      for (const node of variant.nodes) {
+        if (paths.has(node.path) || ids.has(node.id)) throw new Error('Duplicate inspection node/path.');
+        if (!/^(?:\/(?:0|[1-9][0-9]*))*$/u.test(node.path)) throw new Error('Invalid inspection child-index path.');
+        paths.add(node.path); ids.add(node.id);
+        const parentPath = node.path.slice(0, node.path.lastIndexOf('/'));
+        if (node.path && !paths.has(parentPath)) throw new Error('Missing inspection parent path.');
+      }
+      if (!variant.nodes.length || variant.nodes[0].id !== variant.id || variant.nodes[0].path !== '') throw new Error('Missing inspection variant root.');
+      inspected += variant.nodes.length;
+    }
+  }
+  const inspectedInstances = new Set();
+  for (const item of input.componentInspection?.instances || []) {
+    if (inspectedInstances.has(item.node.id) || item.node.type !== 'INSTANCE') throw new Error('Duplicate or invalid inspected instance.');
+    inspectedInstances.add(item.node.id);
+    if (item.familyId && !familyIds.has(item.familyId)) throw new Error('Unknown inspected family.');
+    inspected++;
+  }
+  if (input.nodes.length + input.dependencies.length + inspected > 10000) throw new Error('Snapshot exceeds 10000 native records including component inspection.');
   const byId = new Map();
   for (const node of [...input.nodes, ...input.dependencies]) {
     if (byId.has(node.id)) throw new Error('Duplicate native node ID: ' + node.id);
     byId.set(node.id, node);
+  }
+  for (const item of input.componentInspection?.instances || []) {
+    const source = byId.get(item.node.id);
+    if (!source || source.type !== 'INSTANCE' || source.mainComponentId !== item.mainComponentId) throw new Error('Inspected instance does not match structural source.');
   }
   const mainIds = new Set(input.nodes.map(node => node.id));
   for (const id of input.scope.rootIds) {

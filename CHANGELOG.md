@@ -4,6 +4,14 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.12.1] — 2026-10-21
+
+### Added
+
+- Handoff schema v2 adds separate read-only component inspection: native family/variant identity, axes, property defaults, instance overrides and available resolved Style/Variable values/modes. Structural instance boundaries and source-check coverage are unchanged; v1 packets remain readable, while older v1-only readers must reject v2.
+- The 0.10.1 Assistant candidate exposes saved component matrices and deterministic state diffs through the offline `components` CLI/`componentManifest` API. Explicit expected states distinguish not-prepared from unknown; no Focus/Active state or logical correspondence is inferred. Empty stroke paints remain distinct from stroke weight. Native plugin publication is not approved by this contract release.
+- Synthetic v2 fixture, bounds/integrity checks and EN/RU/ZH operating instructions. Asset binaries, content audit and incremental delivery remain separate work.
+
 ## [0.12.0] — 2026-10-21
 
 ### Added

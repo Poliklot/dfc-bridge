@@ -39,3 +39,25 @@ test('portable SHA-256 matches native digest vectors and verifies snapshots with
     assert.equal((await sealHandoff(snapshot)).revision, snapshot.revision);
   } finally { Object.defineProperty(globalThis, 'crypto', descriptor); }
 });
+
+test('schema v2 inspection is separate from structural nodes, bounded and revision-protected', async () => {
+  const text = await readFile(new URL('../validator/examples/handoff-components.valid.json', import.meta.url), 'utf8');
+  const saved = await parseHandoff(text);
+  assert.equal(saved.schemaVersion, 2);
+  assert.equal(saved.componentInspection.families[0].variants.length, 2);
+  assert.equal(saved.nodes.find(node => node.type === 'INSTANCE').children.length, 0);
+  const legacy = JSON.parse(text); legacy.schemaVersion = 1;
+  assert.throws(() => validateHandoff(legacy), /Invalid/);
+  const duplicate = JSON.parse(text);
+  duplicate.componentInspection.families.push(duplicate.componentInspection.families[0]);
+  assert.throws(() => validateHandoff(duplicate), /Duplicate/);
+  const badPath = JSON.parse(text);
+  badPath.componentInspection.families[0].variants[0].nodes[1].path = '/5/0';
+  assert.throws(() => validateHandoff(badPath), /parent path/);
+  const changed = JSON.parse(text);
+  changed.componentInspection.families[0].variants[0].nodes[0].native.strokes = [{ type: 'SOLID' }];
+  await assert.rejects(parseHandoff(JSON.stringify(changed)), /revision/);
+  const unknownFamily = JSON.parse(text);
+  unknownFamily.componentInspection.instances[0].familyId = '999:999';
+  assert.throws(() => validateHandoff(unknownFamily), /Unknown inspected family/);
+});

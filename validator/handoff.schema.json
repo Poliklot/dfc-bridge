@@ -21,7 +21,10 @@
       "const": "dfc-bridge-handoff"
     },
     "schemaVersion": {
-      "const": 1
+      "enum": [
+        1,
+        2
+      ]
     },
     "revision": {
       "type": "string",
@@ -210,7 +213,10 @@
           "const": "not-checked"
         },
         "componentVariants": {
-          "const": "not-exported"
+          "enum": [
+            "not-exported",
+            "inspected"
+          ]
         },
         "unavailable": {
           "type": "array",
@@ -237,6 +243,9 @@
           }
         }
       }
+    },
+    "componentInspection": {
+      "$ref": "#/$defs/componentInspection"
     }
   },
   "$defs": {
@@ -496,6 +505,246 @@
           "type": "array"
         }
       }
+    },
+    "inspectionNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "type",
+        "name",
+        "native",
+        "styles",
+        "variables"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "native": {
+          "$ref": "#/$defs/native"
+        },
+        "styles": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "componentVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "properties",
+        "nodes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "properties": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/inspectionNode"
+          }
+        }
+      }
+    },
+    "componentFamily": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "key",
+        "propertyDefinitions",
+        "axes",
+        "variants",
+        "remote",
+        "sourceFileKey",
+        "figmaPageId"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "propertyDefinitions": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "axes": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "variants": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/componentVariant"
+          }
+        },
+        "remote": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "sourceFileKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "figmaPageId": {
+          "$ref": "#/$defs/nullableNodeId"
+        }
+      }
+    },
+    "componentInspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "families",
+        "instances"
+      ],
+      "properties": {
+        "families": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/componentFamily"
+          }
+        },
+        "instances": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "node",
+              "mainComponentId",
+              "familyId"
+            ],
+            "properties": {
+              "node": {
+                "$ref": "#/$defs/inspectionNode"
+              },
+              "mainComponentId": {
+                "$ref": "#/$defs/nullableNodeId"
+              },
+              "familyId": {
+                "$ref": "#/$defs/nullableNodeId"
+              }
+            }
+          }
+        }
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "componentInspection"
+        ],
+        "properties": {
+          "coverage": {
+            "properties": {
+              "componentVariants": {
+                "const": "inspected"
+              }
+            },
+            "type": "object"
+          },
+          "componentInspection": {
+            "$ref": "#/$defs/componentInspection"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "componentVariants": {
+                "const": "not-exported"
+              }
+            },
+            "type": "object"
+          },
+          "componentInspection": false
+        }
+      }
+    }
+  ]
 }

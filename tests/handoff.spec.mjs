@@ -19,6 +19,12 @@ for (const [locale, heading] of [
     const example = await request.get(await page.locator('main a[href$="handoff.valid.json"]').getAttribute('href'));
     expect(example.ok()).toBe(true);
     expect((await parseHandoff(await example.text())).scope.completeness).toBe('full');
+    await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus');
+    const components = await request.get(await page.locator('main a[href$="handoff-components.valid.json"]').getAttribute('href'));
+    expect(components.ok()).toBe(true);
+    const saved = await parseHandoff(await components.text());
+    expect(saved.schemaVersion).toBe(2);
+    expect(saved.componentInspection.families[0].variants).toHaveLength(2);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }
