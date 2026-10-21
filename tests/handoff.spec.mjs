@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { parseHandoff } from '../validator/handoff.mjs';
+import { parseContentBindings } from '../validator/content-bindings.mjs';
 
 for (const [locale, heading] of [
   ['en', 'Saved developer snapshot (0.10.0 candidate)'],
@@ -20,11 +21,15 @@ for (const [locale, heading] of [
     expect(example.ok()).toBe(true);
     expect((await parseHandoff(await example.text())).scope.completeness).toBe('full');
     await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus');
-    const components = await request.get(await page.locator('main a[href$="handoff-components.valid.json"]').getAttribute('href'));
+    const components = await request.get(await page.locator('main a[href$="handoff-components.valid.json"]').first().getAttribute('href'));
     expect(components.ok()).toBe(true);
     const saved = await parseHandoff(await components.text());
     expect(saved.schemaVersion).toBe(2);
     expect(saved.componentInspection.families[0].variants).toHaveLength(2);
+    await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs content snapshot.json bindings.json');
+    const bindings = await request.get(await page.locator('main a[href$="content-bindings.valid.json"]').getAttribute('href'));
+    expect(bindings.ok()).toBe(true);
+    expect(parseContentBindings(await bindings.text(), saved.revision).groups[0].sources).toHaveLength(2);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }

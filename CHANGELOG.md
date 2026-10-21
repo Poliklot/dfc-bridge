@@ -4,6 +4,13 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.12.2] — 2026-10-21
+
+### Added
+
+- Revision-pinned explicit content bindings and a separate opt-in saved-slot audit in the 0.10.1 Assistant candidate. Exposed TEXT properties and exact root IMAGE fills compare only explicitly corresponding keys/contexts; label/value pairing is preserved. Reused images are not automatically errors, and intentional responsive differences retain their reason without implying owner approval.
+- Reports separate recorded source preflight, interaction and content coverage; list every unchecked instance, keep unexposed interiors unavailable, and never claim Content Ready. Added a bounded canonical sidecar schema, synthetic example and EN/RU/ZH operating instructions. Handoff v1/v2 and native runtime files are unchanged; this does not approve plugin distribution.
+
 ## [0.12.1] — 2026-10-21
 
 ### Added

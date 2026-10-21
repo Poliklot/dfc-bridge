@@ -1,0 +1,34 @@
+{
+  "format": "dfc-bridge-content-bindings",
+  "schemaVersion": 1,
+  "snapshotRevision": "31796d0feb072a6310f111dba9f8a166d7b763ad20a443a87c0ee352d370b5a4",
+  "groups": [
+    {
+      "key": "button-copy",
+      "sources": [
+        {
+          "contextId": "context-0",
+          "instanceId": "50:6",
+          "slots": [
+            {
+              "key": "label",
+              "kind": "text-property",
+              "property": "Label"
+            }
+          ]
+        },
+        {
+          "contextId": "context-1",
+          "instanceId": "50:9",
+          "slots": [
+            {
+              "key": "label",
+              "kind": "text-property",
+              "property": "Label"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
