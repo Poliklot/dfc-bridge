@@ -1,5 +1,8 @@
 # Documentation narrative
 
+- Companion-project paths and the related Codex chat are recorded locally in ignored `.cache/project-context.json`. Consult that map before asking Igor for the plugin repository. Do not publish its private paths or chat history in public documentation.
+- For authorized issue delivery, create and link a task branch from current main, make atomic commits, verify, open a linked PR, and merge only after required checks pass. Start the next task from updated main; close issues only after their full acceptance criteria are met.
+
 - Read `CONTRIBUTING.md` before changing explanations. Its editorial sequence applies to all authored documentation and all three locales.
 - Explain prerequisites, selection/scope, action, expected result and next step. Keep requirements, examples, proposals and verified behavior distinct.
 - Preserve technical identifiers and rule meaning across EN/RU/ZH. Never translate schema keys or invent tags to make prose shorter.
