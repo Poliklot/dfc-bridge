@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import { sha256 } from '../validator/handoff-sha256.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
@@ -23,4 +25,17 @@ test('unsupported format/schema, tampering, unsafe keys and non-JSON data fail c
   assert.throws(() => validateHandoff(nonJSON), /plain JSON/);
   const cyclic = {}; cyclic.child = cyclic;
   assert.throws(() => validateHandoff(cyclic), /depth/);
+});
+
+
+test('portable SHA-256 matches native digest vectors and verifies snapshots without WebCrypto', async () => {
+  for (const value of ['', 'abc', 'Снимок · 快照', 'x'.repeat(10000)]) {
+    assert.equal(Buffer.from(sha256(new TextEncoder().encode(value))).toString('hex'), createHash('sha256').update(value).digest('hex'));
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  try {
+    Object.defineProperty(globalThis, 'crypto', { configurable: true, value: undefined });
+    const snapshot = await parseHandoff(text);
+    assert.equal((await sealHandoff(snapshot)).revision, snapshot.revision);
+  } finally { Object.defineProperty(globalThis, 'crypto', descriptor); }
 });

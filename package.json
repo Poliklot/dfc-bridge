@@ -29,7 +29,7 @@
     "lint:built": "node scripts/check-built-site.mjs",
     "build:legacy": "node scripts/build-legacy-site.mjs",
     "lint:tutorial": "node --test scripts/native-motion-checks.test.mjs scripts/figma-recorder.test.mjs && node scripts/build-tutorial-screenshots.mjs --check && node scripts/check-tutorial-assets.mjs",
-    "lint:handoff": "node scripts/build-handoff-validator.mjs --check && node --test scripts/handoff.test.mjs"
+    "lint:handoff": "node scripts/build-handoff-sha256.mjs --check && node scripts/build-handoff-validator.mjs --check && node --test scripts/handoff.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
@@ -42,9 +42,11 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
+    "@noble/hashes": "2.4.0",
     "@playwright/test": "1.63.0",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
+    "esbuild": "0.28.2",
     "mdast-util-from-markdown": "2.0.3",
     "typescript": "6.0.3"
   },

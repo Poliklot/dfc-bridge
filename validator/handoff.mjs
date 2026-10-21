@@ -1,4 +1,5 @@
 import validate from './handoff-validator.mjs';
+import { sha256 } from './handoff-sha256.mjs';
 
 export const MAX_HANDOFF_BYTES = 2 * 1024 * 1024;
 
@@ -88,10 +89,13 @@ export function validateHandoff(input) {
 }
 
 export async function handoffRevision(input) {
-  if (!globalThis.crypto?.subtle) throw new Error('WebCrypto SHA-256 is unavailable; no snapshot was saved. Use a supported secure host.');
   const { revision, ...facts } = input;
   const bytes = new TextEncoder().encode(canonicalHandoffJSON(facts));
-  const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes);
+  // Figma Desktop's plugin iframe does not expose SubtleCrypto. Both paths
+  // hash the same canonical UTF-8 bytes; the bundled fallback needs no network.
+  const digest = globalThis.crypto?.subtle
+    ? await globalThis.crypto.subtle.digest('SHA-256', bytes)
+    : sha256(bytes);
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
