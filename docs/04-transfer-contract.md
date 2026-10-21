@@ -82,7 +82,7 @@ Read this example as a map of how modules fit together, not as a complete projec
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.1",
+    "methodologyVersion": "0.12.2",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -397,7 +397,25 @@ The asynchronous JS equivalent is `componentManifest(text, { expected: [{ axis: 
 - `diffs` compares every actual variant to a deterministic baseline: the first native ID, **not** an inferred Default. Use `--baseline nativeId` (JS `baselineId`) to choose another. Each change has both native node IDs and a field. Child-index paths compare render-tree positions, not logical identity: a changed type/name is a replacement. Root canvas `x/y` are retained as facts but excluded from visual state diffs.
 - `--expect Axis=Value` is an explicit caller requirement, not a guessed tag. A missing requested state is `not-prepared`; unreadable variant metadata makes it `unknown`. The report never synthesizes Focus/Active or assumes that an unrequested state is required. Check the native matrix against your actual implementation requirements.
 
-`coverage.componentVariants: "inspected"` describes this inspection, not complete component/content/runtime approval. The same 2 MiB and 10,000-record limits include inspection and instance records; export fails visibly instead of truncating. Next, resolve unavailable facts and missing required states, then review interaction, content and runtime separately. Asset binaries, content overrides audit and incremental delivery remain separate work.
+`coverage.componentVariants: "inspected"` describes this inspection, not complete component/content/runtime approval. The same 2 MiB and 10,000-record limits include inspection and instance records; export fails visibly instead of truncating. Next, resolve unavailable facts and missing required states, then review interaction, content and runtime separately. Asset binaries, unexposed instance content and incremental delivery still require separate work.
+
+## Explicit content audit of saved slots
+
+Use this separate opt-in check when two **explicitly corresponding** instance labels, values or images must be compared across contexts. Structural Ready does not inspect instance content. The audit reads saved v1/v2 native facts in the 0.10.1 candidate package; it neither opens Figma nor traverses instance interiors.
+
+1. Export and inspect the snapshot as above. Exposed native TEXT `componentProperties` and root IMAGE `fills` are supported. Unexposed inner text/image overrides are **unavailable**, not inferred from defaults, names, position or `overrides` pointers.
+2. Author a revision-pinned bindings file using the [schema](../validator/content-bindings.schema.json) and [synthetic bindings](../validator/examples/content-bindings.valid.json), paired with the [synthetic snapshot](../validator/examples/handoff-components.valid.json). `groups[].key` is an explicit content identity; each source provides `contextId`, native `instanceId` and named `slots`. A `text-property` slot names the exact native `property`; an `image-fill` slot names the exact root `fillIndex`. Separate `label` and `value` slot keys preserve their pairing. No new layer tag is introduced. Review the reported native breakpoint/page/view against the context you declared.
+3. Run the saved-facts command, or call asynchronous `contentAudit(snapshotText, bindingsText)` from `api/index.mjs`:
+
+```bash
+node bin/dfc-bridge.mjs content snapshot.json bindings.json > content-audit.json
+```
+
+Only the same content/slot key is compared between the explicitly bound contexts. The baseline is the first explicit context ID in sorted order, not a guessed desktop/default. Equal values have no findings; text/image changes report both native instance IDs, main-component references, context and exact property/fill. Repeated images under different keys are not automatically errors. This does not determine whether a physical specification, claim or instruction is true.
+
+The report separates recorded `sourcePreflight`, limited `interactionCoverage` and `contentCoverage: "explicit-bound-slots-only"`. Every scoped instance is listed in `uncheckedInstances`, including checked slot keys: its interiors remain uninspected. `contentReady` is always `false`, owner approval and runtime are `not-checked`. Missing bindings/values and partial snapshots remain Partial, never Content Ready or deletion evidence. Exit `0` means no differences in bound slots or explicitly reasoned differences; `1` means Review/Partial; `2` means invalid input/usage.
+
+For an intentional responsive difference, add `{ "slotKey": "label", "reason": "…" }` to the changed context's `exceptions`. The difference and reason remain visible; this records intent, not owner approval. Bindings are limited to 64 KiB and must match `snapshotRevision`; after source changes, review and rebind explicitly rather than carrying a stale exception forward. Generated content/component reports are bounded to 2 MiB as well: reduce bindings or source scope if repeated values/defaults exceed the limit; no report is silently truncated. Next, resolve Review/Partial items and ask the content owner to approve the actual content separately.
 
 ## Explicit unknowns: no untracked blind spots
 

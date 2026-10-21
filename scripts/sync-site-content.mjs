@@ -96,6 +96,7 @@ const publicDataFiles = new Map([
   [join(validatorRoot, 'tags.json'), 'tags.json'],
   [join(validatorRoot, 'examples', 'handoff.valid.json'), 'handoff.valid.json'],
   [join(validatorRoot, 'examples', 'handoff-components.valid.json'), 'handoff-components.valid.json'],
+  [join(validatorRoot, 'examples', 'content-bindings.valid.json'), 'content-bindings.valid.json'],
   [join(validatorRoot, 'examples', 'bridge-section-contract.valid.json'), 'bridge-section-contract.valid.json'],
 ]);
 

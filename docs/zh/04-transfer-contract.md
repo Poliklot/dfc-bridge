@@ -94,7 +94,7 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.1",
+    "methodologyVersion": "0.12.2",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -415,7 +415,25 @@ node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus > componen
 - `diffs` 将每个真实变体与确定性基准比较：原生 ID 排序后的第一个，**不是**推断的 Default。用 `--baseline nativeId`（JS `baselineId`）选择其他基准。每项变化包含前后原生节点 ID 和字段。子节点索引路径比较渲染树位置，而非逻辑身份；类型/名称变化视为替换。根在画布上的 `x/y` 仍作为事实保留，但不参与视觉状态差异。
 - `--expect Axis=Value` 是调用方明确提出的要求，不是猜测的标签。请求状态缺失时标为 `not-prepared`；变体元数据不可读时标为 `unknown`。报告不会合成 Focus/Active，也不会把未请求的状态假定为必需。请根据真实实现要求审查原生矩阵。
 
-`coverage.componentVariants: "inspected"` 只说明完成了此项检查，不是对全部组件、内容或运行时的批准。统一的 2 MiB 和 10,000 条记录上限包含检查与实例记录；超限明确停止导出，不截断。下一步先解决不可用事实和缺失的必需状态，再分别检查交互、内容和运行时。资源二进制、内容 overrides 审计及增量交付仍属于独立工作。
+`coverage.componentVariants: "inspected"` 只说明完成了此项检查，不是对全部组件、内容或运行时的批准。统一的 2 MiB 和 10,000 条记录上限包含检查与实例记录；超限明确停止导出，不截断。下一步先解决不可用事实和缺失的必需状态，再分别检查交互、内容和运行时。资源二进制、未公开的实例内容及增量交付仍需独立处理。
+
+## 显式审计已保存的内容槽
+
+当需要跨上下文比较**明确对应**的实例标签、值或图片时，使用此独立的可选检查。结构就绪不代表实例内容已检查。审计在 0.10.1 候选包中读取已保存的 v1/v2 原生事实，不打开 Figma，也不遍历实例内部。
+
+1. 按上文导出并检查快照。支持原生公开 TEXT `componentProperties` 和根节点 IMAGE `fills`。未公开的内部文字/图片 overrides **不可用**，不得从 defaults、名称、位置或 `overrides` 指针推断其值。
+2. 参照[模式](../validator/content-bindings.schema.json)与[合成绑定](../validator/examples/content-bindings.valid.json)，为对应的[合成快照](../validator/examples/handoff-components.valid.json)编写精确修订绑定文件。`groups[].key` 是显式内容身份；每个来源声明 `contextId`、原生 `instanceId` 及命名 `slots`。`text-property` 槽声明精确的原生 `property`；`image-fill` 槽声明根节点的精确 `fillIndex`。独立的 `label`、`value` 槽键保留配对关系。不引入新的图层标签。请将报告中的原生断点/页面/视图与声明的上下文核对。
+3. 运行基于已保存事实的命令，或从 `api/index.mjs` 调用异步 `contentAudit(snapshotText, bindingsText)`：
+
+```bash
+node bin/dfc-bridge.mjs content snapshot.json bindings.json > content-audit.json
+```
+
+只在明确绑定的上下文之间比较同一内容/槽键。基准为排序后的第一个显式上下文 ID，不推断 desktop/default。相同值不产生发现；文字/图片变化报告前后原生实例 ID、main component 引用、上下文和精确属性/填充。不同键下重复使用图片不会自动判错。这不能判断物理规格、宣传声明或操作步骤是否真实正确。
+
+报告分开显示记录的 `sourcePreflight`、有限的 `interactionCoverage` 和 `contentCoverage: "explicit-bound-slots-only"`。范围内每个实例均列在 `uncheckedInstances`，同时列出已检查的槽键：实例内部仍未检查。`contentReady` 始终为 `false`，内容所有者批准和运行时均为 `not-checked`。缺失绑定/值以及部分快照仍是 Partial，不是 Content Ready，也不是删除证据。退出 `0` 表示绑定槽没有差异或差异有明确原因；`1` 表示 Review/Partial；`2` 表示输入/用法无效。
+
+对于有意的响应式差异，在变化上下文的 `exceptions` 中添加 `{ "slotKey": "label", "reason": "…" }`。差异及原因仍可见；它记录意图，不代表所有者批准。绑定限制为 64 KiB，必须匹配 `snapshotRevision`；源文件变化后需明确重新审查并绑定，不能自动沿用旧例外。生成的内容/组件报告同样限制为 2 MiB：重复值/defaults 导致超限时应减少绑定或来源范围，不能静默截断。下一步先解决 Review/Partial，再单独请内容所有者确认真实内容。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
