@@ -4,6 +4,12 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.12.0] — 2026-10-21
+
+### Added
+
+- Versioned read-only handoff snapshot schema, bounded integrity checks and a deterministic synthetic fixture. The 0.10.0 Assistant candidate reuses its Page/Section checker core through a saved-JSON CLI/JS API; Explorer preserves native packets on import/export. EN/RU/ZH instructions distinguish recorded source preflight, partial scope, unavailable facts and the remaining full developer-package work. Plugin distribution still requires exact-runtime native verification.
+
 ## [0.11.8] — 2026-10-21
 
 ### Fixed

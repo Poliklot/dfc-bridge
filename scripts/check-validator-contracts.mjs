@@ -22,6 +22,7 @@ function readJson(path) {
 }
 
 const schemaPairs = [
+  ['validator/handoff.schema.json', 'validator/examples/handoff.valid.json'],
   ['validator/rules.schema.json', 'validator/rules.json'],
   ['validator/rules.ru.schema.json', 'src/data/rules.ru.json'],
   ['validator/tags.schema.json', 'validator/tags.json'],

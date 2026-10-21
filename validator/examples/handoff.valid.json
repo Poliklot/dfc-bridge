@@ -1,0 +1,327 @@
+{
+  "coverage": {
+    "componentVariants": "not-exported",
+    "content": "not-checked",
+    "instanceInteriors": "atomic",
+    "runtime": "not-checked",
+    "unavailable": []
+  },
+  "dependencies": [
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "10:1",
+      "identity": "name:Reusable control",
+      "mainComponentId": null,
+      "name": "Reusable control [control]",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "10:2",
+      "supportsChildren": true,
+      "tags": {
+        "control": [
+          true
+        ]
+      },
+      "type": "COMPONENT"
+    },
+    {
+      "children": [
+        "10:1"
+      ],
+      "figmaPageId": "0:1",
+      "id": "10:2",
+      "identity": "name:UI Kit",
+      "mainComponentId": null,
+      "name": "UI Kit",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {},
+      "type": "COMPONENT_SET"
+    }
+  ],
+  "format": "dfc-bridge-handoff",
+  "generator": {
+    "pluginVersion": "0.10.0",
+    "validatorVersion": "0.5.1"
+  },
+  "nodes": [
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "10:3",
+      "identity": "name:Contact",
+      "mainComponentId": "10:1",
+      "name": "Contact",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "strokeWeight": 5,
+        "strokes": [],
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "10:4",
+      "supportsChildren": true,
+      "tags": {},
+      "type": "INSTANCE"
+    },
+    {
+      "children": [
+        "10:3"
+      ],
+      "figmaPageId": "0:1",
+      "id": "10:4",
+      "identity": "section:hero",
+      "mainComponentId": null,
+      "name": "Hero [section=hero]",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "10:5",
+      "supportsChildren": true,
+      "tags": {
+        "section": [
+          "hero"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [
+        "10:4"
+      ],
+      "figmaPageId": "0:1",
+      "id": "10:5",
+      "identity": "page:home",
+      "mainComponentId": null,
+      "name": "Home [page=home] [route=/] [view=default] [bp=1440]",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {
+        "bp": [
+          "1440"
+        ],
+        "page": [
+          "home"
+        ],
+        "route": [
+          "/"
+        ],
+        "view": [
+          "default"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "10:6",
+      "identity": "name:Contact",
+      "mainComponentId": "10:1",
+      "name": "Contact",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "strokeWeight": 5,
+        "strokes": [],
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "10:7",
+      "supportsChildren": true,
+      "tags": {},
+      "type": "INSTANCE"
+    },
+    {
+      "children": [
+        "10:6"
+      ],
+      "figmaPageId": "0:1",
+      "id": "10:7",
+      "identity": "section:hero",
+      "mainComponentId": null,
+      "name": "Hero [section=hero]",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "10:8",
+      "supportsChildren": true,
+      "tags": {
+        "section": [
+          "hero"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [
+        "10:7"
+      ],
+      "figmaPageId": "0:1",
+      "id": "10:8",
+      "identity": "page:home",
+      "mainComponentId": null,
+      "name": "Home [page=home] [route=/] [view=default] [bp=375]",
+      "native": {
+        "height": 80,
+        "layoutMode": "VERTICAL",
+        "visible": true,
+        "width": 375,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {
+        "bp": [
+          "375"
+        ],
+        "page": [
+          "home"
+        ],
+        "route": [
+          "/"
+        ],
+        "view": [
+          "default"
+        ]
+      },
+      "type": "FRAME"
+    }
+  ],
+  "preflight": {
+    "breakpoints": [
+      "375",
+      "1440"
+    ],
+    "issues": [
+      {
+        "details": [
+          {
+            "figmaPageId": "0:1",
+            "label": "Explicit source component contract",
+            "meta": "source component / ComponentSet",
+            "nodeId": "10:1",
+            "nodeName": "Reusable control [control]"
+          }
+        ],
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic public example",
+        "message": "Button action is not set yet. Add [action=...] when known.",
+        "nodeId": "10:6",
+        "nodeName": "Contact",
+        "ruleId": "interaction.control-without-action",
+        "severity": "todo"
+      },
+      {
+        "details": [
+          {
+            "figmaPageId": "0:1",
+            "label": "Explicit source component contract",
+            "meta": "source component / ComponentSet",
+            "nodeId": "10:1",
+            "nodeName": "Reusable control [control]"
+          }
+        ],
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic public example",
+        "message": "Button action is not set yet. Add [action=...] when known.",
+        "nodeId": "10:3",
+        "nodeName": "Contact",
+        "ruleId": "interaction.control-without-action",
+        "severity": "todo"
+      }
+    ],
+    "mode": "page",
+    "pageId": "home",
+    "rootCount": 2,
+    "roots": [
+      {
+        "bp": "375",
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic public example",
+        "label": "default / 375",
+        "nodeId": "10:8",
+        "nodeName": "Home [page=home] [route=/] [view=default] [bp=375]",
+        "route": "/",
+        "view": "default"
+      },
+      {
+        "bp": "1440",
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic public example",
+        "label": "default / 1440",
+        "nodeId": "10:5",
+        "nodeName": "Home [page=home] [route=/] [view=default] [bp=1440]",
+        "route": "/",
+        "view": "default"
+      }
+    ],
+    "route": "/",
+    "scope": "page",
+    "status": "not-ready",
+    "summary": {
+      "errors": 0,
+      "todos": 2,
+      "warnings": 0
+    },
+    "title": "Home",
+    "views": [
+      "default"
+    ]
+  },
+  "revision": "a104c1b8dc050b2230b8614c9d5f8bad3151b812628283c71428efcb8bd7a584",
+  "schemaVersion": 1,
+  "scope": {
+    "completeness": "full",
+    "kind": "page",
+    "pageId": "home",
+    "rootIds": [
+      "10:8",
+      "10:5"
+    ]
+  },
+  "source": {
+    "figmaPageId": "0:1",
+    "figmaPageName": "Synthetic public example",
+    "fileKey": "SyntheticFile"
+  }
+}

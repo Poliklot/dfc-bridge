@@ -82,7 +82,7 @@ Read this example as a map of how modules fit together, not as a complete projec
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.8",
+    "methodologyVersion": "0.12.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -346,6 +346,39 @@ Separate local evidence from external dependencies:
 The complete executable example is [`bridge-section-contract.valid.json`](../validator/examples/bridge-section-contract.valid.json).
 
 A successful section-scope contract means **section source ready for the declared selected contexts**. It never means that the legacy host page, routes, complete responsive set, end-to-end journey, implementation, product, or WCAG conformance is DFC Bridge-ready.
+
+## Saved developer snapshot (0.10.0 candidate)
+
+Use this when a developer needs the checked source facts without rescanning Figma or passing the tree through an AI. This is the supported read-only handoff path in the 0.10.0 Assistant candidate, **not yet a published plugin update**. It supplements, rather than replaces, the product contract above.
+
+1. In Figma, select a DFC page root and run **Check page**, or select a tagged section (or a layer inside it) and run **Check selected section**. For multiple section contexts, explicitly select their roots. A page export includes that logical page's roots on the current Figma page; a section export never discovers siblings.
+2. In the report, choose **Export snapshot**. This reruns the same check before read-only capture. Keep the selection unchanged until completion; a changed scope or repeated relevant edits cancel the operation. Verify that the downloaded JSON exists. A file-wide report cannot be exported through this button.
+3. Give the developer the saved JSON and the matching Assistant package. With Node.js 22.12+ in the unpacked package, run:
+
+```bash
+node bin/dfc-bridge.mjs check snapshot.json > preflight.json
+node bin/dfc-bridge.mjs manifest snapshot.json > manifest.json
+```
+
+`check` reruns the same Page/Section checker core without Figma, VM or AI. Exit `0` means source-scope Ready with the same recorded `(ruleId, severity, nodeId)` findings; `1` means findings or unverified scope/version; `2` means invalid input or usage. `manifest` verifies the packet and returns its saved facts without scanning Figma. The JS equivalents are `checkSnapshot(text)` and `developerManifest(text)` from `api/index.mjs`; both are asynchronous. Source Ready is not runtime, accessibility or product approval.
+
+### What the packet records
+
+The [handoff schema](../validator/handoff.schema.json) and [synthetic example](../validator/examples/handoff.valid.json) define `format: "dfc-bridge-handoff"`, `schemaVersion: 1`, a SHA-256 `revision`, plugin/catalog versions, source, scope, native nodes, dependencies, recorded preflight and coverage. `nodes` contains exactly the declared roots and captured structural descendants. `dependencies` preserves actual ancestors and referenced main components/ComponentSets, not their complete variant library. Native IDs remain distinct from logical `identity`; repeated identities are not deduplicated.
+
+- `native` records available geometry, auto-layout, sizing, padding/gap, typography, opacity, fills, **strokes**, stroke alignment/weight, effects, style IDs, variable bindings/mode IDs, component properties, overrides, reactions and export settings.
+- `tags` contains parsed authored name tags; flags are `true`. Missing intent remains unknown, not inferred from appearance or text. Rich product intent still belongs in structured `bridge` metadata, not invented tags.
+- `coverage.unavailable` gives a node, field and reason for mixed/unreadable properties. Missing fields are not zero or proof of absence. Style/variable references are not resolved values; asset settings are not exported image bytes. Instance interiors remain atomic; content/runtime are `not-checked`; component variants are `not-exported`.
+
+Repeated unchanged export is byte/hash deterministic: object keys are sorted, array order is preserved, timing and capture timestamps are omitted. The checksum detects accidental alteration, **not authorship or authenticity**. A missing `source.fileKey` is `null`, never a fabricated Figma link. The packet can contain private names, text and native properties: inspect it before sharing.
+
+### Compatibility and next check
+
+The consumer rejects unsupported format/schema, invalid references, cycles, unsafe keys and packets over 2 MiB. JSON nesting is bounded to 64 levels and native ancestry to 256 nodes. Capture is bounded to 10,000 nodes including dependencies; oversize exports fail visibly rather than truncate. Select a smaller section and export again. `check` requires the exact generator plugin/catalog versions; a mismatch or `scope.completeness: "partial"` is unverified, never Ready. Unseen nodes in a partial packet are not deletions. `full` means complete declared structural scope, not a complete product contract or all instance internals.
+
+Explorer's **Import** accepts the same JSON, verifies its revision and preserves the original packet for **Export**. Its graph shows up to 1,000 native records and labels that limit; all native facts remain in the exported JSON. It displays the recorded preflight, not a new checker run. Existing curated Explorer v1 files still work unchanged; arbitrary File map payloads are not this format.
+
+Next, review the recorded findings, unavailable facts and external dependencies, then perform the separate implementation/runtime checks. Resolved variables/styles, complete variant/state diffs, asset binaries/hashes, shared-state/data contracts, breakpoint content comparisons, chunked retrieval and incremental diffs remain outside this first snapshot increment; it does not complete the full developer package.
 
 ## Explicit unknowns: no untracked blind spots
 

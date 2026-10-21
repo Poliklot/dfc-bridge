@@ -94,7 +94,7 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.8",
+    "methodologyVersion": "0.12.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -364,6 +364,39 @@ checkout-summary [section=checkout-summary]
 成功的区块契约只表示 **选中区块的源设计在声明的上下文中就绪**。它不证明周围的旧页面、路由、完整响应式版本、端到端流程、实现或产品已就绪，也不代表符合 WCAG。
 
 <a id="显式未知数没有未跟踪的盲点"></a>
+
+## 保存给开发者的快照（0.10.0 候选版）
+
+当开发者需要检查过的源文件事实，而不想重新扫描 Figma 或把整棵树交给 AI 时，使用此流程。这是 Assistant 0.10.0 候选版支持的只读交付路径，**尚未作为插件更新发布**。它补充而不替代上面的产品契约。
+
+1. 在 Figma 中选择 DFC 页面根节点并运行 **Check page**，或选择带标记的区块（或其中的图层）并运行 **Check selected section**。若需要多个区块上下文，请明确选择各根节点。页面导出包含当前 Figma 页面上该逻辑页面的所有根；区块导出不会自动寻找同级变体。
+2. 在报告中点击 **Export snapshot**。读取事实前会重新运行同一个检查。完成前不要改变选择；范围变化或重复的相关编辑会取消操作。确认 JSON 已实际下载。此按钮不导出整文件报告。
+3. 把 JSON 和版本匹配的 Assistant 包交给开发者。在解压后的包内，使用 Node.js 22.12+ 运行：
+
+```bash
+node bin/dfc-bridge.mjs check snapshot.json > preflight.json
+node bin/dfc-bridge.mjs manifest snapshot.json > manifest.json
+```
+
+`check` 在不连接 Figma、不使用 VM 或 AI 的情况下重新运行同一个 Page/Section 检查核心。退出码 `0` 表示源范围为 Ready，且记录的 `(ruleId, severity, nodeId)` 问题一致；`1` 表示存在问题或范围/版本未经验证；`2` 表示输入或调用无效。`manifest` 验证包并返回保存的事实，不扫描 Figma。JS 对应接口为 `api/index.mjs` 中的异步 `checkSnapshot(text)` 和 `developerManifest(text)`。源文件 Ready 不代表运行行为、无障碍或产品验收通过。
+
+### 快照记录什么
+
+[快照模式](../validator/handoff.schema.json)和[合成示例](../validator/examples/handoff.valid.json)定义 `format: "dfc-bridge-handoff"`、`schemaVersion: 1`、SHA-256 `revision`、插件/规则目录版本、来源、范围、原生节点、依赖、记录的预检及覆盖范围。`nodes` 仅包含声明的根和已捕获的结构后代。`dependencies` 保留真实祖先以及引用的 main component/ComponentSet，而非完整变体库。原生 ID 与逻辑 `identity` 不同；重复身份不会被合并。
+
+- `native` 记录可读取的几何、auto-layout、sizing、padding/gap、排版、opacity、fills、**strokes**、描边位置/粗细、effects、样式 ID、变量绑定/模式 ID、组件属性、overrides、reactions 和 export settings。
+- `tags` 保存从作者图层名称解析出的标记；无值标记为 `true`。缺失意图保持未知，不根据外观或文字猜测。复杂的产品意图仍属于结构化 `bridge` 数据，不应发明新标签。
+- `coverage.unavailable` 给出混合值或不可读属性的节点、字段及原因。缺失字段不是零，也不证明该属性不存在。样式/变量引用不等于解析后的值；导出设置不是图片字节。实例内部保持原子边界；content/runtime 为 `not-checked`；组件变体为 `not-exported`。
+
+没有编辑时，重复导出产生相同字节/哈希：对象键排序，数组顺序保留，不包含耗时及捕获时间。校验和能发现改动，**不能证明作者身份或真实性**。未知 `source.fileKey` 为 `null`，不会生成虚构的 Figma 链接。包可能包含私有名称、文字和原生属性；分享前请检查。
+
+### 兼容性与下一步检查
+
+消费者拒绝不支持的 format/schema、无效引用、循环、不安全键以及超过 2 MiB 的包。JSON 嵌套上限为 64 层，原生祖先链上限为 256 个节点。捕获上限为含依赖在内的 10,000 个节点；超限会明确失败，而非截断。请选择更小的区块后重新导出。`check` 要求插件/目录版本与生成器完全一致；版本不匹配或 `scope.completeness: "partial"` 均为未经验证，绝不为 Ready。部分包中未出现的节点不代表删除。`full` 仅指声明的结构范围完整，不表示产品契约或实例内部完整。
+
+Explorer 的 **Import** 接受同一个 JSON，验证修订并为 **Export** 保留原包。图最多展示 1,000 条原生记录，并明确提示此限制；所有事实仍保留在导出的 JSON 中。Explorer 展示记录的预检，不重新运行检查。已有的人工整理 Explorer v1 快照保持兼容；任意 File map 数据并非此格式。
+
+下一步审查记录的问题、不可读取事实及外部依赖，然后单独验证实现及运行行为。解析后的变量/样式、完整变体/状态差异、资源二进制/哈希、共享状态/数据契约、跨 breakpoint 内容比较、分块读取及增量 diff 不属于本次快照增量；完整开发者包尚未完成。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
