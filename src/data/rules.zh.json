@@ -211,12 +211,12 @@
   },
   "interaction.control-without-action": {
     "title": "控件尚未指定动作",
-    "description": "不带 `[action=...]` 的布尔 `[control]` 或进阶形式 `[control=...]`，是动作尚未知时的有效草稿标记，不是语法错误。最终交付前应确定动作。",
+    "description": "明确的本地 control 标记，或 main component/ComponentSet 明确声明 control 意图的实例，在没有继承来源默认行为时需要动作。明确的本地草稿优先于默认行为。缺少动作是最终交付前必须解决的草稿，不是语法错误。名称和外观都不是契约。",
     "fix": "如果操作已知，请将草稿标记替换为“[action=modal:...]”、“[action=state:...]”、“[action=submit:...]”、“[action=reset:...]”或“[action=none]”。仅当需要稳定的机器 ID 时，才将“[control=...]”保留为可选的高级 ID。"
   },
   "interaction.link-without-href": {
     "title": "链接没有地址",
-    "description": "不带 `[href=...]` 的布尔 `[link]` 或进阶形式 `[link=...]`，是地址尚未知时的有效草稿标记，不是语法错误。最终交付前应确定目的地。",
+    "description": "明确的本地 link 标记，或 main component/ComponentSet 明确声明 link 意图的实例，在没有继承来源默认行为时需要地址。明确的本地草稿优先于默认行为。缺少 href 是最终交付前必须解决的草稿，不是语法错误。名称和外观都不是契约。",
     "fix": "如果目的地已知，请使用“[href=...]”。仅当需要稳定的机器 ID 时，才将“[link=...]”保留为可选的高级 ID。不要使用“[href=#]”作为占位符。"
   },
   "interaction.link-has-second-destination": {

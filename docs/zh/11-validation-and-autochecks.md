@@ -145,7 +145,7 @@ read explicit selection
 |无障碍 |`accessibility.decorative-layer-exposed` |警告|自动 |
 |交互 |`interaction.form-field-missing-label` |警告|自动|
 
-对于 `layout.section-missing-auto-layout`，“自动”指审核树中带有 `[section]` 的非页面 `FRAME` 或 `COMPONENT`。已放置的 `INSTANCE` 作为原子边界处理：Page Check 不会解析它的源组件，也不会对该实例报告区块布局错误。请另外选择可编辑的组件源树进行审核。
+对于 `layout.section-missing-auto-layout`，“自动”指审核树中带有 `[section]` 的非页面 `FRAME` 或 `COMPONENT`。已放置的 `INSTANCE` 作为原子边界处理：Page Check 可以读取来源明确声明的交互意图，但不会审核来源布局，也不会对该实例报告区块布局错误。请另外选择可编辑的组件源树进行审核。
 
 ## 建议的报告格式
 

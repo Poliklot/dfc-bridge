@@ -4,7 +4,11 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.11.8] — 2026-10-21
+
 ### Fixed
+
+- Clarified source interaction contracts for unannotated instances: explicit main-component or ComponentSet intent only, local drafts override source defaults, and instance interiors stay atomic. Updated EN/RU/ZH guidance and the 0.9.8 checker coverage boundary; this does not claim a Community publication.
 
 - Parse authored Markdown when extracting titles, descriptions, and article bodies. Compatibility anchors and comments no longer become Chinese descriptions or leave a duplicate H1; anchors and code examples remain intact.
 
@@ -19,7 +23,7 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ### Compatibility
 
-- No methodology version, tag grammar, rule ID, validation coverage, schema identity, locale route, or plugin command changes. This is a documentation/site update, not a new Figma plugin build.
+- Methodology 0.11.8 and catalog 0.5.1 preserve tag grammar, rule IDs, severities, schema identities, locale routes and plugin commands. Page/Section Check retain 42/26 rule IDs while the documented source-interaction coverage expands. This release does not distribute a Figma plugin build.
 
 ## [0.11.7] — 2026-10-13
 

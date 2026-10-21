@@ -1,9 +1,9 @@
 {
   "$schema": "./page-check-coverage.schema.json",
   "methodology": "DFC Bridge",
-  "pluginVersion": "0.9.3",
-  "catalogVersion": "0.5.0",
-  "verifiedAt": "2026-08-19",
+  "pluginVersion": "0.9.8",
+  "catalogVersion": "0.5.1",
+  "verifiedAt": "2026-10-21",
   "counts": {
     "catalogRules": 107,
     "pageCheckRules": 42,
@@ -61,5 +61,12 @@
     "feature": "Page Check",
     "coverageBasis": "exact-emitted-rule-union",
     "visibility": "private"
+  },
+  "sourceInteractionContracts": {
+    "source": "explicit-main-component-or-component-set-intent",
+    "localIntent": "overrides-source-including-drafts",
+    "instanceInteriors": "not-traversed",
+    "unclassifiedOrUnavailable": "not-inspected",
+    "runtimeBehavior": "not-verified"
   }
 }
