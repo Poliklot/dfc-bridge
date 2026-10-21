@@ -433,7 +433,7 @@ node bin/dfc-bridge.mjs content snapshot.json bindings.json > content-audit.json
 
 报告分开显示记录的 `sourcePreflight`、有限的 `interactionCoverage` 和 `contentCoverage: "explicit-bound-slots-only"`。范围内每个实例均列在 `uncheckedInstances`，同时列出已检查的槽键：实例内部仍未检查。`contentReady` 始终为 `false`，内容所有者批准和运行时均为 `not-checked`。缺失绑定/值以及部分快照仍是 Partial，不是 Content Ready，也不是删除证据。退出 `0` 表示绑定槽没有差异或差异有明确原因；`1` 表示 Review/Partial；`2` 表示输入/用法无效。
 
-对于有意的响应式差异，在变化上下文的 `exceptions` 中添加 `{ "slotKey": "label", "reason": "…" }`。差异及原因仍可见；它记录意图，不代表所有者批准。绑定限制为 64 KiB，必须匹配 `snapshotRevision`；源文件变化后需明确重新审查并绑定，不能自动沿用旧例外。下一步先解决 Review/Partial，再单独请内容所有者确认真实内容。
+对于有意的响应式差异，在变化上下文的 `exceptions` 中添加 `{ "slotKey": "label", "reason": "…" }`。差异及原因仍可见；它记录意图，不代表所有者批准。绑定限制为 64 KiB，必须匹配 `snapshotRevision`；源文件变化后需明确重新审查并绑定，不能自动沿用旧例外。生成的内容/组件报告同样限制为 2 MiB：重复值/defaults 导致超限时应减少绑定或来源范围，不能静默截断。下一步先解决 Review/Partial，再单独请内容所有者确认真实内容。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
