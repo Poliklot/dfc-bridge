@@ -82,7 +82,7 @@ Read this example as a map of how modules fit together, not as a complete projec
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.0",
+    "methodologyVersion": "0.12.1",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -379,6 +379,25 @@ The consumer rejects unsupported format/schema, invalid references, cycles, unsa
 Explorer's **Import** accepts the same JSON, verifies its revision and preserves the original packet for **Export**. Its graph shows up to 1,000 native records and labels that limit; all native facts remain in the exported JSON. It displays the recorded preflight, not a new checker run. Existing curated Explorer v1 files still work unchanged; arbitrary File map payloads are not this format.
 
 Next, review the recorded findings, unavailable facts and external dependencies, then perform the separate implementation/runtime checks. Resolved variables/styles, complete variant/state diffs, asset binaries/hashes, shared-state/data contracts, breakpoint content comparisons, chunked retrieval and incremental diffs remain outside this first snapshot increment; it does not complete the full developer package.
+
+## Component inspection (0.10.1 candidate)
+
+To implement a UI Kit component, first export the selected page/section using the **0.10.1 candidate** as above. This candidate writes `schemaVersion: 2`: the structural envelope stays unchanged, while `componentInspection` keeps separate read-only evidence for referenced main components and every native variant in each ComponentSet. Older v1 packets still validate; an older v1-only reader must reject v2 rather than silently discard inspection. The [synthetic component example](../validator/examples/handoff-components.valid.json) needs no private file or token. This is not a released plugin or a content audit.
+
+In the matching package, run:
+
+```bash
+node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus > components.json
+```
+
+The asynchronous JS equivalent is `componentManifest(text, { expected: [{ axis: "State", value: "Focus" }] })`. The command verifies the saved checksum, needs no Figma/AI/network and exits `0` for an inspectable report, not a readiness approval; invalid input/usage exits `2`. Read the report's `status`, `missing` and `unavailable` before implementation.
+
+- `families` preserves native IDs/keys, source page, axes and property definitions/defaults; `matrix` lists actual `variantProperties`. `instances` keeps current `componentProperties` and `overrides` separate from those defaults. Local source links are provided only when the native source file is known; remote/unknown sources are not assigned the current file's URL.
+- Each variant retains root and descendant geometry, layout, typography, opacity, fills **and strokes**, effects and radii. Empty `strokes: []` means no stroke paint; `strokeWeight` alone does not prove a border. Nested instances remain atomic. Bound Style/Variable names, source IDs, modes and resolved values are captured when the API provides them. Getter/library failures retain the readable geometry and add a node/field/reason, not an invented value or a failed whole family export.
+- `diffs` compares every actual variant to a deterministic baseline: the first native ID, **not** an inferred Default. Use `--baseline nativeId` (JS `baselineId`) to choose another. Each change has both native node IDs and a field. Child-index paths compare render-tree positions, not logical identity: a changed type/name is a replacement. Root canvas `x/y` are retained as facts but excluded from visual state diffs.
+- `--expect Axis=Value` is an explicit caller requirement, not a guessed tag. A missing requested state is `not-prepared`; unreadable variant metadata makes it `unknown`. The report never synthesizes Focus/Active or assumes that an unrequested state is required. Check the native matrix against your actual implementation requirements.
+
+`coverage.componentVariants: "inspected"` describes this inspection, not complete component/content/runtime approval. The same 2 MiB and 10,000-record limits include inspection and instance records; export fails visibly instead of truncating. Next, resolve unavailable facts and missing required states, then review interaction, content and runtime separately. Asset binaries, content overrides audit and incremental delivery remain separate work.
 
 ## Explicit unknowns: no untracked blind spots
 

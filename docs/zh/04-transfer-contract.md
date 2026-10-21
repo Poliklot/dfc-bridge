@@ -94,7 +94,7 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.0",
+    "methodologyVersion": "0.12.1",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -397,6 +397,25 @@ node bin/dfc-bridge.mjs manifest snapshot.json > manifest.json
 Explorer 的 **Import** 接受同一个 JSON，验证修订并为 **Export** 保留原包。图最多展示 1,000 条原生记录，并明确提示此限制；所有事实仍保留在导出的 JSON 中。Explorer 展示记录的预检，不重新运行检查。已有的人工整理 Explorer v1 快照保持兼容；任意 File map 数据并非此格式。
 
 下一步审查记录的问题、不可读取事实及外部依赖，然后单独验证实现及运行行为。解析后的变量/样式、完整变体/状态差异、资源二进制/哈希、共享状态/数据契约、跨 breakpoint 内容比较、分块读取及增量 diff 不属于本次快照增量；完整开发者包尚未完成。
+
+## 组件检查（0.10.1 候选版）
+
+实现 UI Kit 组件前，先按上文用 **0.10.1 候选版**导出所选页面/区块。此版本写入 `schemaVersion: 2`：结构外层保持不变，`componentInspection` 单独保存引用的 main component 及其 ComponentSet 中每个原生变体的只读事实。旧 v1 包仍可验证；仅支持 v1 的旧读取器必须拒绝 v2，不能静默丢弃检查数据。[合成组件示例](../validator/examples/handoff-components.valid.json)不需要私人文件或令牌。这不是已发布的插件，也不是内容审计。
+
+在匹配的包中运行：
+
+```bash
+node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus > components.json
+```
+
+异步 JS 等价接口为 `componentManifest(text, { expected: [{ axis: "State", value: "Focus" }] })`。命令验证已保存的校验和，无需 Figma、AI 或网络；退出 `0` 表示成功生成可检查报告，而不是批准就绪。无效输入/用法退出 `2`。实现前请阅读 `status`、`missing` 和 `unavailable`。
+
+- `families` 保留原生 ID/键、源页面、属性轴及属性定义/defaults；`matrix` 列出真实 `variantProperties`。`instances` 将当前 `componentProperties`、`overrides` 与 defaults 分开保存。只有源文件已知时才提供本地源链接；远程/未知来源不会被错误赋予当前文件的 URL。
+- 每个变体保存根及后代的几何、布局、排版、opacity、fills **和 strokes**、effects 与圆角。空 `strokes: []` 表示没有描边绘制；单独的 `strokeWeight` 不能证明可见边框。嵌套实例仍保持原子边界。API 可提供时，保存绑定 Style/Variable 的名称、源 ID、模式及解析值。getter/库读取失败时保留可读取的几何，并记录节点/字段/原因，不编造值，也不让整个组件族导出失败。
+- `diffs` 将每个真实变体与确定性基准比较：原生 ID 排序后的第一个，**不是**推断的 Default。用 `--baseline nativeId`（JS `baselineId`）选择其他基准。每项变化包含前后原生节点 ID 和字段。子节点索引路径比较渲染树位置，而非逻辑身份；类型/名称变化视为替换。根在画布上的 `x/y` 仍作为事实保留，但不参与视觉状态差异。
+- `--expect Axis=Value` 是调用方明确提出的要求，不是猜测的标签。请求状态缺失时标为 `not-prepared`；变体元数据不可读时标为 `unknown`。报告不会合成 Focus/Active，也不会把未请求的状态假定为必需。请根据真实实现要求审查原生矩阵。
+
+`coverage.componentVariants: "inspected"` 只说明完成了此项检查，不是对全部组件、内容或运行时的批准。统一的 2 MiB 和 10,000 条记录上限包含检查与实例记录；超限明确停止导出，不截断。下一步先解决不可用事实和缺失的必需状态，再分别检查交互、内容和运行时。资源二进制、内容 overrides 审计及增量交付仍属于独立工作。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
