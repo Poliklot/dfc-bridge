@@ -94,8 +94,8 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.7",
-    "rulesVersion": "0.5.0",
+    "methodologyVersion": "0.11.8",
+    "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
       "fileKey": "example-file-key",

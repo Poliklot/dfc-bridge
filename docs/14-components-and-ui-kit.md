@@ -27,6 +27,10 @@ contact-button [action=modal:contact-modal]
 
 The same button component may open different targets in different places. Do not put a page-specific action into the shared component name.
 
+For an explicitly interactive source, put `[control]` or `[link]` on the main component, or on its ComponentSet when individual variants have no interaction contract. Page/Section Check can then flag an unannotated instance whose action/destination is still unknown. A source-level default such as `[action=none]` is inherited only when the instance has no local interaction intent; an explicit local draft still requires a decision. Source identities are not copied to instances. The word “Button”, appearance, and text labels are not contracts.
+
+This deterministic source-contract check belongs to the test-verified local 0.9.8 checker candidate, not a claim about the current Community build. It reads only source intent, without traversing instance interiors. Ready covers the declared source checks, not all interactions: unavailable or unclassified sources, instance content overrides, native prototype behavior and runtime QA remain outside this check. Resolve the page-specific target locally, rerun the check, then review those remaining boundaries.
+
 ## Section identity
 
 An instance from `Page Sections` already has a stable source. Do not repeat `[section]` unless a local frame is the section boundary. A section built directly in the page uses an explicit key:

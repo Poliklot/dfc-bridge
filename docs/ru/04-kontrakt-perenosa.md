@@ -82,8 +82,8 @@ catalog [page=catalog] [route=/catalog] [bp=1200] [view=default]
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.11.7",
-    "rulesVersion": "0.5.0",
+    "methodologyVersion": "0.11.8",
+    "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
       "fileKey": "example-file-key",

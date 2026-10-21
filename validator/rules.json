@@ -1,7 +1,7 @@
 {
   "$schema": "./rules.schema.json",
   "methodology": "DFC Bridge",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "severityLevels": [
     "error",
     "warning",
@@ -354,7 +354,7 @@
       "principle": "Dependencies",
       "severity": "info",
       "automation": "automatic",
-      "description": "Boolean `[control]` or advanced `[control=...]` without `[action=...]` is a valid draft marker for an unknown action, not a syntax error. Final handoff should resolve it.",
+      "description": "An explicit local control marker, or an instance whose main component/ComponentSet declares control intent, needs an action unless a source default is inherited. An explicit local draft overrides that default. Missing action is an actionable draft, not a syntax error; final handoff must resolve it. Names and appearance are not contracts.",
       "fix": "If the action is known, replace the draft marker with `[action=modal:...]`, `[action=state:...]`, `[action=submit:...]`, `[action=reset:...]`, or `[action=none]`. Keep `[control=...]` only as an optional advanced id when a stable machine id is needed."
     },
     {
@@ -362,7 +362,7 @@
       "principle": "Dependencies",
       "severity": "info",
       "automation": "automatic",
-      "description": "Boolean `[link]` or advanced `[link=...]` without `[href=...]` is a valid draft marker for an unknown destination, not a syntax error. Final handoff should resolve it.",
+      "description": "An explicit local link marker, or an instance whose main component/ComponentSet declares link intent, needs a destination unless a source default is inherited. An explicit local draft overrides that default. Missing href is an actionable draft, not a syntax error; final handoff must resolve it. Names and appearance are not contracts.",
       "fix": "If the destination is known, use `[href=...]`. Keep `[link=...]` only as an optional advanced id when a stable machine id is needed. Do not use `[href=#]` as a placeholder."
     },
     {

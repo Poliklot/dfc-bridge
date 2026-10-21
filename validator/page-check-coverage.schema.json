@@ -34,7 +34,35 @@
       }
     },
     "automaticRuleIds": { "$ref": "#/$defs/ruleIds" },
-    "heuristicRuleIds": { "$ref": "#/$defs/ruleIds" }
+    "heuristicRuleIds": { "$ref": "#/$defs/ruleIds" },
+    "sourceInteractionContracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "localIntent",
+        "instanceInteriors",
+        "unclassifiedOrUnavailable",
+        "runtimeBehavior"
+      ],
+      "properties": {
+        "source": {
+          "const": "explicit-main-component-or-component-set-intent"
+        },
+        "localIntent": {
+          "const": "overrides-source-including-drafts"
+        },
+        "instanceInteriors": {
+          "const": "not-traversed"
+        },
+        "unclassifiedOrUnavailable": {
+          "const": "not-inspected"
+        },
+        "runtimeBehavior": {
+          "const": "not-verified"
+        }
+      }
+    }
   },
   "$defs": {
     "ruleIds": {
