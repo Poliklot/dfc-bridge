@@ -4,7 +4,7 @@ export interface HandoffNode {
   identity: string; tags: Record<string, (string | true)[]>; native: Record<string, unknown>;
 }
 export interface HandoffSnapshot {
-  format: 'dfc-bridge-handoff'; schemaVersion: 1 | 2; revision: string;
+  format: 'dfc-bridge-handoff'; schemaVersion: 1 | 2 | 3; revision: string;
   generator: { pluginVersion: string; validatorVersion: string };
   source: { fileKey: string | null; figmaPageId: string; figmaPageName: string };
   scope: { kind: 'page' | 'section'; completeness: 'full' | 'partial'; rootIds: string[]; pageId: string };
@@ -16,6 +16,10 @@ export interface HandoffSnapshot {
     variants: { id: string; name: string; properties: Record<string, string> | null;
       nodes: InspectedNode[] }[];
   }[] };
+  visualInspection?: {
+    nodes: { id: string; rootId: string; parentId: string | null; childIndex: number; children: string[]; native: Record<string, unknown> }[];
+    images: { imageHash: string; width: number | null; height: number | null; reason: string | null }[];
+  };
   preflight: {
     mode: 'page' | 'section'; scope: 'page' | 'selection'; status: 'ready' | 'review' | 'not-ready' | 'partial' | 'blocked';
     issues: { ruleId: string; severity: 'error' | 'warning' | 'todo'; nodeId: string; message?: string }[];

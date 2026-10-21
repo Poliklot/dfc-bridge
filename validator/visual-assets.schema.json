@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/visual-assets.schema.json",
+  "title": "DFC Bridge exact visual source request or byte packet",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "schemaVersion",
+        "snapshotRevision",
+        "kind",
+        "slots"
+      ],
+      "properties": {
+        "format": {
+          "const": "dfc-bridge-visual-request"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "snapshotRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "section"
+          ]
+        },
+        "slots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "nodeId",
+              "field",
+              "index",
+              "imageHash",
+              "offset"
+            ],
+            "properties": {
+              "nodeId": {
+                "type": "string",
+                "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+              },
+              "field": {
+                "enum": [
+                  "fills",
+                  "strokes"
+                ]
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 200000
+              },
+              "imageHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMaximum": 33554432,
+                "multipleOf": 65536
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "schemaVersion",
+        "snapshotRevision",
+        "chunks",
+        "unavailable"
+      ],
+      "properties": {
+        "format": {
+          "const": "dfc-bridge-visual-assets"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "snapshotRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "chunks": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "imageHash",
+              "offset",
+              "totalBytes",
+              "base64",
+              "sha256"
+            ],
+            "properties": {
+              "imageHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMaximum": 33554432,
+                "multipleOf": 65536
+              },
+              "totalBytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 33554432
+              },
+              "base64": {
+                "type": "string",
+                "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+                "maxLength": 87384
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        },
+        "unavailable": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "nodeId",
+              "field",
+              "index",
+              "imageHash",
+              "offset",
+              "reason"
+            ],
+            "properties": {
+              "nodeId": {
+                "type": "string",
+                "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+              },
+              "field": {
+                "enum": [
+                  "fills",
+                  "strokes"
+                ]
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 200000
+              },
+              "imageHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMaximum": 33554432,
+                "multipleOf": 65536
+              },
+              "reason": {
+                "type": "string",
+                "pattern": "^[\\s\\S]{1,2400}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

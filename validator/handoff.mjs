@@ -71,6 +71,56 @@ export function validateHandoff(input) {
     if (byId.has(node.id)) throw new Error('Duplicate native node ID: ' + node.id);
     byId.set(node.id, node);
   }
+  const visual = input.visualInspection;
+  if (visual) {
+    if (input.nodes.length + input.dependencies.length + inspected + visual.nodes.length > 10000) throw new Error('Snapshot exceeds 10000 native records including visual inspection.');
+    const visualNodes = new Map(), hashes = new Set();
+    for (const node of visual.nodes) {
+      if (visualNodes.has(node.id)) throw new Error('Duplicate visual node.');
+      visualNodes.set(node.id, node);
+    }
+    for (const node of visual.nodes) {
+      if (!input.scope.rootIds.includes(node.rootId)) throw new Error('Unknown visual root.');
+      if (node.id === node.rootId) {
+        if (node.parentId !== null) throw new Error('Visual root must have no inspection parent.');
+      } else {
+        const parent = visualNodes.get(node.parentId);
+        if (!parent || parent.rootId !== node.rootId) throw new Error('Unknown visual parent.');
+      }
+      const childIds = new Set();
+      for (const [index, id] of node.children.entries()) {
+        const child = visualNodes.get(id);
+        if (childIds.has(id) || !child || child.parentId !== node.id || child.childIndex !== index) throw new Error('Invalid visual child ownership or compositing order.');
+        childIds.add(id);
+      }
+      if (node.parentId && visualNodes.get(node.parentId).children[node.childIndex] !== node.id) throw new Error('Missing visual child ownership.');
+      const structural = byId.get(node.id);
+      if (structural && canonicalHandoffJSON(structural.native) !== canonicalHandoffJSON(node.native)) throw new Error('Visual facts differ from the structural source.');
+      let ancestor = node, seen = new Set();
+      while (ancestor.parentId) {
+        if (seen.has(ancestor.id) || seen.size > 256) throw new Error('Cyclic or excessive visual ancestry.');
+        seen.add(ancestor.id); ancestor = visualNodes.get(ancestor.parentId);
+        if (!ancestor) throw new Error('Unknown visual ancestor.');
+      }
+      if (ancestor.id !== node.rootId) throw new Error('Visual node is outside its declared root.');
+      for (const field of ['fills', 'strokes']) for (const paint of node.native[field] || []) {
+        if (paint?.type === 'IMAGE' && typeof paint.imageHash === 'string' && /^[a-f0-9]{40}$/u.test(paint.imageHash)) hashes.add(paint.imageHash);
+      }
+    }
+    for (const rootId of input.scope.rootIds) if (!visualNodes.has(rootId)) throw new Error('Missing visual root.');
+    for (const source of input.nodes) {
+      const node = visualNodes.get(source.id);
+      if (!node || (!input.scope.rootIds.includes(source.id) && node.parentId !== source.parentId)) throw new Error('Visual inspection is missing a structural source node or parent.');
+    }
+    const imageHashes = new Set();
+    for (const image of visual.images) {
+      if (imageHashes.has(image.imageHash) || !hashes.has(image.imageHash)) throw new Error('Duplicate or unreferenced visual image.');
+      if ((image.width === null) !== (image.height === null)) throw new Error('Image dimensions must be available together.');
+      if ((image.width === null || image.height === null) !== (image.reason !== null)) throw new Error('Unavailable image dimensions need an explicit reason.');
+      imageHashes.add(image.imageHash);
+    }
+    if (hashes.size !== imageHashes.size) throw new Error('Missing visual image metadata.');
+  }
   for (const item of input.componentInspection?.instances || []) {
     const source = byId.get(item.node.id);
     if (!source || source.type !== 'INSTANCE' || source.mainComponentId !== item.mainComponentId) throw new Error('Inspected instance does not match structural source.');

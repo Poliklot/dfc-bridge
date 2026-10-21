@@ -1,0 +1,391 @@
+{
+  "componentInspection": {
+    "families": [
+      {
+        "axes": {},
+        "figmaPageId": "0:1",
+        "id": "12:2",
+        "key": null,
+        "name": "UI image source",
+        "propertyDefinitions": null,
+        "remote": null,
+        "sourceFileKey": null,
+        "variants": [
+          {
+            "id": "12:2",
+            "name": "UI image source",
+            "nodes": [
+              {
+                "id": "12:2",
+                "name": "UI image source",
+                "native": {
+                  "fills": [],
+                  "height": 240,
+                  "layoutMode": "VERTICAL",
+                  "opacity": 1,
+                  "visible": true,
+                  "width": 480,
+                  "x": 0,
+                  "y": 0
+                },
+                "path": "",
+                "styles": [],
+                "type": "COMPONENT",
+                "variables": []
+              }
+            ],
+            "properties": {}
+          }
+        ]
+      }
+    ],
+    "instances": [
+      {
+        "familyId": "12:2",
+        "mainComponentId": "12:2",
+        "node": {
+          "id": "12:3",
+          "name": "Artwork instance",
+          "native": {
+            "fills": [],
+            "height": 240,
+            "layoutMode": "VERTICAL",
+            "opacity": 1,
+            "visible": true,
+            "width": 480,
+            "x": 0,
+            "y": 0
+          },
+          "path": "",
+          "styles": [],
+          "type": "INSTANCE",
+          "variables": []
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "componentVariants": "inspected",
+    "content": "not-checked",
+    "instanceInteriors": "atomic",
+    "runtime": "not-checked",
+    "unavailable": [
+      {
+        "field": "componentPropertyDefinitions",
+        "nodeId": "12:2",
+        "reason": "Native field unavailable"
+      },
+      {
+        "field": "key",
+        "nodeId": "12:2",
+        "reason": "Native field unavailable"
+      },
+      {
+        "field": "remote",
+        "nodeId": "12:2",
+        "reason": "Native field unavailable"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "12:2",
+      "identity": "name:UI image source",
+      "mainComponentId": null,
+      "name": "UI image source",
+      "native": {
+        "fills": [],
+        "height": 240,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 480,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {},
+      "type": "COMPONENT"
+    }
+  ],
+  "format": "dfc-bridge-handoff",
+  "generator": {
+    "pluginVersion": "0.11.0",
+    "validatorVersion": "0.5.1"
+  },
+  "nodes": [
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "12:3",
+      "identity": "name:Artwork instance",
+      "mainComponentId": "12:2",
+      "name": "Artwork instance",
+      "native": {
+        "fills": [],
+        "height": 240,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 480,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "12:4",
+      "supportsChildren": true,
+      "tags": {},
+      "type": "INSTANCE"
+    },
+    {
+      "children": [
+        "12:3"
+      ],
+      "figmaPageId": "0:1",
+      "id": "12:4",
+      "identity": "section:hero",
+      "mainComponentId": null,
+      "name": "Hero [section=hero]",
+      "native": {
+        "fills": [],
+        "height": 240,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 480,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "12:5",
+      "supportsChildren": true,
+      "tags": {
+        "section": [
+          "hero"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [
+        "12:4"
+      ],
+      "figmaPageId": "0:1",
+      "id": "12:5",
+      "identity": "page:home",
+      "mainComponentId": null,
+      "name": "Home [page=home] [route=/] [view=default] [bp=480]",
+      "native": {
+        "fills": [],
+        "height": 240,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 480,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {
+        "bp": [
+          "480"
+        ],
+        "page": [
+          "home"
+        ],
+        "route": [
+          "/"
+        ],
+        "view": [
+          "default"
+        ]
+      },
+      "type": "FRAME"
+    }
+  ],
+  "preflight": {
+    "breakpoints": [
+      "480"
+    ],
+    "issues": [],
+    "mode": "page",
+    "pageId": "home",
+    "rootCount": 1,
+    "roots": [
+      {
+        "bp": "480",
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic visual stack",
+        "label": "default / 480",
+        "nodeId": "12:5",
+        "nodeName": "Home [page=home] [route=/] [view=default] [bp=480]",
+        "route": "/",
+        "view": "default"
+      }
+    ],
+    "route": "/",
+    "scope": "page",
+    "status": "ready",
+    "summary": {
+      "errors": 0,
+      "todos": 0,
+      "warnings": 0
+    },
+    "title": "Home",
+    "views": [
+      "default"
+    ]
+  },
+  "revision": "875b16cab44fe36ed5f2d2f4537fbb00984e7456cc1bd6c1a5efd0fecc44ad65",
+  "schemaVersion": 3,
+  "scope": {
+    "completeness": "full",
+    "kind": "page",
+    "pageId": "home",
+    "rootIds": [
+      "12:5"
+    ]
+  },
+  "source": {
+    "figmaPageId": "0:1",
+    "figmaPageName": "Synthetic visual stack",
+    "fileKey": "SyntheticFile"
+  },
+  "visualInspection": {
+    "images": [
+      {
+        "height": 240,
+        "imageHash": "0055d5409f7f57138052eb03c50940593bec5e75",
+        "reason": null,
+        "width": 480
+      }
+    ],
+    "nodes": [
+      {
+        "childIndex": 0,
+        "children": [
+          "12:4"
+        ],
+        "id": "12:5",
+        "native": {
+          "fills": [],
+          "height": 240,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 480,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": null,
+        "rootId": "12:5"
+      },
+      {
+        "childIndex": 0,
+        "children": [
+          "12:3"
+        ],
+        "id": "12:4",
+        "native": {
+          "fills": [],
+          "height": 240,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 480,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "12:5",
+        "rootId": "12:5"
+      },
+      {
+        "childIndex": 0,
+        "children": [
+          "12:1"
+        ],
+        "id": "12:3",
+        "native": {
+          "fills": [],
+          "height": 240,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 480,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "12:4",
+        "rootId": "12:5"
+      },
+      {
+        "childIndex": 0,
+        "children": [],
+        "id": "12:1",
+        "native": {
+          "blendMode": "MULTIPLY",
+          "fills": [
+            {
+              "imageHash": "0055d5409f7f57138052eb03c50940593bec5e75",
+              "imageTransform": [
+                [
+                  1,
+                  0,
+                  0.1
+                ],
+                [
+                  0,
+                  1,
+                  0.2
+                ]
+              ],
+              "opacity": 0.5,
+              "scaleMode": "CROP",
+              "type": "IMAGE",
+              "visible": true
+            },
+            {
+              "color": {
+                "b": 1,
+                "g": 1,
+                "r": 1
+              },
+              "opacity": 0.2,
+              "type": "SOLID"
+            },
+            {
+              "imageHash": "0055d5409f7f57138052eb03c50940593bec5e75",
+              "opacity": 1,
+              "scaleMode": "FIT",
+              "type": "IMAGE",
+              "visible": false
+            }
+          ],
+          "height": 240,
+          "layoutMode": "VERTICAL",
+          "opacity": 0.7,
+          "relativeTransform": [
+            [
+              1,
+              0,
+              4
+            ],
+            [
+              0,
+              1,
+              5
+            ]
+          ],
+          "visible": true,
+          "width": 480,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "12:3",
+        "rootId": "12:5"
+      }
+    ]
+  }
+}

@@ -22,6 +22,7 @@ function readJson(path) {
 }
 
 const schemaPairs = [
+  ['validator/visual-assets.schema.json', 'validator/examples/visual-request.valid.json'],
   ['validator/handoff.schema.json', 'validator/examples/handoff.valid.json'],
   ['validator/content-bindings.schema.json', 'validator/examples/content-bindings.valid.json'],
   ['validator/rules.schema.json', 'validator/rules.json'],

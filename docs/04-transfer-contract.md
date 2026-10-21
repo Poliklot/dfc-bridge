@@ -82,7 +82,7 @@ Read this example as a map of how modules fit together, not as a complete projec
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.2",
+    "methodologyVersion": "0.13.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -416,6 +416,37 @@ Only the same content/slot key is compared between the explicitly bound contexts
 The report separates recorded `sourcePreflight`, limited `interactionCoverage` and `contentCoverage: "explicit-bound-slots-only"`. Every scoped instance is listed in `uncheckedInstances`, including checked slot keys: its interiors remain uninspected. `contentReady` is always `false`, owner approval and runtime are `not-checked`. Missing bindings/values and partial snapshots remain Partial, never Content Ready or deletion evidence. Exit `0` means no differences in bound slots or explicitly reasoned differences; `1` means Review/Partial; `2` means invalid input/usage.
 
 For an intentional responsive difference, add `{ "slotKey": "label", "reason": "…" }` to the changed context's `exceptions`. The difference and reason remain visible; this records intent, not owner approval. Bindings are limited to 64 KiB and must match `snapshotRevision`; after source changes, review and rebind explicitly rather than carrying a stale exception forward. Generated content/component reports are bounded to 2 MiB as well: reduce bindings or source scope if repeated values/defaults exceed the limit; no report is silently truncated. Next, resolve Review/Partial items and ask the content owner to approve the actual content separately.
+
+## Visual slots and original-image export (0.11.0 candidate)
+
+Use this path when a developer needs the exact original behind a native IMAGE fill, including a fill inside an instance. The **0.11.0 candidate** writes `schemaVersion: 3`; v1/v2 remain readable but have no visual export evidence. This is candidate behavior, not a published plugin or native-editor approval. Start with the [synthetic visual snapshot](../validator/examples/handoff-visuals.valid.json), [request example](../validator/examples/visual-request.valid.json), and [byte-transfer schema](../validator/visual-assets.schema.json) without a private file or access token.
+
+1. Select the same logical page or section used for the saved-snapshot procedure above. In the report, choose **Export snapshot**, then save `snapshot.json`. Separate `visualInspection.nodes` traverses the actual render subtree, including instance/asset descendants; structural `nodes` and content-audit boundaries do not expand. The snapshot keeps exact native paints, `children`/`childIndex`, visibility/opacity, blend/mask/clip facts, transforms, `scaleMode`/`imageTransform`, and source dimensions where available. Missing getters or image dimensions carry reasons, not invented values.
+2. Inspect the manifest and generate the first bounded request:
+
+```bash
+node bin/dfc-bridge.mjs visuals snapshot.json > visual-manifest.json
+node bin/dfc-bridge.mjs visual-request snapshot.json > request.json
+```
+
+Each slot names native `nodeId`, `field` (`fills` or `strokes`), exact `index`, `imageHash`, and a revision-bound `nativePaintPath`. The complete paint arrays, including SOLID and hidden paints, remain in the snapshot in native order. One original may feed many slots; neither one paint nor one downloaded file implies one independent UI picture. `sourceExport: null` means that original has not been verified as delivered; `implementation: null` is an unresolved implementation mapping.
+
+3. Keep that same page/section selected. In its report choose **Load asset request** and open `request.json`. Save the downloaded asset packet. The candidate re-captures the scope under the existing stable-operation/selection fence; the UI refuses the packet if its snapshot revision differs. The request uses exact slot IDs, never names, similar images or export-list order.
+4. Feed all received packet files back to the commands. `reloadRequests` lists the next missing byte range for each source; `visual-request` writes the first group of up to eight. Repeat step 3 only for missing ranges. An unavailable source remains an explicit slot/reason; do not loop around a persistent refusal. If the source or scope changes, export a new snapshot and discard the old revision's requests/packets.
+
+```bash
+node bin/dfc-bridge.mjs visuals snapshot.json packet-1.json packet-2.json > visual-manifest.json
+node bin/dfc-bridge.mjs visual-request snapshot.json packet-1.json packet-2.json > next-request.json
+node bin/dfc-bridge.mjs visual-extract snapshot.json NEW_OUTPUT_DIRECTORY packet-1.json packet-2.json
+```
+
+Extraction refuses an existing destination. It writes only complete verified originals under `images/<imageHash>.bin` plus `visual-manifest.json`; `.bin` preserves the actual original bytes, not an image conversion. Chunks have SHA-256 checksums; the reconstructed original must match Figma's native SHA-1 `imageHash`. That SHA-1 is platform identity, not an authentication guarantee. Missing ranges, conflicting lengths/bytes, foreign slots, stale revisions and checksum failures never become successful source delivery. Async `visualManifest(snapshotText, packetTexts)` provides the same report offline from `api/index.mjs`.
+
+The snapshot/report limit remains 2 MiB and 10,000 native records including visual/component inspection; select a smaller section instead of silently truncating metadata. Requests are at most 16 KiB, eight source chunks of 64 KiB each. A source and all received decoded bytes per offline invocation are limited to 32 MiB; packet JSON is at most 2 MiB and all packet inputs at most 64 MiB. Larger or unsupported originals need a separately verified manual export. Native byte retrieval itself may allocate the full original before chunking.
+
+Repeated-source diagnostics link to the native node for composited preview when a file key exists; otherwise locate the reported node ID in Figma. The link is not a rendered bitmap or a computed occlusion result. Preserve all lower/alpha/hidden fills until the designer reviews the actual composite and explicitly approves any manual cleanup. No cleanup command or automatic “fully covered” classification is provided. `paintOrder: "exact-native-array-order"` preserves native order; it does not infer matching UI pictures or name an undocumented front/back direction.
+
+`visualReady` stays `false`. `sources-exported`/exit `0` means only complete verified original delivery; `partial`/exit `1` identifies missing source/visual evidence, and exit `2` means invalid input or unsupported bounds. Generating a reload request exits `0` when one is available. Content truth, browser cropping/compositing, implementation mapping and runtime remain separate checks. Compositing from masks/clips or siblings outside the selected root is `externalCompositing: "not-checked"`; partial source scopes remain Partial, never deletion evidence. Next, bind these exact slots to implementation assets and compare the actual rendered crop/composite; do not close handoff from a source-only manifest.
 
 ## Explicit unknowns: no untracked blind spots
 
