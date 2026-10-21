@@ -94,7 +94,7 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.12.2",
+    "methodologyVersion": "0.13.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -434,6 +434,37 @@ node bin/dfc-bridge.mjs content snapshot.json bindings.json > content-audit.json
 报告分开显示记录的 `sourcePreflight`、有限的 `interactionCoverage` 和 `contentCoverage: "explicit-bound-slots-only"`。范围内每个实例均列在 `uncheckedInstances`，同时列出已检查的槽键：实例内部仍未检查。`contentReady` 始终为 `false`，内容所有者批准和运行时均为 `not-checked`。缺失绑定/值以及部分快照仍是 Partial，不是 Content Ready，也不是删除证据。退出 `0` 表示绑定槽没有差异或差异有明确原因；`1` 表示 Review/Partial；`2` 表示输入/用法无效。
 
 对于有意的响应式差异，在变化上下文的 `exceptions` 中添加 `{ "slotKey": "label", "reason": "…" }`。差异及原因仍可见；它记录意图，不代表所有者批准。绑定限制为 64 KiB，必须匹配 `snapshotRevision`；源文件变化后需明确重新审查并绑定，不能自动沿用旧例外。生成的内容/组件报告同样限制为 2 MiB：重复值/defaults 导致超限时应减少绑定或来源范围，不能静默截断。下一步先解决 Review/Partial，再单独请内容所有者确认真实内容。
+
+## 视觉槽位与原始图片导出（0.11.0 候选版）
+
+开发者需要准确获取某个原生 IMAGE fill 的原图（包括实例内部的图片）时，使用此流程。**0.11.0 候选版**写出 `schemaVersion: 3`；仍可读取 v1/v2，但旧包没有视觉导出证据。这是候选版本的行为，不代表插件已发布，也不代表通过了原生编辑器检查。可先使用[合成视觉快照](../validator/examples/handoff-visuals.valid.json)、[请求示例](../validator/examples/visual-request.valid.json)及[字节传输 schema](../validator/visual-assets.schema.json)，无需客户文件或访问令牌。
+
+1. 按上面的保存快照流程，选中同一个逻辑页面或区块。在报告中点击 **Export snapshot**（俄语界面为 «Экспорт снимка»），保存为 `snapshot.json`。单独的 `visualInspection.nodes` 遍历实际渲染子树，包括实例和素材的后代；结构 `nodes` 与内容审计的边界不变。快照保留原生 paints、`children`/`childIndex`、可见性/opacity、blend/mask/clip、变换、`scaleMode`/`imageTransform` 及可获取的原图尺寸。无法读取的属性或尺寸附有原因，不能编造值。
+2. 查看清单并生成第一个有界请求：
+
+```bash
+node bin/dfc-bridge.mjs visuals snapshot.json > visual-manifest.json
+node bin/dfc-bridge.mjs visual-request snapshot.json > request.json
+```
+
+每个槽位包含原生 `nodeId`、`field`（`fills` 或 `strokes`）、准确的 `index`、`imageHash` 及绑定该修订的 `nativePaintPath`。完整 paint 数组（包括 SOLID 和隐藏 paint）按原生顺序保存在快照中。一个原图可以用于多个槽位；单个 paint 或下载文件不等于一张独立界面图片。`sourceExport: null` 表示尚未验证原图交付，`implementation: null` 表示实现映射尚未解决。
+
+3. 保持选中同一个页面/区块。在报告中点击 **Load asset request**（俄语界面为 «Загрузить запрос ассетов»），打开 `request.json`，保存下载的素材包。候选版本在现有稳定操作和选区保护下重新捕获该范围；若快照修订不同，界面会拒绝该包。请求只使用准确的槽位 ID，不按名称、相似图片或外部导出列表顺序猜测。
+4. 将已收到的所有包文件传回命令。`reloadRequests` 为每个来源列出下一段缺失字节；`visual-request` 写出第一组，最多八段。仅针对缺失段重复步骤 3。无法获取的原图保留为明确的槽位与原因；持续拒绝时不要无限重试。来源或范围发生变化后，请重新导出快照，弃用旧修订的请求和包。
+
+```bash
+node bin/dfc-bridge.mjs visuals snapshot.json packet-1.json packet-2.json > visual-manifest.json
+node bin/dfc-bridge.mjs visual-request snapshot.json packet-1.json packet-2.json > next-request.json
+node bin/dfc-bridge.mjs visual-extract snapshot.json NEW_OUTPUT_DIRECTORY packet-1.json packet-2.json
+```
+
+提取命令拒绝已有目标目录。新目录只写入完整且验证通过的 `images/<imageHash>.bin` 原图及 `visual-manifest.json`；`.bin` 保留真实原始字节，不转换图片。分块用 SHA-256 校验，重组后的原图必须匹配 Figma 原生 SHA-1 `imageHash`。该 SHA-1 是平台身份标识，不是认证保证。缺段、长度/字节冲突、范围外槽位、旧修订和校验失败均不算成功交付。`api/index.mjs` 中的异步 `visualManifest(snapshotText, packetTexts)` 可离线生成同一报告。
+
+快照/报告仍限于 2 MiB 和 10,000 条原生记录（含视觉及组件检查）；应缩小区块，而不是静默截断元数据。请求不超过 16 KiB，一次最多八个 64 KiB 原图分块。单个原图及一次离线调用接收的全部解码字节均限于 32 MiB；单个包 JSON 不超过 2 MiB，全部输入包不超过 64 MiB。更大或不支持的原图需要单独验证的手动导出。原生字节读取本身可能在分块前分配整个原图的内存。
+
+若有文件键，重复来源诊断会链接到原生节点，供查看实际合成效果；否则在 Figma 中定位报告的节点 ID。该链接不是已渲染的位图缩略图，也不是计算得到的遮挡结果。设计师检查实际合成并明确同意手动清理前，保留下层、半透明及隐藏 fills。不提供清理命令或自动“完全遮挡”分类。`paintOrder: "exact-native-array-order"` 保留原生顺序，不据此匹配图片或宣称未文档化的前后方向。
+
+`visualReady` 始终为 `false`。`sources-exported`/exit `0` 只表示完整且经过校验的原图交付；`partial`/exit `1` 表示缺少原图或视觉证据，exit `2` 表示输入无效或超出支持范围。有可用补取请求时，生成请求的命令以 `0` 退出。内容真实性、浏览器裁剪/合成、实现映射与 runtime 仍需分别验证。所选根节点之外的蒙版、裁剪或相邻节点合成仍为 `externalCompositing: "not-checked"`；部分范围保持 Partial，不能作为删除证据。下一步将准确槽位绑定到实现素材，并对比实际渲染的裁剪及合成；不能仅凭来源清单结束交付。
 
 ## 明确记录未知项，不留下未跟踪的问题
 

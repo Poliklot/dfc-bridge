@@ -30,6 +30,11 @@ for (const [locale, heading] of [
     const bindings = await request.get(await page.locator('main a[href$="content-bindings.valid.json"]').getAttribute('href'));
     expect(bindings.ok()).toBe(true);
     expect(parseContentBindings(await bindings.text(), saved.revision).groups[0].sources).toHaveLength(2);
+    await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs visual-request snapshot.json');
+    await expect(page.locator('main')).toContainText('visualReady');
+    const visual = await request.get(await page.locator('main a[href$="handoff-visuals.valid.json"]').getAttribute('href'));
+    expect(visual.ok()).toBe(true);
+    expect((await parseHandoff(await visual.text())).schemaVersion).toBe(3);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }

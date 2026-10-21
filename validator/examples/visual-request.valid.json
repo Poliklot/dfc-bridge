@@ -1,0 +1,15 @@
+{
+  "format": "dfc-bridge-visual-request",
+  "schemaVersion": 1,
+  "snapshotRevision": "875b16cab44fe36ed5f2d2f4537fbb00984e7456cc1bd6c1a5efd0fecc44ad65",
+  "kind": "page",
+  "slots": [
+    {
+      "nodeId": "12:1",
+      "field": "fills",
+      "index": 0,
+      "imageHash": "0055d5409f7f57138052eb03c50940593bec5e75",
+      "offset": 0
+    }
+  ]
+}

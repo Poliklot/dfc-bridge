@@ -23,7 +23,8 @@
     "schemaVersion": {
       "enum": [
         1,
-        2
+        2,
+        3
       ]
     },
     "revision": {
@@ -246,6 +247,9 @@
     },
     "componentInspection": {
       "$ref": "#/$defs/componentInspection"
+    },
+    "visualInspection": {
+      "$ref": "#/$defs/visualInspection"
     }
   },
   "$defs": {
@@ -503,6 +507,21 @@
         },
         "exportSettings": {
           "type": "array"
+        },
+        "blendMode": {
+          "type": "string"
+        },
+        "clipsContent": {
+          "type": "boolean"
+        },
+        "relativeTransform": {
+          "type": "array"
+        },
+        "absoluteTransform": {
+          "type": "array"
+        },
+        "rotation": {
+          "type": "number"
         }
       }
     },
@@ -703,6 +722,117 @@
           }
         }
       }
+    },
+    "visualInspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nodes",
+        "images"
+      ],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "rootId",
+              "parentId",
+              "childIndex",
+              "native",
+              "children"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/nodeId"
+              },
+              "rootId": {
+                "$ref": "#/$defs/nodeId"
+              },
+              "parentId": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/nodeId"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "childIndex": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "native": {
+                "$ref": "#/$defs/native"
+              },
+              "children": {
+                "type": "array",
+                "maxItems": 10000,
+                "items": {
+                  "$ref": "#/$defs/nodeId"
+                }
+              }
+            }
+          }
+        },
+        "images": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "imageHash",
+              "width",
+              "height",
+              "reason"
+            ],
+            "properties": {
+              "imageHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reason": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[\\s\\S]{1,2400}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "allOf": [
@@ -710,7 +840,10 @@
       "if": {
         "properties": {
           "schemaVersion": {
-            "const": 2
+            "enum": [
+              2,
+              3
+            ]
           }
         }
       },
@@ -743,6 +876,30 @@
             "type": "object"
           },
           "componentInspection": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": 3
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "visualInspection"
+        ],
+        "properties": {
+          "visualInspection": {
+            "$ref": "#/$defs/visualInspection"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "visualInspection": false
         }
       }
     }

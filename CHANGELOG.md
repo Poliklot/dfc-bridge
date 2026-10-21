@@ -4,6 +4,14 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.13.0] — 2026-10-21
+
+### Added
+
+- Handoff v3 preserves a separate native render subtree, full paint stacks/child order, crop/transforms, visibility/opacity, blend/mask/clip facts and original IMAGE dimensions. Structural and content-audit instance boundaries remain unchanged; legacy v1/v2 remain readable.
+- Revision-pinned exact visual requests, bounded 64 KiB original-source chunks, offline visual manifests, missing-range reload and verified non-overwriting extraction in the 0.11.0 Assistant candidate. Sources are matched by native imageHash, not names or export order; SHA-256 chunks and native SHA-1 reassembly checks detect corrupt delivery.
+- Canonical byte-transfer schema, synthetic fixtures and EN/RU/ZH operating instructions. Repeated-source diagnostics link to native preview without automatic cleanup or inferred occlusion. Source delivery is not browser crop/composite, content or runtime approval. Native publication checks remain unverified; no plugin distribution is approved.
+
 ## [0.12.2] — 2026-10-21
 
 ### Added
