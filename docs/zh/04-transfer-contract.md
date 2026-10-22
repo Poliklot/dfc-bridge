@@ -464,15 +464,17 @@ node bin/dfc-bridge.mjs visual-extract snapshot.json NEW_OUTPUT_DIRECTORY packet
 
 快照/报告仍限于 2 MiB 和 10,000 条原生记录（含视觉及组件检查）；应缩小区块，而不是静默截断元数据。请求不超过 16 KiB，一次最多八个 64 KiB 原图分块。单个原图及一次离线调用接收的全部解码字节均限于 32 MiB；单个包 JSON 不超过 2 MiB，全部输入包不超过 64 MiB。更大或不支持的原图需要单独验证的手动导出。原生字节读取本身可能在分块前分配整个原图的内存。
 
-0.12.0 仅在文件键可用时，将堆栈/重复来源诊断链接到原生节点；链接不是已渲染位图，也不是计算得到的遮挡结果。下述 0.13.0 候选版增加原生 PNG 审查及保守的同节点覆盖诊断。任何版本均不自动删除 paints，也不把重复 imageHash 视为冗余像素。
+0.12.0 仅在文件键可用时，将堆栈/重复来源诊断链接到原生节点；链接不是已渲染位图，也不是计算得到的遮挡结果。插件 0.13.0 增加原生 PNG 审查及保守的同节点覆盖诊断。任何版本均不自动删除 paints，也不把重复 imageHash 视为冗余像素。
 
 `visualReady` 始终为 `false`。`sources-exported`/exit `0` 只表示完整且经过校验的原图交付；`partial`/exit `1` 表示缺少原图或视觉证据，exit `2` 表示输入无效或超出支持范围。有可用补取请求时，生成请求的命令以 `0` 退出。内容真实性、浏览器裁剪/合成、实现映射与 runtime 仍需分别验证。所选根节点之外的蒙版、裁剪或相邻节点合成仍为 `externalCompositing: "not-checked"`；部分范围保持 Partial，不能作为删除证据。下一步将准确槽位绑定到实现素材，并对比实际渲染的裁剪及合成；不能仅凭来源清单结束交付。
 
-## 原生预览与明确确认的手动清理（0.13.0 候选版）
+<a id="原生预览与明确确认的手动清理0130-候选版"></a>
 
-仅在设计师需要手动清理前审查 paint 堆栈时，使用此**尚未发布的候选版**。视觉清单 v2 不改变快照 v4 或原图字节协议。`fully-covered-paint-review` 表示同一节点上，较晚的不透明 NORMAL SOLID fill 覆盖下层 fill。要求 visibility/opacity 已知、无 mask/effects 且混合受支持。变量绑定/未知 paint 行为、IMAGE alpha 及通用跨节点遮挡仍未证明。`repeated-source-review` 是供设计师回答的问题，不是删除建议；`cleanupAllowed` 保持 `false`。
+## 原生预览与明确确认的手动清理（插件 0.13.0+）
 
-1. 从候选版导出当前快照并查看 `visuals`。复制诊断中的精确 `nodeId`，不能使用图层名称或图片列表位置。生成单个预览请求，将示例 ID 换为该节点：
+设计师需要手动清理前审查 paint 堆栈时，使用**插件 0.13.0 或更高版本**。应取得匹配的已发布包；仅有本地 checkout 版本号不证明已发布或已完成原生验证。视觉清单 v2 不改变快照 v4 或原图字节协议。`fully-covered-paint-review` 表示同一节点上，较晚的不透明 NORMAL SOLID fill 覆盖下层 fill。要求 visibility/opacity 已知、无 mask/effects 且混合受支持。变量绑定/未知 paint 行为、IMAGE alpha 及通用跨节点遮挡仍未证明。`repeated-source-review` 是供设计师回答的问题，不是删除建议；`cleanupAllowed` 保持 `false`。
+
+1. 从匹配的插件导出当前快照并查看 `visuals`。复制诊断中的精确 `nodeId`，不能使用图层名称或图片列表位置。生成单个预览请求，将示例 ID 换为该节点：
 
 ```bash
 node bin/dfc-bridge.mjs visual-preview-request snapshot.json '12:1' > preview-request.json
@@ -530,7 +532,7 @@ node bin/dfc-bridge.mjs diff before.json after.json --id '21:3' > node-diff.json
 
 Node.js API：`api/index.mjs` 中的异步 `packageManifest(snapshotText)`、`recordIndex(snapshotText, cursor)`、`recordChunk(snapshotText, nodeId, offset)`、`diffPackages(beforeText, afterText, { sameSource, nodeId })`。`handoffReady` 始终为 `false`，重放的 `sourcePreflight` 只覆盖声明的来源。有效清单/索引的 exit `0` 不表示 Ready。完整 changed/unchanged 比较为 `0`，Partial/Unverified/Blocked 为 `1`；未记录的节点为 `1`；无效输入、游标、偏移或超限为 `2`。
 
-来源包/报告仍限于 2 MiB 和 10,000 条原生记录。分页/分块只用于**获取已保存记录**，不表示无限制原生导出，也不能把部分包拼成删除依据。超大的来源导出明确失败：应缩小范围，不能静默丢弃依赖。变化路径的长前缀在报告序列化前计入预算；超大差异需缩小查询或读取原始记录。该 runtime 的原生编辑器/发布检查尚未验证；候选版不授权插件标签、ZIP 或 Community 更新。
+来源包/报告仍限于 2 MiB 和 10,000 条原生记录。分页/分块只用于**获取已保存记录**，不表示无限制原生导出，也不能把部分包拼成删除依据。超大的来源导出明确失败：应缩小范围，不能静默丢弃依赖。变化路径的长前缀在报告序列化前计入预算；超大差异需缩小查询或读取原始记录。分发任何 runtime 前，必须取得其精确的原生验证记录；仅有已保存包不授权插件标签、ZIP 或 Community 更新。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
