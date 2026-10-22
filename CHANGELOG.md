@@ -4,6 +4,14 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+## [0.14.0] — 2026-10-22
+
+### Added
+
+- Handoff v4 resolves exact Styles/Variables for ordinary render nodes, instance interiors and captured dependencies through the same native resolver used for components. Native alias/Style references and complete recorded-consumer coverage validate; older v1/v2/v3 packets remain supported.
+- The 0.12.0 Assistant candidate adds an offline package manifest, fixed-size native-ID index pages, revision-bound 64 KiB record-byte retrieval and observational per-ID diff. Stroke, actual variant and resolved-variable changes have precise native IDs/paths; missing evidence and partial scopes never become physical deletions. Cursor and chunk digests are explicit; source correlation is never inferred from labels or unknown file identity.
+- EN/RU/ZH operating procedure and synthetic section package. Authored tags/reactions stay distinct from missing structured shared-state/data decisions; no full Handoff Ready is claimed. Existing 2 MiB/10,000-record producer limits remain; pagination concerns saved-record retrieval, not unbounded native producer export. Native publication checks remain unverified.
+
 ## [0.13.0] — 2026-10-21
 
 ### Added

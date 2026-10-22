@@ -1,3 +1,4 @@
+import { nativeBindingAliases } from './handoff-bindings.mjs';
 import validate from './handoff-validator.mjs';
 import { sha256 } from './handoff-sha256.mjs';
 
@@ -120,6 +121,42 @@ export function validateHandoff(input) {
       imageHashes.add(image.imageHash);
     }
     if (hashes.size !== imageHashes.size) throw new Error('Missing visual image metadata.');
+  }
+  if (input.sourceBindings) {
+    const expected = new Set(byId.keys());
+    for (const node of input.visualInspection?.nodes || []) expected.add(node.id);
+    for (const family of input.componentInspection?.families || []) for (const variant of family.variants) for (const node of variant.nodes) expected.add(node.id);
+    for (const item of input.componentInspection?.instances || []) expected.add(item.node.id);
+    const natives = new Map([...byId].map(([id,node])=>[id,node.native]));
+    for (const node of input.visualInspection?.nodes || []) natives.set(node.id,node.native);
+    for (const family of input.componentInspection?.families || []) for (const variant of family.variants) for (const node of variant.nodes) if (!natives.has(node.id)) natives.set(node.id,node.native);
+    const unavailable = new Map();
+    for (const item of input.coverage.unavailable) {
+      if (!unavailable.has(item.nodeId)) unavailable.set(item.nodeId,new Set());
+      unavailable.get(item.nodeId).add(item.field);
+    }
+    const seen = new Set();
+    for (const entry of input.sourceBindings) {
+      if (seen.has(entry.id) || !expected.has(entry.id)) throw new Error('Duplicate or unreferenced source binding consumer.');
+      seen.add(entry.id);
+      const native = natives.get(entry.id), styles = new Set(), paths = new Set();
+      for (const style of entry.styles) {
+        if (styles.has(style.field) || native?.[style.field] !== style.id) throw new Error('Source style differs from its exact native consumer.');
+        styles.add(style.field);
+      }
+      for (const field of ['fillStyleId','strokeStyleId','textStyleId','effectStyleId']) if (native?.[field] && !styles.has(field) && !unavailable.get(entry.id)?.has('styles/'+field)) throw new Error('Missing source style evidence without an unavailable reason.');
+      for (const variable of entry.variables) {
+        let alias = native;
+        for (const part of variable.path.split('/')) {
+          const key = part.replaceAll('~1','/').replaceAll('~0','~');
+          alias = alias && typeof alias === 'object' && Object.prototype.hasOwnProperty.call(alias,key) ? alias[key] : null;
+        }
+        if (paths.has(variable.path) || alias?.type !== 'VARIABLE_ALIAS' || alias.id !== variable.id) throw new Error('Source variable differs from its exact native consumer path.');
+        paths.add(variable.path);
+      }
+      for (const alias of nativeBindingAliases(native)) if (!paths.has(alias.path) && !unavailable.get(entry.id)?.has('variables/'+alias.path)) throw new Error('Missing source variable evidence without an unavailable reason.');
+    }
+    if (seen.size !== expected.size) throw new Error('Missing source binding coverage.');
   }
   for (const item of input.componentInspection?.instances || []) {
     const source = byId.get(item.node.id);

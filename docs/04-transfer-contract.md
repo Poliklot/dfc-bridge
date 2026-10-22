@@ -82,7 +82,7 @@ Read this example as a map of how modules fit together, not as a complete projec
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.13.0",
+    "methodologyVersion": "0.14.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -447,6 +447,39 @@ The snapshot/report limit remains 2 MiB and 10,000 native records including visu
 Repeated-source diagnostics link to the native node for composited preview when a file key exists; otherwise locate the reported node ID in Figma. The link is not a rendered bitmap or a computed occlusion result. Preserve all lower/alpha/hidden fills until the designer reviews the actual composite and explicitly approves any manual cleanup. No cleanup command or automatic “fully covered” classification is provided. `paintOrder: "exact-native-array-order"` preserves native order; it does not infer matching UI pictures or name an undocumented front/back direction.
 
 `visualReady` stays `false`. `sources-exported`/exit `0` means only complete verified original delivery; `partial`/exit `1` identifies missing source/visual evidence, and exit `2` means invalid input or unsupported bounds. Generating a reload request exits `0` when one is available. Content truth, browser cropping/compositing, implementation mapping and runtime remain separate checks. Compositing from masks/clips or siblings outside the selected root is `externalCompositing: "not-checked"`; partial source scopes remain Partial, never deletion evidence. Next, bind these exact slots to implementation assets and compare the actual rendered crop/composite; do not close handoff from a source-only manifest.
+
+## Section package, exact-ID retrieval and saved diff (0.12.0 candidate)
+
+Use the **0.12.0 candidate** to hand off one authored section and its captured dependencies without passing the whole tree through an LLM. Select the section frame, run **Check selected section**, then **Export snapshot** in its report. Save an unchanged baseline as `before.json`; after a design change, export the same scope to `after.json`. The [synthetic v4 package](../validator/examples/handoff-package.valid.json) needs no client file or access token. Older v1/v2/v3 snapshots still validate, but missing inspection/binding evidence stays unknown.
+
+`schemaVersion: 4` adds `sourceBindings` for ordinary render nodes, instance interiors, ancestors and captured component dependencies. The same native resolver supplies exact Style references/definitions and Variable references, collections, modes, `valuesByMode` and `resolveForConsumer` results; it does not infer values from variable names. Paint aliases retain their exact field/index path. Source bindings must cover the recorded native IDs and match their native Style IDs and alias paths. Mixed/unavailable getters remain explicit reasons. Native layout facts also retain available min/max sizing, alignment/grow, constraints, text case/decoration and paragraph spacing. This is read-only evidence, not a new semantic tag or owner approval. Mixed text-range facts and non-IMAGE/vector source exports are not newly covered.
+
+1. Inspect package coverage and the first page of native IDs:
+
+```bash
+node bin/dfc-bridge.mjs package before.json > package-manifest.json
+node bin/dfc-bridge.mjs records before.json > record-index.json
+node bin/dfc-bridge.mjs record before.json '21:3' 0 > record-part.json
+```
+
+Replace the example ID with one from `records`. Always quote native IDs, especially instance IDs containing `;`. Each index page contains at most 32 records; pass the exact `nextCursor` string as the second `records` argument for the same immutable snapshot. A foreign/stale cursor is rejected. Record chunks contain up to 64 KiB of canonical JSON bytes in `base64`, chunk SHA-256, full `recordSha256`, total bytes, exact source pointers and `nextOffset`. Request subsequent offsets for that same revision/ID. Join the **bytes** before UTF-8 decoding (a Unicode character may span chunks), then verify the full digest. `not-recorded` means missing saved evidence, not deletion. This retrieves saved facts, not a live Figma node.
+
+2. Change only the intended section/dependencies in Figma, re-export the same scope, then compare:
+
+```bash
+node bin/dfc-bridge.mjs diff before.json after.json > diff.json
+node bin/dfc-bridge.mjs diff before.json after.json --id '21:3' > node-diff.json
+```
+
+Native IDs own correlation. A stroke, actual Hover-variant or resolved-variable change reports the affected `nodeId`, before/after record digests and precise `changedPaths`; use the record chunks for the actual values. Serialization source pointers are evidence locations, not identity, and do not alone mark unchanged records as modified. Child-index paths likewise are not inferred logical identity. Differences are observations, never an executable patch: `patchApplicable` is `false`.
+
+Same non-null native file keys, page/scope roots, schema and generator versions, full scope and available facts give a complete comparison. Different known file keys block correlation. If the native file key is unavailable, the default result is Unverified; only after independently confirming the same source may an operator add `--same-source`. This records `sourceContinuity: "declared-by-caller"`, remains Partial and cannot override contradictory known keys. Partial/changed scopes or unavailable fields do not authorize removal. `not-observed`/`newly-observed` are not physical deletion/creation; even `left-captured-scope` can mean a node moved elsewhere in Figma.
+
+3. Review declared tags/native reactions, recorded interaction questions and the generated `requiredDecisions`. Those diagnostics are not an authored, owned `bridge.openQuestions[]` contract. Shared-state/data graphs not supplied by an authored contract remain `not-provided`, with an unassigned question; two selectors are never linked from their captions. Attach the actual structured contract or an explicit not-applicable decision. Deliver original images through the visual-slot procedure above, not from a metadata-only snapshot. Then resolve source findings and obtain content, implementation and owner acceptance separately.
+
+Node.js API: asynchronous `packageManifest(snapshotText)`, `recordIndex(snapshotText, cursor)`, `recordChunk(snapshotText, nodeId, offset)` and `diffPackages(beforeText, afterText, { sameSource, nodeId })` from `api/index.mjs`. `handoffReady` remains `false`; replayed `sourcePreflight` covers only the declared source scope. A valid manifest/index exits `0`, not Ready. Diff exits `0` for a complete changed/unchanged comparison, `1` for Partial/Unverified/Blocked; missing record evidence exits `1`; invalid input, cursor, offset or bounds exits `2`.
+
+The source envelope and generated reports remain bounded to 2 MiB and 10,000 native records. Pagination/chunks apply to **saved record retrieval**, not unlimited native producer export or stitching partial packets into a deletion baseline. Oversize source export fails explicitly: reduce scope rather than silently drop dependencies. Long changed-path prefixes are charged before report serialization; an oversize diff must use a narrower query or raw record retrieval. Native editor/publication checks for this runtime remain unverified, so this candidate does not authorize a plugin tag, ZIP or Community update.
 
 ## Explicit unknowns: no untracked blind spots
 

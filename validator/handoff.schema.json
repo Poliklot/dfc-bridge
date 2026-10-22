@@ -24,7 +24,8 @@
       "enum": [
         1,
         2,
-        3
+        3,
+        4
       ]
     },
     "revision": {
@@ -250,6 +251,13 @@
     },
     "visualInspection": {
       "$ref": "#/$defs/visualInspection"
+    },
+    "sourceBindings": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/$defs/sourceBinding"
+      }
     }
   },
   "$defs": {
@@ -522,6 +530,77 @@
         },
         "rotation": {
           "type": "number"
+        },
+        "minWidth": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxWidth": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minHeight": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxHeight": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "layoutGrow": {
+          "type": "number"
+        },
+        "counterAxisSpacing": {
+          "type": "number"
+        },
+        "paragraphIndent": {
+          "type": "number"
+        },
+        "paragraphSpacing": {
+          "type": "number"
+        },
+        "listSpacing": {
+          "type": "number"
+        },
+        "layoutAlign": {
+          "type": "string"
+        },
+        "textCase": {
+          "type": "string"
+        },
+        "textDecoration": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "object"
         }
       }
     },
@@ -833,6 +912,110 @@
           }
         }
       }
+    },
+    "sourceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "styles",
+        "variables"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "styles": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/resolvedSourceStyle"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "$ref": "#/$defs/resolvedSourceVariable"
+          }
+        }
+      }
+    },
+    "resolvedSourceStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "id",
+        "name",
+        "type",
+        "value"
+      ],
+      "properties": {
+        "field": {
+          "enum": [
+            "fillStyleId",
+            "strokeStyleId",
+            "textStyleId",
+            "effectStyleId"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "resolvedSourceVariable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "id",
+        "name",
+        "collectionId",
+        "collectionName",
+        "modes",
+        "valuesByMode",
+        "resolved"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "collectionId": {
+          "type": "string"
+        },
+        "collectionName": {
+          "type": "string"
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "valuesByMode": {
+          "type": "object"
+        },
+        "resolved": {
+          "type": "object"
+        }
+      }
     }
   },
   "allOf": [
@@ -842,7 +1025,8 @@
           "schemaVersion": {
             "enum": [
               2,
-              3
+              3,
+              4
             ]
           }
         }
@@ -883,7 +1067,10 @@
       "if": {
         "properties": {
           "schemaVersion": {
-            "const": 3
+            "enum": [
+              3,
+              4
+            ]
           }
         }
       },
@@ -900,6 +1087,34 @@
       "else": {
         "properties": {
           "visualInspection": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": 4
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "sourceBindings"
+        ],
+        "properties": {
+          "sourceBindings": {
+            "type": "array",
+            "maxItems": 10000,
+            "items": {
+              "$ref": "#/$defs/sourceBinding"
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "sourceBindings": false
         }
       }
     }

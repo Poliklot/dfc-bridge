@@ -35,6 +35,16 @@ for (const [locale, heading] of [
     const visual = await request.get(await page.locator('main a[href$="handoff-visuals.valid.json"]').getAttribute('href'));
     expect(visual.ok()).toBe(true);
     expect((await parseHandoff(await visual.text())).schemaVersion).toBe(3);
+    await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs package before.json');
+    await expect(page.locator('main')).toContainText("node bin/dfc-bridge.mjs record before.json '21:3' 0");
+    await expect(page.locator('main')).toContainText("node bin/dfc-bridge.mjs diff before.json after.json --id '21:3'");
+    await expect(page.locator('main')).toContainText('declared-by-caller');
+    await expect(page.locator('main')).toContainText('handoffReady');
+    const sectionPackage = await request.get(await page.locator('main a[href$="handoff-package.valid.json"]').getAttribute('href'));
+    expect(sectionPackage.ok()).toBe(true);
+    const sectionSnapshot = await parseHandoff(await sectionPackage.text());
+    expect(sectionSnapshot.schemaVersion).toBe(4);
+    expect(sectionSnapshot.sourceBindings.find(entry => entry.id === '21:3').styles).toHaveLength(2);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }

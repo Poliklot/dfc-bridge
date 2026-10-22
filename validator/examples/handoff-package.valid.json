@@ -1,0 +1,663 @@
+{
+  "componentInspection": {
+    "families": [
+      {
+        "axes": {
+          "State": {
+            "values": [
+              "Default",
+              "Hover"
+            ]
+          }
+        },
+        "figmaPageId": "0:1",
+        "id": "22:1",
+        "key": "SyntheticComponent",
+        "name": "Synthetic UI Kit",
+        "propertyDefinitions": {
+          "State": {
+            "defaultValue": "Default",
+            "type": "VARIANT"
+          }
+        },
+        "remote": false,
+        "sourceFileKey": "SyntheticPackage",
+        "variants": [
+          {
+            "id": "22:2",
+            "name": "Default",
+            "nodes": [
+              {
+                "id": "22:2",
+                "name": "Default",
+                "native": {
+                  "height": 120,
+                  "layoutMode": "VERTICAL",
+                  "opacity": 1,
+                  "strokeWeight": 1,
+                  "visible": true,
+                  "width": 800,
+                  "x": 0,
+                  "y": 0
+                },
+                "path": "",
+                "styles": [],
+                "type": "COMPONENT",
+                "variables": []
+              }
+            ],
+            "properties": {
+              "State": "Default"
+            }
+          },
+          {
+            "id": "22:3",
+            "name": "Hover",
+            "nodes": [
+              {
+                "id": "22:3",
+                "name": "Hover",
+                "native": {
+                  "height": 120,
+                  "layoutMode": "VERTICAL",
+                  "opacity": 1,
+                  "strokeWeight": 2,
+                  "visible": true,
+                  "width": 800,
+                  "x": 0,
+                  "y": 0
+                },
+                "path": "",
+                "styles": [],
+                "type": "COMPONENT",
+                "variables": []
+              }
+            ],
+            "properties": {
+              "State": "Hover"
+            }
+          }
+        ]
+      }
+    ],
+    "instances": [
+      {
+        "familyId": "22:1",
+        "mainComponentId": "22:2",
+        "node": {
+          "id": "21:5",
+          "name": "Example",
+          "native": {
+            "height": 120,
+            "layoutMode": "VERTICAL",
+            "opacity": 1,
+            "visible": true,
+            "width": 800,
+            "x": 0,
+            "y": 0
+          },
+          "path": "",
+          "styles": [],
+          "type": "INSTANCE",
+          "variables": []
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "componentVariants": "inspected",
+    "content": "not-checked",
+    "instanceInteriors": "atomic",
+    "runtime": "not-checked",
+    "unavailable": []
+  },
+  "dependencies": [
+    {
+      "children": [
+        "21:2"
+      ],
+      "figmaPageId": "0:1",
+      "id": "21:1",
+      "identity": "page:lab",
+      "mainComponentId": null,
+      "name": "Laboratory [page=lab] [route=/lab] [view=default] [bp=800]",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {
+        "bp": [
+          "800"
+        ],
+        "page": [
+          "lab"
+        ],
+        "route": [
+          "/lab"
+        ],
+        "view": [
+          "default"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [
+        "22:2"
+      ],
+      "figmaPageId": "0:1",
+      "id": "22:1",
+      "identity": "name:Synthetic UI Kit",
+      "mainComponentId": null,
+      "name": "Synthetic UI Kit",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": null,
+      "supportsChildren": true,
+      "tags": {},
+      "type": "COMPONENT_SET"
+    },
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "22:2",
+      "identity": "name:Default",
+      "mainComponentId": null,
+      "name": "Default",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "strokeWeight": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "22:1",
+      "supportsChildren": true,
+      "tags": {},
+      "type": "COMPONENT"
+    }
+  ],
+  "format": "dfc-bridge-handoff",
+  "generator": {
+    "pluginVersion": "0.12.0",
+    "validatorVersion": "0.5.1"
+  },
+  "nodes": [
+    {
+      "children": [
+        "21:3",
+        "21:4",
+        "21:5"
+      ],
+      "figmaPageId": "0:1",
+      "id": "21:2",
+      "identity": "section:lab",
+      "mainComponentId": null,
+      "name": "Lab [section=lab]",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "21:1",
+      "supportsChildren": true,
+      "tags": {
+        "section": [
+          "lab"
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "21:3",
+      "identity": "name:Label",
+      "mainComponentId": null,
+      "name": "Label",
+      "native": {
+        "characters": "Synthetic label",
+        "fillStyleId": "S:paint",
+        "fills": [
+          {
+            "boundVariables": {
+              "color": {
+                "id": "VariableID:color",
+                "type": "VARIABLE_ALIAS"
+              }
+            },
+            "color": {
+              "b": 0.4,
+              "g": 0.3,
+              "r": 0.2
+            },
+            "type": "SOLID"
+          }
+        ],
+        "fontName": {
+          "family": "Synthetic Sans",
+          "style": "Regular"
+        },
+        "fontSize": 16,
+        "height": 20,
+        "resolvedVariableModes": {
+          "VariableCollection:theme": "light"
+        },
+        "strokeWeight": 1,
+        "strokes": [
+          {
+            "color": {
+              "b": 0,
+              "g": 0,
+              "r": 0
+            },
+            "type": "SOLID"
+          }
+        ],
+        "textStyleId": "S:text",
+        "visible": true,
+        "width": 300,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "21:2",
+      "supportsChildren": false,
+      "tags": {},
+      "type": "TEXT"
+    },
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "21:4",
+      "identity": "name:Draft selector",
+      "mainComponentId": null,
+      "name": "Draft selector [control]",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "21:2",
+      "supportsChildren": true,
+      "tags": {
+        "control": [
+          true
+        ]
+      },
+      "type": "FRAME"
+    },
+    {
+      "children": [],
+      "figmaPageId": "0:1",
+      "id": "21:5",
+      "identity": "name:Example",
+      "mainComponentId": "22:2",
+      "name": "Example",
+      "native": {
+        "height": 120,
+        "layoutMode": "VERTICAL",
+        "opacity": 1,
+        "visible": true,
+        "width": 800,
+        "x": 0,
+        "y": 0
+      },
+      "parentId": "21:2",
+      "supportsChildren": true,
+      "tags": {},
+      "type": "INSTANCE"
+    }
+  ],
+  "preflight": {
+    "coverage": [
+      {
+        "detail": "4 layer(s) checked only inside 1 selected root(s).",
+        "id": "boundary",
+        "label": "Selected boundary",
+        "status": "checked"
+      },
+      {
+        "detail": "Tag grammar and stable identities checked locally.",
+        "id": "intrinsic",
+        "label": "Intrinsic tags and identities",
+        "status": "checked"
+      },
+      {
+        "detail": "Auto Layout, groups, and absolute intent checked.",
+        "id": "layout",
+        "label": "Native layout contract",
+        "status": "checked"
+      },
+      {
+        "detail": "All declared local targets resolve inside the selected roots.",
+        "id": "interactions",
+        "label": "Local interactions",
+        "status": "checked"
+      },
+      {
+        "detail": "One declared selected context; unrequested variants are N/A.",
+        "id": "variants",
+        "label": "Selected variants",
+        "status": "not-applicable"
+      },
+      {
+        "detail": "No selected INSTANCE boundary limits the section root audit.",
+        "id": "instance",
+        "label": "Instance internals",
+        "status": "not-applicable"
+      }
+    ],
+    "deferred": [],
+    "issues": [
+      {
+        "details": [],
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic section package",
+        "message": "Button action is not set yet. Add [action=...] when known.",
+        "nodeId": "21:4",
+        "nodeName": "Draft selector [control]",
+        "ruleId": "interaction.control-without-action",
+        "severity": "todo"
+      }
+    ],
+    "mode": "section",
+    "rootCount": 1,
+    "roots": [
+      {
+        "bp": "800",
+        "contextSource": "inferred-width",
+        "explicitEvidence": [
+          "page=lab",
+          "bp=800",
+          "view=default",
+          "route=/lab"
+        ],
+        "figmaPageId": "0:1",
+        "figmaPageName": "Synthetic section package",
+        "label": "container 800px",
+        "nodeId": "21:2",
+        "nodeName": "Lab [section=lab]",
+        "view": "default",
+        "width": 800
+      }
+    ],
+    "scope": "selection",
+    "scopeNotice": "Ready/Partial/Blocked applies only to the explicitly selected section subtree and declared selected contexts. Page, route, file, and unselected variants were not checked.",
+    "sectionId": "lab",
+    "status": "partial",
+    "summary": {
+      "deferred": 0,
+      "errors": 0,
+      "todos": 1,
+      "warnings": 0
+    },
+    "title": "Lab"
+  },
+  "revision": "9c8b0ae33e1ead908a07661163c2ace89cdeb92fcd9017d476803366893cf020",
+  "schemaVersion": 4,
+  "scope": {
+    "completeness": "full",
+    "kind": "section",
+    "pageId": "",
+    "rootIds": [
+      "21:2"
+    ]
+  },
+  "source": {
+    "figmaPageId": "0:1",
+    "figmaPageName": "Synthetic section package",
+    "fileKey": "SyntheticPackage"
+  },
+  "sourceBindings": [
+    {
+      "id": "21:1",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "21:2",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "21:3",
+      "styles": [
+        {
+          "field": "fillStyleId",
+          "id": "S:paint",
+          "name": "Synthetic paint",
+          "type": "PAINT",
+          "value": {
+            "paints": [
+              {
+                "boundVariables": {
+                  "color": {
+                    "id": "VariableID:color",
+                    "type": "VARIABLE_ALIAS"
+                  }
+                },
+                "color": {
+                  "b": 0.4,
+                  "g": 0.3,
+                  "r": 0.2
+                },
+                "type": "SOLID"
+              }
+            ]
+          }
+        },
+        {
+          "field": "textStyleId",
+          "id": "S:text",
+          "name": "Synthetic type",
+          "type": "TEXT",
+          "value": {
+            "fontName": {
+              "family": "Synthetic Sans",
+              "style": "Regular"
+            },
+            "fontSize": 16
+          }
+        }
+      ],
+      "variables": [
+        {
+          "collectionId": "VariableCollection:theme",
+          "collectionName": "Synthetic theme",
+          "id": "VariableID:color",
+          "modes": [
+            {
+              "modeId": "light",
+              "name": "Light"
+            },
+            {
+              "modeId": "dark",
+              "name": "Dark"
+            }
+          ],
+          "name": "Synthetic color",
+          "path": "fills/0/boundVariables/color",
+          "resolved": {
+            "resolvedType": "COLOR",
+            "value": {
+              "b": 0.4,
+              "g": 0.3,
+              "r": 0.2
+            }
+          },
+          "valuesByMode": {
+            "dark": {
+              "b": 0.8,
+              "g": 0.8,
+              "r": 0.8
+            },
+            "light": {
+              "b": 0.4,
+              "g": 0.3,
+              "r": 0.2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "21:4",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "21:5",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "22:1",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "22:2",
+      "styles": [],
+      "variables": []
+    },
+    {
+      "id": "22:3",
+      "styles": [],
+      "variables": []
+    }
+  ],
+  "visualInspection": {
+    "images": [],
+    "nodes": [
+      {
+        "childIndex": 0,
+        "children": [
+          "21:3",
+          "21:4",
+          "21:5"
+        ],
+        "id": "21:2",
+        "native": {
+          "height": 120,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 800,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": null,
+        "rootId": "21:2"
+      },
+      {
+        "childIndex": 0,
+        "children": [],
+        "id": "21:3",
+        "native": {
+          "characters": "Synthetic label",
+          "fillStyleId": "S:paint",
+          "fills": [
+            {
+              "boundVariables": {
+                "color": {
+                  "id": "VariableID:color",
+                  "type": "VARIABLE_ALIAS"
+                }
+              },
+              "color": {
+                "b": 0.4,
+                "g": 0.3,
+                "r": 0.2
+              },
+              "type": "SOLID"
+            }
+          ],
+          "fontName": {
+            "family": "Synthetic Sans",
+            "style": "Regular"
+          },
+          "fontSize": 16,
+          "height": 20,
+          "resolvedVariableModes": {
+            "VariableCollection:theme": "light"
+          },
+          "strokeWeight": 1,
+          "strokes": [
+            {
+              "color": {
+                "b": 0,
+                "g": 0,
+                "r": 0
+              },
+              "type": "SOLID"
+            }
+          ],
+          "textStyleId": "S:text",
+          "visible": true,
+          "width": 300,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "21:2",
+        "rootId": "21:2"
+      },
+      {
+        "childIndex": 1,
+        "children": [],
+        "id": "21:4",
+        "native": {
+          "height": 120,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 800,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "21:2",
+        "rootId": "21:2"
+      },
+      {
+        "childIndex": 2,
+        "children": [],
+        "id": "21:5",
+        "native": {
+          "height": 120,
+          "layoutMode": "VERTICAL",
+          "opacity": 1,
+          "visible": true,
+          "width": 800,
+          "x": 0,
+          "y": 0
+        },
+        "parentId": "21:2",
+        "rootId": "21:2"
+      }
+    ]
+  }
+}
