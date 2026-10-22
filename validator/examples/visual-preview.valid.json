@@ -1,0 +1,12 @@
+{
+  "format": "dfc-bridge-visual-preview",
+  "schemaVersion": 1,
+  "snapshotRevision": "875b16cab44fe36ed5f2d2f4537fbb00984e7456cc1bd6c1a5efd0fecc44ad65",
+  "kind": "page",
+  "nodeId": "12:1",
+  "preview": {
+    "base64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAADUlEQVQImWNgMP7/HwADmwIyTCcmegAAAABJRU5ErkJggg==",
+    "sha256": "1ee93fc4c2dc74f882c6d688810619bc15e4298c472ef8c3ba9601cee26c2328"
+  },
+  "unavailable": null
+}

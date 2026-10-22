@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { parseHandoff, validateHandoff } from '../validator/handoff.mjs';
-import { parseVisualAssetRequest, parseVisualAssetPacket, validateVisualAssetRequest } from '../validator/visual-assets.mjs';
+import { parseVisualAssetRequest, parseVisualAssetPacket, validateVisualAssetRequest, parseVisualTransferRequest, parseVisualPreviewPacket, validateVisualPreviewRequest } from '../validator/visual-assets.mjs';
 const read = name => readFile(new URL('../validator/' + name, import.meta.url),'utf8');
 
 test('v3 synthetic visual facts preserve full native paint order without expanding the structural graph',async()=>{
@@ -29,4 +29,19 @@ test('visual byte packet shape and exact chunk ranges are bounded independently 
  assert.equal(parseVisualAssetPacket(JSON.stringify(packet)).chunks[0].totalBytes,1);
  assert.throws(()=>parseVisualAssetPacket(JSON.stringify({...packet,chunks:[{...packet.chunks[0],totalBytes:2}]})),/length/);
  assert.throws(()=>parseVisualAssetPacket(' '.repeat(2*1024*1024+1)),/2 MiB/);
+});
+test('native preview transfer is bounded, revision-bound and separate from original bytes', async () => {
+ const request = parseVisualTransferRequest(await read('examples/visual-preview-request.valid.json'));
+ const packet = parseVisualPreviewPacket(await read('examples/visual-preview.valid.json'));
+ assert.equal(request.nodeId, packet.nodeId); assert.equal(request.snapshotRevision, packet.snapshotRevision);
+ assert.equal(parseVisualTransferRequest(await read('examples/visual-request.valid.json')).format, 'dfc-bridge-visual-request');
+ assert.throws(() => parseVisualAssetPacket(JSON.stringify(packet)), /field/);
+ for (const changed of [{...request, nodeId:'../x'}, {...request, kind:'file'}, {...request, extra:0}, {...request, snapshotRevision:'a'}]) assert.throws(() => validateVisualPreviewRequest(changed));
+ let reads = 0; const accessor = {...request}; Object.defineProperty(accessor, 'nodeId', {enumerable:true,get(){reads++;return request.nodeId;}});
+ assert.throws(() => validateVisualPreviewRequest(accessor), /accessors/); assert.equal(reads, 0);
+ assert.throws(() => validateVisualPreviewRequest({...request, [Symbol('hidden')]:true}));
+ for (const changed of [{...packet,preview:null}, {...packet,unavailable:'refused'}, {...packet, preview:{...packet.preview,base64:'eA=='}}, {...packet,extra:true}]) assert.throws(() => parseVisualPreviewPacket(JSON.stringify(changed)));
+ const unavailable = {...packet,preview:null,unavailable:'Native export refused'};
+ assert.equal(parseVisualPreviewPacket(JSON.stringify(unavailable)).preview, null);
+ assert.throws(() => parseVisualPreviewPacket(' '.repeat(2*1024*1024+1)), /2 MiB/);
 });

@@ -1,9 +1,9 @@
 {
   "$schema": "./section-check-coverage.schema.json",
   "methodology": "DFC Bridge",
-  "pluginVersion": "0.12.0",
+  "pluginVersion": "0.13.0",
   "catalogVersion": "0.5.1",
-  "verifiedAt": "2026-10-21",
+  "verifiedAt": "2026-10-22",
   "implementation": {
     "product": "DFC Bridge Figma plugin",
     "feature": "Check selected section",

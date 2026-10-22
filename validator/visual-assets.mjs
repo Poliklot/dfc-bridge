@@ -6,7 +6,7 @@ const visualHash = /^[a-f0-9]{40}$/u;
 const visualRevision = /^[a-f0-9]{64}$/u;
 function visualObject(value, keys) {
   if (!value || typeof value !== 'object' || Array.isArray(value) || ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw new Error('Expected a plain visual transfer object.');
-  const own = Object.keys(value);
+  const own = Reflect.ownKeys(value);
   if (own.length !== keys.length || own.some(key => !keys.includes(key))) throw new Error('Unknown or missing visual transfer field.');
   for (const key of keys) if (!Object.prototype.hasOwnProperty.call(value, key) || !('value' in Object.getOwnPropertyDescriptor(value, key))) throw new Error('Visual transfer accessors are unsupported.');
 }
@@ -56,5 +56,41 @@ export function parseVisualAssetPacket(text) {
     if (typeof reason !== 'string' || !reason.trim() || reason.length > 2400 || seen.has(entry.imageHash + ':' + entry.offset)) throw new Error('Invalid unavailable visual source.');
     seen.add(entry.imageHash + ':' + entry.offset);
   }
+  return packet;
+}
+
+// Native node previews are separate from original image bytes. They never
+// replace an imageHash source, approve cropping, or change the design.
+export const MAX_VISUAL_PREVIEW_BYTES = 1024 * 1024;
+export const VISUAL_PREVIEW_EDGE = 512;
+export function validateVisualPreviewRequest(request) {
+  visualObject(request, ['format', 'schemaVersion', 'snapshotRevision', 'kind', 'nodeId']);
+  if (request.format !== 'dfc-bridge-visual-preview-request' || request.schemaVersion !== 1 || typeof request.snapshotRevision !== 'string' || !visualRevision.test(request.snapshotRevision) || !['page', 'section'].includes(request.kind) || typeof request.nodeId !== 'string' || !/^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$/u.test(request.nodeId)) throw new Error('Invalid revision-bound native preview request.');
+  return request;
+}
+export function parseVisualTransferRequest(text) {
+  if (typeof text !== 'string' || new TextEncoder().encode(text).length > 16384) throw new Error('Visual request exceeds 16 KiB.');
+  const request = JSON.parse(text);
+  return request?.format === 'dfc-bridge-visual-preview-request' ? validateVisualPreviewRequest(request) : validateVisualAssetRequest(request);
+}
+export function visualPreviewPngSize(bytes) {
+  if (!bytes || bytes.length < 45 || bytes.length > MAX_VISUAL_PREVIEW_BYTES || [137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82].some((byte, index) => bytes[index] !== byte)) throw new Error('Native preview must be a bounded PNG.');
+  const uint32 = offset => bytes[offset] * 16777216 + bytes[offset + 1] * 65536 + bytes[offset + 2] * 256 + bytes[offset + 3];
+  const width = uint32(16), height = uint32(20);
+  if (!width || !height || width > VISUAL_PREVIEW_EDGE || height > VISUAL_PREVIEW_EDGE) throw new Error('Native preview exceeds 512 px per edge.');
+  return { width, height };
+}
+export function parseVisualPreviewPacket(text) {
+  if (typeof text !== 'string' || new TextEncoder().encode(text).length > MAX_VISUAL_PACKET_BYTES) throw new Error('Native preview packet exceeds 2 MiB.');
+  const packet = JSON.parse(text);
+  visualObject(packet, ['format', 'schemaVersion', 'snapshotRevision', 'kind', 'nodeId', 'preview', 'unavailable']);
+  validateVisualPreviewRequest({ format: 'dfc-bridge-visual-preview-request', schemaVersion: packet.schemaVersion, snapshotRevision: packet.snapshotRevision, kind: packet.kind, nodeId: packet.nodeId });
+  if (packet.format !== 'dfc-bridge-visual-preview' || (packet.preview === null) === (packet.unavailable === null)) throw new Error('Native preview needs exactly one result or unavailable reason.');
+  if (packet.preview !== null) {
+    visualObject(packet.preview, ['base64', 'sha256']);
+    const { base64, sha256 } = packet.preview;
+    if (typeof base64 !== 'string' || base64.length > Math.ceil(MAX_VISUAL_PREVIEW_BYTES / 3) * 4 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(base64) || typeof sha256 !== 'string' || !visualRevision.test(sha256)) throw new Error('Invalid native preview bytes/checksum.');
+    visualPreviewPngSize(Uint8Array.from(atob(base64), character => character.charCodeAt(0)));
+  } else if (typeof packet.unavailable !== 'string' || !packet.unavailable.trim() || packet.unavailable.length > 2400) throw new Error('Invalid native preview unavailable reason.');
   return packet;
 }

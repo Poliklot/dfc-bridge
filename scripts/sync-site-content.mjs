@@ -99,6 +99,8 @@ const publicDataFiles = new Map([
   [join(validatorRoot, 'examples', 'handoff-visuals.valid.json'), 'handoff-visuals.valid.json'],
   [join(validatorRoot, 'examples', 'handoff-package.valid.json'), 'handoff-package.valid.json'],
   [join(validatorRoot, 'examples', 'visual-request.valid.json'), 'visual-request.valid.json'],
+  [join(validatorRoot, 'examples', 'visual-preview-request.valid.json'), 'visual-preview-request.valid.json'],
+  [join(validatorRoot, 'examples', 'visual-preview.valid.json'), 'visual-preview.valid.json'],
   [join(validatorRoot, 'examples', 'content-bindings.valid.json'), 'content-bindings.valid.json'],
   [join(validatorRoot, 'examples', 'bridge-section-contract.valid.json'), 'bridge-section-contract.valid.json'],
 ]);
