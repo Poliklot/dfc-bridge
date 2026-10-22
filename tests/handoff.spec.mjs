@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { parseHandoff } from '../validator/handoff.mjs';
 import { parseContentBindings } from '../validator/content-bindings.mjs';
+import { parseVisualTransferRequest, parseVisualPreviewPacket } from '../validator/visual-assets.mjs';
 
 for (const [locale, heading] of [
   ['en', 'Saved developer snapshot (0.10.0 candidate)'],
@@ -45,6 +46,15 @@ for (const [locale, heading] of [
     const sectionSnapshot = await parseHandoff(await sectionPackage.text());
     expect(sectionSnapshot.schemaVersion).toBe(4);
     expect(sectionSnapshot.sourceBindings.find(entry => entry.id === '21:3').styles).toHaveLength(2);
+    await expect(page.locator('main')).toContainText('visual-preview-request snapshot.json');
+    await expect(page.locator('main')).toContainText('visual-review snapshot.json preview.json');
+    await expect(page.locator('main')).toContainText('automaticCleanupAllowed: false');
+    await expect(page.locator('main')).toContainText('fully-covered-paint-review');
+    const previewRequest = await request.get(await page.locator('main a[href$="visual-preview-request.valid.json"]').getAttribute('href'));
+    const preview = await request.get(await page.locator('main a[href$="visual-preview.valid.json"]').getAttribute('href'));
+    expect(previewRequest.ok() && preview.ok()).toBe(true);
+    expect(parseVisualTransferRequest(await previewRequest.text()).format).toBe('dfc-bridge-visual-preview-request');
+    expect(parseVisualPreviewPacket(await preview.text()).preview).not.toBeNull();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }

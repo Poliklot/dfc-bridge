@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://poliklot.github.io/bridge-design-methodology/schema/visual-assets.schema.json",
-  "title": "DFC Bridge exact visual source request or byte packet",
+  "title": "DFC Bridge original image bytes and read-only native node previews",
   "oneOf": [
     {
       "type": "object",
@@ -185,6 +185,134 @@
           }
         }
       }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "schemaVersion",
+        "snapshotRevision",
+        "kind",
+        "nodeId"
+      ],
+      "properties": {
+        "format": {
+          "const": "dfc-bridge-visual-preview-request"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "snapshotRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "section"
+          ]
+        },
+        "nodeId": {
+          "type": "string",
+          "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "schemaVersion",
+        "snapshotRevision",
+        "kind",
+        "nodeId",
+        "preview",
+        "unavailable"
+      ],
+      "properties": {
+        "format": {
+          "const": "dfc-bridge-visual-preview"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "snapshotRevision": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "section"
+          ]
+        },
+        "nodeId": {
+          "type": "string",
+          "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+        },
+        "preview": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "base64",
+                "sha256"
+              ],
+              "properties": {
+                "base64": {
+                  "type": "string",
+                  "maxLength": 1398104,
+                  "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            }
+          ]
+        },
+        "unavailable": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2400
+            }
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "preview": {
+              "type": "object"
+            },
+            "unavailable": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "preview": {
+              "type": "null"
+            },
+            "unavailable": {
+              "type": "string"
+            }
+          }
+        }
+      ]
     }
   ]
 }
