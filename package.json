@@ -1,6 +1,6 @@
 {
   "name": "dfc-bridge",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -29,7 +29,7 @@
     "lint:built": "node scripts/check-built-site.mjs",
     "build:legacy": "node scripts/build-legacy-site.mjs",
     "lint:tutorial": "node --test scripts/native-motion-checks.test.mjs scripts/figma-recorder.test.mjs && node scripts/build-tutorial-screenshots.mjs --check && node scripts/check-tutorial-assets.mjs",
-    "lint:handoff": "node scripts/build-handoff-sha256.mjs --check && node scripts/build-handoff-validator.mjs --check && node --test scripts/handoff.test.mjs scripts/content-bindings.test.mjs scripts/visual-assets.test.mjs"
+    "lint:handoff": "node scripts/build-handoff-sha256.mjs --check && node scripts/build-handoff-validator.mjs --check && node --test scripts/handoff.test.mjs scripts/content-bindings.test.mjs scripts/visual-assets.test.mjs scripts/package-handoff.test.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

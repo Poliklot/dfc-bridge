@@ -94,7 +94,7 @@ Figma/source metadata + short DFC Bridge anchors + structured bridge metadata
 {
   "bridge": {
     "contractVersion": "0.2.0",
-    "methodologyVersion": "0.13.0",
+    "methodologyVersion": "0.14.0",
     "rulesVersion": "0.5.1",
     "source": {
       "tool": "figma",
@@ -465,6 +465,39 @@ node bin/dfc-bridge.mjs visual-extract snapshot.json NEW_OUTPUT_DIRECTORY packet
 若有文件键，重复来源诊断会链接到原生节点，供查看实际合成效果；否则在 Figma 中定位报告的节点 ID。该链接不是已渲染的位图缩略图，也不是计算得到的遮挡结果。设计师检查实际合成并明确同意手动清理前，保留下层、半透明及隐藏 fills。不提供清理命令或自动“完全遮挡”分类。`paintOrder: "exact-native-array-order"` 保留原生顺序，不据此匹配图片或宣称未文档化的前后方向。
 
 `visualReady` 始终为 `false`。`sources-exported`/exit `0` 只表示完整且经过校验的原图交付；`partial`/exit `1` 表示缺少原图或视觉证据，exit `2` 表示输入无效或超出支持范围。有可用补取请求时，生成请求的命令以 `0` 退出。内容真实性、浏览器裁剪/合成、实现映射与 runtime 仍需分别验证。所选根节点之外的蒙版、裁剪或相邻节点合成仍为 `externalCompositing: "not-checked"`；部分范围保持 Partial，不能作为删除证据。下一步将准确槽位绑定到实现素材，并对比实际渲染的裁剪及合成；不能仅凭来源清单结束交付。
+
+## 区块包、按 ID 获取与快照差异（0.12.0 候选版）
+
+使用 **0.12.0 候选版**交付已标记区块及捕获的依赖，不必让 LLM 重述整个树。选中区块 frame，运行 **Check selected section**，再在报告中点击 **Export snapshot**（俄语为 «Экспорт снимка»）。保存基线 `before.json`，设计修改后将同一范围导出为 `after.json`。[合成 v4 包](../validator/examples/handoff-package.valid.json)不需要客户文件或访问令牌。仍可读取 v1/v2/v3，但缺少的检查或绑定证据仍然未知。
+
+`schemaVersion: 4` 为普通渲染节点、实例内部、祖先及已捕获组件依赖增加 `sourceBindings`。同一个原生解析机制提供准确的 Style 引用/定义，以及 Variable 引用、集合、modes、`valuesByMode` 和 `resolveForConsumer` 结果；不根据变量名猜值。Paint 别名保留精确字段/索引路径。绑定必须覆盖已记录的原生 ID，且匹配其原生 Style ID 和别名路径。混合或不可读属性保留明确原因。原生 layout 事实还保留可用的 min/max 尺寸、alignment/grow、constraints、文字大小写/装饰及段落间距。这是只读来源事实，不是新语义标签或所有者批准。本次不新增混合文本范围事实或非 IMAGE/矢量来源导出。
+
+1. 查看包的覆盖范围及第一页原生 ID：
+
+```bash
+node bin/dfc-bridge.mjs package before.json > package-manifest.json
+node bin/dfc-bridge.mjs records before.json > record-index.json
+node bin/dfc-bridge.mjs record before.json '21:3' 0 > record-part.json
+```
+
+用 `records` 中的真实 ID 替换示例。原生 ID 始终加引号，尤其是包含 `;` 的实例 ID。索引每页最多 32 条；将准确的 `nextCursor` 字符串作为第二个 `records` 参数，用于同一不可变快照。其他修订或未知游标被拒绝。记录分块包含最多 64 KiB 的规范 JSON 字节（`base64`）、分块 SHA-256、完整 `recordSha256`、总字节数、准确来源指针及 `nextOffset`。后续偏移必须属于同一修订/ID。先拼接**字节**再解码 UTF-8：Unicode 字符可能跨块；随后验证完整摘要。`not-recorded` 表示缺少保存证据，不是删除。这里读取保存事实，不是实时获取 Figma 节点。
+
+2. 在 Figma 中只修改目标区块或依赖，重新导出同一范围，再比较：
+
+```bash
+node bin/dfc-bridge.mjs diff before.json after.json > diff.json
+node bin/dfc-bridge.mjs diff before.json after.json --id '21:3' > node-diff.json
+```
+
+仅按原生 ID 关联。Stroke、实际 Hover 变体或已解析变量变化会报告相关 `nodeId`、前后记录摘要和准确 `changedPaths`；实际值可按记录分块获取。序列化来源指针只是证据位置，不是身份，其移动不会独自把不变记录标为变化。子节点索引路径也不是推断出的逻辑身份。差异是观察结果，不是可执行补丁：`patchApplicable` 始终为 `false`。
+
+完整比较要求相同且非空的原生文件键、页面/范围根、schema/生成器版本、完整范围及可用事实。已知文件键不同则阻止关联。原生文件键不可用时默认 Unverified；只有独立确认同一来源后，操作者才可添加 `--same-source`。这会记录 `sourceContinuity: "declared-by-caller"`，保持 Partial，不能覆盖相互矛盾的已知文件键。部分/不同范围和不可用字段不授权删除。`not-observed`/`newly-observed` 不表示实际删除/创建；即使 `left-captured-scope` 也可能只是节点移到 Figma 其他位置。
+
+3. 审查已声明标签、原生 reactions、记录的交互问题及生成的 `requiredDecisions`。这些诊断不是带负责人的作者 `bridge.openQuestions[]` 契约。未提供作者契约的共享状态图/data bindings 保持 `not-provided`，问题负责人未指定；不会按文字标签把两个选择器连在一起。请附上真实结构化契约或明确“不适用”决定。原图须通过上面的视觉槽位流程交付，不能由仅含元数据的快照证明。然后解决来源问题，并分别取得内容、实现及所有者验收。
+
+Node.js API：`api/index.mjs` 中的异步 `packageManifest(snapshotText)`、`recordIndex(snapshotText, cursor)`、`recordChunk(snapshotText, nodeId, offset)`、`diffPackages(beforeText, afterText, { sameSource, nodeId })`。`handoffReady` 始终为 `false`，重放的 `sourcePreflight` 只覆盖声明的来源。有效清单/索引的 exit `0` 不表示 Ready。完整 changed/unchanged 比较为 `0`，Partial/Unverified/Blocked 为 `1`；未记录的节点为 `1`；无效输入、游标、偏移或超限为 `2`。
+
+来源包/报告仍限于 2 MiB 和 10,000 条原生记录。分页/分块只用于**获取已保存记录**，不表示无限制原生导出，也不能把部分包拼成删除依据。超大的来源导出明确失败：应缩小范围，不能静默丢弃依赖。变化路径的长前缀在报告序列化前计入预算；超大差异需缩小查询或读取原始记录。该 runtime 的原生编辑器/发布检查尚未验证；候选版不授权插件标签、ZIP 或 Community 更新。
 
 ## 明确记录未知项，不留下未跟踪的问题
 
