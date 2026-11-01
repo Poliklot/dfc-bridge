@@ -649,6 +649,29 @@ DFC Bridge **不**承诺所有决定都已确定，而是要求所有相关未�
 
 不要把组件状态机复制到每个实例。引用已固定版本的模板，只声明实例专属内容、覆盖项和上下文。
 
+### 固定继承的模板契约
+
+复用行为前，先取得拥有该行为的完整规范契约，并选择准确的 JSON pointer。相同的 `templateKey`、原生 `sourceComponentId`、图层名称或单独的校验和都不代表继承已获批准。消费元素在 `identity.elements[].template.contractRef` 中记录显式引用：`sha256` 固定规范化 JSON，`contractRevision` 保留来源的作者修订，`pointer` 选择 `/bridge` 内的值。此引用不包含 URL，也不会自动下载内容。
+
+[来源契约](../validator/examples/template-source-contract.valid.json)与[消费契约](../validator/examples/template-consumer-contract.valid.json)组成同一个合成示例。消费方的 `contact` 模板引用所提供来源契约中的 `/bridge/interaction/stateMachines/0`。在包含对应功能的固定方法论仓库版本中，检查两个完整的本地文件：
+
+```js
+import { readFile } from 'node:fs/promises';
+import { inspectContractReference } from './validator/contract-association.mjs';
+const consumer = await readFile('validator/examples/template-consumer-contract.valid.json', 'utf8');
+const source = await readFile('validator/examples/template-source-contract.valid.json', 'utf8');
+const report = inspectContractReference(
+  consumer, '/bridge/identity/elements/2/template/contractRef', source
+);
+console.log(report);
+```
+
+检查 `status`、双方修订、准确指针、保留的值以及声明的负责人。`pinned` 仅表示所提供的数据和修订符合作者引用；它不验证负责人身份、意图适用性、原生节点、实现或运行结果。未知扩展语义仍为 `unverified`；输入或目标缺失为 `missing`；摘要或修订变化为 `stale`；无效模式或指针会被拒绝。不递归解析嵌套引用。该函数只读，限制为 2 MiB，绝不获取远程来源。
+
+创建新引用时，从同一模块调用 `createContractReference(source, pointer)`，只将结果写入所选元素已有的 template。为**消费契约**建立新的 lifecycle 契约修订，保留 identities/requirements/questions，再重新绑定快照关联。保留旧文件。没有 `contractRef` 的契约无需迁移；不得自动猜测或补入引用。这个有文档说明的可选扩展保留 `contractVersion: 0.2.0`；旧消费者必须保留并报告不支持的语义，不能将其当作已验证的行为契约。检查时应使用包含此模式和函数的仓库版本。
+
+存在引用时，快照关联会报告 `inherited-contracts-unresolved` 并保持 Partial，因为该操作未接收固定的来源契约。单独检查引用不会抹去这条证据，也不证明就绪。下一步与责任人复查继承含义、本地覆盖、范围和未解决问题。此流程描述仓库源代码函数，不代表已发布的插件流程或发布结果。
+
 ## 验证
 
 契约验证器应检查：

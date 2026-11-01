@@ -435,6 +435,9 @@
         },
         "sourceComponentName": {
           "$ref": "#/$defs/nonEmpty"
+        },
+        "contractRef": {
+          "$ref": "#/$defs/pinnedContractReference"
         }
       }
     },
@@ -1821,6 +1824,29 @@
         "type": "array",
         "items": {
           "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "pinnedContractReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "contractRevision",
+        "pointer"
+      ],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "contractRevision": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "pointer": {
+          "type": "string",
+          "maxLength": 2048,
+          "pattern": "^/bridge(?:/.*)?$"
         }
       }
     }

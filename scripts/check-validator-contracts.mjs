@@ -22,6 +22,8 @@ function readJson(path) {
 }
 
 const schemaPairs = [
+  ['validator/bridge.schema.json', 'validator/examples/template-source-contract.valid.json'],
+  ['validator/bridge.schema.json', 'validator/examples/template-consumer-contract.valid.json'],
   ['validator/contract-association.schema.json', 'validator/examples/contract-association.valid.json'],
   ['validator/bridge.schema.json', 'validator/examples/bridge-associated-contract.valid.json'],
   ['validator/visual-assets.schema.json', 'validator/examples/visual-request.valid.json'],

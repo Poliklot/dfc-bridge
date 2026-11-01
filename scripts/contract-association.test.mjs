@@ -579,3 +579,92 @@ test('SPEC-19-T10 numeric non-index array keys cannot disguise holes or lose aut
     }
   }
 });
+
+// Pinned inheritance must be a canonical authored reference, never inferred
+// from a similarly named component or a native sourceComponentId.
+test('pinned template reference reads exact inherited behavior without approval or mutation', async () => {
+  const { createContractReference, inspectContractReference } = await import('../validator/contract-association.mjs');
+  const producer = clone(contract);
+  producer.bridge.lifecycle.contractRevision = 'component-contract-3';
+  producer.bridge.interaction = { stateMachines: [{ id: 'contact-state', scope: 'contact', initial: 'idle', states: ['idle', 'active'], transitions: [{ id: 'activate', from: 'idle', to: 'active', event: 'activate' }] }] };
+  const target = '/bridge/interaction/stateMachines/0';
+  const pin = createContractReference(producer, target);
+  assert.deepEqual(pin, { sha256: digest(producer), contractRevision: 'component-contract-3', pointer: target });
+  const consumer = clone(contract);
+  consumer.bridge.lifecycle.contractRevision = 'consumer-8';
+  consumer.bridge.identity.elements[2].template.contractRef = pin;
+  const before = clone({ consumer, producer });
+  const report = inspectContractReference(consumer, '/bridge/identity/elements/2/template/contractRef', producer);
+  assert.equal(report.status, 'pinned');
+  assert.deepEqual(report.value, producer.bridge.interaction.stateMachines[0]);
+  assert.equal(report.consumer.sha256, digest(consumer));
+  assert.equal(report.source.sha256, pin.sha256);
+  assert.equal(report.source.pointer, target);
+  assert.equal(report.source.kind, 'pinned-structured-contract');
+  assert.equal(report.source.scope.transferId, producer.bridge.lifecycle.transferId);
+  assert.equal(report.ownerEvidence.revision, pin.sha256);
+  assert.equal(report.ownerApproval, 'not-checked');
+  assert.equal(report.nestedReferences, 'not-followed');
+  assert.equal(report.readinessClaim, 'none');
+  assert.deepEqual({ consumer, producer }, before);
+  const attached = await create(snapshot, consumer);
+  assert.equal(attached.report.status, 'partial');
+  assert.ok(attached.report.warnings.some(item => item.code === 'inherited-contracts-unresolved'));
+});
+
+test('inheritance refuses mismatched pins, missing sources, unsafe pointers and false implied component inheritance', async () => {
+  const { createContractReference, inspectContractReference } = await import('../validator/contract-association.mjs');
+  const consumer = clone(contract), producer = clone(contract), path = '/bridge/identity/elements/2/template/contractRef';
+  assert.equal(inspectContractReference(consumer, path, producer).status, 'missing');
+  consumer.bridge.identity.elements[2].template.contractRef = createContractReference(producer, '/bridge/lifecycle/status');
+  assert.equal(inspectContractReference(consumer, path, null).status, 'missing');
+  const changed = clone(producer); changed.bridge.lifecycle.status = 'qa';
+  assert.equal(inspectContractReference(consumer, path, changed).status, 'stale');
+  consumer.bridge.identity.elements[2].template.contractRef.contractRevision = 'wrong-revision';
+  assert.equal(inspectContractReference(consumer, path, producer).status, 'stale');
+  for (const pointer of ['/bridge/missing', '/bridge/__proto__', '/bridge/constructor', '/bridge/x~2', '/bridge/identity/elements/00', 'https://example.invalid/bridge'])
+    assert.throws(() => createContractReference(producer, pointer));
+  assert.equal(inspectContractReference(consumer, '/bridge/source', producer).status, 'invalid');
+});
+
+test('pinned extension data remains unverified and oversized inputs fail before recursive validation', async () => {
+  const { createContractReference, inspectContractReference } = await import('../validator/contract-association.mjs');
+  const producer = clone(contract); producer.bridge.extensionBehavior = { hypothesis: false };
+  const consumer = clone(contract);
+  consumer.bridge.identity.elements[2].template.contractRef = createContractReference(producer, '/bridge/extensionBehavior');
+  const report = inspectContractReference(consumer, '/bridge/identity/elements/2/template/contractRef', producer);
+  assert.equal(report.status, 'unverified');
+  assert.deepEqual(report.value, { hypothesis: false });
+  assert.equal(report.ownerApproval, 'not-checked');
+  assert.equal(inspectContractReference(consumer, '/bridge/identity/elements/2/template/contractRef', ' '.repeat(2097153)).status, 'invalid');
+});
+
+test('published inheritance fixtures retain their exact canonical pin and schema-valid consumer', async () => {
+  const { inspectContractReference, createContractReference } = await import('../validator/contract-association.mjs');
+  const producer = JSON.parse(await read('examples/template-source-contract.valid.json'));
+  const consumer = JSON.parse(await read('examples/template-consumer-contract.valid.json'));
+  good(producer); good(consumer);
+  const pin = consumer.bridge.identity.elements[2].template.contractRef;
+  assert.deepEqual(pin, createContractReference(producer, pin.pointer));
+  assert.equal(inspectContractReference(consumer, '/bridge/identity/elements/2/template/contractRef', producer).status, 'pinned');
+});
+
+test('reference reports preserve explicit null/empty/false and stay bounded for hostile error paths', async () => {
+  const { createContractReference, inspectContractReference } = await import('../validator/contract-association.mjs');
+  const producer = clone(contract), consumer = clone(contract), path = '/bridge/identity/elements/2/template/contractRef';
+  for (const [value, presence] of [[null, 'null'], ['', 'empty'], [false, 'value'], [[], 'empty']]) {
+    producer.bridge.extensionValue = value;
+    consumer.bridge.identity.elements[2].template.contractRef = createContractReference(producer, '/bridge/extensionValue');
+    const report = inspectContractReference(consumer, path, producer);
+    assert.equal(report.presence, presence); assert.deepEqual(report.value, value);
+    assert.equal(report.status, 'unverified');
+  }
+  const malicious = JSON.stringify({ ['~'.repeat(1048576)]: { constructor: true } });
+  const error = inspectContractReference(malicious, path, producer);
+  assert.equal(error.status, 'invalid');
+  assert.ok(JSON.stringify(error).length < 4096);
+  let called = false;
+  const accessor = { get bridge() { called = true; return consumer.bridge; } };
+  assert.equal(inspectContractReference(accessor, path, producer).status, 'invalid');
+  assert.equal(called, false);
+});

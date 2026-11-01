@@ -182,6 +182,11 @@ function semanticContract(contract) {
     if (treeRoot !== undefined && treeRoot !== context.rootIdentity) fail('context-root-mismatch', path + '/tree', 'Context tree root differs from rootIdentity.');
   }
   for (const [i, element] of b.identity.elements.entries()) {
+    if (element.template?.contractRef) {
+      const pin = element.template.contractRef, path = `/bridge/identity/elements/${i}/template/contractRef`;
+      if (!pin.contractRevision.trim()) fail('empty-contract-revision', path + '/contractRevision', 'Pinned contract revision cannot be whitespace.');
+      contractPointer(pin.pointer, path + '/pointer');
+    }
     const seen = new Set();
     for (const [j, node] of element.designInstance.sourceNodes.entries()) {
       const path = `/bridge/identity/elements/${i}/designInstance/sourceNodes/${j}`;
@@ -378,6 +383,7 @@ function makeReport(snapshot, contract, association, index) {
   if (snapshot.scope.completeness !== 'full') warnings.push({ code: 'partial-source', path: '/snapshot/scope/completeness', message: 'Partial source coverage does not establish complete implementation context.' });
   if (snapshot.coverage.unavailable.length) warnings.push({ code: 'unavailable-source', path: '/snapshot/coverage/unavailable', message: 'Recorded source facts remain unavailable.' });
   if (unsupported.length) warnings.push({ code: 'unsupported-extensions', path: '/bridge', message: 'Unknown extension fields are preserved but their meaning is not supported.' });
+  if (contract.bridge.identity.elements.some(element => element.template?.contractRef)) warnings.push({ code: 'inherited-contracts-unresolved', path: '/bridge/identity/elements', message: 'Pinned template references are declared but their source contracts have not been supplied or checked by this snapshot association.' });
   const external = [...index.external.values()].filter(entry => entry.status !== 'resolved');
   if (external.length) warnings.push({ code: 'external-dependencies-unverified', path: '/bridge/context/externalDependencies', message: 'Deferred or unverified external dependencies remain outside local evidence.' });
   return budget({
@@ -427,5 +433,67 @@ export async function inspectContractAssociation(snapshotInputValue, contractInp
       handoffReady: false, readinessClaim: 'none' };
     if (encoder.encode(canonicalHandoffJSON(result)).length > MAX_CONTRACT_ASSOCIATION_BYTES) result.errors = [{ code: 'report-limit', path: '/', message: 'Validation error details exceed the report limit; use a smaller input.' }];
     return result;
+  }
+}
+
+// A pin addresses canonical JSON in an explicitly supplied contract. It never
+// resolves a URL, reads a file or follows another contractRef automatically.
+function contractPointer(value, path = '/pointer') {
+  if (typeof value !== 'string' || value.length > 2048 || !/^\/bridge(?:\/.*)?$/u.test(value) || /~(?![01])/u.test(value))
+    fail('invalid-contract-pointer', path, 'Use an exact JSON pointer within /bridge.');
+  const parts = value.slice(1).split('/').map(part => part.replaceAll('~1', '/').replaceAll('~0', '~'));
+  if (parts.length > 64 || parts.some(part => ['__proto__', 'constructor', 'prototype'].includes(part)))
+    fail('unsafe-contract-pointer', path, 'Contract pointer is unsafe or exceeds supported depth.');
+  return parts;
+}
+function referencedValue(contract, pointerValue) {
+  let value = contract;
+  for (const token of contractPointer(pointerValue)) {
+    if (value === null || typeof value !== 'object' || !Object.hasOwn(value, token) ||
+        (Array.isArray(value) && !/^(0|[1-9][0-9]*)$/u.test(token)))
+      fail('missing-reference-target', pointerValue, 'Pinned target is not present in the supplied contract.', 'missing');
+    value = value[token];
+  }
+  return value;
+}
+
+export function createContractReference(referencedInput, pointerValue) {
+  const referenced = contractInput(referencedInput);
+  semanticContract(referenced);
+  referencedValue(referenced, pointerValue);
+  return { sha256: hash(referenced), contractRevision: referenced.bridge.lifecycle.contractRevision, pointer: pointerValue };
+}
+
+export function inspectContractReference(consumerInput, templatePointer, referencedInput) {
+  try {
+    if (consumerInput == null) fail('missing-consumer-contract', '/', 'Supply the consuming contract.', 'missing');
+    if (typeof templatePointer !== 'string' || !/^\/bridge\/identity\/elements\/(0|[1-9][0-9]*)\/template\/contractRef$/u.test(templatePointer) || templatePointer.length > 2048)
+      fail('invalid-template-pointer', '/', 'Choose the exact authored template.contractRef pointer.');
+    const consumer = contractInput(consumerInput);
+    semanticContract(consumer);
+    const pin = referencedValue(consumer, templatePointer);
+    if (referencedInput == null) fail('missing-referenced-contract', templatePointer, 'Supply the explicitly pinned contract; no remote resolution is performed.', 'missing');
+    const referenced = contractInput(referencedInput);
+    semanticContract(referenced);
+    if (hash(referenced) !== pin.sha256) fail('referenced-digest-mismatch', templatePointer + '/sha256', 'The supplied contract differs from the authored immutable pin.', 'stale');
+    if (referenced.bridge.lifecycle.contractRevision !== pin.contractRevision) fail('referenced-revision-mismatch', templatePointer + '/contractRevision', 'Authored revision differs from the supplied pinned contract.', 'stale');
+    const value = referencedValue(referenced, pin.pointer);
+    const unsupported = unknownExtensions(referenced).filter(path => path === pin.pointer || path.startsWith(pin.pointer + '/') || pin.pointer.startsWith(path + '/'));
+    const element = consumer.bridge.identity.elements[Number(templatePointer.split('/')[4])];
+    return budget({
+      format: 'dfc-bridge-contract-reference-report', schemaVersion: 1,
+      status: unsupported.length ? 'unverified' : 'pinned', category: 'inherited-pinned-contract',
+      consumer: { kind: 'authored-consumer-contract', scope: { identity: element.bridgeKey, templateKey: element.template.templateKey }, sha256: hash(consumer), contractRevision: consumer.bridge.lifecycle.contractRevision, pointer: templatePointer, identity: element.bridgeKey, templateKey: element.template.templateKey },
+      source: { kind: 'pinned-structured-contract', scope: { transferId: referenced.bridge.lifecycle.transferId, pointer: pin.pointer }, sha256: pin.sha256, contractRevision: pin.contractRevision, pointer: pin.pointer, nativeSourceRevision: referenced.bridge.source.revision },
+      presence: value === null ? 'null' : value === '' || (typeof value === 'object' && !Object.keys(value).length) ? 'empty' : 'value', value,
+      ownerEvidence: { source: 'referenced-contract', revision: pin.sha256, scope: { transferId: referenced.bridge.lifecycle.transferId }, pointer: '/bridge/lifecycle/owners', value: referenced.bridge.lifecycle.owners },
+      unsupported, nestedReferences: 'not-followed', sourceReferences: 'declared-only', authoredMeaning: 'not-checked', ownerApproval: 'not-checked',
+      handoffReady: false, readinessClaim: 'none', errors: []
+    });
+  } catch (error) {
+    if (!(error instanceof ContractAssociationError)) throw error;
+    const path = error.path.length > 2048 ? '/' : error.path;
+    return budget({ format: 'dfc-bridge-contract-reference-report', schemaVersion: 1, status: error.status,
+      errors: [{ code: error.code, path, message: path === error.path ? error.message : 'Invalid input; the error pointer exceeds the display limit. Use a smaller source scope.' }], ownerApproval: 'not-checked', handoffReady: false, readinessClaim: 'none' });
   }
 }
