@@ -1,0 +1,28 @@
+{
+  "format": "dfc-bridge-contract-association",
+  "schemaVersion": 1,
+  "snapshotRevision": "a104c1b8dc050b2230b8614c9d5f8bad3151b812628283c71428efcb8bd7a584",
+  "contractSha256": "b7842e7f9a23a77b434134dc51eb34b56dbd64764b871c3aaceaf5b672b2cb9c",
+  "contractRevision": "contract-7",
+  "source": {
+    "fileKey": "SyntheticFile",
+    "figmaPageId": "0:1"
+  },
+  "scope": {
+    "kind": "page",
+    "rootIds": [
+      "10:5",
+      "10:8"
+    ]
+  },
+  "contexts": [
+    {
+      "contextId": "home-wide",
+      "rootId": "10:5"
+    },
+    {
+      "contextId": "home-narrow",
+      "rootId": "10:8"
+    }
+  ]
+}

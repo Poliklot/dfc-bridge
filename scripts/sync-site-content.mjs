@@ -103,6 +103,8 @@ const publicDataFiles = new Map([
   [join(validatorRoot, 'examples', 'visual-preview.valid.json'), 'visual-preview.valid.json'],
   [join(validatorRoot, 'examples', 'content-bindings.valid.json'), 'content-bindings.valid.json'],
   [join(validatorRoot, 'examples', 'bridge-section-contract.valid.json'), 'bridge-section-contract.valid.json'],
+  [join(validatorRoot, 'examples', 'bridge-associated-contract.valid.json'), 'bridge-associated-contract.valid.json'],
+  [join(validatorRoot, 'examples', 'contract-association.valid.json'), 'contract-association.valid.json'],
 ]);
 
 // Canonical Markdown links point at the schema endpoint declared by each `$id`.

@@ -516,6 +516,78 @@ Node.js API: asynchronous `packageManifest(snapshotText)`, `recordIndex(snapshot
 
 The source envelope and generated reports remain bounded to 2 MiB and 10,000 native records. Pagination/chunks apply to **saved record retrieval**, not unlimited native producer export or stitching partial packets into a deletion baseline. Oversize source export fails explicitly: reduce scope rather than silently drop dependencies. Long changed-path prefixes are charged before report serialization; an oversize diff must use a narrower query or raw record retrieval. Before distributing any runtime, require its exact native-verification record; a saved package alone does not authorize a plugin tag, ZIP or Community update.
 
+<a id="contract-association"></a>
+
+## Bind a saved snapshot to an authored contract
+
+A snapshot records native facts; the authored `bridge` contract records decisions that those facts cannot establish. Bind the exact pair with a separate `dfc-bridge-contract-association` file instead of changing the snapshot, copying decisions into layer names, or treating the latest contract as automatically applicable.
+
+This procedure uses the canonical [association schema](../validator/contract-association.schema.json) and [JavaScript helper](https://github.com/Poliklot/dfc-bridge/blob/main/validator/contract-association.mjs). It describes that repository helper, not a published plugin button or an available Assistant CLI command. Use a matching pinned methodology checkout containing the helper and all of its repository dependencies, plus Node.js 22.12 or later, for the filesystem example below. Run it from that checkout root; downloading the linked `.mjs` file alone is not sufficient.
+
+### Prepare the three inputs
+
+1. Choose the saved page or selected-section scope you are handing off. If a new snapshot is needed, select the intended page root or explicit same-id section variants and use the saved-snapshot procedure above. Keep `snapshot.json` unchanged; current Figma selection does not redefine its captured scope.
+2. Prepare `contract.json` with the full canonical `bridge` envelope and the source decisions for that scope. Association requires authored `bridge.lifecycle.contractRevision` and `bridge.structure.contexts`, even when a contract without those optional modules can otherwise be read. Resolve invalid references before binding. For a Figma source, `bridge.source.documentId` must identify the recorded native `fileKey`, not a human file title; do not invent a key when origin is unknown.
+3. Prepare `contexts.json` as an array of objects with exactly `contextId` and `rootId`. Choose `contextId` from the contract's declared structure contexts and `rootId` from `snapshot.scope.rootIds`. Every captured root must appear exactly once and each context must be used once. Do not infer this mapping from equal widths, names, or list order. The helper checks source-node membership against the declared roots and recorded dependencies.
+
+For an offline exercise, use the [synthetic snapshot](../validator/examples/handoff.valid.json) and its [matching authored contract](../validator/examples/bridge-associated-contract.valid.json). Set `contexts.json` to the exact mappings below. The [reference association](../validator/examples/contract-association.valid.json) is the expected fixture for that pair, not a binding for a different project.
+
+```json
+[{"contextId":"home-wide","rootId":"10:5"},{"contextId":"home-narrow","rootId":"10:8"}]
+```
+
+### Create then re-read the association
+
+Save the following as an `.mjs` script in the canonical repository root and run it with `node`. The three input files must be in the working directory; `association.json` must not already exist. The helper validates and returns data without writing files; the explicit `writeFile` below creates only a new output file.
+
+```js
+import { readFile, writeFile } from 'node:fs/promises';
+import {
+  createContractAssociation,
+  inspectContractAssociation,
+} from './validator/contract-association.mjs';
+
+const snapshotText = await readFile('snapshot.json', 'utf8');
+const contractText = await readFile('contract.json', 'utf8');
+const contexts = JSON.parse(await readFile('contexts.json', 'utf8'));
+const { association, report } = await createContractAssociation(
+  snapshotText, contractText, { contexts },
+);
+console.log(JSON.stringify(report, null, 2));
+await writeFile('association.json', JSON.stringify(association, null, 2), {
+  flag: 'wx',
+});
+const savedReport = await inspectContractAssociation(
+  snapshotText, contractText, await readFile('association.json', 'utf8'),
+);
+console.log(JSON.stringify(savedReport, null, 2));
+```
+
+The first report shows the checked pair, context mapping and limitations; the second checks the bytes actually saved. `linked` means the supported association checks passed for the recorded pair, not that the product is ready. A null native `fileKey` remains `unverified`: equal nulls are not proof that two exports came from one Figma file. A partial snapshot, unavailable evidence or unsupported optional contract meaning remains visible as `partial` or the more restrictive report status; do not hide it behind a successful file write. Invalid creation throws and produces no association; inspection returns diagnostics with paths for invalid or stale inputs.
+
+To check an existing association, skip creation and call `inspectContractAssociation` with the saved snapshot, contract and association. The next step is to review the linked decisions and open questions, then obtain the required implementation and owner evidence. The report retains `handoffReady: false` and `readinessClaim: none`; linking does not change source preflight or approve content, runtime, accessibility or authorship.
+
+### Revisions compatibility and limits
+
+Association `schemaVersion: 1` contains `snapshotRevision`, `contractSha256`, `contractRevision`, `source`, `scope` and explicit `contexts`, alongside its format and version. `scope.rootIds` is the sorted unique complete root set. Unknown association fields or versions are rejected. The full contract digest uses canonical JSON: object keys are sorted, array order and string contents remain significant. Keep the digest outside the contract it identifies.
+
+`bridge.source.revision` and `bridge.lifecycle.sourceRevision` remain authored native/source references. They are not automatically replaced by `snapshotRevision` or `contractSha256`; a file export digest and a native version label are different evidence. A changed snapshot or contract requires a newly checked association. Preserve the previous files rather than updating their digests in place to make a stale binding pass. SHA-256 verifies integrity, not the identity or approval of the author.
+
+The helper bounds each input to 2 MiB of UTF-8 JSON, nesting depth 64 and 200,000 values; the report is also bounded to 2 MiB. Existing snapshot node limits remain in force. Over-limit inputs fail, not silently truncate. Optional contract extensions are retained in the digest but unsupported meaning is not treated as checked. Existing snapshot-only workflows remain available without an association. Loading these local files does not fetch external references or send design data to a model.
+
+### Attached package report
+
+Consumers that combine a snapshot package with authored decisions must keep the source-only package intact. The derived report format is `dfc-bridge-attached-package-manifest`, `schemaVersion: 1`; it is not another authored contract or evidence of a live Figma connection. This describes the report contract, not availability in a released consumer.
+
+- `snapshotPackage`: the unchanged version-1 snapshot-only package.
+- `attachment`: the canonical association inspection report, including its status and limitations.
+- `authoredContract`: the complete validated contract only for `linked`, `partial` or `unverified`; `null` for `missing`, `stale` or `invalid`. Keep the attachment's qualification visible next to these decisions.
+- `coverage`: `canonicalBridge` is `provided-schema-validated` or `not-attached`. `sharedStateGraph` (authored `interaction.stateMachines`) and `dataBindings` (authored `data.displays`) use `provided-authored`, `declared-empty`, `not-provided` or `not-attached`. Presence or an empty list is not completeness or approval. `content`, `runtime` and `ownerApproval` remain `not-checked`.
+- `requiredDecisions`: retain unresolved source-only decisions and exact authored question IDs/pointers and statuses. An authored answered status or decision link is not independently verified approval; preserve the full question in `authoredContract` and keep `decisionVerified: false` on question references.
+- `handoffReady: false` and `readinessClaim: none` remain mandatory. Bound the whole derived report to 2 MiB; reject oversize output rather than dropping questions or source evidence.
+
+After reading the report, inspect its attachment status before using any authored decisions. Re-capture and re-bind after source changes; saved-file equality cannot establish that native styles, variables or the current document are unchanged.
+
 ## Explicit unknowns: no untracked blind spots
 
 DFC Bridge does **not** promise that every decision is already known. It promises that no relevant unknown is untracked.

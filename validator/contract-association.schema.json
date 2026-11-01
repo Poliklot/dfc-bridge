@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poliklot.github.io/bridge-design-methodology/schema/contract-association.schema.json",
+  "title": "DFC Bridge saved snapshot and authored contract association",
+  "description": "Explicit immutable linkage evidence. Integrity and reference validation do not certify source authorship, product meaning, implementation or release.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "schemaVersion",
+    "snapshotRevision",
+    "contractSha256",
+    "contractRevision",
+    "source",
+    "scope",
+    "contexts"
+  ],
+  "properties": {
+    "format": {
+      "const": "dfc-bridge-contract-association"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "snapshotRevision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contractSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contractRevision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2400
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fileKey",
+        "figmaPageId"
+      ],
+      "properties": {
+        "fileKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "figmaPageId": {
+          "type": "string",
+          "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "rootIds"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "page",
+            "section"
+          ]
+        },
+        "rootIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+          }
+        }
+      }
+    },
+    "contexts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "contextId",
+          "rootId"
+        ],
+        "properties": {
+          "contextId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9]+(?:[._:/-][A-Za-z0-9*]+)*$",
+            "maxLength": 2400
+          },
+          "rootId": {
+            "type": "string",
+            "pattern": "^I?[0-9]{1,20}:[0-9]{1,20}(?:;[0-9]{1,20}:[0-9]{1,20}){0,40}$"
+          }
+        }
+      }
+    }
+  }
+}
