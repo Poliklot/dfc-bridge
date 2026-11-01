@@ -27,6 +27,9 @@ export default defineConfig({
     ? undefined
     : {
         command: 'npm run serve:test',
+        // The test URL owns its host/port; interactive shell defaults must not
+        // start the server elsewhere while Playwright waits on 4322.
+        env: { HOST: '127.0.0.1', PORT: '4322' },
         url: 'http://127.0.0.1:4322/dfc-bridge/ru/',
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

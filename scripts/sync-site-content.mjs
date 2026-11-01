@@ -104,6 +104,8 @@ const publicDataFiles = new Map([
   [join(validatorRoot, 'examples', 'content-bindings.valid.json'), 'content-bindings.valid.json'],
   [join(validatorRoot, 'examples', 'bridge-section-contract.valid.json'), 'bridge-section-contract.valid.json'],
   [join(validatorRoot, 'examples', 'bridge-associated-contract.valid.json'), 'bridge-associated-contract.valid.json'],
+  [join(validatorRoot, 'examples', 'template-source-contract.valid.json'), 'template-source-contract.valid.json'],
+  [join(validatorRoot, 'examples', 'template-consumer-contract.valid.json'), 'template-consumer-contract.valid.json'],
   [join(validatorRoot, 'examples', 'contract-association.valid.json'), 'contract-association.valid.json'],
 ]);
 

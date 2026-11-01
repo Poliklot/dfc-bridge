@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { createContractAssociation, inspectContractAssociation } from '../validator/contract-association.mjs';
+import { createContractAssociation, inspectContractAssociation, inspectContractReference } from '../validator/contract-association.mjs';
 
 const base = '/dfc-bridge';
 const locales = {
@@ -158,4 +158,50 @@ test('public association fixtures and schema aliases preserve exact bytes and in
   expect(stale.status).toBe('stale');
   expect(stale.handoffReady).toBe(false);
   expect(stale.errors[0].code).toBe('contract-digest-mismatch');
+});
+
+const inheritanceCopy = {
+  en: { heading: 'Pin an inherited template contract', boundary: 'not a released plugin workflow or a release claim', source: 'source contract' },
+  ru: { heading: 'Закрепить наследуемый контракт шаблона', boundary: 'не выпущенный сценарий плагина или публикацию', source: 'Исходный контракт' },
+  zh: { heading: '固定继承的模板契约', boundary: '不代表已发布的插件流程或发布结果', source: '来源契约' }
+};
+for (const [locale, copy] of Object.entries(inheritanceCopy)) test(`pinned inheritance instructions ${locale} preserve scope, source links and approval boundary`, async ({page}, info) => {
+  await page.goto(`${base}/${locale}/reference/transfer-contract/`);
+  const heading = page.getByRole('heading', {name:copy.heading, exact:true});
+  await expect(heading).toBeVisible();
+  await heading.scrollIntoViewIfNeeded();
+  const section = await heading.evaluate(heading => {
+    let node = heading.closest('.sl-heading-wrapper') || heading.parentElement;
+    const parts = [];
+    while (node) {
+      if (parts.length && node.querySelector('h2')) break;
+      parts.push(node.textContent); node = node.nextElementSibling;
+    }
+    return parts.join('\n');
+  });
+  expect(section).toContain('identity.elements[].template.contractRef');
+  expect(section).toContain('contractVersion: 0.2.0');
+  expect(section).toContain(copy.boundary);
+  expect(section).toContain('inherited-contracts-unresolved');
+  const link = page.getByRole('link', {name:copy.source, exact:true});
+  await expect(link).toHaveAttribute('href', `${base}/data/template-source-contract.valid.json`);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({path:`/tmp/dfc-inheritance-doc-${locale}-${info.project.name}.png`});
+});
+
+test('downloaded template contracts retain the exact pin, source bytes and unapproved inherited value', async ({request}) => {
+  const files = {};
+  for (const name of ['template-source-contract', 'template-consumer-contract']) {
+    const response = await request.get(`${base}/data/${name}.valid.json`);
+    expect(response.ok()).toBe(true);
+    const bytes = await response.body();
+    expect(bytes.equals(await readFile(new URL(`../validator/examples/${name}.valid.json`, import.meta.url)))).toBe(true);
+    files[name] = JSON.parse(bytes.toString('utf8'));
+  }
+  const source = files['template-source-contract'], consumer = files['template-consumer-contract'];
+  expect(createHash('sha256').update(independentlyCanonical(source)).digest('hex')).toBe(consumer.bridge.identity.elements[2].template.contractRef.sha256);
+  const report = inspectContractReference(consumer, '/bridge/identity/elements/2/template/contractRef', source);
+  expect(report.status).toBe('pinned');
+  expect(report.ownerApproval).toBe('not-checked');
+  expect(report.value.id).toBe('contact-state');
 });

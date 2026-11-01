@@ -1,0 +1,193 @@
+{
+  "$schema": "https://poliklot.github.io/bridge-design-methodology/schema/bridge.schema.json",
+  "bridge": {
+    "contractVersion": "0.2.0",
+    "methodologyVersion": "0.15.0",
+    "rulesVersion": "0.5.1",
+    "source": {
+      "tool": "Figma",
+      "documentId": "SyntheticFile",
+      "revision": "figma-version-synthetic-001"
+    },
+    "context": {
+      "project": "Synthetic association example",
+      "page": "home",
+      "route": "/"
+    },
+    "identity": {
+      "elements": [
+        {
+          "bridgeKey": "home",
+          "role": {
+            "kind": "page"
+          },
+          "designInstance": {
+            "designInstanceKey": "home-source",
+            "sourceNodes": [
+              {
+                "contextId": "home-wide",
+                "nodeId": "10:5",
+                "layerPath": "Home [page=home] [bp=1440]"
+              },
+              {
+                "contextId": "home-narrow",
+                "nodeId": "10:8",
+                "layerPath": "Home [page=home] [bp=375]"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "hero",
+          "role": {
+            "kind": "section"
+          },
+          "designInstance": {
+            "designInstanceKey": "hero-source",
+            "sourceNodes": [
+              {
+                "contextId": "home-wide",
+                "nodeId": "10:4",
+                "layerPath": "Home / Hero [section=hero]"
+              },
+              {
+                "contextId": "home-narrow",
+                "nodeId": "10:7",
+                "layerPath": "Home / Hero [section=hero]"
+              }
+            ]
+          }
+        },
+        {
+          "bridgeKey": "contact",
+          "role": {
+            "kind": "control"
+          },
+          "template": {
+            "templateKey": "reusable-control",
+            "sourceComponentId": "10:1",
+            "sourceComponentName": "Reusable control"
+          },
+          "designInstance": {
+            "designInstanceKey": "contact-source",
+            "sourceNodes": [
+              {
+                "contextId": "home-wide",
+                "nodeId": "10:3",
+                "layerPath": "Home / Hero / Contact"
+              },
+              {
+                "contextId": "home-narrow",
+                "nodeId": "10:6",
+                "layerPath": "Home / Hero / Contact"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "structure": {
+      "contexts": [
+        {
+          "id": "home-wide",
+          "rootIdentity": "home",
+          "tree": {
+            "identity": "home",
+            "children": [
+              {
+                "identity": "hero",
+                "children": [
+                  "contact"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "home-narrow",
+          "rootIdentity": "home",
+          "tree": {
+            "identity": "home",
+            "children": [
+              {
+                "identity": "hero",
+                "children": [
+                  "contact"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "responsive": {
+      "defaultPolicy": "same-tree",
+      "contexts": [
+        {
+          "id": "home-wide",
+          "driver": "viewport",
+          "width": 1440
+        },
+        {
+          "id": "home-narrow",
+          "driver": "viewport",
+          "width": 375
+        }
+      ]
+    },
+    "lifecycle": {
+      "transferId": "contact-template",
+      "contractRevision": "component-contract-3",
+      "sourceRevision": "figma-version-synthetic-001",
+      "status": "draft",
+      "owners": {
+        "design": "synthetic-designer",
+        "implementation": "synthetic-developer"
+      },
+      "requirements": [
+        {
+          "id": "REQ-CONTACT",
+          "statement": "Resolve the authored contact action before implementing it.",
+          "status": "draft"
+        }
+      ],
+      "evidence": [],
+      "deviations": []
+    },
+    "openQuestions": [
+      {
+        "id": "contact-action",
+        "scope": [
+          "contact"
+        ],
+        "question": "Which authored action should the contact control perform?",
+        "owner": "synthetic-designer",
+        "blocking": true,
+        "status": "open",
+        "fallback": "Do not invent a route or working contact action.",
+        "reviewAt": "contract gate"
+      }
+    ],
+    "interaction": {
+      "stateMachines": [
+        {
+          "id": "contact-state",
+          "scope": "contact",
+          "initial": "idle",
+          "states": [
+            "idle",
+            "active"
+          ],
+          "transitions": [
+            {
+              "id": "activate",
+              "from": "idle",
+              "to": "active",
+              "event": "activate"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

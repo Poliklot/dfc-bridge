@@ -625,6 +625,29 @@ Use one owner for each fact:
 
 Do not copy a component state machine onto every instance. Reference the pinned template, then declare only instance-specific content, overrides, and context.
 
+### Pin an inherited template contract
+
+Before reusing behavior, obtain the full canonical contract that owns it and choose its exact JSON pointer. A matching `templateKey`, native `sourceComponentId`, layer name or checksum alone does not approve inheritance. The consuming element records the explicit reference at `identity.elements[].template.contractRef`: `sha256` binds canonical JSON, `contractRevision` preserves the source's authored revision, and `pointer` selects a value inside `/bridge`. No URL or automatic download is part of this reference.
+
+Use the [source contract](../validator/examples/template-source-contract.valid.json) and [consumer contract](../validator/examples/template-consumer-contract.valid.json) as one synthetic example. The consumer's `contact` template points to `/bridge/interaction/stateMachines/0` in the supplied source contract. From a matching pinned methodology checkout, inspect the two complete local files:
+
+```js
+import { readFile } from 'node:fs/promises';
+import { inspectContractReference } from './validator/contract-association.mjs';
+const consumer = await readFile('validator/examples/template-consumer-contract.valid.json', 'utf8');
+const source = await readFile('validator/examples/template-source-contract.valid.json', 'utf8');
+const report = inspectContractReference(
+  consumer, '/bridge/identity/elements/2/template/contractRef', source
+);
+console.log(report);
+```
+
+Check `status`, both revisions, the exact pointer, preserved value and declared owners. `pinned` means the supplied bytes and revision match the authored reference; it does not verify owner identity, intended applicability, native source nodes, implementation or runtime. Unknown extension meaning remains `unverified`; absent inputs or targets are `missing`; changed digest/revision is `stale`; invalid schema/pointers are rejected. Nested references are not followed. The helper is read-only, bounded to 2 MiB, and never resolves remote sources.
+
+To author a new pin, call `createContractReference(source, pointer)` from the same module and insert its result only into the chosen element's existing template. Create a new **consumer** lifecycle contract revision, preserve identities/requirements/questions, and rebind any snapshot association. Keep the previous files. Existing contracts without `contractRef` require no migration; do not infer or add a pin automatically. This documented optional extension retains `contractVersion: 0.2.0`; older consumers must preserve and report its unsupported meaning, not treat it as a verified behavior contract. Use a checkout containing this schema/helper when inspecting it.
+
+A snapshot association reports `inherited-contracts-unresolved` and remains Partial when a pin exists: that operation has not received the pinned source contract. Inspecting the pin separately does not erase that evidence or establish readiness. Next, review the inherited meaning, local overrides, scope and unresolved questions with the responsible owner. This source-helper procedure is not a released plugin workflow or a release claim.
+
 ## Validation
 
 A contract validator should check:
