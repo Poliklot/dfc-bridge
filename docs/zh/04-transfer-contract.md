@@ -534,6 +534,78 @@ Node.js API：`api/index.mjs` 中的异步 `packageManifest(snapshotText)`、`re
 
 来源包/报告仍限于 2 MiB 和 10,000 条原生记录。分页/分块只用于**获取已保存记录**，不表示无限制原生导出，也不能把部分包拼成删除依据。超大的来源导出明确失败：应缩小范围，不能静默丢弃依赖。变化路径的长前缀在报告序列化前计入预算；超大差异需缩小查询或读取原始记录。分发任何 runtime 前，必须取得其精确的原生验证记录；仅有已保存包不授权插件标签、ZIP 或 Community 更新。
 
+<a id="contract-association"></a>
+
+## 将保存的快照与作者契约绑定
+
+快照记录原生事实，作者编写的 `bridge` 契约记录无法仅从这些事实得出的决定。使用独立的 `dfc-bridge-contract-association` 文件绑定精确的一对输入，不要修改快照、把详细决定塞进图层名称，或默认最新契约适用于当前快照。
+
+本流程使用规范的[关联模式](../validator/contract-association.schema.json)和 [JavaScript 模块](https://github.com/Poliklot/dfc-bridge/blob/main/validator/contract-association.mjs)。这里描述的是仓库模块，并不表示插件已发布对应按钮或 Assistant CLI 已提供对应命令。以下文件示例需要匹配并固定版本的方法论仓库工作副本，其中包含模块及其全部仓库依赖，以及 Node.js 22.12 或更高版本。请从该副本的根目录运行；仅下载链接中的单个 `.mjs` 文件并不足够。
+
+### 准备三个输入
+
+1. 选择要交付的已保存页面范围或选定区块范围。如果需要新快照，先选中所需页面根节点，或明确选择具有相同 id 的区块变体，再执行上面的保存快照流程。保持 `snapshot.json` 不变；Figma 当前选择不会重新定义已捕获的范围。
+2. 准备 `contract.json`，包含完整的规范 `bridge` 包装和该范围的作者决定。创建关联要求提供作者的 `bridge.lifecycle.contractRevision` 和 `bridge.structure.contexts`；即使缺少这些可选模块的契约可以单独读取，也不能据此创建关联。先修复无效引用。 对于 Figma 来源，`bridge.source.documentId` 必须标识记录的原生 `fileKey`，而不是人类可读的文件标题；来源未知时不要编造键。
+3. 准备 `contexts.json`，它是仅含 `contextId` 和 `rootId` 字段的对象数组。`contextId` 来自契约已声明的结构上下文，`rootId` 来自 `snapshot.scope.rootIds`。每个捕获的根节点必须出现且仅出现一次，每个上下文只能使用一次。不能根据相同宽度、名称或列表顺序推断映射。模块会检查来源节点是否属于声明的根节点或已记录的依赖。
+
+无需客户文件的练习可使用[合成快照](../validator/examples/handoff.valid.json)及其[匹配的作者契约](../validator/examples/bridge-associated-contract.valid.json)。将以下精确映射写入 `contexts.json`。[参考关联](../validator/examples/contract-association.valid.json)仅是这对输入的预期示例，不能作为其他项目的绑定。
+
+```json
+[{"contextId":"home-wide","rootId":"10:5"},{"contextId":"home-narrow","rootId":"10:8"}]
+```
+
+### 创建关联并重新读取
+
+将下面的示例保存为规范仓库根目录下的 `.mjs` 文件，并用 `node` 运行。三个输入文件必须位于工作目录中，且 `association.json` 不能已存在。模块只验证并返回数据，不写入文件；下面明确的 `writeFile` 操作仅创建新输出文件。
+
+```js
+import { readFile, writeFile } from 'node:fs/promises';
+import {
+  createContractAssociation,
+  inspectContractAssociation,
+} from './validator/contract-association.mjs';
+
+const snapshotText = await readFile('snapshot.json', 'utf8');
+const contractText = await readFile('contract.json', 'utf8');
+const contexts = JSON.parse(await readFile('contexts.json', 'utf8'));
+const { association, report } = await createContractAssociation(
+  snapshotText, contractText, { contexts },
+);
+console.log(JSON.stringify(report, null, 2));
+await writeFile('association.json', JSON.stringify(association, null, 2), {
+  flag: 'wx',
+});
+const savedReport = await inspectContractAssociation(
+  snapshotText, contractText, await readFile('association.json', 'utf8'),
+);
+console.log(JSON.stringify(savedReport, null, 2));
+```
+
+第一份报告显示检查过的输入对、上下文映射和限制；第二份报告检查实际保存的字节。`linked` 只表示该输入对通过了支持的关联检查，不表示产品已就绪。原生 `fileKey: null` 仍为 `unverified`：两个 null 相等不能证明两次导出来自同一个 Figma 文件。部分快照、不可用证据或不受支持的可选契约语义仍显示为 `partial` 或更严格的报告状态；成功写入文件不能消除这些限制。无效创建会抛出异常，不生成关联文件；检查操作会针对无效或过期输入返回带路径的诊断。
+
+要检查现有文件，跳过创建，向 `inspectContractAssociation` 传入保存的快照、契约和关联。下一步是审阅关联的决定和待解决问题，再取得所需的实现证据及负责人验收。报告保留 `handoffReady: false` 和 `readinessClaim: none`；绑定不会改变来源检查，也不批准内容、运行时行为、无障碍或作者身份。
+
+### 修订兼容性与限制
+
+`schemaVersion: 1` 的关联除格式与版本外，还包含 `snapshotRevision`、`contractSha256`、`contractRevision`、`source`、`scope` 和明确的 `contexts`。`scope.rootIds` 是排序后、唯一且完整的根节点集合。未知关联字段或版本会被拒绝。完整契约的摘要使用规范 JSON：对象键排序，数组顺序和字符串内容仍有意义。摘要必须保存在被标识契约之外。
+
+`bridge.source.revision` 和 `bridge.lifecycle.sourceRevision` 仍是作者提供的原生版本或来源引用。它们不会自动被 `snapshotRevision` 或 `contractSha256` 替换；导出文件摘要与原生版本标签是不同证据。快照或契约变化后必须重新检查并创建关联。保留旧文件，不要原地更新摘要来让过期绑定通过检查。SHA-256 验证完整性，不验证作者身份或批准。
+
+模块将每个输入限制为 2 MiB UTF-8 JSON、64 层嵌套和 200,000 个值，报告同样限制为 2 MiB。快照现有的节点数量限制继续生效。超限会失败，不会静默截断。可选契约扩展参与摘要计算，但不受支持的语义不被视为已检查。原有仅使用快照的流程无需关联仍可使用。读取这些本地文件不会自动获取外部引用，也不会把设计发送给模型。
+
+### 附带契约的包报告
+
+将快照包与作者决策组合的消费者必须保持原始包不变。派生报告格式为 `dfc-bridge-attached-package-manifest`，`schemaVersion: 1`；它不是另一份作者契约，也不是实时连接 Figma 的证据。本节定义报告契约，不表示已发布的消费者已经提供此功能。
+
+- `snapshotPackage`：保持不变的版本 1 纯快照包。
+- `attachment`：规范关联检查报告，包括状态和限制。
+- `authoredContract`：仅当状态为 `linked`、`partial` 或 `unverified` 时包含完整的已验证契约；`missing`、`stale` 或 `invalid` 时为 `null`。必须在决策旁显示关联的限制。
+- `coverage`：`canonicalBridge` 为 `provided-schema-validated` 或 `not-attached`。`sharedStateGraph`（作者的 `interaction.stateMachines`）和 `dataBindings`（作者的 `data.displays`）使用 `provided-authored`、`declared-empty`、`not-provided` 或 `not-attached`。字段存在或列表为空并不表示完整性或批准。`content`、`runtime` 和 `ownerApproval` 保持 `not-checked`。
+- `requiredDecisions`：保留原始包中未解决的决策以及作者问题的准确 ID、指针和状态。作者标记的已回答状态或决策链接不等于独立验证的批准；完整问题保留在 `authoredContract` 中，问题引用保持 `decisionVerified: false`。
+- `handoffReady: false` 和 `readinessClaim: none` 为必需。整个派生报告限制为 2 MiB；超限时拒绝输出，不得删除问题或源证据。
+
+使用作者决策前先检查关联状态。源发生变化后应重新捕获并建立新关联；保存文件相等不能证明原生样式、变量或当前文档未改变。
+
 ## 明确记录未知项，不留下未跟踪的问题
 
 DFC Bridge **不**承诺所有决定都已确定，而是要求所有相关未知项都有记录。

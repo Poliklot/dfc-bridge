@@ -4,6 +4,15 @@ All notable changes to the public DFC Bridge methodology, schemas, rule catalog,
 
 ## Unreleased
 
+### Added
+
+- A separate version-1 association binds one saved native snapshot to the complete authored `bridge` contract with explicit context/root mapping and independent digests. The canonical bounded helper checks versions, schema, source references and scope without rewriting native source revisions or fetching external references.
+- EN/RU/ZH create/readback instructions, synthetic fixtures and the derived attached-package report contract. Linked, partial, unverified, stale and invalid remain separate; association never establishes runtime, owner approval or Handoff Ready. Snapshot-only formats are unchanged. Consumer UI/native acceptance and distribution remain separate gates.
+
+### Fixed
+
+- Patched transitive `fast-uri`, `undici` and `zod` dependencies within the existing dependency ranges; dependency audit reports no vulnerabilities.
+
 ## [0.14.0] — 2026-10-22
 
 ### Added

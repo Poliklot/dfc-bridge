@@ -18,7 +18,7 @@ for (const [locale, heading] of [
     const schema = await request.get(await schemaLink.getAttribute('href'));
     expect(schema.ok()).toBe(true);
     expect((await schema.json()).properties.format.const).toBe('dfc-bridge-handoff');
-    const example = await request.get(await page.locator('main a[href$="handoff.valid.json"]').getAttribute('href'));
+    const example = await request.get(await page.locator('main a[href$="handoff.valid.json"]').first().getAttribute('href'));
     expect(example.ok()).toBe(true);
     expect((await parseHandoff(await example.text())).scope.completeness).toBe('full');
     await expect(page.locator('main')).toContainText('node bin/dfc-bridge.mjs components snapshot.json --expect State=Focus');
